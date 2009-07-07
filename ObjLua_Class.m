@@ -19,23 +19,39 @@ static const struct luaL_Reg MetaMethods[] = {
 };
 
 static const struct luaL_Reg Methods[] = {
-    {"class", class},
+    {"new", new},
+    {"get", get},
     {NULL, NULL}
 };
 
 int luaopen_objlua_class(lua_State *L) {
     luaL_newmetatable(L, OBJLUA_CLASS_METATABLE_NAME);
     luaL_register(L, NULL, MetaMethods);
-    luaL_register(L, "objlua", Methods);    
+    luaL_register(L, "objlua.class", Methods);    
 
     return 1;
 }
 
-
-static int class(lua_State *L) {
+// I don't like the name of this!
+static int get(lua_State *L) {
     const char *rawClassName = luaL_checkstring(L, 1);
-    
     objlua_instance_create(L, objc_getClass(rawClassName), YES);
         
+    return 1;
+}
+
+static int new(lua_State *L) {
+    const char *rawClassName = luaL_checkstring(L, 1);
+    const char *rawSuperClassName = luaL_checkstring(L, 2);
+    
+    Class class = objc_getClass(rawClassName);
+    Class superClass = objc_getClass(rawSuperClassName);
+    if (!class) {
+        class = objc_allocateClassPair(superClass, rawClassName, 0);
+        objc_registerClassPair(class);        
+    }        
+        
+    objlua_instance_create(L, class, YES);
+    
     return 1;
 }

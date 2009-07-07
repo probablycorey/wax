@@ -14,4 +14,4 @@ void objlua_end();
 
 lua_State *current_lua_state();
 
-int luaopen_objlua(lua_State *L);
+void luaopen_objlua(lua_State *L);

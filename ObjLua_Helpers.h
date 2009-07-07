@@ -7,6 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <objc/runtime.h>
+#import <objc/message.h>
+
 #import "ObjLua_Instance.h"
 
 #import "lua.h"
@@ -42,6 +45,17 @@
 #define OBJLUA_TYPE_POINTER '^'
 #define OBJLUA_TYPE_UNKNOWN '?'
 
+#define OBJLUA_PROTOCOL_TYPE_CONST 'r'
+
+#define OBJLUA_PROTOCOL_TYPE_IN 'n'
+
+#define OBJLUA_PROTOCOL_TYPE_INOUT 'N'
+#define OBJLUA_PROTOCOL_TYPE_OUT 'o'
+#define OBJLUA_PROTOCOL_TYPE_BYCOPY 'O'
+#define OBJLUA_PROTOCOL_TYPE_BYREF 'R'
+#define OBJLUA_PROTOCOL_TYPE_ONEWAY 'V'
+
+
 enum {
     OBJC_TYPE_INT,
     OBJC_TYPE_NUMBER,
@@ -50,18 +64,27 @@ enum {
     OBJC_TYPE_UNKNOWN,
 };
 
+typedef struct _Objlua_selectors {
+    SEL selectors[2];
+} Objlua_selectors;
+
 void objlua_stack_dump(lua_State *L);
 void objlua_print_stack_index(lua_State *L, int i);
 void objlua_print_table(lua_State *L, int t);
     
+
+const char *objlua_remove_protocol_encodings(const char *type_encodings);
+
 void objlua_from_objc(lua_State *L, const char *typeDescription, void *buffer, size_t size);
 void objlua_from_objc_instance(lua_State *L, id instance);
 void objlua_from_struct(lua_State *L, const char *typeDescription, void *buffer, size_t size);
     
 void *objlua_to_objc(lua_State *L, const char *typeDescription, int stackIndex);
 
-SEL objlua_selector_from_method_name(const char *methodName, int luaArgumentCount);
+Objlua_selectors objlua_selector_from_method_name(const char *methodName);
 void objlua_push_method_name_from_selector(lua_State *L, SEL selector);
 
 void objlua_push_userdata_for_object(lua_State *L, id object);
-int objlua_userdata_pcall(lua_State *L, id self, SEL selector, ...);
+
+BOOL objlua_userdata_function(lua_State *L, id self, SEL selector);
+int objlua_userdata_pcall(lua_State *L, id self, SEL selector, va_list args);

@@ -14,6 +14,10 @@
 #import "lobject.h"
 #import "lualib.h"
 
+#import "luasocket.h"
+#import "unix.h"
+#import "mime.h"
+
 lua_State *current_lua_state() {
     static lua_State *L;    
     if (!L) L = lua_open();    
@@ -22,25 +26,26 @@ lua_State *current_lua_state() {
 }
 
 void objlua_start() {
-    char *mainFile = "Data/lua_scripts/init.lua";
+    char *mainFile = "Data/Scripts/init.lua";
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     [fileManager changeCurrentDirectoryPath:[[NSBundle mainBundle] bundlePath]];
     lua_State *L = current_lua_state();
     
     luaL_openlibs(L); 
-    luaopen_struct(L);
+    luaopen_socket_core(L);
+    luaopen_mime_core(L);
     luaopen_objlua(L);
-    if (luaL_dofile(L, mainFile) != 0) fprintf(stderr,"%s\n",lua_tostring(L,-1));    	    
+        
+    
+    if (luaL_dofile(L, mainFile) != 0) fprintf(stderr,"%s\n",lua_tostring(L,-1));
 }
 
 void objlua_end() {
     lua_close(current_lua_state());
 }
 
-int luaopen_objlua(lua_State *L) {
+void luaopen_objlua(lua_State *L) {
     luaopen_objlua_class(L);
     luaopen_objlua_instance(L);
-    
-    return 1;
 }

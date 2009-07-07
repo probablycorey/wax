@@ -11,6 +11,9 @@
 #import "ObjLua_Helpers.h"
 
 #import "lauxlib.h"
+#import "lobject.h"
+
+static lua_State *gL;
 
 static const struct luaL_Reg MetaMethods[] = {
     {"__index", __index},
@@ -21,10 +24,12 @@ static const struct luaL_Reg MetaMethods[] = {
 };
 
 static const struct luaL_Reg Methods[] = {
+    {"set_protocols", set_protocols},
     {NULL, NULL}
 };
 
 int luaopen_objlua_instance(lua_State *L) {
+    gL = L;
     luaL_newmetatable(L, OBJLUA_INSTANCE_METATABLE_NAME);
     luaL_register(L, NULL, MetaMethods);
     luaL_register(L, OBJLUA_INSTANCE_METATABLE_NAME, Methods);    
@@ -93,7 +98,7 @@ static int __index(lua_State *L) {
     
     if (lua_isnil(L, 4)) { // Nope, couldn't find that in the userdata environment table
         lua_settop(L, 2);
-        lua_pushcclosure(L, methodClosure, 2);
+        lua_pushcclosure(L, objlua_method_closure, 2);
     }
     else {
         // Remove env table from stack
@@ -104,7 +109,87 @@ static int __index(lua_State *L) {
 }
 
 static int __newindex(lua_State *L) {
-    // Sets new values to the userdata's environment table
+    ObjLua_Instance *objLuaInstance = (ObjLua_Instance *)luaL_checkudata(L, 1, OBJLUA_INSTANCE_METATABLE_NAME);
+    
+    if (lua_type(L, 3) == LUA_TFUNCTION) { 
+        Class class = [objLuaInstance->objcInstance class];
+        const char *type_encoding = nil;
+        
+        Method method = nil;
+        SEL selector;
+        Objlua_selectors possible_selectors = objlua_selector_from_method_name(lua_tostring(L, 2));        
+        for (int i = 0; !method && i < 2; i++) {
+            selector = possible_selectors.selectors[i];
+            method = class_getInstanceMethod(class, selector);
+        }
+        
+        if (method) { // Is method defined in the superclass?
+            type_encoding = method_getTypeEncoding(method);
+        }
+        else { // Does this object implement a protocol with this method?
+            uint count;
+            Protocol **protocols = class_copyProtocolList(class, &count);
+            
+            for (int i = 0; !type_encoding && i < count; i++) {
+                Protocol *protocol = protocols[i];
+                struct objc_method_description m_description;
+                
+                for (int i = 0; !type_encoding && i < 2; i++) {
+                    selector = possible_selectors.selectors[i];
+
+                    m_description = protocol_getMethodDescription(protocol, selector, YES, YES);
+                    if (!&m_description) m_description = protocol_getMethodDescription(protocol, selector, NO, YES); // Check if it is not a "required" method
+                    
+                    if (&m_description) type_encoding = m_description.types;
+                }
+            }
+            
+            free(protocols);
+        }
+        
+        if (type_encoding) { // Matching method found! Create an Obj-C method on the 
+            type_encoding = objlua_remove_protocol_encodings(type_encoding);
+            IMP imp;
+            switch (type_encoding[0]) {
+                case OBJLUA_TYPE_VOID:
+                case OBJLUA_TYPE_ID:
+                    imp = (IMP)OBJLUA_METHOD_NAME(id);
+                    break;
+                    
+                case OBJLUA_TYPE_CHAR:
+                case OBJLUA_TYPE_INT:
+                case OBJLUA_TYPE_SHORT:
+                case OBJLUA_TYPE_UNSIGNED_CHAR:
+                case OBJLUA_TYPE_UNSIGNED_INT:
+                case OBJLUA_TYPE_UNSIGNED_SHORT:   
+                    imp = (IMP)OBJLUA_METHOD_NAME(int);
+                    break;            
+                    
+                case OBJLUA_TYPE_LONG:
+                case OBJLUA_TYPE_LONG_LONG:
+                case OBJLUA_TYPE_UNSIGNED_LONG:
+                case OBJLUA_TYPE_UNSIGNED_LONG_LONG:
+                    imp = (IMP)OBJLUA_METHOD_NAME(long);
+                    
+                case OBJLUA_TYPE_FLOAT:
+                    imp = (IMP)OBJLUA_METHOD_NAME(float);
+                    break;
+                    
+                case OBJLUA_TYPE_C99_BOOL:
+                    imp = (IMP)OBJLUA_METHOD_NAME(BOOL);
+                    break;
+                    
+                default:   
+                    luaL_error(L, "Can't handle method with return type %c", type_encoding[0]);
+                    break;
+            }
+            
+            class_addMethod(class, selector, imp, type_encoding);
+
+        }                                
+    }
+    
+    // Add value to the userdata's environment table
     lua_getfenv(L, 1);
     lua_insert(L, 2);
     lua_rawset(L, 2);
@@ -129,12 +214,26 @@ static int __gc(lua_State *L) {
 
 static int __tostring(lua_State *L) {
     ObjLua_Instance *objLuaInstance = (ObjLua_Instance *)luaL_checkudata(L, 1, OBJLUA_INSTANCE_METATABLE_NAME);
-    lua_pushstring(L, [[objLuaInstance->objcInstance description] UTF8String]);
+    lua_pushstring(L, [[NSString stringWithFormat:@"(0x%x => 0x%x) %@", objLuaInstance, objLuaInstance->objcInstance, objLuaInstance->objcInstance] UTF8String]);
     
     return 1;
 }
 
-static int methodClosure(lua_State *L) {
+int set_protocols(lua_State *L) {
+    ObjLua_Instance *objLuaInstance = (ObjLua_Instance *)luaL_checkudata(L, 1, OBJLUA_INSTANCE_METATABLE_NAME);
+    
+    if (!objLuaInstance->isClass) {
+        luaL_error(L, "ERROR: Can only set a protocol on a class for now");
+        return 0;
+    }
+    
+    Protocol *protocol = objc_getProtocol(lua_tostring(L, 2));
+    class_addProtocol(objLuaInstance->objcInstance, protocol);
+    
+    return 0;
+}
+
+static int objlua_method_closure(lua_State *L) {    
     // TODO this function is too complicated... Strip it down! 
     ObjLua_Instance *objLuaInstance = (ObjLua_Instance *)luaL_checkudata(L, lua_upvalueindex(1), OBJLUA_INSTANCE_METATABLE_NAME);
     const char *methodName = luaL_checkstring(L, lua_upvalueindex(2));    
@@ -145,35 +244,36 @@ static int methodClosure(lua_State *L) {
         // If init is called on a class, allocate it.
         // This is done to get around the placeholder stuff the foundation class uses
         objLuaInstance = objlua_instance_create(L, [objLuaInstance->objcInstance alloc], NO);
-        lua_replace(L, -3);
+        // lua_replace(L, -3); TODO figure out why this was here!?!
         autoAlloc = YES;
     }
     
-    int luaArgumentCount = lua_gettop(L);    
+    NSMethodSignature *signature = nil;
 
-    SEL selector = objlua_selector_from_method_name(methodName, luaArgumentCount);
-    NSMethodSignature *signature;
-    NSInvocation *invocation;
-
-    signature = [objLuaInstance->objcInstance methodSignatureForSelector:selector];
+    Objlua_selectors posibleSelectors = objlua_selector_from_method_name(methodName);    
+    SEL selector;
+    for (int i = 0; !signature && i < 2; i++) {
+        selector = posibleSelectors.selectors[i];
+        signature = [objLuaInstance->objcInstance methodSignatureForSelector:selector];
+    }
     
     if (!signature) {
         const char *className = [NSStringFromClass([objLuaInstance->objcInstance class]) UTF8String];
         luaL_error(L, "'%s' has no method selector '%s'", className, methodName);
     }
     
+    NSInvocation *invocation = nil;
     invocation = [NSInvocation invocationWithMethodSignature:signature];
         
     [invocation setTarget:objLuaInstance->objcInstance];
     [invocation setSelector:selector];
     
-    int objcArgumentCount = [signature numberOfArguments] - 2; // self and _cmd are always the first two
+    int objcArgumentCount = [signature numberOfArguments] - 2; // skip the first two because self and _cmd are always the first two
     
     void **arguements = calloc(sizeof(void*), objcArgumentCount);
-    for (int i = 0; i < luaArgumentCount; i++) {
-        int arguementOffset = i + 2; // self and _cmd are always the first two
-        arguements[i] = objlua_to_objc(L, [signature getArgumentTypeAtIndex:arguementOffset], i + 1);
-        [invocation setArgument:arguements[i] atIndex:arguementOffset];
+    for (int i = 0; i < objcArgumentCount; i++) {
+        arguements[i] = objlua_to_objc(L, [signature getArgumentTypeAtIndex:i + 2], i + 1);
+        [invocation setArgument:arguements[i] atIndex:i + 2];
     }
     
     [invocation invoke];
@@ -210,3 +310,10 @@ static int methodClosure(lua_State *L) {
     
     return 1;
 }
+
+// Expects the objects userdata to be on the top of the stack
+OBJLUA_METHOD(id)
+OBJLUA_METHOD(int)
+OBJLUA_METHOD(long)
+OBJLUA_METHOD(float)
+OBJLUA_METHOD(BOOL)
