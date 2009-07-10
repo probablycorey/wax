@@ -25,10 +25,14 @@ static const struct luaL_Reg Methods[] = {
 };
 
 int luaopen_objlua_class(lua_State *L) {
+    BEGIN_STACK_MODIFY(L);
+    
     luaL_newmetatable(L, OBJLUA_CLASS_METATABLE_NAME);
     luaL_register(L, NULL, MetaMethods);
     luaL_register(L, "objlua.class", Methods);    
 
+    END_STACK_MODIFY(L, 0);
+    
     return 1;
 }
 

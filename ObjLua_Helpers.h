@@ -55,36 +55,33 @@
 #define OBJLUA_PROTOCOL_TYPE_BYREF 'R'
 #define OBJLUA_PROTOCOL_TYPE_ONEWAY 'V'
 
+#define BEGIN_STACK_MODIFY(L) int __startStackIndex = lua_gettop((L));
 
-enum {
-    OBJC_TYPE_INT,
-    OBJC_TYPE_NUMBER,
-    OBJC_TYPE_BOOL,
-    OBJC_TYPE_STRING,
-    OBJC_TYPE_UNKNOWN,
-};
+#define END_STACK_MODIFY(L, i) while(lua_gettop((L)) > (__startStackIndex + i)) lua_remove(L, __startStackIndex + 1)
 
+
+// This struct seem unnessessary
 typedef struct _Objlua_selectors {
     SEL selectors[2];
 } Objlua_selectors;
 
+// Debug Helpers
 void objlua_stack_dump(lua_State *L);
 void objlua_print_stack_index(lua_State *L, int i);
 void objlua_print_table(lua_State *L, int t);
-    
 
-const char *objlua_remove_protocol_encodings(const char *type_encodings);
-
-void objlua_from_objc(lua_State *L, const char *typeDescription, void *buffer, size_t size);
+// Convertion Helpers
+int objlua_from_objc(lua_State *L, const char *typeDescription, void *buffer);
 void objlua_from_objc_instance(lua_State *L, id instance);
-void objlua_from_struct(lua_State *L, const char *typeDescription, void *buffer, size_t size);
+void objlua_from_struct(lua_State *L, const char *typeDescription, void *buffer, int size);
     
-void *objlua_to_objc(lua_State *L, const char *typeDescription, int stackIndex);
+void *objlua_to_objc(lua_State *L, const char *typeDescription, int stackIndex, int *outsize);
 
+// Misc Helpers
 Objlua_selectors objlua_selector_from_method_name(const char *methodName);
 void objlua_push_method_name_from_selector(lua_State *L, SEL selector);
 
-void objlua_push_userdata_for_object(lua_State *L, id object);
+const char *objlua_remove_protocol_encodings(const char *type_encodings);
 
-BOOL objlua_userdata_function(lua_State *L, id self, SEL selector);
-int objlua_userdata_pcall(lua_State *L, id self, SEL selector, va_list args);
+int objlua_size_of_type_encoding(const char *full_type_encoding);
+int objlua_simplify_type_encoding(const char *in, char *out);

@@ -14,36 +14,8 @@
 #import "lua.h"
 
 #define OBJLUA_INSTANCE_METATABLE_NAME "objlua.instance"
-
 #define OBJLUA_METHOD_NAME(_type_) objlua_##_type_##_call
-
-#define OBJLUA_METHOD_DEFINITION(_type_) _type_ OBJLUA_METHOD_NAME(_type_)(id self, SEL _cmd, ...)
-
-#define OBJLUA_METHOD(_type_) \
-OBJLUA_METHOD_DEFINITION(_type_) { \
-va_list args; \
-va_start(args, _cmd); \
-va_list args_copy; \
-va_copy(args_copy, args); \
-/* Grab the static L... this is a hack */ \
-lua_State *L = gL; \
-int result = objlua_userdata_pcall(L, self, _cmd, args_copy); \
-va_end(args_copy); \
-va_end(args); \
-if (result == -1) { \
-    NSLog(@"ERROR!"); \
-} \
-else if (result == 1) { \
-    NSMethodSignature *signature = [self methodSignatureForSelector:_cmd]; \
-    _type_ *pReturnValue = (_type_ *)objlua_to_objc(L, [signature methodReturnType], -1); \
-    _type_ returnValue = *pReturnValue; \
-    free(pReturnValue); \
-    return returnValue; \
-} \
-\
-return (_type_)0; \
-}
-
+#define OBJLUA_METHOD_DEFINITION(_type_) static _type_ OBJLUA_METHOD_NAME(_type_)(id self, SEL _cmd, ...)
 
 typedef struct ObjLua_Instance {
     id objcInstance;
@@ -60,7 +32,12 @@ static int __tostring(lua_State *L);
 
 int set_protocols(lua_State *L);
 
-static int objlua_method_closure(lua_State *L);
+static int method_closure(lua_State *L);
+static BOOL override_method(lua_State *L, ObjLua_Instance *objLuaInstance);
+static int userdata_pcall(lua_State *L, id self, SEL selector, va_list args);
+
+BOOL push_function_for_instance(lua_State *L, id self, SEL selector);
+void push_userdata_for_instance(lua_State *L, id object);
 
 OBJLUA_METHOD_DEFINITION(id);
 OBJLUA_METHOD_DEFINITION(int);

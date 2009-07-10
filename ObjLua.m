@@ -9,6 +9,7 @@
 #import "ObjLua.h"
 #import "ObjLua_Class.h"
 #import "ObjLua_Instance.h"
+#import "ObjLua_Struct.h"
 
 #import "lauxlib.h"
 #import "lobject.h"
@@ -48,4 +49,5 @@ void objlua_end() {
 void luaopen_objlua(lua_State *L) {
     luaopen_objlua_class(L);
     luaopen_objlua_instance(L);
+    luaopen_objlua_struct(L);
 }

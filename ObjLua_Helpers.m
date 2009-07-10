@@ -10,17 +10,6 @@
 #import "ObjLua_Instance.h"
 #import "lauxlib.h"
 
-#define BEGIN_STACK_MODIFY(L) \
-    int __startStackIndex = lua_gettop((L));
-
-#define END_STACK_MODIFY(L, i) \
-    while(lua_gettop((L)) > (__startStackIndex + i)) lua_remove(L, __startStackIndex + 1)
-
-struct hacked_objc_class {
-    struct hacked_objc_class *isa;
-    struct hacked_objc_class *super_class;
-};
-
 void objlua_stack_dump(lua_State *L) {
     int i;
     int top = lua_gettop(L);
@@ -70,8 +59,10 @@ void objlua_print_table(lua_State *L, int t) {
     }
 }
 
-void objlua_from_objc(lua_State *L, const char *typeDescription, void *buffer, size_t size) {
+int objlua_from_objc(lua_State *L, const char *typeDescription, void *buffer) {
     BEGIN_STACK_MODIFY(L)
+    
+    int size = objlua_size_of_type_encoding(typeDescription);
     
     switch (typeDescription[0]) {
         case OBJLUA_TYPE_VOID:
@@ -80,9 +71,12 @@ void objlua_from_objc(lua_State *L, const char *typeDescription, void *buffer, s
             
         case OBJLUA_TYPE_CHAR:
             lua_pushinteger(L, *(char *)buffer);
+            break;
+            
         case OBJLUA_TYPE_SHORT:
             lua_pushinteger(L, *(short *)buffer);            
-
+            break;
+            
         case OBJLUA_TYPE_INT:
         case OBJLUA_TYPE_UNSIGNED_CHAR:
         case OBJLUA_TYPE_UNSIGNED_INT:
@@ -115,13 +109,7 @@ void objlua_from_objc(lua_State *L, const char *typeDescription, void *buffer, s
         }
             
         case OBJLUA_TYPE_STRUCT: {
-            if (size == 0) {
-                // TODO: Can't get the size of an object from it's type signature yet
-                luaL_error(L, "Can't get the size of an object from it's type signature yet, need to fix this");
-            }
-            
             objlua_from_struct(L, typeDescription, buffer, size);
-
             break;
         }
             
@@ -131,10 +119,12 @@ void objlua_from_objc(lua_State *L, const char *typeDescription, void *buffer, s
     }
     
     END_STACK_MODIFY(L, 1);
+    
+    return size;
 }
 
-void objlua_from_struct(lua_State *L, const char *typeDescription, void *buffer, size_t size) {
-    if (strncmp("CGPoint", &typeDescription[1], 7) == 0) {
+void objlua_from_struct(lua_State *L, const char *typeDescription, void *buffer, int size) {
+    if (strncmp("CGPoint", &typeDescription[1], 7) == 0) { 
         CGPoint *point = (CGPoint *)buffer;
         lua_newtable(L);
         lua_pushnumber(L, point->x);
@@ -146,8 +136,10 @@ void objlua_from_struct(lua_State *L, const char *typeDescription, void *buffer,
         luaL_Buffer b;
         luaL_buffinit(L, &b);
         luaL_addlstring(&b, (const char *)buffer, size);
-        luaL_pushresult(&b);
+        luaL_pushresult(&b);        
     }    
+    
+    return size;
 }
 
 void objlua_from_objc_instance(lua_State *L, id instance) {
@@ -171,55 +163,81 @@ void objlua_from_objc_instance(lua_State *L, id instance) {
     END_STACK_MODIFY(L, 1);
 }
 
-void *objlua_to_objc(lua_State *L, const char *typeDescription, int stackIndex) {
+#define OBJLUA_TO_INTEGER(_type_) *outsize = sizeof(_type_); value = calloc(sizeof(_type_), 1); *((_type_ *)value) = (_type_)lua_tointeger(L, stackIndex);
+#define OBJLUA_TO_NUMBER(_type_) *outsize = sizeof(_type_); value = calloc(sizeof(_type_), 1); *((_type_ *)value) = (_type_)lua_tonumber(L, stackIndex);
+
+void *objlua_to_objc(lua_State *L, const char *typeDescription, int stackIndex, int *outsize) {
     void *value = nil;
+
+    if (outsize == nil) outsize = alloca(sizeof(int)); // if no outsize address set, treat it as a junk var
     
     switch (typeDescription[0]) {
+        case OBJLUA_TYPE_C99_BOOL:
+            OBJLUA_TO_INTEGER(BOOL)
+            break;            
+            
         case OBJLUA_TYPE_CHAR:
+            OBJLUA_TO_INTEGER(char)
+            break;
+            
         case OBJLUA_TYPE_INT:
+            OBJLUA_TO_INTEGER(int)
+            break;            
+            
         case OBJLUA_TYPE_SHORT:
+            OBJLUA_TO_INTEGER(short)
+            break;            
+            
         case OBJLUA_TYPE_UNSIGNED_CHAR:
+            OBJLUA_TO_INTEGER(unsigned char)
+            break;            
+            
         case OBJLUA_TYPE_UNSIGNED_INT:
+            OBJLUA_TO_INTEGER(unsigned int)
+            break;            
+            
         case OBJLUA_TYPE_UNSIGNED_SHORT:
-            value = calloc(sizeof(LUA_INTEGER), 1);
-            *((LUA_INTEGER *)value) = lua_tointeger(L, stackIndex);
+            OBJLUA_TO_INTEGER(unsigned short)
             break;
             
         case OBJLUA_TYPE_LONG:
-        case OBJLUA_TYPE_LONG_LONG:
-        case OBJLUA_TYPE_UNSIGNED_LONG:
-        case OBJLUA_TYPE_UNSIGNED_LONG_LONG:
-            value = calloc(sizeof(LUA_NUMBER), 1);
-            *((long long*)value) = lua_tonumber(L, stackIndex);
+            OBJLUA_TO_NUMBER(long)
             break;
             
+        case OBJLUA_TYPE_LONG_LONG:
+            OBJLUA_TO_NUMBER(long long)
+            break;
+            
+        case OBJLUA_TYPE_UNSIGNED_LONG:
+            OBJLUA_TO_NUMBER(unsigned long)
+            break;
+            
+        case OBJLUA_TYPE_UNSIGNED_LONG_LONG:
+            OBJLUA_TO_NUMBER(unsigned long long);
+            break;            
+            
         case OBJLUA_TYPE_FLOAT:
-            value = calloc(sizeof(LUA_NUMBER), 1);
-            *((float *)value) = lua_tonumber(L, stackIndex);
+            OBJLUA_TO_NUMBER(float);
             break;
             
         case OBJLUA_TYPE_DOUBLE:
-            value = calloc(sizeof(LUA_NUMBER), 1);
-            *((LUA_NUMBER *)value) = lua_tonumber(L, stackIndex);
-            break;
-            
-        case OBJLUA_TYPE_C99_BOOL:
-            value = calloc(sizeof(int), 1);
-            *((int *)value) = lua_tonumber(L, stackIndex);
-
+            OBJLUA_TO_NUMBER(double);
             break;
             
         case OBJLUA_TYPE_STRING: {
             const char *string = lua_tostring(L, stackIndex);
-            value = calloc(sizeof(char *), strlen(string) + 1);
+            int length = strlen(string) + 1;
+            *outsize = length;
+            
+            value = calloc(sizeof(char *), length);
             strcpy(value, string);
-
             break;
         }
 
         case OBJLUA_TYPE_ID: {
-            value = calloc(sizeof(id), 1);
-            
+            *outsize = sizeof(id);
+
+            value = calloc(sizeof(id), 1);            
             // add number, string
             
             id instance;
@@ -254,9 +272,10 @@ void *objlua_to_objc(lua_State *L, const char *typeDescription, int stackIndex) 
         
             
         case OBJLUA_TYPE_STRUCT: {
-            void *data = (void *)lua_tostring(L, stackIndex);
-            
+            void *data = (void *)lua_tostring(L, stackIndex);            
             size_t length = lua_objlen(L, stackIndex);
+            *outsize = length;
+            
             value = malloc(length);
             memcpy(value, data, length);
             break;
@@ -311,124 +330,7 @@ void objlua_push_method_name_from_selector(lua_State *L, SEL selector) {
     END_STACK_MODIFY(L, 1);
 }
 
-// Go up the object heirarchy looking for the lua method!
-BOOL objlua_userdata_function(lua_State *L, id self, SEL selector) {
-    BEGIN_STACK_MODIFY(L)
-    
-    objlua_push_userdata_for_object(L, self);
-    if (lua_isnil(L, -1)) {
-        END_STACK_MODIFY(L, 0);
-        return NO; // userdata doesn't exist does not exist...
-    }
-    
-    lua_getfenv(L, -1);
-    objlua_push_method_name_from_selector(L, selector);
-    lua_rawget(L, -2);
-
-    BOOL result = YES;
-    
-    if (lua_isnil(L, -1)) { // method does not exist...
-        result = objlua_userdata_function(L, [self class], selector);
-    }
-    
-    END_STACK_MODIFY(L, 1);
-    
-    return result;
-}
-
-//static int objlua_super_closure(lua_State *L) {
-//    ObjLua_Instance *objLuaInstance = (ObjLua_Instance *)luaL_checkudata(L, lua_upvalueindex(1), OBJLUA_INSTANCE_METATABLE_NAME);
-//    const char *methodName = luaL_checkstring(L, lua_upvalueindex(2));    
-//
-//    SEL selector;
-//    NSMethodSignature *signature = nil;
-//    
-//    Objlua_selectors possible_selectors = objlua_selector_from_method_name(methodName);        
-//    for (int i = 0; !signature && i < 2; i++) {
-//        selector = possible_selectors.selectors[i];
-//        signature = [objLuaInstance->objcInstance methodSignatureForSelector:selector];
-//    }
-//        
-//    int objcArgumentCount = [signature numberOfArguments] - 2; // skip the first two because self and _cmd are always the first two
-//    
-//    void *buffer = malloc([signature frameLength]);
-//    int
-//    for (int i = 0; i < objcArgumentCount; i++) {
-//        buffer[i] = objlua_to_objc(L, [signature getArgumentTypeAtIndex:i + 2], i + 1);
-//    }
-//
-//    struct objc_super s = { objLuaInstance->objcInstance, [objLuaInstance->objcInstance superclass] };
-//    id returnValue = objc_msgSendSuper(&s, selector, buffer); // A hack! For now a buffer of the objects it expects works
-//    objlua_from_objc_instance(L, returnValue);
-//    
-//    free(buffer);
-//    
-//    return 1;
-//}
-
-
-int objlua_userdata_pcall(lua_State *L, id self, SEL selector, va_list args) {
-    BEGIN_STACK_MODIFY(L)
-    
-    // Find the method... could be in the object or in the class
-    if (!objlua_userdata_function(L, self, selector)) goto error; // method does not exist...
-
-    // add a secret "super" object to the function
-    struct objc_object self_super = *(struct objc_object *)self;
-    self_super.isa = [self superclass]; // The nerds call this "method swizzling"
-    
-    lua_getfenv(L, -1);
-    objlua_instance_create(L, &self_super, NO);
-    lua_setfield(L, -2, "super");
-    lua_settop(L, -2); // Pop env table
-    
-    NSMethodSignature *signature = [self methodSignatureForSelector:selector];
-    int nargs = [signature numberOfArguments] - 1; // We won't send in the _cmd argument
-    int nresults = [signature methodReturnLength] ? 1 : 0;
-        
-    // Push userdata as the first argument
-    objlua_from_objc_instance(L, self);
-    if (lua_isnil(L, -1)) goto error;    
-    
-    for (int i = 2; i < [signature numberOfArguments]; i++) { // start at 2 because to skip the automatic self and _cmd arugments
-        const char *type = [signature getArgumentTypeAtIndex:i];
-        id arg = va_arg(args, id);
-        objlua_from_objc(L, type, &arg, 0);
-    }
-
-    if (lua_pcall(L, nargs, nresults, 0)) { // Userdata will allways be the first object sent to the function
-        const char* error_string = lua_tostring(L, -1);
-        NSLog(@"Pig Error: Problem calling Lua function '%@' on userdata (%s)", NSStringFromSelector(selector), error_string);
-        goto error;
-    }
-
-    END_STACK_MODIFY(L, nresults);
-    return nresults;
-
-error:
-    END_STACK_MODIFY(L, 0);
-    return -1;
-}
-
-void objlua_push_userdata_for_object(lua_State *L, id object) {
-    BEGIN_STACK_MODIFY(L);
-    
-    luaL_getmetatable(L, OBJLUA_INSTANCE_METATABLE_NAME);
-    lua_getfield(L, -1, "__userdata");
-
-    if (lua_isnil(L, -1)) { // __userdata table does not exist yet 
-        lua_remove(L, -2); // remove metadata table
-    }
-    else {
-        lua_pushlightuserdata(L, object);    
-        lua_rawget(L, -2);
-        lua_remove(L, -2); // remove __userdata table
-        lua_remove(L, -2); // remove metadata table
-    }
-    
-    END_STACK_MODIFY(L, 1);
-}
-
+// I could get rid of this
 const char *objlua_remove_protocol_encodings(const char *type_encodings) {
     switch (type_encodings[0]) {
         case OBJLUA_PROTOCOL_TYPE_INOUT:
@@ -442,4 +344,176 @@ const char *objlua_remove_protocol_encodings(const char *type_encodings) {
             return type_encodings;
             break;
     }
+}
+
+int objlua_size_of_type_encoding(const char *full_type_encoding) {
+    int index = 0;
+    int size = 0;
+    
+    size_t length = strlen(full_type_encoding) + 1;
+    char *type_encoding = alloca(length);
+    bzero(type_encoding, length);
+    objlua_simplify_type_encoding(full_type_encoding, type_encoding);
+    
+    while(type_encoding[index]) {
+        switch (type_encoding[index]) {
+            case OBJLUA_TYPE_POINTER:
+                size += sizeof(void *);
+                
+            case OBJLUA_TYPE_CHAR:
+                size += sizeof(char);
+                break;
+                
+            case OBJLUA_TYPE_INT:
+                size += sizeof(int);
+                break;
+                
+            case OBJLUA_TYPE_ARRAY:
+                //OBJLUA_TYPE_ARRAY_END:
+                assert(false); // Not implemented yet
+                break;
+            
+            case OBJLUA_TYPE_SHORT:
+                size += sizeof(short);
+                break;
+                
+            case OBJLUA_TYPE_UNSIGNED_CHAR:
+                size += sizeof(unsigned char);
+                break;
+                
+            case OBJLUA_TYPE_UNSIGNED_INT:
+                size += sizeof(unsigned int);
+                break;
+                
+            case OBJLUA_TYPE_UNSIGNED_SHORT:
+                size += sizeof(unsigned short);
+                break;
+                
+            case OBJLUA_TYPE_LONG:
+                size += sizeof(long);
+                break;
+                
+            case OBJLUA_TYPE_LONG_LONG:
+                size += sizeof(long long);
+                break;
+                
+            case OBJLUA_TYPE_UNSIGNED_LONG:
+                size += sizeof(unsigned long);
+                break;
+                
+            case OBJLUA_TYPE_UNSIGNED_LONG_LONG:
+                size += sizeof(unsigned long long);
+                break;
+                
+            case OBJLUA_TYPE_FLOAT:
+                size += sizeof(float);
+                break;
+                
+            case OBJLUA_TYPE_DOUBLE:
+                size += sizeof(double);
+                break;
+                
+            case OBJLUA_TYPE_C99_BOOL:
+                size += sizeof(_Bool);
+                break;
+                
+            case OBJLUA_TYPE_STRING:
+                size += sizeof(char *);
+                break;
+                
+            case OBJLUA_TYPE_VOID:
+                size += sizeof(void);
+                break;
+                
+            case OBJLUA_TYPE_BITFIELD:
+                assert(false); // I was to lazy to implement bitfields
+                break;
+                
+            case OBJLUA_TYPE_ID:
+                size += sizeof(id);
+                break;
+                
+            case OBJLUA_TYPE_CLASS:
+                size += sizeof(Class);
+                break;
+                
+            case OBJLUA_TYPE_SELECTOR:
+                size += sizeof(SEL);
+                break;
+                
+            case OBJLUA_TYPE_STRUCT:
+            case OBJLUA_TYPE_STRUCT_END:
+            case OBJLUA_TYPE_UNION:
+            case OBJLUA_TYPE_UNION_END:
+            case OBJLUA_TYPE_UNKNOWN:                
+            case OBJLUA_PROTOCOL_TYPE_CONST:                
+            case OBJLUA_PROTOCOL_TYPE_IN:                
+            case OBJLUA_PROTOCOL_TYPE_INOUT:
+            case OBJLUA_PROTOCOL_TYPE_OUT:
+            case OBJLUA_PROTOCOL_TYPE_BYCOPY:
+            case OBJLUA_PROTOCOL_TYPE_BYREF:
+            case OBJLUA_PROTOCOL_TYPE_ONEWAY:                    
+                // Weeeee!
+                break;
+            default:
+                assert(false); // "UNKNOWN TYPE ENCODING"
+                break;
+        }
+        
+        index++;
+    }
+    
+    return size;
+}
+
+int objlua_simplify_type_encoding(const char *in, char *out) {
+    int out_index = 0;
+    int in_index = 0;
+    
+    while(in[in_index]) {
+        switch (in[in_index]) {
+            case OBJLUA_TYPE_STRUCT:
+            case OBJLUA_TYPE_UNION:                
+                for (; in[in_index] != '='; in_index++); // Eat the name!
+                in_index++; // Eat the = sign 
+                break;
+                
+            case OBJLUA_TYPE_ARRAY:                
+                do {
+                    out[out_index++] = in[in_index++];
+                } while(in[in_index] != OBJLUA_TYPE_ARRAY_END);
+                break;
+                
+            case OBJLUA_TYPE_POINTER: {
+                //get rid of enternal stucture parts
+                out[out_index++] = in[in_index++]; 
+                for (; in[in_index] == '^'; in_index++); // Eat all the pointers
+                
+                switch (in[in_index]) {
+                    case OBJLUA_TYPE_UNION:
+                    case OBJLUA_TYPE_STRUCT: {
+                        in_index++;
+                        int openCurlies = 1;
+                        
+                        for (; openCurlies > 1 || (in[in_index] != OBJLUA_TYPE_UNION_END && in[in_index] != OBJLUA_TYPE_STRUCT_END); in_index++) {
+                            if (in[in_index] == OBJLUA_TYPE_UNION || in[in_index] == OBJLUA_TYPE_STRUCT) openCurlies++;
+                            else if (in[in_index] == OBJLUA_TYPE_UNION_END || in[in_index] == OBJLUA_TYPE_STRUCT_END) openCurlies--;
+                        }
+                        break;
+                    }
+                }
+            }
+                
+            case OBJLUA_TYPE_STRUCT_END:
+            case OBJLUA_TYPE_UNION_END:
+                in_index++;
+                break;
+                
+            default:
+                out[out_index++] = in[in_index++];
+                break;
+        }
+    }
+    
+    return out_index;
 }
