@@ -248,18 +248,47 @@ static int method_closure(lua_State *L) {
     return 1;
 }
 
+static int super_closure(lua_State *L) {
+    ObjLua_Instance *objLuaInstance = (ObjLua_Instance *)luaL_checkudata(L, lua_upvalueindex(1), OBJLUA_INSTANCE_METATABLE_NAME);
+    SEL selector = sel_getUid(lua_tostring(L, lua_upvalueindex(2)));
+    
+    struct objc_super self_super;
+    self_super.receiver = objLuaInstance->objcInstance;
+    self_super.class = [objLuaInstance->objcInstance superclass];
+    
+    NSMethodSignature *signature = [objLuaInstance->objcInstance methodSignatureForSelector:selector];
+    
+    float buffer[4];// = malloc([signature frameLength]);
+    int objcArgumentCount = [signature numberOfArguments] - 2; // skip the first two because self and _cmd are always the first two
+    
+    int offset = 0;
+    for (int i = 0; i < objcArgumentCount; i++) {
+        int size;
+        char **arg = objlua_to_objc(L, [signature getArgumentTypeAtIndex:i + 2], i + 1, &size);
+        memcpy(buffer + offset, *arg, size);
+        offset += size;
+    }
+//    CGRect r = CGRectMake(0, 100, 320, 300);
+//    CGPoint *p = buffer;
+    id return_value = objc_msgSendSuper(&self_super, selector, buffer);
+//    free(buffer);
+    
+    objlua_from_objc_instance(L, return_value);
+    
+    return 1;
+}
+
 static int userdata_pcall(lua_State *L, id self, SEL selector, va_list args) {
     BEGIN_STACK_MODIFY(L)
     
     // Find the method... could be in the object or in the class
     if (!push_function_for_instance(L, self, selector)) goto error; // method does not exist...
     
-    // add a secret "super" object to the function
-    struct objc_object self_super = *(struct objc_object *)self;
-    self_super.isa = [self superclass]; // The nerds call this "method swizzling"
-    
-    lua_getfenv(L, -1);
-    objlua_instance_create(L, &self_super, NO);
+    // add a secret "super" closure to this function
+    lua_getfenv(L, -1);    
+    objlua_instance_create(L, self, NO);
+    lua_pushstring(L, sel_getName(selector));
+    lua_pushcclosure(L, super_closure, 2);
     lua_setfield(L, -2, "super");
     lua_settop(L, -2); // Pop env table
     

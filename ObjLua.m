@@ -34,8 +34,6 @@ void objlua_start() {
     lua_State *L = current_lua_state();
     
     luaL_openlibs(L); 
-    luaopen_socket_core(L);
-    luaopen_mime_core(L);
     luaopen_objlua(L);
         
     

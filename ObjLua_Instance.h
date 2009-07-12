@@ -33,6 +33,7 @@ static int __tostring(lua_State *L);
 int set_protocols(lua_State *L);
 
 static int method_closure(lua_State *L);
+static int super_closure(lua_State *L);
 static BOOL override_method(lua_State *L, ObjLua_Instance *objLuaInstance);
 static int userdata_pcall(lua_State *L, id self, SEL selector, va_list args);
 

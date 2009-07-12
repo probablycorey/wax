@@ -14,8 +14,36 @@
 
 #import "lua.h"
 
-#define OBJLUA_TYPE_CHAR 'c'
-#define OBJLUA_TYPE_INT 'i'
+//#define _C_CLASS    '#'
+//#define _C_SEL      ':'
+//#define _C_UCHR     'C'
+//#define _C_SHT      's'
+//#define _C_USHT     'S'
+//#define _C_UINT     'I'
+//#define _C_LNG      'l'
+//#define _C_ULNG     'L'
+//#define _C_LNG_LNG  'q'
+//#define _C_ULNG_LNG 'Q'
+//#define _C_FLT      'f'
+//#define _C_DBL      'd'
+//#define _C_BFLD     'b'
+//#define _C_BOOL     'B'
+//#define _C_VOID     'v'
+//#define _C_UNDEF    '?'
+//#define _C_PTR      '^'
+//#define _C_CHARPTR  '*'
+//#define _C_ATOM     '%'
+//#define _C_ARY_B    '['
+//#define _C_ARY_E    ']'
+//#define _C_UNION_B  '('
+//#define _C_UNION_E  ')'
+//#define _C_STRUCT_B '{'
+//#define _C_STRUCT_E '}'
+//#define _C_VECTOR   '!'
+//#define _C_CONST    'r'
+
+#define OBJLUA_TYPE_CHAR _C_CHR
+#define OBJLUA_TYPE_INT _C_INT
 #define OBJLUA_TYPE_SHORT 's'
 #define OBJLUA_TYPE_UNSIGNED_CHAR 'C'
 #define OBJLUA_TYPE_UNSIGNED_INT 'I'
@@ -35,7 +63,7 @@
 #define OBJLUA_TYPE_ARRAY '['
 #define OBJLUA_TYPE_ARRAY_END ']'
 #define OBJLUA_TYPE_BITFIELD 'b'
-#define OBJLUA_TYPE_ID '@'
+#define OBJLUA_TYPE_ID _C_ID
 #define OBJLUA_TYPE_CLASS '#'
 #define OBJLUA_TYPE_SELECTOR ':'
 #define OBJLUA_TYPE_STRUCT '{'
