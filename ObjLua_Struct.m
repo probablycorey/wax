@@ -52,7 +52,9 @@ int luaopen_objlua_struct(lua_State *L) {
     return 1;
 }
 
-ObjLua_Struct *objlua_struct_create(lua_State *L, char *typeDescription, void *buffer, int size) {
+ObjLua_Struct *objlua_struct_create(lua_State *L, const char *typeDescription, void *buffer, int size) {
+    BEGIN_STACK_MODIFY(L);
+    
     size_t nbytes = sizeof(ObjLua_Struct);
     ObjLua_Struct *objLuaStruct = (ObjLua_Struct *)lua_newuserdata(L, nbytes);
 
@@ -73,40 +75,63 @@ ObjLua_Struct *objlua_struct_create(lua_State *L, char *typeDescription, void *b
     // give it a nice clean environment
     lua_newtable(L); 
     lua_setfenv(L, -2);
+    lua_getfenv(L, -1);
     
-    if (STRUCT_IS_A(CGPoint, objLuaStruct)) { 
+    if (STRUCT_IS_A(CGRect, objLuaStruct)) { 
         CGRect *rect = (CGRect *)buffer;
+        lua_pushstring(L, "x");
         lua_pushnumber(L, rect->origin.x);
-        lua_setfield(L, -2, "x");
+        lua_rawset(L, -3);
+        
+        lua_pushstring(L, "y");
         lua_pushnumber(L, rect->origin.y);        
-        lua_setfield(L, -2, "y");
+        lua_rawset(L, -3);
+        
+        lua_pushstring(L, "width");        
         lua_pushnumber(L, rect->size.width);
-        lua_setfield(L, -2, "width");
+        lua_rawset(L, -3);
+        
+        lua_pushstring(L, "height");
         lua_pushnumber(L, rect->size.height);        
-        lua_setfield(L, -2, "height");        
+        lua_rawset(L, -3);
+        
     }    
     else if (STRUCT_IS_A(CGPoint, objLuaStruct)) { 
         CGPoint *point = (CGPoint *)buffer;
+        lua_pushstring(L, "x");
         lua_pushnumber(L, point->x);
-        lua_setfield(L, -2, "x");
+        lua_rawset(L, -3);
+        
+        lua_pushstring(L, "y");
         lua_pushnumber(L, point->y);        
-        lua_setfield(L, -2, "y");
+        lua_rawset(L, -3);
+
     }
     else if (STRUCT_IS_A(CGSize, objLuaStruct)) { 
         CGSize *size = (CGSize *)buffer;
+        lua_pushstring(L, "width");        
         lua_pushnumber(L, size->width);
-        lua_setfield(L, -2, "width");
+        lua_rawset(L, -3);
+        
+        lua_pushstring(L, "height");
         lua_pushnumber(L, size->height);        
-        lua_setfield(L, -2, "height");        
+        lua_rawset(L, -3);       
     }
+    
+    lua_pop(L, 1); // Pop env off the stack
+    
+    END_STACK_MODIFY(L, 1);
     
     return objLuaStruct;
 }
 
 int objlua_struct_refresh(lua_State *L, int stackindex) {
+    BEGIN_STACK_MODIFY(L);
+    
     ObjLua_Struct *objLuaStruct = (ObjLua_Struct *)luaL_checkudata(L, stackindex, OBJLUA_STRUCT_METATABLE_NAME);
-
-    if (STRUCT_IS_A(CGPoint, objLuaStruct)) {
+    lua_getfenv(L, stackindex);
+    
+    if (STRUCT_IS_A(CGRect, objLuaStruct)) {
         CGRect *rect = (CGRect *)objLuaStruct->data;
         
         lua_getfield(L, -1, "x");
@@ -148,6 +173,10 @@ int objlua_struct_refresh(lua_State *L, int stackindex) {
         lua_pop(L, 1);  
     }
     
+    lua_pop(L, 1); // Pop the env off
+    
+    END_STACK_MODIFY(L, 0);
+    
     return 1;
 }
 
@@ -170,30 +199,34 @@ static int __newindex(lua_State *L) {
 }
 
 static int pack(lua_State *L) {
-    luaL_Buffer b;
-    luaL_buffinit(L, &b);                
-    
-    const char *typeDescription;
-    
     // This can be a typeDescription or a Struct name... We store the struct names in the metatable
     luaL_getmetatable(L, OBJLUA_STRUCT_METATABLE_NAME);
     lua_pushvalue(L, 1);
     lua_rawget(L, -2);
     
-    if (lua_isnil(-1)) {
+    if (lua_isnil(L, -1)) {
         lua_pop(L, 2); // pop the nil and metatable off
     }
     else {
         lua_replace(L, 1);
         lua_pop(L, 1); // pop the metatable off
     }
-    
+
+    lua_pushcclosure(L, pack_closure, 1);
+    return 1;
+}
+
+static int pack_closure(lua_State *L) {
+    const char *typeDescription = lua_tostring(L, lua_upvalueindex(1));
+    luaL_Buffer b;
+    luaL_buffinit(L, &b);                
+        
     char *simplifiedTypeDescription = calloc(sizeof(char *), strlen(typeDescription) + 1);
     objlua_simplify_type_description(typeDescription, simplifiedTypeDescription);
     
     for (int i = 0; simplifiedTypeDescription[i]; i++) {
         int size;
-        int stackIndex = i + 2; // Start one passed the typeDescription
+        int stackIndex = i + 1;
         
         if (stackIndex > lua_gettop(L)) {
             luaL_error(L, "Couldn't create struct with type description '%s'. Needs more than %d arguments.", typeDescription, lua_gettop(L) - 1);
@@ -206,7 +239,7 @@ static int pack(lua_State *L) {
     luaL_pushresult(&b);
     free(simplifiedTypeDescription);
     
-    ObjLua_Struct *objlua_struct_create(L, typeDescription, b.buffer, 0) {
+    objlua_struct_create(L, typeDescription, b.buffer, 0);
     
     return 1;
 }

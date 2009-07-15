@@ -8,6 +8,7 @@
 
 #import "ObjLua_Helpers.h"
 #import "ObjLua_Instance.h"
+#import "ObjLua_Struct.h"
 #import "lauxlib.h"
 
 void objlua_print_stack(lua_State *L) {
@@ -78,17 +79,41 @@ int objlua_from_objc(lua_State *L, const char *typeDescription, void *buffer) {
             break;
             
         case OBJLUA_TYPE_INT:
+            lua_pushnumber(L, *(int *)buffer);
+            break;
+
         case OBJLUA_TYPE_UNSIGNED_CHAR:
+            lua_pushnumber(L, *(unsigned char *)buffer);
+            break;
+
         case OBJLUA_TYPE_UNSIGNED_INT:
+            lua_pushnumber(L, *(unsigned int *)buffer);
+            break;
+
         case OBJLUA_TYPE_UNSIGNED_SHORT:
-            lua_pushinteger(L, *(int *)buffer);
+            lua_pushinteger(L, *(short *)buffer);
             break;
             
         case OBJLUA_TYPE_LONG:
+            lua_pushnumber(L, *(long *)buffer);
+            break;
+
         case OBJLUA_TYPE_LONG_LONG:
+            lua_pushnumber(L, *(long long *)buffer);
+            break;
+
         case OBJLUA_TYPE_UNSIGNED_LONG:
+            lua_pushnumber(L, *(unsigned long *)buffer);
+            break;
+
         case OBJLUA_TYPE_UNSIGNED_LONG_LONG:
+            lua_pushnumber(L, *(unsigned long long *)buffer);
+            break;
+
         case OBJLUA_TYPE_FLOAT:
+            lua_pushnumber(L, *(float *)buffer);
+            break;
+
         case OBJLUA_TYPE_DOUBLE:
             lua_pushnumber(L, *(double *)buffer);
             break;
@@ -270,7 +295,7 @@ void *objlua_to_objc(lua_State *L, const char *typeDescription, int stackIndex, 
         case OBJLUA_TYPE_STRUCT: {
             if (lua_isuserdata(L, stackIndex)) {
                 ObjLua_Struct *objLuaStruct = (ObjLua_Struct *)luaL_checkudata(L, stackIndex, OBJLUA_STRUCT_METATABLE_NAME);
-                objlua_struct_refresh(L, -1); // If the struct has "magic" indexes, reload the struct data to match those
+                objlua_struct_refresh(L, stackIndex); // If the struct has "magic" indexes, reload the struct data to match those
                 
                 value = objLuaStruct->data;
             }
