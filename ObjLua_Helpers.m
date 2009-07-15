@@ -10,20 +10,20 @@
 #import "ObjLua_Instance.h"
 #import "lauxlib.h"
 
-void objlua_stack_dump(lua_State *L) {
+void objlua_print_stack(lua_State *L) {
     int i;
     int top = lua_gettop(L);
     
     for (i = 1; i <= top; i++) {        
         printf("%d: ", i);
-        objlua_print_stack_index(L, i);
+        objlua_print_stack_at(L, i);
         printf("\n");
     }
     
     printf("\n");
 }
 
-void objlua_print_stack_index(lua_State *L, int i) {
+void objlua_print_stack_at(lua_State *L, int i) {
     int t = lua_type(L, i);
     printf("(%s) ", lua_typename(L, t));
     
@@ -50,9 +50,9 @@ void objlua_print_table(lua_State *L, int t) {
     if (t < 0) t--; // if t is negative, we need to updated it
     
     while (lua_next(L, t) != 0) {
-        objlua_print_stack_index(L, -2);
+        objlua_print_stack_at(L, -2);
         printf(" : ");
-        objlua_print_stack_index(L, -1);
+        objlua_print_stack_at(L, -1);
         printf("\n");
 
         lua_pop(L, 1); // remove 'value'; keeps 'key' for next iteration
@@ -62,7 +62,7 @@ void objlua_print_table(lua_State *L, int t) {
 int objlua_from_objc(lua_State *L, const char *typeDescription, void *buffer) {
     BEGIN_STACK_MODIFY(L)
     
-    int size = objlua_size_of_type_encoding(typeDescription);
+    int size = objlua_size_of_type_description(typeDescription);
     
     switch (typeDescription[0]) {
         case OBJLUA_TYPE_VOID:
@@ -113,6 +113,10 @@ int objlua_from_objc(lua_State *L, const char *typeDescription, void *buffer) {
             break;
         }
             
+        case OBJLUA_TYPE_SELECTOR:
+            lua_pushstring(L, sel_getName(*(SEL *)buffer));
+            break;            
+            
         default:
             luaL_error(L, "Unable to convert Obj-C type with type description '%s'", typeDescription);
             break;
@@ -124,29 +128,14 @@ int objlua_from_objc(lua_State *L, const char *typeDescription, void *buffer) {
 }
 
 void objlua_from_struct(lua_State *L, const char *typeDescription, void *buffer, int size) {
-    if (strncmp("CGPoint", &typeDescription[1], 7) == 0) { 
-        CGPoint *point = (CGPoint *)buffer;
-        lua_newtable(L);
-        lua_pushnumber(L, point->x);
-        lua_setfield(L, -2, "x");
-        lua_pushnumber(L, point->y);        
-        lua_setfield(L, -2, "y");
-    }
-    else {
-        luaL_Buffer b;
-        luaL_buffinit(L, &b);
-        luaL_addlstring(&b, (const char *)buffer, size);
-        luaL_pushresult(&b);        
-    }    
-    
-    return size;
+    objlua_struct_create(L, typeDescription, buffer, size);
 }
 
 void objlua_from_objc_instance(lua_State *L, id instance) {
     BEGIN_STACK_MODIFY(L)
     
     if (instance) {
-        if ([instance isKindOfClass:[NSString class]]) {
+        if ([instance isKindOfClass:[NSString class]]) {    
             lua_pushstring(L, [(NSString *)instance UTF8String]);
         }
         else if ([instance isKindOfClass:[NSNumber class]]) {
@@ -165,6 +154,7 @@ void objlua_from_objc_instance(lua_State *L, id instance) {
 
 #define OBJLUA_TO_INTEGER(_type_) *outsize = sizeof(_type_); value = calloc(sizeof(_type_), 1); *((_type_ *)value) = (_type_)lua_tointeger(L, stackIndex);
 #define OBJLUA_TO_NUMBER(_type_) *outsize = sizeof(_type_); value = calloc(sizeof(_type_), 1); *((_type_ *)value) = (_type_)lua_tonumber(L, stackIndex);
+#define OBJLUA_TO_BOOL_OR_CHAR(_type_) *outsize = sizeof(_type_); value = calloc(sizeof(_type_), 1); *((_type_ *)value) = (_type_)(lua_isboolean(L, stackIndex) ? lua_toboolean(L, stackIndex) : lua_tointeger(L, stackIndex));
 
 void *objlua_to_objc(lua_State *L, const char *typeDescription, int stackIndex, int *outsize) {
     void *value = nil;
@@ -173,11 +163,11 @@ void *objlua_to_objc(lua_State *L, const char *typeDescription, int stackIndex, 
     
     switch (typeDescription[0]) {
         case OBJLUA_TYPE_C99_BOOL:
-            OBJLUA_TO_INTEGER(BOOL)
+            OBJLUA_TO_BOOL_OR_CHAR(BOOL)
             break;            
             
         case OBJLUA_TYPE_CHAR:
-            OBJLUA_TO_INTEGER(char)
+            OBJLUA_TO_BOOL_OR_CHAR(char)
             break;
             
         case OBJLUA_TYPE_INT:
@@ -224,6 +214,12 @@ void *objlua_to_objc(lua_State *L, const char *typeDescription, int stackIndex, 
             OBJLUA_TO_NUMBER(double);
             break;
             
+        case OBJLUA_TYPE_SELECTOR:
+            *outsize = sizeof(SEL);
+            value = calloc(sizeof(SEL), 1);
+            *((SEL *)value) = sel_getUid(lua_tostring(L, stackIndex));
+            break;            
+            
         case OBJLUA_TYPE_STRING: {
             const char *string = lua_tostring(L, stackIndex);
             int length = strlen(string) + 1;
@@ -248,7 +244,7 @@ void *objlua_to_objc(lua_State *L, const char *typeDescription, int stackIndex, 
                 instance = [NSNumber numberWithDouble:lua_tonumber(L, stackIndex)];
             }
             else if (lua_isuserdata(L, stackIndex)) {
-                ObjLua_Instance *objLuaInstance = (ObjLua_Instance *)lua_topointer(L, stackIndex);                
+                ObjLua_Instance *objLuaInstance = (ObjLua_Instance *)luaL_checkudata(L, stackIndex, OBJLUA_INSTANCE_METATABLE_NAME);
                 instance = objLuaInstance->objcInstance;
             }
             else if(lua_isnoneornil(L, stackIndex)) {
@@ -272,12 +268,20 @@ void *objlua_to_objc(lua_State *L, const char *typeDescription, int stackIndex, 
         
             
         case OBJLUA_TYPE_STRUCT: {
-            void *data = (void *)lua_tostring(L, stackIndex);            
-            size_t length = lua_objlen(L, stackIndex);
-            *outsize = length;
+            if (lua_isuserdata(L, stackIndex)) {
+                ObjLua_Struct *objLuaStruct = (ObjLua_Struct *)luaL_checkudata(L, stackIndex, OBJLUA_STRUCT_METATABLE_NAME);
+                objlua_struct_refresh(L, -1); // If the struct has "magic" indexes, reload the struct data to match those
+                
+                value = objLuaStruct->data;
+            }
+            else {
+                void *data = (void *)lua_tostring(L, stackIndex);            
+                size_t length = lua_objlen(L, stackIndex);
+                *outsize = length;
             
-            value = malloc(length);
-            memcpy(value, data, length);
+                value = malloc(length);
+                memcpy(value, data, length);
+            }
             break;
         }
             
@@ -331,32 +335,32 @@ void objlua_push_method_name_from_selector(lua_State *L, SEL selector) {
 }
 
 // I could get rid of this
-const char *objlua_remove_protocol_encodings(const char *type_encodings) {
-    switch (type_encodings[0]) {
+const char *objlua_remove_protocol_encodings(const char *type_descriptions) {
+    switch (type_descriptions[0]) {
         case OBJLUA_PROTOCOL_TYPE_INOUT:
         case OBJLUA_PROTOCOL_TYPE_OUT:
         case OBJLUA_PROTOCOL_TYPE_BYCOPY:
         case OBJLUA_PROTOCOL_TYPE_BYREF:
         case OBJLUA_PROTOCOL_TYPE_ONEWAY:
-            return &type_encodings[1];
+            return &type_descriptions[1];
             break;
         default:
-            return type_encodings;
+            return type_descriptions;
             break;
     }
 }
 
-int objlua_size_of_type_encoding(const char *full_type_encoding) {
+int objlua_size_of_type_description(const char *full_type_description) {
     int index = 0;
     int size = 0;
     
-    size_t length = strlen(full_type_encoding) + 1;
-    char *type_encoding = alloca(length);
-    bzero(type_encoding, length);
-    objlua_simplify_type_encoding(full_type_encoding, type_encoding);
+    size_t length = strlen(full_type_description) + 1;
+    char *type_description = alloca(length);
+    bzero(type_description, length);
+    objlua_simplify_type_description(full_type_description, type_description);
     
-    while(type_encoding[index]) {
-        switch (type_encoding[index]) {
+    while(type_description[index]) {
+        switch (type_description[index]) {
             case OBJLUA_TYPE_POINTER:
                 size += sizeof(void *);
                 
@@ -466,7 +470,7 @@ int objlua_size_of_type_encoding(const char *full_type_encoding) {
     return size;
 }
 
-int objlua_simplify_type_encoding(const char *in, char *out) {
+int objlua_simplify_type_description(const char *in, char *out) {
     int out_index = 0;
     int in_index = 0;
     

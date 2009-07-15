@@ -46,10 +46,18 @@ static int get(lua_State *L) {
 
 static int new(lua_State *L) {
     const char *rawClassName = luaL_checkstring(L, 1);
-    const char *rawSuperClassName = luaL_checkstring(L, 2);
-    
     Class class = objc_getClass(rawClassName);
-    Class superClass = objc_getClass(rawSuperClassName);
+  
+    Class superClass;    
+    if (lua_isuserdata(L, 2)) {
+        ObjLua_Instance *objLuaInstance = (ObjLua_Instance *)luaL_checkudata(L, 2, OBJLUA_INSTANCE_METATABLE_NAME);
+        superClass = objLuaInstance->objcInstance;
+    }
+    else {
+        const char *rawSuperClassName = luaL_checkstring(L, 2);    
+        superClass = objc_getClass(rawSuperClassName);
+    }
+    
     if (!class) {
         class = objc_allocateClassPair(superClass, rawClassName, 0);
         objc_registerClassPair(class);        

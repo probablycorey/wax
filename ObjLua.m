@@ -15,9 +15,7 @@
 #import "lobject.h"
 #import "lualib.h"
 
-#import "luasocket.h"
-#import "unix.h"
-#import "mime.h"
+#import "HTTPotluck.h"
 
 lua_State *current_lua_state() {
     static lua_State *L;    
@@ -35,9 +33,12 @@ void objlua_start() {
     
     luaL_openlibs(L); 
     luaopen_objlua(L);
+    
+    // use varargs here duh
+    luaopen_HTTPotluck(L);
         
     
-    if (luaL_dofile(L, mainFile) != 0) fprintf(stderr,"%s\n",lua_tostring(L,-1));
+    if (luaL_dofile(L, mainFile) != 0) fprintf(stderr,"Fatal Error: %s\n",lua_tostring(L,-1));
 }
 
 void objlua_end() {
