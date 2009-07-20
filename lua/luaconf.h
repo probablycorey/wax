@@ -85,7 +85,7 @@
 // Can't load dynamic libs, but left thiem in there
 
 #define LUA_ROOT	"./Data/"
-#define LUA_PATH_DEFAULT  LUA_ROOT "Scripts/?.lua;" LUA_ROOT "Scripts/?/init.lua;" LUA_ROOT "ExternalScripts/?.lua;" LUA_ROOT "ExternalScripts/?/init.luaa;"
+#define LUA_PATH_DEFAULT  LUA_ROOT "Scripts/?.lua;" LUA_ROOT "Scripts/?/init.lua;" LUA_ROOT "ExternalScripts/?.lua;" LUA_ROOT "ExternalScripts/?/init.lua;"
 #define LUA_CPATH_DEFAULT ""
 
 

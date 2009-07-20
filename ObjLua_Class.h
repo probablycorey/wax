@@ -21,3 +21,4 @@ typedef struct ObjLua_Class {
 int luaopen_objlua_class(lua_State *L);
 static int get(lua_State *L);
 static int new(lua_State *L);
+static int methods(lua_State *L);

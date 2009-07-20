@@ -81,10 +81,13 @@ void objlua_from_struct(lua_State *L, const char *typeDescription, void *buffer,
 void *objlua_to_objc(lua_State *L, const char *typeDescription, int stackIndex, int *outsize);
 
 // Misc Helpers
-Objlua_selectors objlua_selector_from_method_name(const char *methodName);
+Objlua_selectors objlua_selectors_for_name(const char *methodName);
+SEL objlua_selector_for_instance(ObjLua_Instance *objlua_instance, const char *methodName, BOOL tempInitCheck);
 void objlua_push_method_name_from_selector(lua_State *L, SEL selector);
 
 const char *objlua_remove_protocol_encodings(const char *type_descriptions);
 
 int objlua_size_of_type_description(const char *full_type_description);
 int objlua_simplify_type_description(const char *in, char *out);
+
+int objlua_error_closure(lua_State *L);

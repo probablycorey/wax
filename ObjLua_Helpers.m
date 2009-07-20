@@ -128,7 +128,6 @@ int objlua_from_objc(lua_State *L, const char *typeDescription, void *buffer) {
             
         case OBJLUA_TYPE_ID: {
             id instance = *(id *)buffer;
-
             objlua_from_objc_instance(L, instance);
             break;
         }
@@ -141,6 +140,12 @@ int objlua_from_objc(lua_State *L, const char *typeDescription, void *buffer) {
         case OBJLUA_TYPE_SELECTOR:
             lua_pushstring(L, sel_getName(*(SEL *)buffer));
             break;            
+
+        case OBJLUA_TYPE_CLASS: {
+            id instance = *(id *)buffer;
+            objlua_instance_create(L, instance, YES);
+            break;                        
+        }
             
         default:
             luaL_error(L, "Unable to convert Obj-C type with type description '%s'", typeDescription);
@@ -244,6 +249,18 @@ void *objlua_to_objc(lua_State *L, const char *typeDescription, int stackIndex, 
             value = calloc(sizeof(SEL), 1);
             *((SEL *)value) = sel_getUid(lua_tostring(L, stackIndex));
             break;            
+
+        case OBJLUA_TYPE_CLASS:
+            *outsize = sizeof(Class);
+            value = calloc(sizeof(Class), 1);
+            if (lua_isuserdata(L, stackIndex)) {
+                ObjLua_Instance *objLuaInstance = (ObjLua_Instance *)luaL_checkudata(L, stackIndex, OBJLUA_INSTANCE_METATABLE_NAME);
+                *(id *)value = objLuaInstance->objcInstance;   
+            }
+            else {
+                *((Class *)value) = objc_getClass(lua_tostring(L, stackIndex));
+            }
+            break;             
             
         case OBJLUA_TYPE_STRING: {
             const char *string = lua_tostring(L, stackIndex);
@@ -318,21 +335,34 @@ void *objlua_to_objc(lua_State *L, const char *typeDescription, int stackIndex, 
     return value;
 }
 
-Objlua_selectors objlua_selector_from_method_name(const char *methodName) {
+Objlua_selectors objlua_selectors_for_name(const char *methodName) {
+    Objlua_selectors posibleSelectors;
     int strlength = strlen(methodName) + 2; // Add 2. One for trailing : and one for \0
     char *objcMethodName = calloc(strlength, 1); 
-
+    
     strcpy(objcMethodName, methodName);
     for(int i = 0; objcMethodName[i]; i++) if (objcMethodName[i] == '_') objcMethodName[i] = ':';
     
-    Objlua_selectors posibleSelectors;
     posibleSelectors.selectors[0] = sel_getUid(objcMethodName);
     objcMethodName[strlength - 2] = ':';
     posibleSelectors.selectors[1] = sel_getUid(objcMethodName);
-    
     free(objcMethodName);
     
     return posibleSelectors;
+}
+  SEL objlua_selector_for_instance(ObjLua_Instance *objlua_instance, const char *methodName, BOOL tempInitCheck) {
+    SEL *posibleSelectors = &objlua_selectors_for_name(methodName).selectors[0];
+    
+    if (tempInitCheck) {
+        if ([objlua_instance->objcInstance instancesRespondToSelector:posibleSelectors[0]]) return posibleSelectors[0];
+        if ([objlua_instance->objcInstance instancesRespondToSelector:posibleSelectors[1]]) return posibleSelectors[1];    
+    }
+    else {
+        if ([objlua_instance->objcInstance respondsToSelector:posibleSelectors[0]]) return posibleSelectors[0];
+        if ([objlua_instance->objcInstance respondsToSelector:posibleSelectors[1]]) return posibleSelectors[1];    
+    }
+    
+    return nil;
 }
 
 void objlua_push_method_name_from_selector(lua_State *L, SEL selector) {
@@ -545,4 +575,12 @@ int objlua_simplify_type_description(const char *in, char *out) {
     }
     
     return out_index;
+}
+
+int objlua_error_closure(lua_State *L) {
+    const char *methodName = lua_tostring(L, lua_upvalueindex(1));
+    const char *objectName = lua_tostring(L, lua_upvalueindex(2));    
+    const char *errorString = lua_tostring(L, -1);
+    printf("\nERROR: Could not call method '%s' on object for '%s'\n\t%s\n", methodName, objectName, errorString);
+    return 0;
 }

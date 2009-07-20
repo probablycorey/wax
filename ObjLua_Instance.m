@@ -20,7 +20,7 @@ static const struct luaL_Reg MetaMethods[] = {
     {"__newindex", __newindex},
     {"__gc", __gc},
     {"__tostring", __tostring},
-    {"__tostring", __tostring},
+    {"__call", __call},
     {NULL, NULL}
 };
 
@@ -41,6 +41,7 @@ int luaopen_objlua_instance(lua_State *L) {
     
     return 1;
 }
+
 
 // Creates userdata object for obj-c instance/class and pushes it onto the stack
 ObjLua_Instance *objlua_instance_create(lua_State *L, id objcInstance, BOOL isClass) {
@@ -166,12 +167,20 @@ static int __index(lua_State *L) {
         }        
     }
     
-    if (lua_isnil(L, -1) || (objLuaInstance->isClass && lua_type(L, -1) == LUA_TFUNCTION && strncmp(lua_tostring(L, 2), "init", 4) == 0)) {
+    // TODO: This init check is a hack... only needed to get super to work. ADD SUPER TO USERDATA!
+    BOOL isInitMethod = objLuaInstance->isClass && strncmp(lua_tostring(L, 2), "init", 4) == 0;
+    if (lua_isnil(L, -1) || isInitMethod ) {
         // Couldn't find that in the userdata environment table
         // OR if the init* method is overridden, then make sure we call this as a closure (BECAUSE WE DO MAGIC/SECRET ALLOCS!)
 
-        lua_settop(L, 2);
-        lua_pushcclosure(L, method_closure, 2);
+        SEL selector = objlua_selector_for_instance(objLuaInstance, lua_tostring(L, 2), isInitMethod);
+        if (selector) {
+            // If the class has a method with this name, push as a closure
+            lua_settop(L, 2);
+            lua_pushstring(L, sel_getName(selector));
+            lua_replace(L, 2); // Replace lua method name with obj-c selector name
+            lua_pushcclosure(L, method_closure, 2);
+        }
     }
     
     return 1;
@@ -215,6 +224,15 @@ static int __tostring(lua_State *L) {
     return 1;
 }
 
+static int __call(lua_State *L) {
+    luaL_checkudata(L, 1, OBJLUA_INSTANCE_METATABLE_NAME);
+    void *rawObject = objlua_to_objc(L, @encode(id), 2, nil);
+    objlua_instance_create(L, *(id *)rawObject, NO);
+    free(rawObject);
+    
+    return 1;
+}
+
 int set_protocols(lua_State *L) {
     ObjLua_Instance *objLuaInstance = (ObjLua_Instance *)luaL_checkudata(L, 1, OBJLUA_INSTANCE_METATABLE_NAME);
     
@@ -235,30 +253,21 @@ int set_protocols(lua_State *L) {
 
 static int method_closure(lua_State *L) {    
     ObjLua_Instance *objLuaInstance = (ObjLua_Instance *)luaL_checkudata(L, lua_upvalueindex(1), OBJLUA_INSTANCE_METATABLE_NAME);
-    const char *methodName = luaL_checkstring(L, lua_upvalueindex(2));    
-    
+    const char *selectorName = luaL_checkstring(L, lua_upvalueindex(2));
+    SEL selector = sel_getUid(selectorName);
     BOOL autoAlloc = NO;
     
-    if (objLuaInstance->isClass && strncmp(methodName, "init", 4) == 0) {
+    if (objLuaInstance->isClass && strncmp(selectorName, "init", 4) == 0) {
         // If init is called on a class, allocate it.
         // This is done to get around the placeholder stuff the foundation class uses
         objLuaInstance = objlua_instance_create(L, [objLuaInstance->objcInstance alloc], NO);
-        // lua_replace(L, -3); TODO figure out why this was here!?!
         autoAlloc = YES;
     }
     
-    NSMethodSignature *signature = nil;
-
-    Objlua_selectors posibleSelectors = objlua_selector_from_method_name(methodName);    
-    SEL selector;
-    for (int i = 0; !signature && i < 2; i++) {
-        selector = posibleSelectors.selectors[i];
-        signature = [objLuaInstance->objcInstance methodSignatureForSelector:selector];
-    }
-    
+    NSMethodSignature *signature = [objLuaInstance->objcInstance methodSignatureForSelector:selector];
     if (!signature) {
         const char *className = [NSStringFromClass([objLuaInstance->objcInstance class]) UTF8String];
-        luaL_error(L, "'%s' has no method selector '%s'", className, methodName);
+        luaL_error(L, "'%s' has no method selector '%s'", className, selectorName);
     }
     
     NSInvocation *invocation = nil;
@@ -274,7 +283,7 @@ static int method_closure(lua_State *L) {
         arguements[i] = objlua_to_objc(L, [signature getArgumentTypeAtIndex:i + 2], i + 1, nil);
         [invocation setArgument:arguements[i] atIndex:i + 2];
     }
-    
+
     [invocation invoke];
     
     // Free the arguements
@@ -292,13 +301,13 @@ static int method_closure(lua_State *L) {
         objlua_from_objc(L, [signature methodReturnType], buffer);
         
         if (autoAlloc || // If autoAlloc'd then we assume the returned object is the same as the alloc'd method (gets around placeholder problem)
-            strcmp(methodName, "alloc") == 0 || // If this object was alloc, retain, copy then don't "auto retain"
-            strcmp(methodName, "copy") == 0 || 
-            strcmp(methodName, "retain") == 0 ||
-            strcmp(methodName, "mutableCopy") == 0 ||
-            strcmp(methodName, "allocWithZone") == 0 ||
-            strcmp(methodName, "copyWithZone") == 0 ||
-            strcmp(methodName, "mutableCopyWithZone") == 0) {
+            strcmp(selectorName, "alloc") == 0 || // If this object was alloc, retain, copy then don't "auto retain"
+            strcmp(selectorName, "copy") == 0 || 
+            strcmp(selectorName, "retain") == 0 ||
+            strcmp(selectorName, "mutableCopy") == 0 ||
+            strcmp(selectorName, "allocWithZone") == 0 ||
+            strcmp(selectorName, "copyWithZone") == 0 ||
+            strcmp(selectorName, "mutableCopyWithZone") == 0) {
             
             if (lua_isuserdata(L, -1)) {
                 ObjLua_Instance *returnedObjLuaInstance = (ObjLua_Instance *)lua_topointer(L, -1);
@@ -314,16 +323,35 @@ static int method_closure(lua_State *L) {
 
 static int super_closure(lua_State *L) {
     ObjLua_Instance *objLuaInstance = (ObjLua_Instance *)luaL_checkudata(L, lua_upvalueindex(1), OBJLUA_INSTANCE_METATABLE_NAME);
-    Class orig_class = [objLuaInstance->objcInstance class];
-    objLuaInstance->objcInstance->isa = [objLuaInstance->objcInstance superclass];
-    method_closure(L);
-    objLuaInstance->objcInstance->isa = orig_class;
+    const char *selectorName = luaL_checkstring(L, lua_upvalueindex(2));    
+    SEL selector = sel_getUid(selectorName);
     
+    if (selector) {
+        // Super Swizzle
+        id instance = objLuaInstance->objcInstance;
+
+        Method selfMethod = class_getInstanceMethod([instance class], selector);
+        Method superMethod = class_getInstanceMethod([instance superclass], selector);        
+        IMP selfMethodImp = method_getImplementation(selfMethod);        
+        
+        if (superMethod) {
+            IMP superMethodImp = method_getImplementation(superMethod);
+            method_setImplementation(selfMethod, superMethodImp);
+        }
+        
+        method_closure(L);
+        
+        if (superMethod) method_setImplementation(selfMethod, selfMethodImp);
+    }
+    else {
+        method_closure(L);
+    }
+
     return 1;
 }
 
 static int userdata_pcall(lua_State *L, id self, SEL selector, va_list args) {
-    BEGIN_STACK_MODIFY(L)
+    BEGIN_STACK_MODIFY(L)    
     
     // Find the function... could be in the object or in the class
     if (!objlua_instance_push_function(L, self, selector)) goto error; // function not found in userdata...
@@ -349,10 +377,14 @@ static int userdata_pcall(lua_State *L, id self, SEL selector, va_list args) {
         int size = objlua_from_objc(L, type, args);
         args += size; // HACK! Since va_arg requires static type, I manually increment the args
     }
+
+    lua_pushstring(L, sel_getName(selector));
+    lua_pushstring(L, object_getClassName(self));
+    lua_pushcclosure(L, objlua_error_closure, 2);
+    int errorFunctionIndex = -1 - nargs - 1; // move error function to the top
+    lua_insert(L, errorFunctionIndex); 
     
-    if (lua_pcall(L, nargs, nresults, 0)) { // Userdata will allways be the first object sent to the function
-        const char* error_string = lua_tostring(L, -1);
-        NSLog(@"Pig Error: Problem calling Lua function '%@' on userdata (%s)", NSStringFromSelector(selector), error_string);
+    if (lua_pcall(L, nargs, nresults, errorFunctionIndex)) { // Userdata will allways be the first object sent to the function
         goto error;
     }
     
@@ -376,7 +408,7 @@ int result = userdata_pcall(L, self, _cmd, args_copy); \
 va_end(args_copy); \
 va_end(args); \
 if (result == -1) { \
-    luaL_error(L, "Could not call method '%s' on lua object for '%s'", sel_getName(_cmd), object_getClassName(self)); \
+    luaL_error(L, "ERROR: Exiting app!"); \
 } \
 else if (result == 1) { \
     NSMethodSignature *signature = [self methodSignatureForSelector:_cmd]; \
@@ -393,16 +425,12 @@ static BOOL override_method(lua_State *L, ObjLua_Instance *objLuaInstance) {
     BEGIN_STACK_MODIFY(L);
     
     BOOL success = NO;
+    const char *methodName = lua_tostring(L, 2);
+    SEL selector = objlua_selector_for_instance(objLuaInstance, methodName, objLuaInstance->isClass);
     Class class = [objLuaInstance->objcInstance class];
     const char *type_description = nil;
     
-    Method method = nil;
-    SEL selector;
-    Objlua_selectors possible_selectors = objlua_selector_from_method_name(lua_tostring(L, 2));        
-    for (int i = 0; !method && i < 2; i++) {
-        selector = possible_selectors.selectors[i];
-        method = class_getInstanceMethod(class, selector);
-    }
+    Method method = class_getInstanceMethod(class, selector);
     
     if (method) { // Is method defined in the superclass?
         type_description = method_getTypeEncoding(method);
@@ -411,12 +439,14 @@ static BOOL override_method(lua_State *L, ObjLua_Instance *objLuaInstance) {
         uint count;
         Protocol **protocols = class_copyProtocolList(class, &count);
         
+        SEL *posibleSelectors = &objlua_selectors_for_name(methodName).selectors[0];
+        
         for (int i = 0; !type_description && i < count; i++) {
             Protocol *protocol = protocols[i];
             struct objc_method_description m_description;
             
             for (int j = 0; !type_description && j < 2; j++) {
-                selector = possible_selectors.selectors[j];
+                selector = posibleSelectors[j];
                 
                 m_description = protocol_getMethodDescription(protocol, selector, YES, YES);
                 if (!m_description.name) m_description = protocol_getMethodDescription(protocol, selector, NO, YES); // Check if it is not a "required" method
@@ -468,7 +498,7 @@ static BOOL override_method(lua_State *L, ObjLua_Instance *objLuaInstance) {
         success = class_addMethod(class, selector, imp, type_description);
     }
     else {
-        NSLog(@"No method name '%s' found in superclass or protocols", selector);
+        NSLog(@"No method name '%s' found in superclass or protocols", methodName);
     }
     
     END_STACK_MODIFY(L, 1);

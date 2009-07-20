@@ -32,6 +32,7 @@ static int __index(lua_State *L);
 static int __newindex(lua_State *L);
 static int __gc(lua_State *L);
 static int __tostring(lua_State *L);
+static int __call(lua_State *L);
 
 int set_protocols(lua_State *L);
 

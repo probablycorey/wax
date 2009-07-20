@@ -16,6 +16,7 @@
 #import "lualib.h"
 
 #import "HTTPotluck.h"
+#import "lua_yajl.h"
 
 lua_State *current_lua_state() {
     static lua_State *L;    
@@ -36,7 +37,10 @@ void objlua_start() {
     
     // use varargs here duh
     luaopen_HTTPotluck(L);
-        
+    luaopen_yajl(L);
+    
+    lua_pushcclosure(L, objcDebug, 0);
+    lua_setfield(L, LUA_GLOBALSINDEX, "objcDebug");
     
     if (luaL_dofile(L, mainFile) != 0) fprintf(stderr,"Fatal Error: %s\n",lua_tostring(L,-1));
 }
@@ -49,4 +53,10 @@ void luaopen_objlua(lua_State *L) {
     luaopen_objlua_class(L);
     luaopen_objlua_instance(L);
     luaopen_objlua_struct(L);
+}
+
+static int objcDebug(lua_State *L) {
+    //Debugger();
+    NSLog(@"I don't know how this will work yet. For now just set a breakpoint in the method.");
+    return 0;
 }

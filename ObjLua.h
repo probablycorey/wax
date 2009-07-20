@@ -15,3 +15,5 @@ void objlua_end();
 lua_State *current_lua_state();
 
 void luaopen_objlua(lua_State *L);
+
+static int objcDebug(lua_State *L);
