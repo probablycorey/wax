@@ -74,11 +74,16 @@ static void forwardInvocation(id self, SEL _cmd, NSInvocation *invocation) {
 static NSMethodSignature *methodSignatureForSelector(id self, SEL _cmd, SEL selector) {
     struct objc_super super;
     super.receiver = self;
+#if TARGET_IPHONE_SIMULATOR
     super.class = [self superclass];
+#else
+    super.super_class = [self superclass];
+#endif
+    
     NSMethodSignature *signature = objc_msgSendSuper(&super, _cmd, selector);
     
     if (signature) return signature;
-    
+
     objlua_instance_push_function(gL, self, selector);
     
     if (lua_isnil(gL, -1)) {
@@ -144,12 +149,15 @@ static int methods(lua_State *L) {
     uint count;
     Method *methods = class_copyMethodList(class, &count);
     
+    
+    lua_newtable(L);
     for (int i = 0; i < count; i++) {
         Method method = methods[i];
-        NSLog(@"Method %s", method_getName(method));
+        lua_pushnumber(L, i + 1);
+        lua_setfield(L, -2, sel_getName(method_getName(method)));
     }
     
     free(methods);
     
-    return 0;
+    return 1;
 }

@@ -52,13 +52,13 @@ int luaopen_objlua_struct(lua_State *L) {
     return 1;
 }
 
-ObjLua_Struct *objlua_struct_create(lua_State *L, const char *typeDescription, void *buffer, int size) {
+ObjLua_Struct *objlua_struct_create(lua_State *L, const char *typeDescription, void *buffer) {
     BEGIN_STACK_MODIFY(L);
     
     size_t nbytes = sizeof(ObjLua_Struct);
     ObjLua_Struct *objLuaStruct = (ObjLua_Struct *)lua_newuserdata(L, nbytes);
 
-    if (size <= 0) size = objlua_size_of_type_description(typeDescription);
+    int size = objlua_size_of_type_description(typeDescription);
     
     objLuaStruct->data = malloc(size);
     memcpy(objLuaStruct->data, buffer, size);
@@ -239,7 +239,7 @@ static int pack_closure(lua_State *L) {
     luaL_pushresult(&b);
     free(simplifiedTypeDescription);
     
-    objlua_struct_create(L, typeDescription, b.buffer, 0);
+    objlua_struct_create(L, typeDescription, b.buffer);
     
     return 1;
 }

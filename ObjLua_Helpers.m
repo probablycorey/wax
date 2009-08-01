@@ -133,7 +133,7 @@ int objlua_from_objc(lua_State *L, const char *typeDescription, void *buffer) {
         }
             
         case OBJLUA_TYPE_STRUCT: {
-            objlua_from_struct(L, typeDescription, buffer, size);
+            objlua_from_struct(L, typeDescription, buffer);
             break;
         }
             
@@ -157,8 +157,8 @@ int objlua_from_objc(lua_State *L, const char *typeDescription, void *buffer) {
     return size;
 }
 
-void objlua_from_struct(lua_State *L, const char *typeDescription, void *buffer, int size) {
-    objlua_struct_create(L, typeDescription, buffer, size);
+void objlua_from_struct(lua_State *L, const char *typeDescription, void *buffer) {
+    objlua_struct_create(L, typeDescription, buffer);
 }
 
 void objlua_from_objc_instance(lua_State *L, id instance) {
@@ -314,7 +314,8 @@ void *objlua_to_objc(lua_State *L, const char *typeDescription, int stackIndex, 
                 ObjLua_Struct *objLuaStruct = (ObjLua_Struct *)luaL_checkudata(L, stackIndex, OBJLUA_STRUCT_METATABLE_NAME);
                 objlua_struct_refresh(L, stackIndex); // If the struct has "magic" indexes, reload the struct data to match those
                 
-                value = objLuaStruct->data;
+                value = malloc(objLuaStruct->size);
+                memcpy(value, objLuaStruct->data, objLuaStruct->size);
             }
             else {
                 void *data = (void *)lua_tostring(L, stackIndex);            
@@ -537,7 +538,7 @@ int objlua_simplify_type_description(const char *in, char *out) {
                 in_index++; // Eat the = sign 
                 break;
                 
-            case OBJLUA_TYPE_ARRAY:                
+            case OBJLUA_TYPE_ARRAY:            
                 do {
                     out[out_index++] = in[in_index++];
                 } while(in[in_index] != OBJLUA_TYPE_ARRAY_END);
@@ -565,6 +566,16 @@ int objlua_simplify_type_description(const char *in, char *out) {
                 
             case OBJLUA_TYPE_STRUCT_END:
             case OBJLUA_TYPE_UNION_END:
+            case '0':
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+            case '5':
+            case '6':
+            case '7':
+            case '8':
+            case '9':                
                 in_index++;
                 break;
                 

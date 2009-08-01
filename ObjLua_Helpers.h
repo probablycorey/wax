@@ -76,7 +76,7 @@ void objlua_print_table(lua_State *L, int t);
 // Convertion Helpers
 int objlua_from_objc(lua_State *L, const char *typeDescription, void *buffer);
 void objlua_from_objc_instance(lua_State *L, id instance);
-void objlua_from_struct(lua_State *L, const char *typeDescription, void *buffer, int size);
+void objlua_from_struct(lua_State *L, const char *typeDescription, void *buffer);
     
 void *objlua_to_objc(lua_State *L, const char *typeDescription, int stackIndex, int *outsize);
 

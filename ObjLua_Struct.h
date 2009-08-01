@@ -20,7 +20,7 @@ typedef struct ObjLua_Struct {
 
 int luaopen_objlua_struct(lua_State *L);
 
-ObjLua_Struct *objlua_struct_create(lua_State *L, const char *typeDescription, void *buffer, int size);
+ObjLua_Struct *objlua_struct_create(lua_State *L, const char *typeDescription, void *buffer);
 int objlua_struct_refresh(lua_State *L, int stackindex);
 
 static int __index(lua_State *L);

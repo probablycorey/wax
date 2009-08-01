@@ -11,4 +11,4 @@
 mkdir -p "$PROJECT_DIR/Data/Scripts"
 mkdir -p "$PROJECT_DIR/Data/ExternalScripts"
 
-rsync -v -r --delete "$PROJECT_DIR/Data" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH"
+rsync -v -r --delete "$PROJECT_DIR/Data" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH" > /dev/null

@@ -114,7 +114,7 @@ BOOL objlua_instance_push_function(lua_State *L, id self, SEL selector) {
     
     BOOL result = YES;
     
-    if (lua_isnil(L, -1)) { // function not found in userdata
+    if (!lua_isfunction(L, -1)) { // function not found in userdata
         if ([self class] == self) result = NO; // End of the line bub, can't go any further up
         else result = objlua_instance_push_function(L, [self class], selector);
     }
@@ -396,30 +396,46 @@ error:
     return -1;
 }
 
+#define OBJLUA_METHOD_NAME(_type_) objlua_##_type_##_call
+
 #define OBJLUA_METHOD(_type_) \
-OBJLUA_METHOD_DEFINITION(_type_) { \
+static _type_ OBJLUA_METHOD_NAME(_type_)(id self, SEL _cmd, ...) { \
 va_list args; \
 va_start(args, _cmd); \
 va_list args_copy; \
 va_copy(args_copy, args); \
 /* Grab the static L... this is a hack */ \
 lua_State *L = gL; \
+BEGIN_STACK_MODIFY(L); \
 int result = userdata_pcall(L, self, _cmd, args_copy); \
 va_end(args_copy); \
 va_end(args); \
 if (result == -1) { \
     luaL_error(L, "ERROR: Exiting app!"); \
 } \
-else if (result == 1) { \
-    NSMethodSignature *signature = [self methodSignatureForSelector:_cmd]; \
-    _type_ *pReturnValue = (_type_ *)objlua_to_objc(L, [signature methodReturnType], -1, nil); \
-    _type_ returnValue = *pReturnValue; \
-    free(pReturnValue); \
+else if (result == 0) { \
+    _type_ returnValue; \
+    bzero(&returnValue, sizeof(_type_)); \
+    END_STACK_MODIFY(L, 0); \
     return returnValue; \
 } \
 \
-return (_type_)0; \
+NSMethodSignature *signature = [self methodSignatureForSelector:_cmd]; \
+_type_ *pReturnValue = (_type_ *)objlua_to_objc(L, [signature methodReturnType], -1, nil); \
+_type_ returnValue = *pReturnValue; \
+free(pReturnValue); \
+END_STACK_MODIFY(L, 0); \
+return returnValue; \
 }
+
+typedef struct _buffer_16 {char b[16];} buffer_16;
+
+OBJLUA_METHOD(buffer_16)
+OBJLUA_METHOD(id)
+OBJLUA_METHOD(int)
+OBJLUA_METHOD(long)
+OBJLUA_METHOD(float)
+OBJLUA_METHOD(BOOL) 
 
 static BOOL override_method(lua_State *L, ObjLua_Instance *objLuaInstance) {
     BEGIN_STACK_MODIFY(L);
@@ -428,12 +444,15 @@ static BOOL override_method(lua_State *L, ObjLua_Instance *objLuaInstance) {
     const char *methodName = lua_tostring(L, 2);
     SEL selector = objlua_selector_for_instance(objLuaInstance, methodName, objLuaInstance->isClass);
     Class class = [objLuaInstance->objcInstance class];
-    const char *type_description = nil;
+
+    const char *typeDescription = nil;
+    char *returnType = nil;
     
     Method method = class_getInstanceMethod(class, selector);
-    
+        
     if (method) { // Is method defined in the superclass?
-        type_description = method_getTypeEncoding(method);
+        typeDescription = method_getTypeEncoding(method);        
+        returnType = method_copyReturnType(method);
     }
     else { // Does this object implement a protocol with this method?
         uint count;
@@ -441,27 +460,31 @@ static BOOL override_method(lua_State *L, ObjLua_Instance *objLuaInstance) {
         
         SEL *posibleSelectors = &objlua_selectors_for_name(methodName).selectors[0];
         
-        for (int i = 0; !type_description && i < count; i++) {
+        for (int i = 0; !returnType && i < count; i++) {
             Protocol *protocol = protocols[i];
             struct objc_method_description m_description;
             
-            for (int j = 0; !type_description && j < 2; j++) {
+            for (int j = 0; !returnType && j < 2; j++) {
                 selector = posibleSelectors[j];
                 
                 m_description = protocol_getMethodDescription(protocol, selector, YES, YES);
                 if (!m_description.name) m_description = protocol_getMethodDescription(protocol, selector, NO, YES); // Check if it is not a "required" method
                 
-                if (&m_description) type_description = m_description.types;
+                if (m_description.name) {
+                    typeDescription = m_description.types;
+                    returnType = method_copyReturnType((Method)&m_description);
+                }
             }
         }
         
         free(protocols);
     }
     
-    if (type_description) { // Matching method found! Create an Obj-C method on the 
-        type_description = objlua_remove_protocol_encodings(type_description);
+    if (returnType) { // Matching method found! Create an Obj-C method on the 
+//        const char *cleanReturnType = objlua_remove_protocol_encodings(returnType);
+
         IMP imp;
-        switch (type_description[0]) {
+        switch (returnType[0]) {
             case OBJLUA_TYPE_VOID:
             case OBJLUA_TYPE_ID:
                 imp = (IMP)OBJLUA_METHOD_NAME(id);
@@ -490,25 +513,31 @@ static BOOL override_method(lua_State *L, ObjLua_Instance *objLuaInstance) {
                 imp = (IMP)OBJLUA_METHOD_NAME(BOOL);
                 break;
                 
+            case OBJLUA_TYPE_STRUCT: {
+                int size = objlua_size_of_type_description(returnType);
+                switch (size) {
+                    case 16:
+                        imp = (IMP)OBJLUA_METHOD_NAME(buffer_16);
+                        break;
+                    default:
+                        luaL_error(L, "Trying to override a method that has a struct return type of size '%d'. There is no implementation for this size yet.", size);
+                        break;
+                }
+                break;
+            }
+                
             default:   
-                luaL_error(L, "Can't handle method with return type %c", type_description[0]);
+                luaL_error(L, "Can't handle method with return type %s", returnType);
                 break;
         }
         
-        success = class_addMethod(class, selector, imp, type_description);
+        success = class_addMethod(class, selector, imp, typeDescription);
+        free(returnType);
     }
     else {
         NSLog(@"No method name '%s' found in superclass or protocols", methodName);
     }
     
     END_STACK_MODIFY(L, 1);
-    
     return success;
 }
-
-// Expects the objects userdata to be on the top of the stack
-OBJLUA_METHOD(id)
-OBJLUA_METHOD(int)
-OBJLUA_METHOD(long)
-OBJLUA_METHOD(float)
-OBJLUA_METHOD(BOOL) 
