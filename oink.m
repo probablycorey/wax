@@ -6,9 +6,9 @@
 //  Copyright 2009 Probably Interactive. All rights reserved.
 //
 
-#import "ObjLua.h"
-#import "ObjLua_Class.h"
-#import "ObjLua_Instance.h"
+#import "oink.h"
+#import "oink_class.h"
+#import "oink_instance.h"
 #import "ObjLua_Struct.h"
 #import "ObjLua_Helpers.h"
 
@@ -16,27 +16,26 @@
 #import "lobject.h"
 #import "lualib.h"
 
-lua_State *current_lua_state() {
+lua_State *oink_currentLuaState() {
     static lua_State *L;    
     if (!L) L = lua_open();    
     
     return L;
 }
 
-void uncaughtExceptionHandler() {
-    // TODO: Make this error a little more helpful...
-    NSLog(@"LOOK! THERE WAS AN EXCEPTION!");
+void uncaughtExceptionHandler(NSException *e) {
+    NSLog(@"OINK! Uncaught exception %@", e);
 }
 
-void objlua_startWithExtensions(lua_CFunction func, ...) {
+void oink_startWithExtensions(lua_CFunction func, ...) {
     char *mainFile = "Data/Scripts/init.lua";
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     [fileManager changeCurrentDirectoryPath:[[NSBundle mainBundle] bundlePath]];
-    lua_State *L = current_lua_state();
+    lua_State *L = oink_currentLuaState();
     
     luaL_openlibs(L); 
-    luaopen_objlua(L);
+    luaopen_oink(L);
     
     if (func) { // Load extentions
         func(L);
@@ -48,23 +47,23 @@ void objlua_startWithExtensions(lua_CFunction func, ...) {
         va_end(ap);
     }
     
-    NSSetUncaughtExceptionHandler(uncaughtExceptionHandler);
+    NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
     
     addGlobals(L);
         
     if (luaL_dofile(L, mainFile) != 0) fprintf(stderr,"Fatal Error: %s\n",lua_tostring(L,-1));    
 }
 
-void objlua_start() {
-    objlua_startWithExtensions(nil);
+void oink_start() {
+    oink_startWithExtensions(nil);
 }
 
-void objlua_end() {
-    lua_close(current_lua_state());
+void oink_end() {
+    lua_close(oink_currentLuaState());
 }
 
-void luaopen_objlua(lua_State *L) {
-    luaopen_objlua_class(L);
+void luaopen_oink(lua_State *L) {
+    luaopen_oink_class(L);
     luaopen_objlua_instance(L);
     luaopen_objlua_struct(L);
 }
@@ -83,8 +82,8 @@ static void addGlobals(lua_State *L) {
 
 static int tolua(lua_State *L) {
     if (lua_isuserdata(L, 1)) { // If it's not userdata... it's already lua!
-        ObjLua_Instance *objLuaInstance = (ObjLua_Instance *)luaL_checkudata(L, 1, OBJLUA_INSTANCE_METATABLE_NAME);
-        objlua_from_objc_instance(L, objLuaInstance->objcInstance);
+        oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 1, OINK_INSTANCE_METATABLE_NAME);
+        objlua_from_objc_instance(L, instanceUserdata->instance);
     }
     
     return 1;

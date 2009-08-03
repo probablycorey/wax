@@ -1,19 +1,19 @@
 //
-//  ObjLua_Class.m
+//  oink_class.m
 //  Lua
 //
 //  Created by ProbablyInteractive on 5/20/09.
 //  Copyright 2009 Probably Interactive. All rights reserved.
 //
 
-#import "ObjLua_Class.h"
-#import "ObjLua_Instance.h"
+#import "oink_class.h"
+
+#import "oink.h"
+#import "oink_instance.h"
 #import "ObjLua_Helpers.h"
 
 #import "lua.h"
 #import "lauxlib.h"
-
-static lua_State *gL;
 
 static const struct luaL_Reg MetaMethods[] = {
     {"__index", __index},
@@ -25,17 +25,15 @@ static const struct luaL_Reg Methods[] = {
     {NULL, NULL}
 };
 
-int luaopen_objlua_class(lua_State *L) {
+int luaopen_oink_class(lua_State *L) {
     BEGIN_STACK_MODIFY(L);
     
-    gL = L;
-    
-    luaL_newmetatable(L, OBJLUA_CLASS_METATABLE_NAME);
+    luaL_newmetatable(L, OINK_CLASS_METATABLE_NAME);
     luaL_register(L, NULL, MetaMethods);
-    luaL_register(L, OBJLUA_CLASS_METATABLE_NAME, Methods);    
+    luaL_register(L, OINK_CLASS_METATABLE_NAME, Methods);    
 
     // Set the metatable for the module
-    luaL_getmetatable(L, OBJLUA_CLASS_METATABLE_NAME);
+    luaL_getmetatable(L, OINK_CLASS_METATABLE_NAME);
     lua_setmetatable(L, -2);
     
     END_STACK_MODIFY(L, 0)
@@ -44,29 +42,49 @@ int luaopen_objlua_class(lua_State *L) {
 }
 
 static void forwardInvocation(id self, SEL _cmd, NSInvocation *invocation) {
-    BEGIN_STACK_MODIFY(gL);
-    objlua_instance_push_function(gL, self, [invocation selector]);
+    lua_State *L = oink_currentLuaState();
     
-    if (lua_isnil(gL, -1)) {
-        lua_pop(gL, 1);        
+    BEGIN_STACK_MODIFY(L);
+    oink_instance_pushFunction(L, self, [invocation selector]);
+    
+    if (lua_isnil(L, -1)) {
+        lua_pop(L, 1);        
         return;
     }
     else {
-        objlua_instance_push_userdata(gL, self);
-        if (lua_pcall(gL, 1, 0, 0)) {
-            const char* error_string = lua_tostring(gL, -1);
-            NSLog(@"Problem calling Lua function '%s' on userdata (%s)", [invocation selector], error_string);
+        oink_instance_pushUserdata(L, self);
+
+        NSMethodSignature *signature = [invocation methodSignature];
+        int argumentCount = [signature numberOfArguments];
+        
+        for (int i = 2; i < argumentCount; i++) { // Skip the hidden seld and _cmd arguements (self already added above)
+            const char *typeDescription = [signature getArgumentTypeAtIndex:i];
+            int argSize = objlua_size_of_type_description(typeDescription);
+
+            void *buffer = malloc(argSize);
+            [invocation getArgument:buffer atIndex:i];
+            objlua_from_objc(L, typeDescription, buffer);
+            free(buffer);
         }
         
-        // should set return value?
+        if (lua_pcall(L, argumentCount - 1, 1, 0)) { // Subtract 1 from argumentCount because we don't want to send the hidden _cmd arguement
+            const char* error_string = lua_tostring(L, -1);
+            NSLog(@"Problem calling Lua function '%s' on userdata (%s)", [invocation selector], error_string);
+        }
+
+        void *returnValue = objlua_to_objc(L, [signature methodReturnType], -1, nil);
+        [invocation setReturnValue:returnValue];
+        free(returnValue);
     }
     
-    END_STACK_MODIFY(gL, 0)
+    END_STACK_MODIFY(L, 0)
     
     return;
 }
 
 static NSMethodSignature *methodSignatureForSelector(id self, SEL _cmd, SEL selector) {
+    lua_State *L = oink_currentLuaState();
+    
     struct objc_super super;
     super.receiver = self;
 #if TARGET_IPHONE_SIMULATOR
@@ -79,14 +97,14 @@ static NSMethodSignature *methodSignatureForSelector(id self, SEL _cmd, SEL sele
     
     if (signature) return signature;
 
-    objlua_instance_push_function(gL, self, selector);
+    oink_instance_pushFunction(L, self, selector);
     
-    if (lua_isnil(gL, -1)) {
-        lua_pop(gL, 1);        
+    if (lua_isnil(L, -1)) {
+        lua_pop(L, 1);        
         return nil;
     }
     else {
-        lua_pop(gL, 1);
+        lua_pop(L, 1);
     }
     
     int argCount = 0;
@@ -94,7 +112,7 @@ static NSMethodSignature *methodSignatureForSelector(id self, SEL _cmd, SEL sele
     const char *selectorName = sel_getName(selector);
     for (int i = 0; selectorName[i]; i++) if (selectorName[i] == ':') argCount++;
     
-    int typeStringSize = 4 + argCount; // 1 return value, 2 extra chars for the hidden args (self, _cmd) 1 extra for \0
+    int typeStringSize = 4 + argCount; // 1 return value, 2 extra chars for the hidden args (self, _cmd) and 1 extra for \0
     char *typeString = alloca(typeStringSize);
     memset(typeString, '@', typeStringSize);
     typeString[2] = ':';
@@ -107,7 +125,7 @@ static NSMethodSignature *methodSignatureForSelector(id self, SEL _cmd, SEL sele
 // Finds an obj-c class
 static int __index(lua_State *L) {
     const char *className = luaL_checkstring(L, 2);
-    objlua_instance_create(L, objc_getClass(className), YES);
+    oink_instance_create(L, objc_getClass(className), YES);
     
     return 1;
 }
@@ -123,8 +141,8 @@ static int __call(lua_State *L) {
     else {
         Class superClass;    
         if (lua_isuserdata(L, 3)) {
-            ObjLua_Instance *objLuaInstance = (ObjLua_Instance *)luaL_checkudata(L, 2, OBJLUA_INSTANCE_METATABLE_NAME);
-            superClass = objLuaInstance->objcInstance;
+            oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 2, OINK_INSTANCE_METATABLE_NAME);
+            superClass = instanceUserdata->instance;
         }
         else {
             const char *superClassName = luaL_checkstring(L, 3);    
@@ -138,7 +156,7 @@ static int __call(lua_State *L) {
         class_addMethod(class, @selector(forwardInvocation:), (IMP)forwardInvocation, "v@:@");
     }
         
-    objlua_instance_create(L, class, YES);
+    oink_instance_create(L, class, YES);
     
     return 1;
 }

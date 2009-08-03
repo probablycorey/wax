@@ -7,7 +7,7 @@
 //
 
 #import "ObjLua_Helpers.h"
-#import "ObjLua_Instance.h"
+#import "oink_instance.h"
 #import "ObjLua_Struct.h"
 #import "lauxlib.h"
 
@@ -131,7 +131,7 @@ int objlua_from_objc(lua_State *L, const char *typeDescription, void *buffer) {
             
         case OBJLUA_TYPE_ID: {
             id instance = *(id *)buffer;
-            objlua_instance_create(L, instance, NO);
+            oink_instance_create(L, instance, NO);
             break;
         }
             
@@ -146,7 +146,7 @@ int objlua_from_objc(lua_State *L, const char *typeDescription, void *buffer) {
 
         case OBJLUA_TYPE_CLASS: {
             id instance = *(id *)buffer;
-            objlua_instance_create(L, instance, YES);
+            oink_instance_create(L, instance, YES);
             break;                        
         }
             
@@ -175,7 +175,7 @@ void objlua_from_objc_instance(lua_State *L, id instance) {
             lua_pushnumber(L, [instance doubleValue]);
         }
         else {
-            objlua_instance_create(L, instance, NO);
+            oink_instance_create(L, instance, NO);
         }
     }
     else {
@@ -257,8 +257,8 @@ void *objlua_to_objc(lua_State *L, const char *typeDescription, int stackIndex, 
             *outsize = sizeof(Class);
             value = calloc(sizeof(Class), 1);
             if (lua_isuserdata(L, stackIndex)) {
-                ObjLua_Instance *objLuaInstance = (ObjLua_Instance *)luaL_checkudata(L, stackIndex, OBJLUA_INSTANCE_METATABLE_NAME);
-                *(id *)value = objLuaInstance->objcInstance;   
+                oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, stackIndex, OINK_INSTANCE_METATABLE_NAME);
+                *(id *)value = instanceUserdata->instance;   
             }
             else {
                 *((Class *)value) = objc_getClass(lua_tostring(L, stackIndex));
@@ -298,8 +298,8 @@ void *objlua_to_objc(lua_State *L, const char *typeDescription, int stackIndex, 
                     break;
                     
                 case LUA_TUSERDATA: {
-                    ObjLua_Instance *objLuaInstance = (ObjLua_Instance *)luaL_checkudata(L, stackIndex, OBJLUA_INSTANCE_METATABLE_NAME);
-                    instance = objLuaInstance->objcInstance;
+                    oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, stackIndex, OINK_INSTANCE_METATABLE_NAME);
+                    instance = instanceUserdata->instance;
                     break;                                  
                 }
                 default:
@@ -356,22 +356,22 @@ Objlua_selectors objlua_selectors_for_name(const char *methodName) {
     
     return posibleSelectors;
 }
-  SEL objlua_selector_for_instance(ObjLua_Instance *objlua_instance, const char *methodName) {
+  SEL objlua_selector_for_instance(oink_instance_userdata *objlua_instance, const char *methodName) {
     SEL *posibleSelectors = &objlua_selectors_for_name(methodName).selectors[0];
     
     if (objlua_instance->isClass) {
-        if ([objlua_instance->objcInstance instancesRespondToSelector:posibleSelectors[0]]) return posibleSelectors[0];
-        if ([objlua_instance->objcInstance instancesRespondToSelector:posibleSelectors[1]]) return posibleSelectors[1];    
+        if ([objlua_instance->instance instancesRespondToSelector:posibleSelectors[0]]) return posibleSelectors[0];
+        if ([objlua_instance->instance instancesRespondToSelector:posibleSelectors[1]]) return posibleSelectors[1];    
     }
     else {
-        if ([objlua_instance->objcInstance respondsToSelector:posibleSelectors[0]]) return posibleSelectors[0];
-        if ([objlua_instance->objcInstance respondsToSelector:posibleSelectors[1]]) return posibleSelectors[1];    
+        if ([objlua_instance->instance respondsToSelector:posibleSelectors[0]]) return posibleSelectors[0];
+        if ([objlua_instance->instance respondsToSelector:posibleSelectors[1]]) return posibleSelectors[1];    
     }
     
     return nil;
 }
 
-void objlua_push_method_name_from_selector(lua_State *L, SEL selector) {
+void oink_pushMethodNameFromSelector(lua_State *L, SEL selector) {
     BEGIN_STACK_MODIFY(L)
     const char *methodName = [NSStringFromSelector(selector) UTF8String];
     int length = strlen(methodName);

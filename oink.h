@@ -1,5 +1,5 @@
 //
-//  ObjLua.h
+//  oink.h
 //  Lua
 //
 //  Created by ProbablyInteractive on 5/27/09.
@@ -9,13 +9,13 @@
 #import <Foundation/Foundation.h>
 #import "lua.h"
 
-void objlua_start();
-void objlua_startWithExtensions(lua_CFunction func, ...);
-void objlua_end();
+void oink_start();
+void oink_startWithExtensions(lua_CFunction func, ...);
+void oink_end();
 
-lua_State *current_lua_state();
+lua_State *oink_currentLuaState();
 
-void luaopen_objlua(lua_State *L);
+void luaopen_oink(lua_State *L);
 
 static void addGlobals(lua_State *L);
 

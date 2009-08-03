@@ -1,5 +1,5 @@
 //
-//  ObjLua_Class.h
+//  oink_class.h
 //  Lua
 //
 //  Created by ProbablyInteractive on 5/20/09.
@@ -12,12 +12,12 @@
 
 #import "lua.h"
 
-#define OBJLUA_CLASS_METATABLE_NAME "objlua.class"
+#define OINK_CLASS_METATABLE_NAME "oink.class"
 
-typedef struct ObjLua_Class {
+typedef struct _oink_class {
     Class objcClass;
-} ObjLua_Class;
+} oink_class;
 
-int luaopen_objlua_class(lua_State *L);
+int luaopen_oink_class(lua_State *L);
 static int __index(lua_State *L);
 static int __call(lua_State *L);

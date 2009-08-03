@@ -10,7 +10,7 @@
 #import <objc/runtime.h>
 #import <objc/message.h>
 
-#import "ObjLua_Instance.h"
+#import "oink_instance.h"
 
 #import "lua.h"
 
@@ -82,8 +82,8 @@ void *objlua_to_objc(lua_State *L, const char *typeDescription, int stackIndex, 
 
 // Misc Helpers
 Objlua_selectors objlua_selectors_for_name(const char *methodName);
-SEL objlua_selector_for_instance(ObjLua_Instance *objlua_instance, const char *methodName);
-void objlua_push_method_name_from_selector(lua_State *L, SEL selector);
+SEL objlua_selector_for_instance(oink_instance_userdata *instanceUserdata, const char *methodName);
+void oink_pushMethodNameFromSelector(lua_State *L, SEL selector);
 
 const char *objlua_remove_protocol_encodings(const char *type_descriptions);
 
