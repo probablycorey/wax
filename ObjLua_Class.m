@@ -35,7 +35,7 @@ int luaopen_objlua_class(lua_State *L) {
     luaL_register(L, NULL, MetaMethods);
     luaL_register(L, "objlua.class", Methods);    
 
-    END_STACK_MODIFY(L, 0);
+    END_STACK_MODIFY(L, 0)
     
     return 1;
 }
@@ -66,7 +66,7 @@ static void forwardInvocation(id self, SEL _cmd, NSInvocation *invocation) {
         // should set return value?
     }
     
-    END_STACK_MODIFY(gL, 0);
+    END_STACK_MODIFY(gL, 0)
     
     return;
 }

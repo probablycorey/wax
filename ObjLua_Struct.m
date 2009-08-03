@@ -48,7 +48,7 @@ int luaopen_objlua_struct(lua_State *L) {
     lua_pushvalue(L, -2);
     lua_setmetatable(L, -2); // Set the metatable for the struct module
     
-    END_STACK_MODIFY(L, 0);
+    END_STACK_MODIFY(L, 0)
     return 1;
 }
 
@@ -120,7 +120,7 @@ ObjLua_Struct *objlua_struct_create(lua_State *L, const char *typeDescription, v
     
     lua_pop(L, 1); // Pop env off the stack
     
-    END_STACK_MODIFY(L, 1);
+    END_STACK_MODIFY(L, 1)
     
     return objLuaStruct;
 }
@@ -175,7 +175,7 @@ int objlua_struct_refresh(lua_State *L, int stackindex) {
     
     lua_pop(L, 1); // Pop the env off
     
-    END_STACK_MODIFY(L, 0);
+    END_STACK_MODIFY(L, 0)
     
     return 1;
 }

@@ -70,9 +70,12 @@ int objlua_from_objc(lua_State *L, const char *typeDescription, void *buffer) {
             lua_pushnil(L);
             break;
             
-        case OBJLUA_TYPE_CHAR:
-            lua_pushinteger(L, *(char *)buffer);
+        case OBJLUA_TYPE_CHAR: {
+            char c = *(char *)buffer;
+            if (c <= 1) lua_pushboolean(L, c); // If it's 1 or 0, then treat it like a bool
+            else lua_pushinteger(L, c);
             break;
+        }
             
         case OBJLUA_TYPE_SHORT:
             lua_pushinteger(L, *(short *)buffer);            
@@ -128,7 +131,7 @@ int objlua_from_objc(lua_State *L, const char *typeDescription, void *buffer) {
             
         case OBJLUA_TYPE_ID: {
             id instance = *(id *)buffer;
-            objlua_from_objc_instance(L, instance);
+            objlua_instance_create(L, instance, NO);
             break;
         }
             
@@ -152,7 +155,7 @@ int objlua_from_objc(lua_State *L, const char *typeDescription, void *buffer) {
             break;
     }
     
-    END_STACK_MODIFY(L, 1);
+    END_STACK_MODIFY(L, 1)
     
     return size;
 }
@@ -179,7 +182,7 @@ void objlua_from_objc_instance(lua_State *L, id instance) {
         lua_pushnil(L);
     }
     
-    END_STACK_MODIFY(L, 1);
+    END_STACK_MODIFY(L, 1)
 }
 
 #define OBJLUA_TO_INTEGER(_type_) *outsize = sizeof(_type_); value = calloc(sizeof(_type_), 1); *((_type_ *)value) = (_type_)lua_tointeger(L, stackIndex);
@@ -279,35 +282,37 @@ void *objlua_to_objc(lua_State *L, const char *typeDescription, int stackIndex, 
             // add number, string
             
             id instance;
-            if (lua_isstring(L, stackIndex)) {
-                instance = [NSString stringWithCString:lua_tostring(L, stackIndex)];
-            }
-            else if (lua_isnumber(L, stackIndex) || lua_isboolean(L, stackIndex)) {
-                instance = [NSNumber numberWithDouble:lua_tonumber(L, stackIndex)];
-            }
-            else if (lua_isuserdata(L, stackIndex)) {
-                ObjLua_Instance *objLuaInstance = (ObjLua_Instance *)luaL_checkudata(L, stackIndex, OBJLUA_INSTANCE_METATABLE_NAME);
-                instance = objLuaInstance->objcInstance;
-            }
-            else if(lua_isnoneornil(L, stackIndex)) {
-                instance = nil;
-            }            
-            else if (lua_istable(L, stackIndex)) {
-                luaL_error(L, "Can't convert tables to obj-c.");
-            }
-            else if (lua_isfunction(L, stackIndex)) {
-                luaL_error(L, "Can't convert function to obj-c.");
-            }            
-            else {
-                luaL_error(L, "Can't convert %s to obj-c.", luaL_typename(L, stackIndex));
+
+            switch (lua_type(L, stackIndex)) {
+                case LUA_TNIL:
+                    instance = nil;
+                    break;
+                    
+                case LUA_TBOOLEAN:
+                case LUA_TNUMBER:
+                    instance = [NSNumber numberWithDouble:lua_tonumber(L, stackIndex)];                    
+                    break;
+                    
+                case LUA_TSTRING:
+                    instance = [NSString stringWithCString:lua_tostring(L, stackIndex)];                    
+                    break;
+                    
+                case LUA_TUSERDATA: {
+                    ObjLua_Instance *objLuaInstance = (ObjLua_Instance *)luaL_checkudata(L, stackIndex, OBJLUA_INSTANCE_METATABLE_NAME);
+                    instance = objLuaInstance->objcInstance;
+                    break;                                  
+                }
+                default:
+                    luaL_error(L, "Can't convert %s to obj-c.", luaL_typename(L, stackIndex));
+                    break;
             }
             
             if (instance) {
                 *(id *)value = instance;
             }
+            
             break;
-        }
-        
+        }        
             
         case OBJLUA_TYPE_STRUCT: {
             if (lua_isuserdata(L, stackIndex)) {
@@ -351,10 +356,10 @@ Objlua_selectors objlua_selectors_for_name(const char *methodName) {
     
     return posibleSelectors;
 }
-  SEL objlua_selector_for_instance(ObjLua_Instance *objlua_instance, const char *methodName, BOOL tempInitCheck) {
+  SEL objlua_selector_for_instance(ObjLua_Instance *objlua_instance, const char *methodName) {
     SEL *posibleSelectors = &objlua_selectors_for_name(methodName).selectors[0];
     
-    if (tempInitCheck) {
+    if (objlua_instance->isClass) {
         if ([objlua_instance->objcInstance instancesRespondToSelector:posibleSelectors[0]]) return posibleSelectors[0];
         if ([objlua_instance->objcInstance instancesRespondToSelector:posibleSelectors[1]]) return posibleSelectors[1];    
     }
@@ -387,7 +392,7 @@ void objlua_push_method_name_from_selector(lua_State *L, SEL selector) {
     
     luaL_pushresult(&b);
     
-    END_STACK_MODIFY(L, 1);
+    END_STACK_MODIFY(L, 1)
 }
 
 // I could get rid of this
@@ -586,12 +591,4 @@ int objlua_simplify_type_description(const char *in, char *out) {
     }
     
     return out_index;
-}
-
-int objlua_error_closure(lua_State *L) {
-    const char *methodName = lua_tostring(L, lua_upvalueindex(1));
-    const char *objectName = lua_tostring(L, lua_upvalueindex(2));    
-    const char *errorString = lua_tostring(L, -1);
-    printf("\nERROR: Could not call method '%s' on object for '%s'\n\t%s\n", methodName, objectName, errorString);
-    return 0;
 }

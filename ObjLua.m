@@ -10,12 +10,11 @@
 #import "ObjLua_Class.h"
 #import "ObjLua_Instance.h"
 #import "ObjLua_Struct.h"
+#import "ObjLua_Helpers.h"
 
 #import "lauxlib.h"
 #import "lobject.h"
 #import "lualib.h"
-
-#import "HTTPotluck.h"
 
 lua_State *current_lua_state() {
     static lua_State *L;    
@@ -24,7 +23,12 @@ lua_State *current_lua_state() {
     return L;
 }
 
-void objlua_start() {
+void uncaughtExceptionHandler() {
+    // TODO: Make this error a little more helpful...
+    NSLog(@"LOOK! THERE WAS AN EXCEPTION!");
+}
+
+void objlua_startWithExtensions(lua_CFunction func, ...) {
     char *mainFile = "Data/Scripts/init.lua";
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
@@ -34,14 +38,25 @@ void objlua_start() {
     luaL_openlibs(L); 
     luaopen_objlua(L);
     
-    // use varargs here duh
-    luaopen_HTTPotluck(L);
+    if (func) { // Load extentions
+        func(L);
+
+        va_list ap;
+        va_start(ap, func);
+        while(func = va_arg(ap, lua_CFunction)) func(L);
+            
+        va_end(ap);
+    }
     
-    lua_pushcclosure(L, objcDebug, 0);
-    lua_setfield(L, LUA_GLOBALSINDEX, "objcDebug");
+    NSSetUncaughtExceptionHandler(uncaughtExceptionHandler);
     
-    if (luaL_dofile(L, mainFile) != 0) fprintf(stderr,"Fatal Error: %s\n",lua_tostring(L,-1));
-    NSLog(@"started");
+    addGlobals(L);
+        
+    if (luaL_dofile(L, mainFile) != 0) fprintf(stderr,"Fatal Error: %s\n",lua_tostring(L,-1));    
+}
+
+void objlua_start() {
+    objlua_startWithExtensions(nil);
 }
 
 void objlua_end() {
@@ -52,6 +67,32 @@ void luaopen_objlua(lua_State *L) {
     luaopen_objlua_class(L);
     luaopen_objlua_instance(L);
     luaopen_objlua_struct(L);
+}
+
+static void addGlobals(lua_State *L) {
+    lua_pushcfunction(L, tolua);
+    lua_setglobal(L, "tolua");
+    
+    lua_pushcfunction(L, exitApp);
+    lua_setglobal(L, "exitApp");
+    
+    lua_pushcclosure(L, objcDebug, 0);
+    lua_setglobal(L, "objcDebug");
+
+}
+
+static int tolua(lua_State *L) {
+    if (lua_isuserdata(L, 1)) { // If it's not userdata... it's already lua!
+        ObjLua_Instance *objLuaInstance = (ObjLua_Instance *)luaL_checkudata(L, 1, OBJLUA_INSTANCE_METATABLE_NAME);
+        objlua_from_objc_instance(L, objLuaInstance->objcInstance);
+    }
+    
+    return 1;
+}
+
+static int exitApp(lua_State *L) {
+    exit(0);
+    return 0;
 }
 
 static int objcDebug(lua_State *L) {

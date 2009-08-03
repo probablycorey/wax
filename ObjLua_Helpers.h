@@ -60,7 +60,7 @@
 
 #define BEGIN_STACK_MODIFY(L) int __startStackIndex = lua_gettop((L));
 
-#define END_STACK_MODIFY(L, i) while(lua_gettop((L)) > (__startStackIndex + i)) lua_remove(L, __startStackIndex + 1)
+#define END_STACK_MODIFY(L, i) while(lua_gettop((L)) > (__startStackIndex + i)) lua_remove(L, __startStackIndex + 1);
 
 
 // This struct seem unnessessary
@@ -82,12 +82,10 @@ void *objlua_to_objc(lua_State *L, const char *typeDescription, int stackIndex, 
 
 // Misc Helpers
 Objlua_selectors objlua_selectors_for_name(const char *methodName);
-SEL objlua_selector_for_instance(ObjLua_Instance *objlua_instance, const char *methodName, BOOL tempInitCheck);
+SEL objlua_selector_for_instance(ObjLua_Instance *objlua_instance, const char *methodName);
 void objlua_push_method_name_from_selector(lua_State *L, SEL selector);
 
 const char *objlua_remove_protocol_encodings(const char *type_descriptions);
 
 int objlua_size_of_type_description(const char *full_type_description);
 int objlua_simplify_type_description(const char *in, char *out);
-
-int objlua_error_closure(lua_State *L);
