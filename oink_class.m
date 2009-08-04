@@ -10,7 +10,7 @@
 
 #import "oink.h"
 #import "oink_instance.h"
-#import "ObjLua_Helpers.h"
+#import "oink_helpers.h"
 
 #import "lua.h"
 #import "lauxlib.h"
@@ -59,11 +59,11 @@ static void forwardInvocation(id self, SEL _cmd, NSInvocation *invocation) {
         
         for (int i = 2; i < argumentCount; i++) { // Skip the hidden seld and _cmd arguements (self already added above)
             const char *typeDescription = [signature getArgumentTypeAtIndex:i];
-            int argSize = objlua_size_of_type_description(typeDescription);
+            int argSize = oink_sizeOfTypeDescription(typeDescription);
 
             void *buffer = malloc(argSize);
             [invocation getArgument:buffer atIndex:i];
-            objlua_from_objc(L, typeDescription, buffer);
+            oink_fromObjc(L, typeDescription, buffer);
             free(buffer);
         }
         
@@ -72,7 +72,7 @@ static void forwardInvocation(id self, SEL _cmd, NSInvocation *invocation) {
             NSLog(@"Problem calling Lua function '%s' on userdata (%s)", [invocation selector], error_string);
         }
 
-        void *returnValue = objlua_to_objc(L, [signature methodReturnType], -1, nil);
+        void *returnValue = oink_copyToObjc(L, [signature methodReturnType], -1, nil);
         [invocation setReturnValue:returnValue];
         free(returnValue);
     }

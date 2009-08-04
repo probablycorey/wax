@@ -9,7 +9,7 @@
 
 #import "oink_instance.h"
 #import "oink.h"
-#import "ObjLua_Helpers.h"
+#import "oink_helpers.h"
 
 #import "lauxlib.h"
 #import "lobject.h"
@@ -28,7 +28,7 @@ static const struct luaL_Reg Methods[] = {
     {NULL, NULL}
 };
 
-int luaopen_objlua_instance(lua_State *L) {
+int luaopen_oink_instance(lua_State *L) {
     BEGIN_STACK_MODIFY(L);
     
     luaL_newmetatable(L, OINK_INSTANCE_METATABLE_NAME);
@@ -201,7 +201,7 @@ static int __index(lua_State *L) {
     }
             
     if (instanceUserdata->isSuper || lua_isnil(L, -1) ) { // Couldn't find that in the userdata environment table, assume it is defined in obj-c classes
-        SEL selector = objlua_selector_for_instance(instanceUserdata, lua_tostring(L, 2));
+        SEL selector = oink_selectorForInstance(instanceUserdata, lua_tostring(L, 2));
 
         if (selector) { // If the class has a method with this name, push as a closure            
             lua_pushstring(L, sel_getName(selector));
@@ -317,7 +317,7 @@ static int methodClosure(lua_State *L) {
     
     void **arguements = calloc(sizeof(void*), objcArgumentCount);
     for (int i = 0; i < objcArgumentCount; i++) {
-        arguements[i] = objlua_to_objc(L, [signature getArgumentTypeAtIndex:i + 2], i + 2, nil);
+        arguements[i] = oink_copyToObjc(L, [signature getArgumentTypeAtIndex:i + 2], i + 2, nil);
         [invocation setArgument:arguements[i] atIndex:i + 2];
     }
     
@@ -340,7 +340,7 @@ static int methodClosure(lua_State *L) {
         void *buffer = calloc(1, methodReturnLength);
         [invocation getReturnValue:buffer];
             
-        objlua_from_objc(L, [signature methodReturnType], buffer);
+        oink_fromObjc(L, [signature methodReturnType], buffer);
         
         if (autoAlloc || // If autoAlloc'd then we assume the returned object is the same as the alloc'd method (gets around placeholder problem)
             strcmp(selectorName, "alloc") == 0 || // If this object was alloc, retain, copy then don't "auto retain"
@@ -396,7 +396,6 @@ static int customInitMethodClosure(lua_State *L) {
     
     if (instanceUserdata->isClass) {
         instanceUserdata = oink_instance_create(L, [instanceUserdata->instance alloc], NO);
-        [instanceUserdata->instance release];
         lua_replace(L, 1); // replace the old userdata with the new one!
     }
     else {
@@ -424,7 +423,7 @@ static int pcallUserdata(lua_State *L, id self, SEL selector, va_list args) {
     if (!oink_instance_pushFunction(L, self, selector)) goto error; // function not found in userdata...
     
     // Push userdata as the first argument
-    objlua_from_objc_instance(L, self);
+    oink_fromInstance(L, self);
     if (lua_isnil(L, -1)) goto error;
                 
     NSMethodSignature *signature = [self methodSignatureForSelector:selector];
@@ -433,7 +432,7 @@ static int pcallUserdata(lua_State *L, id self, SEL selector, va_list args) {
         
     for (int i = 2; i < [signature numberOfArguments]; i++) { // start at 2 because to skip the automatic self and _cmd arugments
         const char *type = [signature getArgumentTypeAtIndex:i];
-        int size = objlua_from_objc(L, type, args);
+        int size = oink_fromObjc(L, type, args);
         args += size; // HACK! Since va_arg requires static type, I manually increment the args
     }
 
@@ -451,10 +450,10 @@ error:
     return -1;
 }
 
-#define OBJLUA_METHOD_NAME(_type_) objlua_##_type_##_call
+#define OINK_METHOD_NAME(_type_) oink_##_type_##_call
 
-#define OBJLUA_METHOD(_type_) \
-static _type_ OBJLUA_METHOD_NAME(_type_)(id self, SEL _cmd, ...) { \
+#define OINK_METHOD(_type_) \
+static _type_ OINK_METHOD_NAME(_type_)(id self, SEL _cmd, ...) { \
 va_list args; \
 va_start(args, _cmd); \
 va_list args_copy; \
@@ -476,7 +475,7 @@ else if (result == 0) { \
 } \
 \
 NSMethodSignature *signature = [self methodSignatureForSelector:_cmd]; \
-_type_ *pReturnValue = (_type_ *)objlua_to_objc(L, [signature methodReturnType], -1, nil); \
+_type_ *pReturnValue = (_type_ *)oink_copyToObjc(L, [signature methodReturnType], -1, nil); \
 _type_ returnValue = *pReturnValue; \
 free(pReturnValue); \
 END_STACK_MODIFY(L, 0) \
@@ -485,19 +484,19 @@ return returnValue; \
 
 typedef struct _buffer_16 {char b[16];} buffer_16;
 
-OBJLUA_METHOD(buffer_16)
-OBJLUA_METHOD(id)
-OBJLUA_METHOD(int)
-OBJLUA_METHOD(long)
-OBJLUA_METHOD(float)
-OBJLUA_METHOD(BOOL) 
+OINK_METHOD(buffer_16)
+OINK_METHOD(id)
+OINK_METHOD(int)
+OINK_METHOD(long)
+OINK_METHOD(float)
+OINK_METHOD(BOOL) 
 
 static BOOL overrideMethod(lua_State *L, oink_instance_userdata *instanceUserdata) {
     BEGIN_STACK_MODIFY(L);
     
     BOOL success = NO;
     const char *methodName = lua_tostring(L, 2);
-    SEL selector = objlua_selector_for_instance(instanceUserdata, methodName);
+    SEL selector = oink_selectorForInstance(instanceUserdata, methodName);
     Class class = [instanceUserdata->instance class];
 
     const char *typeDescription = nil;
@@ -513,7 +512,7 @@ static BOOL overrideMethod(lua_State *L, oink_instance_userdata *instanceUserdat
         uint count;
         Protocol **protocols = class_copyProtocolList(class, &count);
         
-        SEL *posibleSelectors = &objlua_selectors_for_name(methodName).selectors[0];
+        SEL *posibleSelectors = &oink_selectorsForName(methodName).selectors[0];
         
         for (int i = 0; !returnType && i < count; i++) {
             Protocol *protocol = protocols[i];
@@ -538,39 +537,39 @@ static BOOL overrideMethod(lua_State *L, oink_instance_userdata *instanceUserdat
     if (returnType) { // Matching method found! Create an Obj-C method on the 
         IMP imp;
         switch (returnType[0]) {
-            case OBJLUA_TYPE_VOID:
-            case OBJLUA_TYPE_ID:
-                imp = (IMP)OBJLUA_METHOD_NAME(id);
+            case OINK_TYPE_VOID:
+            case OINK_TYPE_ID:
+                imp = (IMP)OINK_METHOD_NAME(id);
                 break;
                 
-            case OBJLUA_TYPE_CHAR:
-            case OBJLUA_TYPE_INT:
-            case OBJLUA_TYPE_SHORT:
-            case OBJLUA_TYPE_UNSIGNED_CHAR:
-            case OBJLUA_TYPE_UNSIGNED_INT:
-            case OBJLUA_TYPE_UNSIGNED_SHORT:   
-                imp = (IMP)OBJLUA_METHOD_NAME(int);
+            case OINK_TYPE_CHAR:
+            case OINK_TYPE_INT:
+            case OINK_TYPE_SHORT:
+            case OINK_TYPE_UNSIGNED_CHAR:
+            case OINK_TYPE_UNSIGNED_INT:
+            case OINK_TYPE_UNSIGNED_SHORT:   
+                imp = (IMP)OINK_METHOD_NAME(int);
                 break;            
                 
-            case OBJLUA_TYPE_LONG:
-            case OBJLUA_TYPE_LONG_LONG:
-            case OBJLUA_TYPE_UNSIGNED_LONG:
-            case OBJLUA_TYPE_UNSIGNED_LONG_LONG:
-                imp = (IMP)OBJLUA_METHOD_NAME(long);
+            case OINK_TYPE_LONG:
+            case OINK_TYPE_LONG_LONG:
+            case OINK_TYPE_UNSIGNED_LONG:
+            case OINK_TYPE_UNSIGNED_LONG_LONG:
+                imp = (IMP)OINK_METHOD_NAME(long);
                 
-            case OBJLUA_TYPE_FLOAT:
-                imp = (IMP)OBJLUA_METHOD_NAME(float);
+            case OINK_TYPE_FLOAT:
+                imp = (IMP)OINK_METHOD_NAME(float);
                 break;
                 
-            case OBJLUA_TYPE_C99_BOOL:
-                imp = (IMP)OBJLUA_METHOD_NAME(BOOL);
+            case OINK_TYPE_C99_BOOL:
+                imp = (IMP)OINK_METHOD_NAME(BOOL);
                 break;
                 
-            case OBJLUA_TYPE_STRUCT: {
-                int size = objlua_size_of_type_description(returnType);
+            case OINK_TYPE_STRUCT: {
+                int size = oink_sizeOfTypeDescription(returnType);
                 switch (size) {
                     case 16:
-                        imp = (IMP)OBJLUA_METHOD_NAME(buffer_16);
+                        imp = (IMP)OINK_METHOD_NAME(buffer_16);
                         break;
                     default:
                         luaL_error(L, "Trying to override a method that has a struct return type of size '%d'. There is no implementation for this size yet.", size);

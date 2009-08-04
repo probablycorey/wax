@@ -23,7 +23,7 @@ typedef struct _oink_instance_userdata {
     BOOL isSuper;
 } oink_instance_userdata;
 
-int luaopen_objlua_instance(lua_State *L);
+int luaopen_oink_instance(lua_State *L);
 
 oink_instance_userdata *oink_instance_create(lua_State *L, id instance, BOOL isClass);
 oink_instance_userdata *oink_instance_createSuper(lua_State *L, oink_instance_userdata *instanceUserdata);

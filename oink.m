@@ -9,8 +9,8 @@
 #import "oink.h"
 #import "oink_class.h"
 #import "oink_instance.h"
-#import "ObjLua_Struct.h"
-#import "ObjLua_Helpers.h"
+#import "oink_struct.h"
+#import "oink_helpers.h"
 
 #import "lauxlib.h"
 #import "lobject.h"
@@ -64,8 +64,8 @@ void oink_end() {
 
 void luaopen_oink(lua_State *L) {
     luaopen_oink_class(L);
-    luaopen_objlua_instance(L);
-    luaopen_objlua_struct(L);
+    luaopen_oink_instance(L);
+    luaopen_oink_struct(L);
 }
 
 static void addGlobals(lua_State *L) {
@@ -83,7 +83,7 @@ static void addGlobals(lua_State *L) {
 static int tolua(lua_State *L) {
     if (lua_isuserdata(L, 1)) { // If it's not userdata... it's already lua!
         oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 1, OINK_INSTANCE_METATABLE_NAME);
-        objlua_from_objc_instance(L, instanceUserdata->instance);
+        oink_fromInstance(L, instanceUserdata->instance);
     }
     
     return 1;

@@ -1,13 +1,13 @@
 //
-//  ObjLua_Struct.m
+//  oink_struct_userdata.m
 //  Rentals
 //
 //  Created by ProbablyInteractive on 7/7/09.
 //  Copyright 2009 Probably Interactive. All rights reserved.
 //
 
-#import "ObjLua_Struct.h"
-#import "ObjLua_Helpers.h"
+#import "oink_struct.h"
+#import "oink_helpers.h"
 
 #import "lua.h"
 #import "lauxlib.h"
@@ -23,27 +23,27 @@ static const struct luaL_Reg methods[] = {
 {NULL, NULL}
 };
 
-#define objlua_struct_encodeType(_type_) \
+#define ENCODE_TYPE(_type_) \
 { \
 char *encoding = @encode(_type_); \
 lua_pushstring(L, encoding); \
 lua_setfield(L, -2, #_type_); \
 } \
 
-#define STRUCT_IS_A(_type_, _objLuaStruct_) strncmp(#_type_, &_objLuaStruct_->typeDescription[1], strlen(#_type_)) == 0
+#define STRUCT_IS_A(_type_, _structUserdata_) strncmp(#_type_, &_structUserdata_->typeDescription[1], strlen(#_type_)) == 0
 
-int luaopen_objlua_struct(lua_State *L) {
+int luaopen_oink_struct(lua_State *L) {
     BEGIN_STACK_MODIFY(L);
     
-    luaL_newmetatable(L, OBJLUA_STRUCT_METATABLE_NAME);
+    luaL_newmetatable(L, OINK_STRUCT_METATABLE_NAME);
     
     // Remember the typeDescriptions for certain structs!
-    objlua_struct_encodeType(CGRect)
-    objlua_struct_encodeType(CGPoint)
-    objlua_struct_encodeType(CGSize)
+    ENCODE_TYPE(CGRect)
+    ENCODE_TYPE(CGPoint)
+    ENCODE_TYPE(CGSize)
     
     luaL_register(L, NULL, metaMethods);
-    luaL_register(L, OBJLUA_STRUCT_METATABLE_NAME, methods);    
+    luaL_register(L, OINK_STRUCT_METATABLE_NAME, methods);    
     
     lua_pushvalue(L, -2);
     lua_setmetatable(L, -2); // Set the metatable for the struct module
@@ -52,24 +52,24 @@ int luaopen_objlua_struct(lua_State *L) {
     return 1;
 }
 
-ObjLua_Struct *objlua_struct_create(lua_State *L, const char *typeDescription, void *buffer) {
+oink_struct_userdata *oink_struct_create(lua_State *L, const char *typeDescription, void *buffer) {
     BEGIN_STACK_MODIFY(L);
     
-    size_t nbytes = sizeof(ObjLua_Struct);
-    ObjLua_Struct *objLuaStruct = (ObjLua_Struct *)lua_newuserdata(L, nbytes);
+    size_t nbytes = sizeof(oink_struct_userdata);
+    oink_struct_userdata *structUserdata = (oink_struct_userdata *)lua_newuserdata(L, nbytes);
 
-    int size = objlua_size_of_type_description(typeDescription);
+    int size = oink_sizeOfTypeDescription(typeDescription);
     
-    objLuaStruct->data = malloc(size);
-    memcpy(objLuaStruct->data, buffer, size);
+    structUserdata->data = malloc(size);
+    memcpy(structUserdata->data, buffer, size);
 
-    objLuaStruct->size = size;
+    structUserdata->size = size;
     
-    objLuaStruct->typeDescription = malloc(strlen(typeDescription) + 1);
-    strcpy(objLuaStruct->typeDescription, typeDescription);
+    structUserdata->typeDescription = malloc(strlen(typeDescription) + 1);
+    strcpy(structUserdata->typeDescription, typeDescription);
     
     // set the metatable
-    luaL_getmetatable(L, OBJLUA_STRUCT_METATABLE_NAME);
+    luaL_getmetatable(L, OINK_STRUCT_METATABLE_NAME);
     lua_setmetatable(L, -2);
     
     // give it a nice clean environment
@@ -77,7 +77,7 @@ ObjLua_Struct *objlua_struct_create(lua_State *L, const char *typeDescription, v
     lua_setfenv(L, -2);
     lua_getfenv(L, -1);
     
-    if (STRUCT_IS_A(CGRect, objLuaStruct)) { 
+    if (STRUCT_IS_A(CGRect, structUserdata)) { 
         CGRect *rect = (CGRect *)buffer;
         lua_pushstring(L, "x");
         lua_pushnumber(L, rect->origin.x);
@@ -96,7 +96,7 @@ ObjLua_Struct *objlua_struct_create(lua_State *L, const char *typeDescription, v
         lua_rawset(L, -3);
         
     }    
-    else if (STRUCT_IS_A(CGPoint, objLuaStruct)) { 
+    else if (STRUCT_IS_A(CGPoint, structUserdata)) { 
         CGPoint *point = (CGPoint *)buffer;
         lua_pushstring(L, "x");
         lua_pushnumber(L, point->x);
@@ -107,7 +107,7 @@ ObjLua_Struct *objlua_struct_create(lua_State *L, const char *typeDescription, v
         lua_rawset(L, -3);
 
     }
-    else if (STRUCT_IS_A(CGSize, objLuaStruct)) { 
+    else if (STRUCT_IS_A(CGSize, structUserdata)) { 
         CGSize *size = (CGSize *)buffer;
         lua_pushstring(L, "width");        
         lua_pushnumber(L, size->width);
@@ -122,17 +122,17 @@ ObjLua_Struct *objlua_struct_create(lua_State *L, const char *typeDescription, v
     
     END_STACK_MODIFY(L, 1)
     
-    return objLuaStruct;
+    return structUserdata;
 }
 
-int objlua_struct_refresh(lua_State *L, int stackindex) {
+int oink_struct_refresh(lua_State *L, int stackindex) {
     BEGIN_STACK_MODIFY(L);
     
-    ObjLua_Struct *objLuaStruct = (ObjLua_Struct *)luaL_checkudata(L, stackindex, OBJLUA_STRUCT_METATABLE_NAME);
+    oink_struct_userdata *structUserdata = (oink_struct_userdata *)luaL_checkudata(L, stackindex, OINK_STRUCT_METATABLE_NAME);
     lua_getfenv(L, stackindex);
     
-    if (STRUCT_IS_A(CGRect, objLuaStruct)) {
-        CGRect *rect = (CGRect *)objLuaStruct->data;
+    if (STRUCT_IS_A(CGRect, structUserdata)) {
+        CGRect *rect = (CGRect *)structUserdata->data;
         
         lua_getfield(L, -1, "x");
         rect->origin.x = lua_tonumber(L, -1);
@@ -150,8 +150,8 @@ int objlua_struct_refresh(lua_State *L, int stackindex) {
         rect->size.height = lua_tonumber(L, -1);
         lua_pop(L, 1);                
     }    
-    else if (STRUCT_IS_A(CGPoint, objLuaStruct)) { 
-        CGPoint *point = (CGPoint *)objLuaStruct->data;
+    else if (STRUCT_IS_A(CGPoint, structUserdata)) { 
+        CGPoint *point = (CGPoint *)structUserdata->data;
         
         lua_getfield(L, -1, "x");
         point->x = lua_tonumber(L, -1);
@@ -161,8 +161,8 @@ int objlua_struct_refresh(lua_State *L, int stackindex) {
         point->y = lua_tonumber(L, -1);
         lua_pop(L, 1);  
     }
-    else if (STRUCT_IS_A(CGSize, objLuaStruct)) { 
-        CGSize *size = (CGSize *)objLuaStruct->data;   
+    else if (STRUCT_IS_A(CGSize, structUserdata)) { 
+        CGSize *size = (CGSize *)structUserdata->data;   
         
         lua_getfield(L, -1, "width");
         size->width = lua_tonumber(L, -1);
@@ -181,7 +181,7 @@ int objlua_struct_refresh(lua_State *L, int stackindex) {
 }
 
 static int __index(lua_State *L) {
-    luaL_checkudata(L, 1, OBJLUA_STRUCT_METATABLE_NAME);
+    luaL_checkudata(L, 1, OINK_STRUCT_METATABLE_NAME);
     lua_getfenv(L, 1);
     lua_insert(L, -2);    
     lua_rawget(L, -2);
@@ -190,7 +190,7 @@ static int __index(lua_State *L) {
 }
 
 static int __newindex(lua_State *L) {
-    luaL_checkudata(L, 1, OBJLUA_STRUCT_METATABLE_NAME);
+    luaL_checkudata(L, 1, OINK_STRUCT_METATABLE_NAME);
     lua_getfenv(L, 1);
     lua_insert(L, -3);    
     lua_rawset(L, -3);
@@ -200,7 +200,7 @@ static int __newindex(lua_State *L) {
 
 static int pack(lua_State *L) {
     // This can be a typeDescription or a Struct name... We store the struct names in the metatable
-    luaL_getmetatable(L, OBJLUA_STRUCT_METATABLE_NAME);
+    luaL_getmetatable(L, OINK_STRUCT_METATABLE_NAME);
     lua_pushvalue(L, 1);
     lua_rawget(L, -2);
     
@@ -212,17 +212,17 @@ static int pack(lua_State *L) {
         lua_pop(L, 1); // pop the metatable off
     }
 
-    lua_pushcclosure(L, pack_closure, 1);
+    lua_pushcclosure(L, packClosure, 1);
     return 1;
 }
 
-static int pack_closure(lua_State *L) {
+static int packClosure(lua_State *L) {
     const char *typeDescription = lua_tostring(L, lua_upvalueindex(1));
     luaL_Buffer b;
     luaL_buffinit(L, &b);                
         
     char *simplifiedTypeDescription = calloc(sizeof(char *), strlen(typeDescription) + 1);
-    objlua_simplify_type_description(typeDescription, simplifiedTypeDescription);
+    oink_simplifyTypeDescription(typeDescription, simplifiedTypeDescription);
     
     for (int i = 0; simplifiedTypeDescription[i]; i++) {
         int size;
@@ -232,14 +232,14 @@ static int pack_closure(lua_State *L) {
             luaL_error(L, "Couldn't create struct with type description '%s'. Needs more than %d arguments.", typeDescription, lua_gettop(L) - 1);
         }
         
-        void *value = objlua_to_objc(L, &simplifiedTypeDescription[i], stackIndex, &size);
+        void *value = oink_copyToObjc(L, &simplifiedTypeDescription[i], stackIndex, &size);
         luaL_addlstring(&b, value, size );
         free(value);
     }
     luaL_pushresult(&b);
     free(simplifiedTypeDescription);
     
-    objlua_struct_create(L, typeDescription, b.buffer);
+    oink_struct_create(L, typeDescription, b.buffer);
     
     return 1;
 }

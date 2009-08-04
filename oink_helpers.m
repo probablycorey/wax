@@ -1,30 +1,30 @@
 //
-//  ObjLua_Helpers.m
+//  oink_helpers.m
 //  Lua
 //
 //  Created by ProbablyInteractive on 5/18/09.
 //  Copyright 2009 Probably Interactive. All rights reserved.
 //
 
-#import "ObjLua_Helpers.h"
+#import "oink_helpers.h"
 #import "oink_instance.h"
-#import "ObjLua_Struct.h"
+#import "oink_struct.h"
 #import "lauxlib.h"
 
-void objlua_print_stack(lua_State *L) {
+void oink_printStack(lua_State *L) {
     int i;
     int top = lua_gettop(L);
     
     for (i = 1; i <= top; i++) {        
         printf("%d: ", i);
-        objlua_print_stack_at(L, i);
+        oink_printStackAt(L, i);
         printf("\n");
     }
     
     printf("\n");
 }
 
-void objlua_print_stack_at(lua_State *L, int i) {
+void oink_printStackAt(lua_State *L, int i) {
     int t = lua_type(L, i);
     printf("(%s) ", lua_typename(L, t));
     
@@ -44,107 +44,107 @@ void objlua_print_stack_at(lua_State *L, int i) {
     }
 }
 
-void objlua_print_table(lua_State *L, int t) {
+void oink_printTable(lua_State *L, int t) {
     // table is in the stack at index 't'
     
     lua_pushnil(L);  // first key
     if (t < 0) t--; // if t is negative, we need to updated it
     
     while (lua_next(L, t) != 0) {
-        objlua_print_stack_at(L, -2);
+        oink_printStackAt(L, -2);
         printf(" : ");
-        objlua_print_stack_at(L, -1);
+        oink_printStackAt(L, -1);
         printf("\n");
 
         lua_pop(L, 1); // remove 'value'; keeps 'key' for next iteration
     }
 }
 
-int objlua_from_objc(lua_State *L, const char *typeDescription, void *buffer) {
+int oink_fromObjc(lua_State *L, const char *typeDescription, void *buffer) {
     BEGIN_STACK_MODIFY(L)
     
-    int size = objlua_size_of_type_description(typeDescription);
+    int size = oink_sizeOfTypeDescription(typeDescription);
     
     switch (typeDescription[0]) {
-        case OBJLUA_TYPE_VOID:
+        case OINK_TYPE_VOID:
             lua_pushnil(L);
             break;
             
-        case OBJLUA_TYPE_CHAR: {
+        case OINK_TYPE_CHAR: {
             char c = *(char *)buffer;
             if (c <= 1) lua_pushboolean(L, c); // If it's 1 or 0, then treat it like a bool
             else lua_pushinteger(L, c);
             break;
         }
             
-        case OBJLUA_TYPE_SHORT:
+        case OINK_TYPE_SHORT:
             lua_pushinteger(L, *(short *)buffer);            
             break;
             
-        case OBJLUA_TYPE_INT:
+        case OINK_TYPE_INT:
             lua_pushnumber(L, *(int *)buffer);
             break;
 
-        case OBJLUA_TYPE_UNSIGNED_CHAR:
+        case OINK_TYPE_UNSIGNED_CHAR:
             lua_pushnumber(L, *(unsigned char *)buffer);
             break;
 
-        case OBJLUA_TYPE_UNSIGNED_INT:
+        case OINK_TYPE_UNSIGNED_INT:
             lua_pushnumber(L, *(unsigned int *)buffer);
             break;
 
-        case OBJLUA_TYPE_UNSIGNED_SHORT:
+        case OINK_TYPE_UNSIGNED_SHORT:
             lua_pushinteger(L, *(short *)buffer);
             break;
             
-        case OBJLUA_TYPE_LONG:
+        case OINK_TYPE_LONG:
             lua_pushnumber(L, *(long *)buffer);
             break;
 
-        case OBJLUA_TYPE_LONG_LONG:
+        case OINK_TYPE_LONG_LONG:
             lua_pushnumber(L, *(long long *)buffer);
             break;
 
-        case OBJLUA_TYPE_UNSIGNED_LONG:
+        case OINK_TYPE_UNSIGNED_LONG:
             lua_pushnumber(L, *(unsigned long *)buffer);
             break;
 
-        case OBJLUA_TYPE_UNSIGNED_LONG_LONG:
+        case OINK_TYPE_UNSIGNED_LONG_LONG:
             lua_pushnumber(L, *(unsigned long long *)buffer);
             break;
 
-        case OBJLUA_TYPE_FLOAT:
+        case OINK_TYPE_FLOAT:
             lua_pushnumber(L, *(float *)buffer);
             break;
 
-        case OBJLUA_TYPE_DOUBLE:
+        case OINK_TYPE_DOUBLE:
             lua_pushnumber(L, *(double *)buffer);
             break;
             
-        case OBJLUA_TYPE_C99_BOOL:
+        case OINK_TYPE_C99_BOOL:
             lua_pushboolean(L, *(BOOL *)buffer);
             break;
             
-        case OBJLUA_TYPE_STRING:
+        case OINK_TYPE_STRING:
             lua_pushstring(L, *(char **)buffer);
             break;
             
-        case OBJLUA_TYPE_ID: {
+        case OINK_TYPE_ID: {
             id instance = *(id *)buffer;
             oink_instance_create(L, instance, NO);
             break;
         }
             
-        case OBJLUA_TYPE_STRUCT: {
-            objlua_from_struct(L, typeDescription, buffer);
+        case OINK_TYPE_STRUCT: {
+            oink_fromStruct(L, typeDescription, buffer);
             break;
         }
             
-        case OBJLUA_TYPE_SELECTOR:
+        case OINK_TYPE_SELECTOR:
             lua_pushstring(L, sel_getName(*(SEL *)buffer));
             break;            
 
-        case OBJLUA_TYPE_CLASS: {
+        case OINK_TYPE_CLASS: {
             id instance = *(id *)buffer;
             oink_instance_create(L, instance, YES);
             break;                        
@@ -160,11 +160,11 @@ int objlua_from_objc(lua_State *L, const char *typeDescription, void *buffer) {
     return size;
 }
 
-void objlua_from_struct(lua_State *L, const char *typeDescription, void *buffer) {
-    objlua_struct_create(L, typeDescription, buffer);
+void oink_fromStruct(lua_State *L, const char *typeDescription, void *buffer) {
+    oink_struct_create(L, typeDescription, buffer);
 }
 
-void objlua_from_objc_instance(lua_State *L, id instance) {
+void oink_fromInstance(lua_State *L, id instance) {
     BEGIN_STACK_MODIFY(L)
     
     if (instance) {
@@ -185,75 +185,76 @@ void objlua_from_objc_instance(lua_State *L, id instance) {
     END_STACK_MODIFY(L, 1)
 }
 
-#define OBJLUA_TO_INTEGER(_type_) *outsize = sizeof(_type_); value = calloc(sizeof(_type_), 1); *((_type_ *)value) = (_type_)lua_tointeger(L, stackIndex);
-#define OBJLUA_TO_NUMBER(_type_) *outsize = sizeof(_type_); value = calloc(sizeof(_type_), 1); *((_type_ *)value) = (_type_)lua_tonumber(L, stackIndex);
-#define OBJLUA_TO_BOOL_OR_CHAR(_type_) *outsize = sizeof(_type_); value = calloc(sizeof(_type_), 1); *((_type_ *)value) = (_type_)(lua_isboolean(L, stackIndex) ? lua_toboolean(L, stackIndex) : lua_tointeger(L, stackIndex));
+#define OINK_TO_INTEGER(_type_) *outsize = sizeof(_type_); value = calloc(sizeof(_type_), 1); *((_type_ *)value) = (_type_)lua_tointeger(L, stackIndex);
+#define OINK_TO_NUMBER(_type_) *outsize = sizeof(_type_); value = calloc(sizeof(_type_), 1); *((_type_ *)value) = (_type_)lua_tonumber(L, stackIndex);
+#define OINK_TO_BOOL_OR_CHAR(_type_) *outsize = sizeof(_type_); value = calloc(sizeof(_type_), 1); *((_type_ *)value) = (_type_)(lua_isboolean(L, stackIndex) ? lua_toboolean(L, stackIndex) : lua_tointeger(L, stackIndex));
 
-void *objlua_to_objc(lua_State *L, const char *typeDescription, int stackIndex, int *outsize) {
+// MAKE SURE YOU RELEASE THIS!
+void *oink_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, int *outsize) {
     void *value = nil;
 
     if (outsize == nil) outsize = alloca(sizeof(int)); // if no outsize address set, treat it as a junk var
     
     switch (typeDescription[0]) {
-        case OBJLUA_TYPE_C99_BOOL:
-            OBJLUA_TO_BOOL_OR_CHAR(BOOL)
+        case OINK_TYPE_C99_BOOL:
+            OINK_TO_BOOL_OR_CHAR(BOOL)
             break;            
             
-        case OBJLUA_TYPE_CHAR:
-            OBJLUA_TO_BOOL_OR_CHAR(char)
+        case OINK_TYPE_CHAR:
+            OINK_TO_BOOL_OR_CHAR(char)
             break;
             
-        case OBJLUA_TYPE_INT:
-            OBJLUA_TO_INTEGER(int)
+        case OINK_TYPE_INT:
+            OINK_TO_INTEGER(int)
             break;            
             
-        case OBJLUA_TYPE_SHORT:
-            OBJLUA_TO_INTEGER(short)
+        case OINK_TYPE_SHORT:
+            OINK_TO_INTEGER(short)
             break;            
             
-        case OBJLUA_TYPE_UNSIGNED_CHAR:
-            OBJLUA_TO_INTEGER(unsigned char)
+        case OINK_TYPE_UNSIGNED_CHAR:
+            OINK_TO_INTEGER(unsigned char)
             break;            
             
-        case OBJLUA_TYPE_UNSIGNED_INT:
-            OBJLUA_TO_INTEGER(unsigned int)
+        case OINK_TYPE_UNSIGNED_INT:
+            OINK_TO_INTEGER(unsigned int)
             break;            
             
-        case OBJLUA_TYPE_UNSIGNED_SHORT:
-            OBJLUA_TO_INTEGER(unsigned short)
+        case OINK_TYPE_UNSIGNED_SHORT:
+            OINK_TO_INTEGER(unsigned short)
             break;
             
-        case OBJLUA_TYPE_LONG:
-            OBJLUA_TO_NUMBER(long)
+        case OINK_TYPE_LONG:
+            OINK_TO_NUMBER(long)
             break;
             
-        case OBJLUA_TYPE_LONG_LONG:
-            OBJLUA_TO_NUMBER(long long)
+        case OINK_TYPE_LONG_LONG:
+            OINK_TO_NUMBER(long long)
             break;
             
-        case OBJLUA_TYPE_UNSIGNED_LONG:
-            OBJLUA_TO_NUMBER(unsigned long)
+        case OINK_TYPE_UNSIGNED_LONG:
+            OINK_TO_NUMBER(unsigned long)
             break;
             
-        case OBJLUA_TYPE_UNSIGNED_LONG_LONG:
-            OBJLUA_TO_NUMBER(unsigned long long);
+        case OINK_TYPE_UNSIGNED_LONG_LONG:
+            OINK_TO_NUMBER(unsigned long long);
             break;            
             
-        case OBJLUA_TYPE_FLOAT:
-            OBJLUA_TO_NUMBER(float);
+        case OINK_TYPE_FLOAT:
+            OINK_TO_NUMBER(float);
             break;
             
-        case OBJLUA_TYPE_DOUBLE:
-            OBJLUA_TO_NUMBER(double);
+        case OINK_TYPE_DOUBLE:
+            OINK_TO_NUMBER(double);
             break;
             
-        case OBJLUA_TYPE_SELECTOR:
+        case OINK_TYPE_SELECTOR:
             *outsize = sizeof(SEL);
             value = calloc(sizeof(SEL), 1);
             *((SEL *)value) = sel_getUid(lua_tostring(L, stackIndex));
             break;            
 
-        case OBJLUA_TYPE_CLASS:
+        case OINK_TYPE_CLASS:
             *outsize = sizeof(Class);
             value = calloc(sizeof(Class), 1);
             if (lua_isuserdata(L, stackIndex)) {
@@ -265,7 +266,7 @@ void *objlua_to_objc(lua_State *L, const char *typeDescription, int stackIndex, 
             }
             break;             
             
-        case OBJLUA_TYPE_STRING: {
+        case OINK_TYPE_STRING: {
             const char *string = lua_tostring(L, stackIndex);
             int length = strlen(string) + 1;
             *outsize = length;
@@ -275,7 +276,7 @@ void *objlua_to_objc(lua_State *L, const char *typeDescription, int stackIndex, 
             break;
         }
 
-        case OBJLUA_TYPE_ID: {
+        case OINK_TYPE_ID: {
             *outsize = sizeof(id);
 
             value = calloc(sizeof(id), 1);            
@@ -314,13 +315,13 @@ void *objlua_to_objc(lua_State *L, const char *typeDescription, int stackIndex, 
             break;
         }        
             
-        case OBJLUA_TYPE_STRUCT: {
+        case OINK_TYPE_STRUCT: {
             if (lua_isuserdata(L, stackIndex)) {
-                ObjLua_Struct *objLuaStruct = (ObjLua_Struct *)luaL_checkudata(L, stackIndex, OBJLUA_STRUCT_METATABLE_NAME);
-                objlua_struct_refresh(L, stackIndex); // If the struct has "magic" indexes, reload the struct data to match those
+                oink_struct_userdata *structUserdata = (oink_struct_userdata *)luaL_checkudata(L, stackIndex, OINK_STRUCT_METATABLE_NAME);
+                oink_struct_refresh(L, stackIndex); // If the struct has "magic" indexes, reload the struct data to match those
                 
-                value = malloc(objLuaStruct->size);
-                memcpy(value, objLuaStruct->data, objLuaStruct->size);
+                value = malloc(structUserdata->size);
+                memcpy(value, structUserdata->data, structUserdata->size);
             }
             else {
                 void *data = (void *)lua_tostring(L, stackIndex);            
@@ -341,8 +342,8 @@ void *objlua_to_objc(lua_State *L, const char *typeDescription, int stackIndex, 
     return value;
 }
 
-Objlua_selectors objlua_selectors_for_name(const char *methodName) {
-    Objlua_selectors posibleSelectors;
+oink_selectors oink_selectorsForName(const char *methodName) {
+    oink_selectors posibleSelectors;
     int strlength = strlen(methodName) + 2; // Add 2. One for trailing : and one for \0
     char *objcMethodName = calloc(strlength, 1); 
     
@@ -356,16 +357,16 @@ Objlua_selectors objlua_selectors_for_name(const char *methodName) {
     
     return posibleSelectors;
 }
-  SEL objlua_selector_for_instance(oink_instance_userdata *objlua_instance, const char *methodName) {
-    SEL *posibleSelectors = &objlua_selectors_for_name(methodName).selectors[0];
+  SEL oink_selectorForInstance(oink_instance_userdata *instanceUserdata, const char *methodName) {
+    SEL *posibleSelectors = &oink_selectorsForName(methodName).selectors[0];
     
-    if (objlua_instance->isClass) {
-        if ([objlua_instance->instance instancesRespondToSelector:posibleSelectors[0]]) return posibleSelectors[0];
-        if ([objlua_instance->instance instancesRespondToSelector:posibleSelectors[1]]) return posibleSelectors[1];    
+    if (instanceUserdata->isClass) {
+        if ([instanceUserdata->instance instancesRespondToSelector:posibleSelectors[0]]) return posibleSelectors[0];
+        if ([instanceUserdata->instance instancesRespondToSelector:posibleSelectors[1]]) return posibleSelectors[1];    
     }
     else {
-        if ([objlua_instance->instance respondsToSelector:posibleSelectors[0]]) return posibleSelectors[0];
-        if ([objlua_instance->instance respondsToSelector:posibleSelectors[1]]) return posibleSelectors[1];    
+        if ([instanceUserdata->instance respondsToSelector:posibleSelectors[0]]) return posibleSelectors[0];
+        if ([instanceUserdata->instance respondsToSelector:posibleSelectors[1]]) return posibleSelectors[1];    
     }
     
     return nil;
@@ -396,13 +397,13 @@ void oink_pushMethodNameFromSelector(lua_State *L, SEL selector) {
 }
 
 // I could get rid of this
-const char *objlua_remove_protocol_encodings(const char *type_descriptions) {
+const char *oink_removeProtocolEncodings(const char *type_descriptions) {
     switch (type_descriptions[0]) {
-        case OBJLUA_PROTOCOL_TYPE_INOUT:
-        case OBJLUA_PROTOCOL_TYPE_OUT:
-        case OBJLUA_PROTOCOL_TYPE_BYCOPY:
-        case OBJLUA_PROTOCOL_TYPE_BYREF:
-        case OBJLUA_PROTOCOL_TYPE_ONEWAY:
+        case OINK_PROTOCOL_TYPE_INOUT:
+        case OINK_PROTOCOL_TYPE_OUT:
+        case OINK_PROTOCOL_TYPE_BYCOPY:
+        case OINK_PROTOCOL_TYPE_BYREF:
+        case OINK_PROTOCOL_TYPE_ONEWAY:
             return &type_descriptions[1];
             break;
         default:
@@ -411,113 +412,113 @@ const char *objlua_remove_protocol_encodings(const char *type_descriptions) {
     }
 }
 
-int objlua_size_of_type_description(const char *full_type_description) {
+int oink_sizeOfTypeDescription(const char *full_type_description) {
     int index = 0;
     int size = 0;
     
     size_t length = strlen(full_type_description) + 1;
     char *type_description = alloca(length);
     bzero(type_description, length);
-    objlua_simplify_type_description(full_type_description, type_description);
+    oink_simplifyTypeDescription(full_type_description, type_description);
     
     while(type_description[index]) {
         switch (type_description[index]) {
-            case OBJLUA_TYPE_POINTER:
+            case OINK_TYPE_POINTER:
                 size += sizeof(void *);
                 
-            case OBJLUA_TYPE_CHAR:
+            case OINK_TYPE_CHAR:
                 size += sizeof(char);
                 break;
                 
-            case OBJLUA_TYPE_INT:
+            case OINK_TYPE_INT:
                 size += sizeof(int);
                 break;
                 
-            case OBJLUA_TYPE_ARRAY:
-                //OBJLUA_TYPE_ARRAY_END:
+            case OINK_TYPE_ARRAY:
+                //OINK_TYPE_ARRAY_END:
                 assert(false); // Not implemented yet
                 break;
             
-            case OBJLUA_TYPE_SHORT:
+            case OINK_TYPE_SHORT:
                 size += sizeof(short);
                 break;
                 
-            case OBJLUA_TYPE_UNSIGNED_CHAR:
+            case OINK_TYPE_UNSIGNED_CHAR:
                 size += sizeof(unsigned char);
                 break;
                 
-            case OBJLUA_TYPE_UNSIGNED_INT:
+            case OINK_TYPE_UNSIGNED_INT:
                 size += sizeof(unsigned int);
                 break;
                 
-            case OBJLUA_TYPE_UNSIGNED_SHORT:
+            case OINK_TYPE_UNSIGNED_SHORT:
                 size += sizeof(unsigned short);
                 break;
                 
-            case OBJLUA_TYPE_LONG:
+            case OINK_TYPE_LONG:
                 size += sizeof(long);
                 break;
                 
-            case OBJLUA_TYPE_LONG_LONG:
+            case OINK_TYPE_LONG_LONG:
                 size += sizeof(long long);
                 break;
                 
-            case OBJLUA_TYPE_UNSIGNED_LONG:
+            case OINK_TYPE_UNSIGNED_LONG:
                 size += sizeof(unsigned long);
                 break;
                 
-            case OBJLUA_TYPE_UNSIGNED_LONG_LONG:
+            case OINK_TYPE_UNSIGNED_LONG_LONG:
                 size += sizeof(unsigned long long);
                 break;
                 
-            case OBJLUA_TYPE_FLOAT:
+            case OINK_TYPE_FLOAT:
                 size += sizeof(float);
                 break;
                 
-            case OBJLUA_TYPE_DOUBLE:
+            case OINK_TYPE_DOUBLE:
                 size += sizeof(double);
                 break;
                 
-            case OBJLUA_TYPE_C99_BOOL:
+            case OINK_TYPE_C99_BOOL:
                 size += sizeof(_Bool);
                 break;
                 
-            case OBJLUA_TYPE_STRING:
+            case OINK_TYPE_STRING:
                 size += sizeof(char *);
                 break;
                 
-            case OBJLUA_TYPE_VOID:
+            case OINK_TYPE_VOID:
                 size += sizeof(void);
                 break;
                 
-            case OBJLUA_TYPE_BITFIELD:
+            case OINK_TYPE_BITFIELD:
                 assert(false); // I was to lazy to implement bitfields
                 break;
                 
-            case OBJLUA_TYPE_ID:
+            case OINK_TYPE_ID:
                 size += sizeof(id);
                 break;
                 
-            case OBJLUA_TYPE_CLASS:
+            case OINK_TYPE_CLASS:
                 size += sizeof(Class);
                 break;
                 
-            case OBJLUA_TYPE_SELECTOR:
+            case OINK_TYPE_SELECTOR:
                 size += sizeof(SEL);
                 break;
                 
-            case OBJLUA_TYPE_STRUCT:
-            case OBJLUA_TYPE_STRUCT_END:
-            case OBJLUA_TYPE_UNION:
-            case OBJLUA_TYPE_UNION_END:
-            case OBJLUA_TYPE_UNKNOWN:                
-            case OBJLUA_PROTOCOL_TYPE_CONST:                
-            case OBJLUA_PROTOCOL_TYPE_IN:                
-            case OBJLUA_PROTOCOL_TYPE_INOUT:
-            case OBJLUA_PROTOCOL_TYPE_OUT:
-            case OBJLUA_PROTOCOL_TYPE_BYCOPY:
-            case OBJLUA_PROTOCOL_TYPE_BYREF:
-            case OBJLUA_PROTOCOL_TYPE_ONEWAY:                    
+            case OINK_TYPE_STRUCT:
+            case OINK_TYPE_STRUCT_END:
+            case OINK_TYPE_UNION:
+            case OINK_TYPE_UNION_END:
+            case OINK_TYPE_UNKNOWN:                
+            case OINK_PROTOCOL_TYPE_CONST:                
+            case OINK_PROTOCOL_TYPE_IN:                
+            case OINK_PROTOCOL_TYPE_INOUT:
+            case OINK_PROTOCOL_TYPE_OUT:
+            case OINK_PROTOCOL_TYPE_BYCOPY:
+            case OINK_PROTOCOL_TYPE_BYREF:
+            case OINK_PROTOCOL_TYPE_ONEWAY:                    
                 // Weeeee!
                 break;
             default:
@@ -531,46 +532,46 @@ int objlua_size_of_type_description(const char *full_type_description) {
     return size;
 }
 
-int objlua_simplify_type_description(const char *in, char *out) {
+int oink_simplifyTypeDescription(const char *in, char *out) {
     int out_index = 0;
     int in_index = 0;
     
     while(in[in_index]) {
         switch (in[in_index]) {
-            case OBJLUA_TYPE_STRUCT:
-            case OBJLUA_TYPE_UNION:                
+            case OINK_TYPE_STRUCT:
+            case OINK_TYPE_UNION:                
                 for (; in[in_index] != '='; in_index++); // Eat the name!
                 in_index++; // Eat the = sign 
                 break;
                 
-            case OBJLUA_TYPE_ARRAY:            
+            case OINK_TYPE_ARRAY:            
                 do {
                     out[out_index++] = in[in_index++];
-                } while(in[in_index] != OBJLUA_TYPE_ARRAY_END);
+                } while(in[in_index] != OINK_TYPE_ARRAY_END);
                 break;
                 
-            case OBJLUA_TYPE_POINTER: {
+            case OINK_TYPE_POINTER: {
                 //get rid of enternal stucture parts
                 out[out_index++] = in[in_index++]; 
                 for (; in[in_index] == '^'; in_index++); // Eat all the pointers
                 
                 switch (in[in_index]) {
-                    case OBJLUA_TYPE_UNION:
-                    case OBJLUA_TYPE_STRUCT: {
+                    case OINK_TYPE_UNION:
+                    case OINK_TYPE_STRUCT: {
                         in_index++;
                         int openCurlies = 1;
                         
-                        for (; openCurlies > 1 || (in[in_index] != OBJLUA_TYPE_UNION_END && in[in_index] != OBJLUA_TYPE_STRUCT_END); in_index++) {
-                            if (in[in_index] == OBJLUA_TYPE_UNION || in[in_index] == OBJLUA_TYPE_STRUCT) openCurlies++;
-                            else if (in[in_index] == OBJLUA_TYPE_UNION_END || in[in_index] == OBJLUA_TYPE_STRUCT_END) openCurlies--;
+                        for (; openCurlies > 1 || (in[in_index] != OINK_TYPE_UNION_END && in[in_index] != OINK_TYPE_STRUCT_END); in_index++) {
+                            if (in[in_index] == OINK_TYPE_UNION || in[in_index] == OINK_TYPE_STRUCT) openCurlies++;
+                            else if (in[in_index] == OINK_TYPE_UNION_END || in[in_index] == OINK_TYPE_STRUCT_END) openCurlies--;
                         }
                         break;
                     }
                 }
             }
                 
-            case OBJLUA_TYPE_STRUCT_END:
-            case OBJLUA_TYPE_UNION_END:
+            case OINK_TYPE_STRUCT_END:
+            case OINK_TYPE_UNION_END:
             case '0':
             case '1':
             case '2':
