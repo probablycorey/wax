@@ -1,0 +1,24 @@
+I'm assuming you've got oink... if not, grab it at http://github.com/probablycorey/oink
+
+Create a new iphone xcode project
+
+From the Finder, drag the oink folder into the app's root folder apps located in the xcode Groups & Files pane. Make sure "Copy items into destination group's folder" is checked and "Recursively create groups for any added folders" is selected
+
+In your UIApplication delegate file add...
+    #import "oink.h"
+
+In your UIApplication delegate's "applicationDidFinishLaunching:" method (and after [window makeKeyAndVisible])
+  oink_start()
+  // OR if you want to add extensions
+  oink_startWithExtensions(luaopen_libXfunction, luaopen_libYfunction, nil);
+    
+Add a run script build phase (This will copy all your lua scripts into the app bundle.)
+1.) In the xcode Groups & Files pane right click "Targets"
+2.) Click Add > New Build Phase > New Run Script Build Phase
+3.) A weird little window should pop up. In the Script text area write 
+
+  oink/copy_scripts.sh
+  
+Now build your app! It should work and you should have a new folder called "Data" (The data folder won't show up in xcode unless you add it to the project... that is optional though)
+
+When you run the app, it will start in the /Data/Scripts/init.lua file... Put your magic in there

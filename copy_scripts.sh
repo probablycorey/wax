@@ -8,7 +8,9 @@
 #
 # Gotta shove those files into the bundle!
 
-mkdir -p "$PROJECT_DIR/Data/Scripts"
-mkdir -p "$PROJECT_DIR/Data/ExternalScripts"
+mkdir -p "$PROJECT_DIR/Scripts"
+mkdir -p "$PROJECT_DIR/Data/OinkScripts"
+
+touch "$PROJECT_DIR/Scripts/init.lua"
 
 rsync -v -r --delete "$PROJECT_DIR/Data" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH" > /dev/null
