@@ -66,8 +66,8 @@
 @* checks for initialization code.
 ** CHANGE them if you want different names.
 */
-#define LUA_PATH        "LUA_PATH"
-#define LUA_CPATH       "LUA_CPATH"
+#define LUA_PATH    "LUA_PATH"
+#define LUA_CPATH   "LUA_CPATH"
 #define LUA_INIT	"LUA_INIT"
 
 
@@ -81,13 +81,11 @@
 ** non-conventional directories.
 */
 
-// OBJLUA PATCH
-// Can't load dynamic libs, but left thiem in there
-
+// BEGIN OINK PATCH
 #define LUA_ROOT	"./data/"
-#define LUA_PATH_DEFAULT  LUA_ROOT "scripts/?.lua;" LUA_ROOT "scripts/?/init.lua;" LUA_ROOT "oink-scripts/?.lua;" LUA_ROOT "oink-scripts/?/init.lua;"
+#define LUA_PATH_DEFAULT  LUA_ROOT "scripts/?.lua;" LUA_ROOT "scripts/?/init.lua;" LUA_ROOT "oink/?.lua;" LUA_ROOT "oink/?/init.lua;"
 #define LUA_CPATH_DEFAULT ""
-
+// END OINK PATCH
 
 /*
 @@ LUA_DIRSEP is the directory separator (for submodules).

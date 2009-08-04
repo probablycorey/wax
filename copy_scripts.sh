@@ -9,8 +9,20 @@
 # Gotta shove those files into the bundle!
 
 mkdir -p "$PROJECT_DIR/data/scripts"
-touch "$PROJECT_DIR/data/scripts/init.lua"
 
-ln -l `dirname $0`/scripts "$PROJECT_DIR/data/oink-scripts"
+initPath="$PROJECT_DIR/data/scripts/init.lua"
+if [ ! -f $initPath ]; then
+  cat <<INITFILE >> $initPath
+require "oink"
+
+# start coding your stuff!
+INITFILE
+fi
+
+# copy the oink lua scripts into the dir... unless the oink directory already exists
+destPath="$PROJECT_DIR/data/oink"
+if [ ! -d $destPath ]; then
+  cp -r "$PROJECT_DIR/`dirname $0`/scripts/" $destPath
+fi
 
 rsync -v -r --delete "$PROJECT_DIR/Data" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH" > /dev/null
