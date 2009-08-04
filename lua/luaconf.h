@@ -84,8 +84,8 @@
 // OBJLUA PATCH
 // Can't load dynamic libs, but left thiem in there
 
-#define LUA_ROOT	"./Data/"
-#define LUA_PATH_DEFAULT  LUA_ROOT "Scripts/?.lua;" LUA_ROOT "Scripts/?/init.lua;" LUA_ROOT "OinkScripts/?.lua;" LUA_ROOT "OinkScripts/?/init.lua;"
+#define LUA_ROOT	"./data/"
+#define LUA_PATH_DEFAULT  LUA_ROOT "scripts/?.lua;" LUA_ROOT "scripts/?/init.lua;" LUA_ROOT "oink-scripts/?.lua;" LUA_ROOT "oink-scripts/?/init.lua;"
 #define LUA_CPATH_DEFAULT ""
 
 
