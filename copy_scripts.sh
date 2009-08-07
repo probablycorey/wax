@@ -15,7 +15,7 @@ if [ ! -f $initPath ]; then
   cat <<INITFILE >> $initPath
 require "oink"
 
-# start coding your stuff!
+-- start coding your stuff!
 INITFILE
 fi
 
@@ -25,4 +25,4 @@ if [ ! -d $destPath ]; then
   cp -r "$PROJECT_DIR/`dirname $0`/scripts/" $destPath
 fi
 
-rsync -v -r --delete "$PROJECT_DIR/Data" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH" > /dev/null
+rsync -v -r --delete "$PROJECT_DIR/data" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH" > /dev/null

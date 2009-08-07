@@ -14,7 +14,7 @@
 #import "lauxlib.h"
 #import "lobject.h"
 
-static const struct luaL_Reg MetaMethods[] = {
+static const struct luaL_Reg metaFunctions[] = {
     {"__index", __index},
     {"__newindex", __newindex},
     {"__gc", __gc},
@@ -23,8 +23,9 @@ static const struct luaL_Reg MetaMethods[] = {
     {NULL, NULL}
 };
 
-static const struct luaL_Reg Methods[] = {
+static const struct luaL_Reg functions[] = {
     {"setProtocols", setProtocols},
+    {"methods", methods},
     {NULL, NULL}
 };
 
@@ -32,8 +33,8 @@ int luaopen_oink_instance(lua_State *L) {
     BEGIN_STACK_MODIFY(L);
     
     luaL_newmetatable(L, OINK_INSTANCE_METATABLE_NAME);
-    luaL_register(L, NULL, MetaMethods);
-    luaL_register(L, OINK_INSTANCE_METATABLE_NAME, Methods);    
+    luaL_register(L, NULL, metaFunctions);
+    luaL_register(L, OINK_INSTANCE_METATABLE_NAME, functions);    
     
     END_STACK_MODIFY(L, 0)
     
@@ -201,14 +202,14 @@ static int __index(lua_State *L) {
     }
             
     if (instanceUserdata->isSuper || lua_isnil(L, -1) ) { // Couldn't find that in the userdata environment table, assume it is defined in obj-c classes
-        SEL selector = oink_selectorForInstance(instanceUserdata, lua_tostring(L, 2));
+        SEL selector = oink_selectorForInstance(instanceUserdata, lua_tostring(L, 2), NO);
 
         if (selector) { // If the class has a method with this name, push as a closure            
             lua_pushstring(L, sel_getName(selector));
             lua_pushcclosure(L, instanceUserdata->isSuper ? superMethodClosure : methodClosure, 1);
         }
     }
-    else if (instanceUserdata->isClass && strncmp(lua_tostring(L, 2), "init", 4) == 0) { // Is an init method create in lua?
+    else if (instanceUserdata->isClass && oink_isInitMethod(lua_tostring(L, 2))) { // Is this an init method create in lua?
         lua_pushcclosure(L, customInitMethodClosure, 1);
     }
     
@@ -264,7 +265,7 @@ static int __eq(lua_State *L) {
 #pragma mark Userdata Functions
 #pragma -----------------------
 
-int setProtocols(lua_State *L) {
+static int setProtocols(lua_State *L) {
     oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 1, OINK_INSTANCE_METATABLE_NAME);
     
     if (!instanceUserdata->isClass) {
@@ -282,16 +283,35 @@ int setProtocols(lua_State *L) {
     return 0;
 }
 
+static int methods(lua_State *L) {
+    oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 1, OINK_INSTANCE_METATABLE_NAME);
+    
+    uint count;
+    Method *methods = class_copyMethodList([instanceUserdata->instance class], &count);
+    
+    lua_newtable(L);
+    
+    for (int i = 0; i < count; i++) {
+        Method method = methods[i];
+        lua_pushstring(L, sel_getName(method_getName(method)));
+        lua_rawseti(L, -2, i + 1);
+    }
+
+    return 1;
+}
+
 #pragma mark Function Closures
 #pragma ----------------------
 
 static int methodClosure(lua_State *L) {
+    if (![[NSThread currentThread] isEqual:[NSThread mainThread]]) NSLog(@"METHODCLOSURE: OH NO SEPERATE THREAD");
+    
     oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 1, OINK_INSTANCE_METATABLE_NAME);    
     const char *selectorName = luaL_checkstring(L, lua_upvalueindex(1));
     SEL selector = sel_getUid(selectorName);
     BOOL autoAlloc = NO;
-    
-    if (instanceUserdata->isClass && strncmp(selectorName, "init", 4) == 0) {
+        
+    if (instanceUserdata->isClass && oink_isInitMethod(selectorName)) {
         // If init is called on a class, allocate it.
         // This is done to get around the placeholder stuff the foundation class uses
         instanceUserdata = oink_instance_create(L, [instanceUserdata->instance alloc], NO);
@@ -419,6 +439,8 @@ static int customInitMethodClosure(lua_State *L) {
 static int pcallUserdata(lua_State *L, id self, SEL selector, va_list args) {
     BEGIN_STACK_MODIFY(L)    
     
+    if (![[NSThread currentThread] isEqual:[NSThread mainThread]]) NSLog(@"PACALLUSERDATA: OH NO SEPERATE THREAD");
+    
     // Find the function... could be in the object or in the class
     if (!oink_instance_pushFunction(L, self, selector)) goto error; // function not found in userdata...
     
@@ -438,7 +460,8 @@ static int pcallUserdata(lua_State *L, id self, SEL selector, va_list args) {
 
     if (lua_pcall(L, nargs, nresults, 0)) { // Userdata will allways be the first object sent to the function
         const char* errorString = lua_tostring(L, -1);
-        luaL_error(L, "Error calling method '%s' on object for '%s'\n%s", selector, [[self description] UTF8String], errorString);
+        
+        luaL_error(L, "Error calling method '%s' on object for '%s'\n%s\n%s", selector, [[self description] UTF8String], errorString);
         goto error;
     }
     
@@ -496,7 +519,7 @@ static BOOL overrideMethod(lua_State *L, oink_instance_userdata *instanceUserdat
     
     BOOL success = NO;
     const char *methodName = lua_tostring(L, 2);
-    SEL selector = oink_selectorForInstance(instanceUserdata, methodName);
+    SEL selector = oink_selectorForInstance(instanceUserdata, methodName, YES);
     Class class = [instanceUserdata->instance class];
 
     const char *typeDescription = nil;

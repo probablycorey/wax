@@ -52,6 +52,7 @@ static void forwardInvocation(id self, SEL _cmd, NSInvocation *invocation) {
         return;
     }
     else {
+        if (![[NSThread currentThread] isEqual:[NSThread mainThread]]) NSLog(@"FORWARD INVOCATION: OH NO SEPERATE THREAD");
         oink_instance_pushUserdata(L, self);
 
         NSMethodSignature *signature = [invocation methodSignature];
@@ -141,12 +142,16 @@ static int __call(lua_State *L) {
     else {
         Class superClass;    
         if (lua_isuserdata(L, 3)) {
-            oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 2, OINK_INSTANCE_METATABLE_NAME);
+            oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 3, OINK_INSTANCE_METATABLE_NAME);
             superClass = instanceUserdata->instance;
         }
         else {
             const char *superClassName = luaL_checkstring(L, 3);    
             superClass = objc_getClass(superClassName);
+        }
+        
+        if (!superClass) {
+            luaL_error(L, "Failed to create '%s'. Unknown superclass received.", className);
         }
         
         class = objc_allocateClassPair(superClass, className, 0);

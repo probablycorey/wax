@@ -12,13 +12,13 @@
 #import "lua.h"
 #import "lauxlib.h"
 
-static const struct luaL_Reg metaMethods[] = {
+static const struct luaL_Reg metaFunctions[] = {
 {"__index", __index},
 {"__newindex", __newindex},
 {NULL, NULL}
 };
 
-static const struct luaL_Reg methods[] = {
+static const struct luaL_Reg functions[] = {
 {"pack", pack},
 {NULL, NULL}
 };
@@ -42,8 +42,8 @@ int luaopen_oink_struct(lua_State *L) {
     ENCODE_TYPE(CGPoint)
     ENCODE_TYPE(CGSize)
     
-    luaL_register(L, NULL, metaMethods);
-    luaL_register(L, OINK_STRUCT_METATABLE_NAME, methods);    
+    luaL_register(L, NULL, metaFunctions);
+    luaL_register(L, OINK_STRUCT_METATABLE_NAME, functions);    
     
     lua_pushvalue(L, -2);
     lua_setmetatable(L, -2); // Set the metatable for the struct module
