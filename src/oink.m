@@ -28,7 +28,15 @@ void uncaughtExceptionHandler(NSException *e) {
 }
 
 void oink_startWithExtensions(lua_CFunction func, ...) {
-    char *mainFile = "Data/Scripts/init.lua";
+    char *mainFile;
+
+	NSArray *args = [[NSProcessInfo processInfo] arguments];	
+	if ([args containsObject:@"test"]) {
+		mainFile = "data/scripts/tests/init.lua";
+	}
+	else {
+		mainFile = "data/scripts/init.lua";
+	}
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     [fileManager changeCurrentDirectoryPath:[[NSBundle mainBundle] bundlePath]];
@@ -50,8 +58,8 @@ void oink_startWithExtensions(lua_CFunction func, ...) {
     NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
     
     addGlobals(L);
-        
-    if (luaL_dofile(L, mainFile) != 0) fprintf(stderr,"Fatal Error: %s\n",lua_tostring(L,-1));    
+		
+	if (luaL_dofile(L, mainFile) != 0) fprintf(stderr,"Fatal Error: %s\n", lua_tostring(L,-1));    
 }
 
 void oink_start() {
@@ -72,6 +80,9 @@ static void addGlobals(lua_State *L) {
     lua_pushcfunction(L, tolua);
     lua_setglobal(L, "tolua");
     
+    lua_pushcfunction(L, toobjc);
+    lua_setglobal(L, "toobjc");
+    
     lua_pushcfunction(L, exitApp);
     lua_setglobal(L, "exitApp");
     
@@ -85,6 +96,17 @@ static int tolua(lua_State *L) {
         oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 1, OINK_INSTANCE_METATABLE_NAME);
         oink_fromInstance(L, instanceUserdata->instance);
     }
+    
+    return 1;
+}
+
+static int toobjc(lua_State *L) {
+    id *instancePointer = oink_copyToObjc(L, "@", 1, nil);
+    id instance = *(id *)instancePointer;
+    
+    oink_instance_create(L, instance, NO);
+    
+    free(instancePointer);
     
     return 1;
 }

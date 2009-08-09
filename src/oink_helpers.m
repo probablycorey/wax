@@ -131,7 +131,7 @@ int oink_fromObjc(lua_State *L, const char *typeDescription, void *buffer) {
             
         case OINK_TYPE_ID: {
             id instance = *(id *)buffer;
-            oink_instance_create(L, instance, NO);
+            oink_fromInstance(L, instance);
             break;
         }
             
@@ -318,8 +318,6 @@ void *oink_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex,
         case OINK_TYPE_STRUCT: {
             if (lua_isuserdata(L, stackIndex)) {
                 oink_struct_userdata *structUserdata = (oink_struct_userdata *)luaL_checkudata(L, stackIndex, OINK_STRUCT_METATABLE_NAME);
-                oink_struct_refresh(L, stackIndex); // If the struct has "magic" indexes, reload the struct data to match those
-                
                 value = malloc(structUserdata->size);
                 memcpy(value, structUserdata->data, structUserdata->size);
             }
@@ -357,10 +355,11 @@ oink_selectors oink_selectorsForName(const char *methodName) {
     
     return posibleSelectors;
 }
-  SEL oink_selectorForInstance(oink_instance_userdata *instanceUserdata, const char *methodName) {
+
+SEL oink_selectorForInstance(oink_instance_userdata *instanceUserdata, const char *methodName, BOOL forceInstanceCheck) {
     SEL *posibleSelectors = &oink_selectorsForName(methodName).selectors[0];
     
-    if (instanceUserdata->isClass) {
+    if (instanceUserdata->isClass && (forceInstanceCheck || oink_isInitMethod(methodName))) {
         if ([instanceUserdata->instance instancesRespondToSelector:posibleSelectors[0]]) return posibleSelectors[0];
         if ([instanceUserdata->instance instancesRespondToSelector:posibleSelectors[1]]) return posibleSelectors[1];    
     }
@@ -394,6 +393,15 @@ void oink_pushMethodNameFromSelector(lua_State *L, SEL selector) {
     luaL_pushresult(&b);
     
     END_STACK_MODIFY(L, 1)
+}
+
+BOOL oink_isInitMethod(const char *methodName) {
+    if (strncmp(methodName, "init", 4) == 0) {
+        if (methodName[4] == '\0') return YES; // It's just an init
+        if (isupper(methodName[4]) || isdigit(methodName[4])) return YES; // It's init[A-Z1-9]
+    }
+    
+    return NO;
 }
 
 // I could get rid of this

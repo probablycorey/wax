@@ -22,3 +22,8 @@ Add a run script build phase (This will copy all your lua scripts into the app b
 Now build your app! It should work and you should have a new folder called "Data" (The data folder won't show up in xcode unless you add it to the project... that is optional though)
 
 When you run the app, it will start in the /Data/Scripts/init.lua file... Put your magic in there
+
+Trouble shooting
+
+*bad argument #1 to '???' (oink.instance expected, got ???)
+Usually means you called a function with a '.' instead of a ':'

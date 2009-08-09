@@ -82,10 +82,14 @@ void *oink_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex,
 
 // Misc Helpers
 oink_selectors oink_selectorsForName(const char *methodName);
-SEL oink_selectorForInstance(oink_instance_userdata *instanceUserdata, const char *methodName);
+SEL oink_selectorForInstance(oink_instance_userdata *instanceUserdata, const char *methodName, BOOL forceInstanceCheck);
 void oink_pushMethodNameFromSelector(lua_State *L, SEL selector);
+BOOL oink_isInitMethod(const char *methodName);
+
 
 const char *oink_removeProtocolEncodings(const char *type_descriptions);
 
 int oink_sizeOfTypeDescription(const char *full_type_description);
 int oink_simplifyTypeDescription(const char *in, char *out);
+
+// int levenshtein(const char *string1, const char *string2, int swap_penalty, int substition_penalty, int insertion_penalty, int deletion_penalty);
