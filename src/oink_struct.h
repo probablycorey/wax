@@ -20,10 +20,10 @@ typedef struct _oink_struct_userdata {
 int luaopen_oink_struct(lua_State *L);
 
 oink_struct_userdata *oink_struct_create(lua_State *L, const char *typeDescription, void *buffer);
-int oink_struct_refresh(lua_State *L, int stackindex);
 
 static int __index(lua_State *L);
 static int __newindex(lua_State *L);
+static int __tostring(lua_State *L);
 
 static int pack(lua_State *L);
 static int packClosure(lua_State *L);

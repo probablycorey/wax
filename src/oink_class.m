@@ -22,6 +22,7 @@ static const struct luaL_Reg MetaMethods[] = {
 };
 
 static const struct luaL_Reg Methods[] = {
+	{"addProtocols", addProtocols},
     {NULL, NULL}
 };
 
@@ -48,7 +49,7 @@ static void forwardInvocation(id self, SEL _cmd, NSInvocation *invocation) {
     oink_instance_pushFunction(L, self, [invocation selector]);
     
     if (lua_isnil(L, -1)) {
-        lua_pop(L, 1);        
+        END_STACK_MODIFY(L, 0)   
         return;
     }
     else {
@@ -85,7 +86,8 @@ static void forwardInvocation(id self, SEL _cmd, NSInvocation *invocation) {
 
 static NSMethodSignature *methodSignatureForSelector(id self, SEL _cmd, SEL selector) {
     lua_State *L = oink_currentLuaState();
-    
+	BEGIN_STACK_MODIFY(L)	
+
     struct objc_super super;
     super.receiver = self;
 #if TARGET_IPHONE_SIMULATOR
@@ -96,12 +98,14 @@ static NSMethodSignature *methodSignatureForSelector(id self, SEL _cmd, SEL sele
     
     NSMethodSignature *signature = objc_msgSendSuper(&super, _cmd, selector);
     
-    if (signature) return signature;
+    if (signature) {
+		return signature;
+	}
 
     oink_instance_pushFunction(L, self, selector);
     
     if (lua_isnil(L, -1)) {
-        lua_pop(L, 1);        
+		END_STACK_MODIFY(L, 0)
         return nil;
     }
     else {
@@ -119,14 +123,22 @@ static NSMethodSignature *methodSignatureForSelector(id self, SEL _cmd, SEL sele
     typeString[2] = ':';
     typeString[typeStringSize - 1] = '\0';
     signature = [NSMethodSignature signatureWithObjCTypes:typeString];
-    
+
+	END_STACK_MODIFY(L, 0)
+	
     return signature;
 }
 
 // Finds an obj-c class
 static int __index(lua_State *L) {
     const char *className = luaL_checkstring(L, 2);
-    oink_instance_create(L, objc_getClass(className), YES);
+	Class class = objc_getClass(className);
+	if (class) {
+		oink_instance_create(L, class, YES);
+	}
+	else {
+		lua_pushnil(L);
+	}
     
     return 1;
 }
@@ -145,6 +157,9 @@ static int __call(lua_State *L) {
             oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 3, OINK_INSTANCE_METATABLE_NAME);
             superClass = instanceUserdata->instance;
         }
+		else if (lua_isnoneornil(L, 3)) {
+			superClass = [NSObject class];
+		}
         else {
             const char *superClassName = luaL_checkstring(L, 3);    
             superClass = objc_getClass(superClassName);
@@ -164,4 +179,22 @@ static int __call(lua_State *L) {
     oink_instance_create(L, class, YES);
     
     return 1;
+}
+
+static int addProtocols(lua_State *L) {
+    oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 1, OINK_INSTANCE_METATABLE_NAME);
+    
+    if (!instanceUserdata->isClass) {
+        luaL_error(L, "ERROR: Can only set a protocol on a class (You are trying to set one on an instance)");
+        return 0;
+    }
+    
+    for (int i = 2; i <= lua_gettop(L); i++) {
+        const char *protocolName = lua_tostring(L, i);
+        Protocol *protocol = objc_getProtocol(protocolName);
+        if (!protocol) luaL_error(L, "Could not find protocol named '%s'", protocolName);
+        class_addProtocol(instanceUserdata->instance, protocol);
+    }
+    
+    return 0;
 }

@@ -18,7 +18,7 @@
 
 lua_State *oink_currentLuaState() {
     static lua_State *L;    
-    if (!L) L = lua_open();    
+    if (!L) L = lua_open();  
     
     return L;
 }
@@ -28,7 +28,15 @@ void uncaughtExceptionHandler(NSException *e) {
 }
 
 void oink_startWithExtensions(lua_CFunction func, ...) {
-    char *mainFile = "data/scripts/init.lua";
+    char *mainFile;
+
+	NSArray *args = [[NSProcessInfo processInfo] arguments];	
+	if ([args containsObject:@"test"]) {
+		mainFile = "data/scripts/tests/init.lua";
+	}
+	else {
+		mainFile = "data/scripts/init.lua";
+	}
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     [fileManager changeCurrentDirectoryPath:[[NSBundle mainBundle] bundlePath]];
@@ -50,8 +58,7 @@ void oink_startWithExtensions(lua_CFunction func, ...) {
     NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
     
     addGlobals(L);
-        
-    if (luaL_dofile(L, mainFile) != 0) fprintf(stderr,"Fatal Error: %s\n", lua_tostring(L,-1));    
+	if (luaL_dofile(L, mainFile) != 0) fprintf(stderr,"Fatal Error: %s\n", lua_tostring(L,-1));    
 }
 
 void oink_start() {
@@ -69,6 +76,7 @@ void luaopen_oink(lua_State *L) {
 }
 
 static void addGlobals(lua_State *L) {
+	// Functions
     lua_pushcfunction(L, tolua);
     lua_setglobal(L, "tolua");
     
@@ -80,7 +88,13 @@ static void addGlobals(lua_State *L) {
     
     lua_pushcclosure(L, objcDebug, 0);
     lua_setglobal(L, "objcDebug");
-
+	
+	// Variables
+	lua_pushstring(L, [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] UTF8String]);
+	lua_setglobal(L, "NSDocumentDirectory");
+	
+	lua_pushstring(L, [[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0] UTF8String]);
+	lua_setglobal(L, "NSLibraryDirectory");
 }
 
 static int tolua(lua_State *L) {
