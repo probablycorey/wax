@@ -21,3 +21,5 @@ typedef struct _oink_class {
 int luaopen_oink_class(lua_State *L);
 static int __index(lua_State *L);
 static int __call(lua_State *L);
+
+static int addProtocols(lua_State *L);

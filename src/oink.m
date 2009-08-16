@@ -18,7 +18,7 @@
 
 lua_State *oink_currentLuaState() {
     static lua_State *L;    
-    if (!L) L = lua_open();    
+    if (!L) L = lua_open();  
     
     return L;
 }
@@ -77,6 +77,7 @@ void luaopen_oink(lua_State *L) {
 }
 
 static void addGlobals(lua_State *L) {
+	// Functions
     lua_pushcfunction(L, tolua);
     lua_setglobal(L, "tolua");
     
@@ -88,7 +89,13 @@ static void addGlobals(lua_State *L) {
     
     lua_pushcclosure(L, objcDebug, 0);
     lua_setglobal(L, "objcDebug");
-
+	
+	// Variables
+	lua_pushstring(L, [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] UTF8String]);
+	lua_setglobal(L, "NSDocumentDirectory");
+	
+	lua_pushstring(L, [[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0] UTF8String]);
+	lua_setglobal(L, "NSLibraryDirectory");
 }
 
 static int tolua(lua_State *L) {

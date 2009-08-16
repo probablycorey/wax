@@ -42,6 +42,7 @@ int luaopen_oink_struct(lua_State *L) {
     ENCODE_TYPE(CGRect)
     ENCODE_TYPE(CGPoint)
     ENCODE_TYPE(CGSize)
+	ENCODE_TYPE(NSRange)
     
     luaL_register(L, NULL, metaFunctions);
     luaL_register(L, OINK_STRUCT_METATABLE_NAME, functions);    
@@ -116,6 +117,16 @@ oink_struct_userdata *oink_struct_create(lua_State *L, const char *typeDescripti
         
         lua_pushstring(L, "height");
         lua_pushnumber(L, size->height);        
+        lua_rawset(L, -3);       
+    }
+	else if (STRUCT_IS_A(NSRange, structUserdata)) { 
+        NSRange *range = (NSRange *)buffer;
+        lua_pushstring(L, "location");        
+        lua_pushnumber(L, range->location);
+        lua_rawset(L, -3);
+        
+        lua_pushstring(L, "length");
+        lua_pushnumber(L, range->length);        
         lua_rawset(L, -3);       
     }
     

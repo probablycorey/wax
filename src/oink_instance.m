@@ -24,7 +24,6 @@ static const struct luaL_Reg metaFunctions[] = {
 };
 
 static const struct luaL_Reg functions[] = {
-    {"setProtocols", setProtocols},
     {"methods", methods},
     {NULL, NULL}
 };
@@ -235,7 +234,7 @@ static int __newindex(lua_State *L) {
 static int __gc(lua_State *L) {
     oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 1, OINK_INSTANCE_METATABLE_NAME);
     
-    if (!instanceUserdata->isClass) {
+    if (!instanceUserdata->isClass && !instanceUserdata->isSuper) {
         luaL_getmetafield(L, -1, "__userdata");
         lua_pushlightuserdata(L, instanceUserdata);
         lua_pushnil(L); // Remove this instance from the __userdata table.
@@ -265,24 +264,6 @@ static int __eq(lua_State *L) {
 
 #pragma mark Userdata Functions
 #pragma -----------------------
-
-static int setProtocols(lua_State *L) {
-    oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 1, OINK_INSTANCE_METATABLE_NAME);
-    
-    if (!instanceUserdata->isClass) {
-        luaL_error(L, "ERROR: Can only set a protocol on a class for now");
-        return 0;
-    }
-    
-    for (int i = 2; i <= lua_gettop(L); i++) {
-        const char *protocolName = lua_tostring(L, i);
-        Protocol *protocol = objc_getProtocol(protocolName);
-        if (!protocol) luaL_error(L, "Could not find protocol named '%s'", protocolName);
-        class_addProtocol(instanceUserdata->instance, protocol);
-    }
-    
-    return 0;
-}
 
 static int methods(lua_State *L) {
     oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 1, OINK_INSTANCE_METATABLE_NAME);
@@ -439,7 +420,7 @@ static int customInitMethodClosure(lua_State *L) {
 
 static int pcallUserdata(lua_State *L, id self, SEL selector, va_list args) {
     BEGIN_STACK_MODIFY(L)    
-    
+	
     if (![[NSThread currentThread] isEqual:[NSThread mainThread]]) NSLog(@"PACALLUSERDATA: OH NO SEPERATE THREAD");
     
     // Find the function... could be in the object or in the class
@@ -447,7 +428,10 @@ static int pcallUserdata(lua_State *L, id self, SEL selector, va_list args) {
     
     // Push userdata as the first argument
     oink_fromInstance(L, self);
-    if (lua_isnil(L, -1)) goto error;
+    if (lua_isnil(L, -1)) {
+		lua_pushfstring(L, "Could not convert '%s' into lua", class_getName([self class]));
+		goto error;
+	}
                 
     NSMethodSignature *signature = [self methodSignatureForSelector:selector];
     int nargs = [signature numberOfArguments] - 1; // Don't send in the _cmd argument, only self
@@ -459,10 +443,7 @@ static int pcallUserdata(lua_State *L, id self, SEL selector, va_list args) {
         args += size; // HACK! Since va_arg requires static type, I manually increment the args
     }
 
-    if (lua_pcall(L, nargs, nresults, 0)) { // Userdata will allways be the first object sent to the function
-        const char* errorString = lua_tostring(L, -1);
-        
-        luaL_error(L, "Error calling method '%s' on object for '%s'\n%s\n%s", selector, [[self description] UTF8String], errorString);
+    if (lua_pcall(L, nargs, nresults, 0)) { // Userdata will allways be the first object sent to the function  
         goto error;
     }
     
@@ -470,7 +451,7 @@ static int pcallUserdata(lua_State *L, id self, SEL selector, va_list args) {
     return nresults;
     
 error:
-    END_STACK_MODIFY(L, 0)
+    END_STACK_MODIFY(L, 1)
     return -1;
 }
 
@@ -489,7 +470,7 @@ int result = pcallUserdata(L, self, _cmd, args_copy); \
 va_end(args_copy); \
 va_end(args); \
 if (result == -1) { \
-    luaL_error(L, "Error calling '%s' on lua object '%s'", _cmd, [[self description] UTF8String]); \
+    luaL_error(L, "Error calling '%s' on lua object '%s'\n%s", _cmd, [[self description] UTF8String], lua_tostring(L, -1)); \
 } \
 else if (result == 0) { \
     _type_ returnValue; \
@@ -515,14 +496,14 @@ OINK_METHOD(long)
 OINK_METHOD(float)
 OINK_METHOD(BOOL) 
 
+// Only allow classes to do this
 static BOOL overrideMethod(lua_State *L, oink_instance_userdata *instanceUserdata) {
     BEGIN_STACK_MODIFY(L);
-    
     BOOL success = NO;
     const char *methodName = lua_tostring(L, 2);
     SEL selector = oink_selectorForInstance(instanceUserdata, methodName, YES);
     Class class = [instanceUserdata->instance class];
-
+	
     const char *typeDescription = nil;
     char *returnType = nil;
     
@@ -559,9 +540,13 @@ static BOOL overrideMethod(lua_State *L, oink_instance_userdata *instanceUserdat
     }
     
     if (returnType) { // Matching method found! Create an Obj-C method on the 
-		returnType = oink_removeProtocolEncodings(returnType);
+		if (!instanceUserdata->isClass) {
+			luaL_error(L, "Trying to override method '%s' on an instance. You can only override classes", methodName);
+		}			
+		
+		const char *simplifiedReturnType = oink_removeProtocolEncodings(returnType);
         IMP imp;
-        switch (returnType[0]) {
+        switch (simplifiedReturnType[0]) {
             case OINK_TYPE_VOID:
             case OINK_TYPE_ID:
                 imp = (IMP)OINK_METHOD_NAME(id);
@@ -591,7 +576,7 @@ static BOOL overrideMethod(lua_State *L, oink_instance_userdata *instanceUserdat
                 break;
                 
             case OINK_TYPE_STRUCT: {
-                int size = oink_sizeOfTypeDescription(returnType);
+                int size = oink_sizeOfTypeDescription(simplifiedReturnType);
                 switch (size) {
                     case 16:
                         imp = (IMP)OINK_METHOD_NAME(buffer_16);
@@ -604,12 +589,12 @@ static BOOL overrideMethod(lua_State *L, oink_instance_userdata *instanceUserdat
             }
                 
             default:   
-                luaL_error(L, "Can't override method with return type %s", returnType);
+                luaL_error(L, "Can't override method with return type %s", simplifiedReturnType);
                 break;
         }
         
         success = class_addMethod(class, selector, imp, typeDescription);
-        free(returnType);
+        free(returnType);				
     }
     else {
         //NSLog(@"No method name '%s' found in superclass or protocols", methodName);
