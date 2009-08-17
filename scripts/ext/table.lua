@@ -6,7 +6,11 @@ function table.clone(t, nometa)
   end
   
   for i, v in pairs(t) do
-    u[i] = v
+    if type(v) == "table" then
+      u[i] = table.clone(v)
+    else
+      u[i] = v
+    end
   end
   
   return u
@@ -22,8 +26,23 @@ function table.merge(t, u)
   return r
 end
 
-function table.push(t, obj) 
-  t[#t + 1] = obj 
+function table.keys(t)
+  local keys = {}
+    
+  for k, v in pairs(t) do
+    table.insert(keys, k)
+  end
+  
+  return keys
+end
+
+function table.map(t, func)
+  local mapped = {}
+  for k, v in pairs(t) do
+    table.insert(mapped, func(k, v))
+  end
+  
+  return mapped
 end
 
 -- TMP --

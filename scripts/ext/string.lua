@@ -15,3 +15,66 @@ function string.escape(s)
   
   return s
 end
+
+function string.decodeEntities(s)
+  local entities = {
+    amp = "&",
+    lt = "<",
+    gt = ">",
+    quot = "\"",
+    apos = "'", 
+    nbsp = " ",
+    iexcl = "¡",
+    cent = "¢",
+    pound = "£",
+    curren = "¤",
+    yen = "¥",
+    brvbar = "¦",
+    sect = "§",
+    uml = "¨",
+    copy = "©",
+    ordf = "ª",
+    laquo = "«",
+--    not = "¬",
+    shy = "­",
+    reg = "®",
+    macr = "¯",
+    deg = "°",
+    plusmn = "±",
+    sup2 = "²",
+    sup3 = "³",
+    acute = "´",
+    micro = "µ",
+    para = "¶",
+    middot = "·",
+    cedil = "¸",
+    sup1 = "¹",
+    ordm = "º",
+    raquo = "»",
+    frac14 = "¼",
+    frac12 = "½",
+    frac34 = "¾",
+    iquest = "¿",
+    times = "×",
+    divide = "÷",   
+  }
+    
+  return string.gsub(s, "&(%w+);", entities)
+end
+
+function string.commaSeperate(number)
+  local formatted = tostring(number)
+  while true do  
+    formatted, k = string.gsub(formatted, "^(-?%d+)(%d%d%d)", '%1,%2')
+    if k ==0 then break end
+  end
+  
+  return formatted
+end
+
+function string.caseInsensitive(s)
+  s = string.gsub(s, "%a", function (c)
+    return string.format("[%s%s]", string.lower(c), string.upper(c))
+  end)
+  return s
+end

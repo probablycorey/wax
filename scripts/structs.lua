@@ -1,6 +1,7 @@
-CGRect = oink.struct.pack("dddd")
-CGSize = oink.struct.pack("dd")
-CGPoint = oink.struct.pack("dd")
+CGRect = oink.struct.pack("ffff")
+CGSize = oink.struct.pack("ff")
+CGPoint = oink.struct.pack("ff")
+NSRange = oink.struct.pack("ii")
 CLLocationCoordinate2D = oink.struct.pack("dd")
 MKCoordinateRegion = oink.struct.pack("dddd")
 

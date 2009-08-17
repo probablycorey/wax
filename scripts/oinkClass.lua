@@ -1,9 +1,9 @@
-function class(className, superclassName, opts)
+function oinkClass(className, superclassName, opts)
   local opts = opts or {}
   local class = oink.class(className, superclassName)
 
   for i, protocol in ipairs(opts.protocols or {}) do
-    oink.instance.setProtocols(class, protocol)
+    oink.class.addProtocols(class, protocol)
   end 
 
   local _M = setmetatable({}, {
@@ -18,7 +18,6 @@ function class(className, superclassName, opts)
 
   _G[className] = class
   package.loaded[className] = class
-
   setfenv(2, _M)
   
   return class
