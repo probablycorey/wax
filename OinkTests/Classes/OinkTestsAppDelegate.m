@@ -7,6 +7,7 @@
 //
 
 #import "OinkTestsAppDelegate.h"
+#import "SimpleProtocolLoader.h" // Runtime can't dynamically load protocols... lame
 #import "oink.h"
 
 @implementation OinkTestsAppDelegate
