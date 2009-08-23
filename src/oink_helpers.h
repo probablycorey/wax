@@ -50,7 +50,6 @@
 #define OINK_TYPE_UNKNOWN _C_UNDEF
 
 #define OINK_PROTOCOL_TYPE_CONST 'r'
-
 #define OINK_PROTOCOL_TYPE_IN 'n'
 #define OINK_PROTOCOL_TYPE_INOUT 'N'
 #define OINK_PROTOCOL_TYPE_OUT 'o'
@@ -92,4 +91,5 @@ const char *oink_removeProtocolEncodings(const char *type_descriptions);
 int oink_sizeOfTypeDescription(const char *full_type_description);
 int oink_simplifyTypeDescription(const char *in, char *out);
 
-// int levenshtein(const char *string1, const char *string2, int swap_penalty, int substition_penalty, int insertion_penalty, int deletion_penalty);
+int oink_errorFunction(lua_State *L);
+int oink_pcall(lua_State *L, int argumentCount, int returnCount);

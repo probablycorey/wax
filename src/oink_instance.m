@@ -407,7 +407,7 @@ static int customInitMethodClosure(lua_State *L) {
     lua_pushvalue(L, lua_upvalueindex(1)); // Grab the function!
     lua_insert(L, 1); // push it up top
     
-    if (lua_pcall(L, lua_gettop(L) - 1, 1, 0)) {
+    if (oink_pcall(L, lua_gettop(L) - 1, 1)) {
         const char* errorString = lua_tostring(L, -1);
         luaL_error(L, "Custom init method on '%s' failed.\n%s", class_getName([instanceUserdata->instance class]), errorString);
     }
@@ -445,7 +445,7 @@ static int pcallUserdata(lua_State *L, id self, SEL selector, va_list args) {
         args += size; // HACK! Since va_arg requires static type, I manually increment the args
     }
 
-    if (lua_pcall(L, nargs, nresults, 0)) { // Userdata will allways be the first object sent to the function  
+    if (oink_pcall(L, nargs, nresults)) { // Userdata will allways be the first object sent to the function  
         goto error;
     }
     

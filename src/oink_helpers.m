@@ -63,13 +63,19 @@ void oink_printTable(lua_State *L, int t) {
 int oink_fromObjc(lua_State *L, const char *typeDescription, void *buffer) {
     BEGIN_STACK_MODIFY(L)
     
+	typeDescription = oink_removeProtocolEncodings(typeDescription);
+	
     int size = oink_sizeOfTypeDescription(typeDescription);
-    
+	
     switch (typeDescription[0]) {
         case OINK_TYPE_VOID:
             lua_pushnil(L);
             break;
-            
+
+//        case OINK_TYPE_POINTER:
+//            return oink_fromObjc(L, &typeDescription[1], *(void **)buffer); // Dereference pointer and deal with it!
+//            break;						
+			
         case OINK_TYPE_CHAR: {
             char c = *(char *)buffer;
 				if (c <= 1) lua_pushboolean(L, c); // If it's 1 or 0, then treat it like a bool
@@ -472,6 +478,7 @@ BOOL oink_isInitMethod(const char *methodName) {
 // I could get rid of this
 const char *oink_removeProtocolEncodings(const char *type_descriptions) {
     switch (type_descriptions[0]) {
+		case OINK_PROTOCOL_TYPE_CONST:
         case OINK_PROTOCOL_TYPE_INOUT:
         case OINK_PROTOCOL_TYPE_OUT:
         case OINK_PROTOCOL_TYPE_BYCOPY:
@@ -664,5 +671,39 @@ int oink_simplifyTypeDescription(const char *in, char *out) {
         }
     }
     
+    out[out_index] = '\0';
+    
     return out_index;
 }
+
+int oink_errorFunction(lua_State *L) {
+    lua_getfield(L, LUA_GLOBALSINDEX, "debug");
+    if (!lua_istable(L, -1)) {
+        lua_pop(L, 1);
+        return 1;
+    }
+    
+    lua_getfield(L, -1, "traceback");
+    if (!lua_isfunction(L, -1)) {
+        lua_pop(L, 2);
+        return 1;
+    }    
+    lua_remove(L, -2); // Remove debug
+    
+    lua_pushnumber(L, 2); // Thread #
+    lua_pushvalue(L, -3); // Grab the error string and place it on the stack
+    
+    lua_call(L, 2, 1);
+    lua_remove(L, -2); // Remove original error string
+    
+    return 1;
+}
+
+int oink_pcall(lua_State *L, int argumentCount, int returnCount) {
+    lua_pushcclosure(L, oink_errorFunction, 0);
+    int errorFuncStackIndex = lua_gettop(L) - (argumentCount + 1); // Insert error function before arguments
+    lua_insert(L, errorFuncStackIndex);
+    
+    return lua_pcall(L, argumentCount, returnCount, errorFuncStackIndex);
+}
+

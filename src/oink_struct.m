@@ -21,6 +21,7 @@ static const struct luaL_Reg metaFunctions[] = {
 
 static const struct luaL_Reg functions[] = {
 {"pack", pack},
+{"unpack", unpack},
 {NULL, NULL}
 };
 
@@ -156,10 +157,31 @@ static int __newindex(lua_State *L) {
 }
 
 static int __tostring(lua_State *L) {	
-    luaL_checkudata(L, 1, OINK_STRUCT_METATABLE_NAME);		
+    luaL_checkudata(L, 1, OINK_STRUCT_METATABLE_NAME);
 	lua_pushstring(L, "oink struct");
 	
 	return 1;
+}
+
+static int unpack(lua_State *L) {
+    oink_struct_userdata *structUserdata = (oink_struct_userdata *)luaL_checkudata(L, 1, OINK_STRUCT_METATABLE_NAME);
+    
+    char *simplifiedTypeDescription = alloca(strlen(structUserdata->typeDescription) + 1);
+    oink_simplifyTypeDescription(structUserdata->typeDescription, simplifiedTypeDescription);
+    
+    lua_newtable(L);
+    
+    int index = 0;
+    int position = 0;
+    char type[2] = {'\0', '\0'};    
+    while(type[0] = simplifiedTypeDescription[index]) {         
+        oink_fromObjc(L, type, structUserdata->data + position);
+        lua_rawseti(L, -2, index + 1);
+        position += oink_sizeOfTypeDescription(type);
+        index++;
+    }
+    
+    return 1;
 }
 
 static int pack(lua_State *L) {

@@ -37,10 +37,11 @@ void oink_startWithExtensions(lua_CFunction func, ...) {
 	else {
 		mainFile = "data/scripts/init.lua";
 	}
-    
+        
     NSFileManager *fileManager = [NSFileManager defaultManager];
     [fileManager changeCurrentDirectoryPath:[[NSBundle mainBundle] bundlePath]];
     lua_State *L = oink_currentLuaState();
+    
     
     luaL_openlibs(L); 
     luaopen_oink(L);

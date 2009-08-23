@@ -57,7 +57,7 @@ static void forwardInvocation(id self, SEL _cmd, NSInvocation *invocation) {
         oink_instance_pushUserdata(L, self);
 
         NSMethodSignature *signature = [invocation methodSignature];
-        int argumentCount = [signature numberOfArguments];
+        int argumentCount = [signature numberOfArguments];                
         
         for (int i = 2; i < argumentCount; i++) { // Skip the hidden seld and _cmd arguements (self already added above)
             const char *typeDescription = [signature getArgumentTypeAtIndex:i];
@@ -68,10 +68,11 @@ static void forwardInvocation(id self, SEL _cmd, NSInvocation *invocation) {
             oink_fromObjc(L, typeDescription, buffer);
             free(buffer);
         }
-        
-        if (lua_pcall(L, argumentCount - 1, 1, 0)) { // Subtract 1 from argumentCount because we don't want to send the hidden _cmd arguement
+                
+        if (oink_pcall(L, argumentCount - 1, 1)) { // Subtract 1 from argumentCount because we don't want to send the hidden _cmd arguement
             const char* error_string = lua_tostring(L, -1);
-            NSLog(@"Problem calling Lua function '%s' on userdata (%s)", [invocation selector], error_string);
+            
+            printf("Problem calling Lua function '%s' on userdata.\n%s", [invocation selector], error_string);
         }
 
         void *returnValue = oink_copyToObjc(L, [signature methodReturnType], -1, nil);
