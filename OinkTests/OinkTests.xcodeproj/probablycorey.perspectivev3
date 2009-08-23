@@ -322,7 +322,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>9140D5AE10390C4000F269F9</string>
+										<string>9140D5BD1039CA2900F269F9</string>
 										<key>history</key>
 										<array>
 											<string>9140D5A710390AF100F269F9</string>
@@ -507,14 +507,14 @@
 					<key>GeometryConfiguration</key>
 					<dict>
 						<key>Frame</key>
-						<string>{{0, 0}, {1916, 634}}</string>
+						<string>{{0, 0}, {1916, 281}}</string>
 						<key>RubberWindowFrame</key>
 						<string>0 55 1916 1123 0 0 1920 1178 </string>
 					</dict>
 					<key>Module</key>
 					<string>PBXDebugCLIModule</string>
 					<key>Proportion</key>
-					<string>634pt</string>
+					<string>281pt</string>
 				</dict>
 				<dict>
 					<key>ContentConfiguration</key>
@@ -533,8 +533,8 @@
 								<string>yes</string>
 								<key>sizes</key>
 								<array>
-									<string>{{0, 0}, {934, 215}}</string>
-									<string>{{934, 0}, {982, 215}}</string>
+									<string>{{0, 0}, {936, 131}}</string>
+									<string>{{936, 0}, {980, 131}}</string>
 								</array>
 							</dict>
 							<key>VerticalSplitView</key>
@@ -549,8 +549,8 @@
 								<string>yes</string>
 								<key>sizes</key>
 								<array>
-									<string>{{0, 0}, {1916, 215}}</string>
-									<string>{{0, 215}, {1916, 228}}</string>
+									<string>{{0, 0}, {1916, 131}}</string>
+									<string>{{0, 131}, {1916, 665}}</string>
 								</array>
 							</dict>
 						</dict>
@@ -570,7 +570,7 @@
 						<key>DebugSTDIOWindowFrame</key>
 						<string>{{200, 200}, {500, 300}}</string>
 						<key>Frame</key>
-						<string>{{0, 639}, {1916, 443}}</string>
+						<string>{{0, 286}, {1916, 796}}</string>
 						<key>PBXDebugSessionStackFrameViewKey</key>
 						<dict>
 							<key>DebugVariablesTableConfiguration</key>
@@ -580,10 +580,10 @@
 								<string>Value</string>
 								<real>85</real>
 								<string>Summary</string>
-								<real>752</real>
+								<real>750</real>
 							</array>
 							<key>Frame</key>
-							<string>{{934, 0}, {982, 215}}</string>
+							<string>{{936, 0}, {980, 131}}</string>
 							<key>RubberWindowFrame</key>
 							<string>0 55 1916 1123 0 0 1920 1178 </string>
 						</dict>
@@ -593,7 +593,7 @@
 					<key>Module</key>
 					<string>PBXDebugSessionModule</string>
 					<key>Proportion</key>
-					<string>443pt</string>
+					<string>796pt</string>
 				</dict>
 			</array>
 			<key>Name</key>
