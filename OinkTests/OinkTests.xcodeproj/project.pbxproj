@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04FA4D69104209EF0078A15B /* Structs.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FA4D68104209EF0078A15B /* Structs.m */; };
 		1D3623260D0F684500981E51 /* OinkTestsAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* OinkTestsAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -53,6 +54,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		04FA4D67104209EF0078A15B /* Structs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Structs.h; sourceTree = "<group>"; };
+		04FA4D68104209EF0078A15B /* Structs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Structs.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* OinkTestsAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OinkTestsAppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* OinkTestsAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OinkTestsAppDelegate.m; sourceTree = "<group>"; };
@@ -157,6 +160,8 @@
 				9140D5891039094D00F269F9 /* SimpleDelegateObject.m */,
 				9140D58A1039094D00F269F9 /* SimpleObject.h */,
 				9140D58B1039094D00F269F9 /* SimpleObject.m */,
+				04FA4D67104209EF0078A15B /* Structs.h */,
+				04FA4D68104209EF0078A15B /* Structs.m */,
 				9140D58C1039094D00F269F9 /* SimpleProtocol.h */,
 				9140D58D1039094D00F269F9 /* SimpleProtocolLoader.h */,
 			);
@@ -400,6 +405,7 @@
 				9140D587103906F000F269F9 /* oink_struct.m in Sources */,
 				9140D58E1039094D00F269F9 /* SimpleDelegateObject.m in Sources */,
 				9140D58F1039094D00F269F9 /* SimpleObject.m in Sources */,
+				04FA4D69104209EF0078A15B /* Structs.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,6 +18,7 @@
 //#define _C_VECTOR   '!'
 //#define _C_CONST    'r'
 
+// ENCODINGS CAN BE FOUND AT http://developer.apple.com/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html
 #define OINK_TYPE_CHAR _C_CHR
 #define OINK_TYPE_INT _C_INT
 #define OINK_TYPE_SHORT _C_SHT

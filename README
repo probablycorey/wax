@@ -5,7 +5,7 @@ I'm assuming you've got oink... if not, grab it at http://github.com/probablycor
 
 • Create a new "Window-based Application" iPhone project in xcode
 
-• Drag the oink folder into the your app's root folder (via Finder/Terminal not xCode). Then drag the oink/src folder into the xcode "Groups & Files" pane. You want to make sure "Copy items into destination group's folder" is NOT checked and "Recursively create groups for any added folders" is selected. 
+• Drag the oink folder into the your app's root folder (the actual folder via Finder/Terminal not into xCode). Then drag the oink/src folder into the xcode "Groups & Files" pane. You want to make sure "Copy items into destination group's folder" is NOT checked and "Recursively create groups for any added folders" is selected. 
 
 • In your UIApplication delegate file add...
     #import "oink.h"

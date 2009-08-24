@@ -17,7 +17,6 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {    
     [window makeKeyAndVisible];
-	
 	oink_start();
 }
 

@@ -20,12 +20,12 @@ function Report:new(spec)
   
   for index = 1, #contexts do
     report.results[index] = {
-      name = contexts[index],      
+      name = contexts[index],
       spec_results = contexts[contexts[index]]
     }
-  end    
-  
-  return report    
+  end
+
+  return report
 end
 
 function spec:report(verbose)
@@ -121,21 +121,21 @@ matchers = {
       return false, "expecting "..tostring(expected)..", not ".. tostring(value)
     end
     return true
-  end,
+  end;
 
   should_not_be = function(value, expected)
     if value == expected then
       return false, "should not be "..tostring(value)
     end
     return true
-  end,
+  end;
   
   should_error = function(f)
     if pcall(f) then
       return false, "expecting an error but received none"
     end
     return true
-  end,
+  end;
 
   should_match = function(value, pattern) 
     if type(value) ~= 'string' then
@@ -146,7 +146,7 @@ matchers = {
       return false, value .. "doesn't match pattern "..pattern
     end
     return true
-  end,
+  end;
   
   should_be_kind_of = function(value, class)
     if not value:isKindOfClass(class) then
@@ -154,7 +154,7 @@ matchers = {
     else
       return true
     end
-  end,
+  end;
   
   should_exist = function(value)
     if not value then
@@ -162,7 +162,7 @@ matchers = {
     else
       return true
     end
-  end,
+  end;
 }
  
 matchers.should_equal = matchers.should_be

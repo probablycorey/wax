@@ -14,17 +14,21 @@
 typedef struct _oink_struct_userdata {
     void *data;
     int size;
+    char *name;
     char *typeDescription;
 } oink_struct_userdata;
 
 int luaopen_oink_struct(lua_State *L);
 
 oink_struct_userdata *oink_struct_create(lua_State *L, const char *typeDescription, void *buffer);
+void oink_struct_pushValueAt(lua_State *L, oink_struct_userdata *structUserdata, int index);
 
 static int __index(lua_State *L);
 static int __newindex(lua_State *L);
 static int __tostring(lua_State *L);
 
+static int create(lua_State *L);
 static int unpack(lua_State *L);
 static int pack(lua_State *L);
-static int packClosure(lua_State *L);
+    
+static int createClosure(lua_State *L);
