@@ -70,7 +70,7 @@ describe["Reading custom structs"] = function()
     expect( result.y ).should_be(20.2)
   end
   
-  it["can access values via obj-c by name"] = function()
+  it["can access struct via obj-c by name"] = function()
     result = Structs:seventyPointFiveEighty()
     expect( result.x ).should_be(70.5)
     expect( result.y ).should_be(80)
@@ -80,12 +80,14 @@ end
 describe["Writing custom structs"] = function()
   before = function()
     Structs = oink.class["Structs"]
+    oink.struct.create("CustomStruct", "dd", "x", "y")    
   end
 
-  -- it["can set value from lua"] = function()
-  --   oink.struct.create("CustomStruct", "dd", "x", "y")(10, 20)
-  --   expect( CustomStruct.x ).should_be(10)
-  --   result.x = 50
-  --   expect( CustomStruct.x ).should_be(50)
-  -- end  
+  it["can set value from lua"] = function()
+    local struct = CustomStruct(10, 20)
+    struct.x = 30.3
+    struct.y = 40.9
+    expect( struct.x ).should_be(30.3)
+    expect( struct.y ).should_be(40.9)
+  end
 end

@@ -22,6 +22,8 @@ int luaopen_oink_struct(lua_State *L);
 
 oink_struct_userdata *oink_struct_create(lua_State *L, const char *typeDescription, void *buffer);
 void oink_struct_pushValueAt(lua_State *L, oink_struct_userdata *structUserdata, int index);
+void oink_struct_setValueAt(lua_State *L, oink_struct_userdata *structUserdata, int index, int stackIndex);
+int oink_struct_getOffsetForName(lua_State *L, oink_struct_userdata *structUserdata, const char *name);
 
 static int __index(lua_State *L);
 static int __newindex(lua_State *L);

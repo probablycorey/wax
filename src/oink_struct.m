@@ -84,6 +84,7 @@ oink_struct_userdata *oink_struct_create(lua_State *L, const char *typeDescripti
     return structUserdata;
 }
 
+// Maybe all this data should be created at oink_struct_userdata creation time? I think so!
 void oink_struct_pushValueAt(lua_State *L, oink_struct_userdata *structUserdata, int index) {
     char *simplifiedTypeDescription = alloca(strlen(structUserdata->typeDescription) + 1);
     oink_simplifyTypeDescription(structUserdata->typeDescription, simplifiedTypeDescription);
@@ -98,36 +99,64 @@ void oink_struct_pushValueAt(lua_State *L, oink_struct_userdata *structUserdata,
     oink_fromObjc(L, type, structUserdata->data + position);
 }
 
-static int __index(lua_State *L) {
-    oink_struct_userdata *structUserdata = (oink_struct_userdata *)luaL_checkudata(L, 1, OINK_STRUCT_METATABLE_NAME);
-    const char *name = lua_tostring(L, 2);
+void oink_struct_setValueAt(lua_State *L, oink_struct_userdata *structUserdata, int index, int stackIndex) {
+    char *simplifiedTypeDescription = alloca(strlen(structUserdata->typeDescription) + 1);
+    oink_simplifyTypeDescription(structUserdata->typeDescription, simplifiedTypeDescription);
+    
+    int position = 0;
+    char type[2] = {simplifiedTypeDescription[0], '\0'};    
+    for (int i = 1; i < index; i++) {
+        position += oink_sizeOfTypeDescription(type);
+        type[0] = simplifiedTypeDescription[i];
+    }
+    
+    int size;
+    void *value = oink_copyToObjc(L, type, stackIndex, &size);
+    memcpy(structUserdata->data + position, value, size);
+    free(value);
+}
+
+int oink_struct_getOffsetForName(lua_State *L, oink_struct_userdata *structUserdata, const char *name) {
+    BEGIN_STACK_MODIFY(L);
     
     // Get the labeled struct table
     luaL_getmetatable(L, OINK_STRUCT_METATABLE_NAME);    
     lua_getfield(L, -1, LABELED_STRUCT_TABLE_NAME);
     lua_getfield(L, -1, structUserdata->name);
-
+    
     if (lua_isnil(L, -1)) {
         luaL_error(L, "No struct mapping for '%s'", structUserdata->name);
     }
-
+    
     lua_getfield(L, -1, name);
     if (lua_isnil(L, -1)) {
         luaL_error(L, "No mapping for varible named '%s' for struct '%s'", name, structUserdata->name);
     }
+    
+    int offset = lua_tonumber(L, -1);
+    
+    END_STACK_MODIFY(L, 0);
+    
+    return offset;
+}
 
-    int index = lua_tonumber(L, -1);
+static int __index(lua_State *L) {
+    oink_struct_userdata *structUserdata = (oink_struct_userdata *)luaL_checkudata(L, 1, OINK_STRUCT_METATABLE_NAME);
+    const char *name = lua_tostring(L, 2);
+        
+    int index = oink_struct_getOffsetForName(L, structUserdata, name);
     oink_struct_pushValueAt(L, structUserdata, index);
     
     return 1;
 }
 
 static int __newindex(lua_State *L) {
-//    oink_struct_userdata *structUserdata = (oink_struct_userdata *)luaL_checkudata(L, 1, OINK_STRUCT_METATABLE_NAME);
-//    lua_getfenv(L, 1);
-//    lua_insert(L, -3);    
-//    lua_rawset(L, -3);
-    
+    oink_struct_userdata *structUserdata = (oink_struct_userdata *)luaL_checkudata(L, 1, OINK_STRUCT_METATABLE_NAME);
+    const char *name = lua_tostring(L, 2);
+
+    int index = oink_struct_getOffsetForName(L, structUserdata, name);
+    oink_struct_setValueAt(L, structUserdata, index, 3);
+
     return 0;
 }
 
