@@ -16,8 +16,8 @@
     [super dealloc];
 }
 
-- (oneway void)release {
-    [super release];
+- (NSString *)description {
+    return _value;
 }
 
 - (id)initWithValue:(NSString *)value {

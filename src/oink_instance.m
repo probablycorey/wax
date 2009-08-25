@@ -158,6 +158,8 @@ void oink_instance_pushUserdata(lua_State *L, id object) {
     
     luaL_getmetatable(L, OINK_INSTANCE_METATABLE_NAME);
     lua_getfield(L, -1, "__oink_userdata");
+
+//    NSLog(@"%@ %@", object , [object class]);
     
     if (lua_isnil(L, -1)) { // __oink_userdata table does not exist yet 
         lua_remove(L, -2); // remove metadata table
@@ -237,16 +239,9 @@ static int __newindex(lua_State *L) {
     
 static int __gc(lua_State *L) {
     oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 1, OINK_INSTANCE_METATABLE_NAME);
-    
+//    NSLog(@"%@ %@", instanceUserdata->instance , [instanceUserdata->instance class]);
     if (!instanceUserdata->isClass && !instanceUserdata->isSuper) {
-        luaL_getmetatable(L, OINK_INSTANCE_METATABLE_NAME);
-        lua_getfield(L, -1, "__oink_userdata");
-
-        lua_pushlightuserdata(L, instanceUserdata);
-        lua_pushnil(L); // Remove this instance from the __oink_userdata table.
-        lua_rawset(L, -3);
-        
-		//NSLog(@"Releasing(%d) %@", [instanceUserdata->instance retainCount], instanceUserdata->instance);
+//		NSLog(@"Releasing(%d) %@", [instanceUserdata->instance retainCount], instanceUserdata->instance);
         [instanceUserdata->instance release];
     }
     
