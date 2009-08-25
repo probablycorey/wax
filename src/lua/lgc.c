@@ -455,7 +455,9 @@ static void GCTM (lua_State *L) {
   udata->uv.next = g->mainthread->next;  /* return it to `root' list */
   g->mainthread->next = o;
   makewhite(g, o);
-  tm = fasttm(L, udata->uv.metatable, TM_GC);
+  tm = fasttm(L, udata->uv.metatable, TM_OBJCGC);
+  
+  // OINK SPECIFIC!
   if (tm != NULL) {
     lu_byte oldah = L->allowhook;
     lu_mem oldt = g->GCthreshold;
@@ -464,9 +466,31 @@ static void GCTM (lua_State *L) {
     setobj2s(L, L->top, tm);
     setuvalue(L, L->top+1, udata);
     L->top += 2;
-    luaD_call(L, L->top - 2, 0);
+    luaD_call(L, L->top - 2, 1);
+    
+    // If this returns false, then don't collect it!
+    if (!lua_toboolean(L, -1)) {
+      white2gray(o);      
+      gray2black(o);
+    }
     L->allowhook = oldah;  /* restore hooks */
     g->GCthreshold = oldt;  /* restore threshold */
+    
+  }
+  else {
+    tm = fasttm(L, udata->uv.metatable, TM_GC);
+    if (tm != NULL) {
+      lu_byte oldah = L->allowhook;
+      lu_mem oldt = g->GCthreshold;
+      L->allowhook = 0;  /* stop debug hooks during GC tag method */
+      g->GCthreshold = 2*g->totalbytes;  /* avoid GC steps */
+      setobj2s(L, L->top, tm);
+      setuvalue(L, L->top+1, udata);
+      L->top += 2;
+      luaD_call(L, L->top - 2, 0);
+      L->allowhook = oldah;  /* restore hooks */
+      g->GCthreshold = oldt;  /* restore threshold */
+    }
   }
 }
 
