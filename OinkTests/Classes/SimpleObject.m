@@ -16,6 +16,10 @@
     [super dealloc];
 }
 
+- (oneway void)release {
+    [super release];
+}
+
 - (id)initWithValue:(NSString *)value {
     self = [super init];    
     _value = [value retain];

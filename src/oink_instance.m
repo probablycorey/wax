@@ -78,26 +78,30 @@ oink_instance_userdata *oink_instance_create(lua_State *L, id instance, BOOL isC
     
     // look for weak table
     luaL_getmetatable(L, OINK_INSTANCE_METATABLE_NAME);
-    lua_getfield(L, -1, "__userdata");
+    lua_getfield(L, -1, "__oink_userdata");
     
     if (lua_isnil(L, -1)) { // Create new weak table, add it to metatable
-        lua_settop(L, -2);
-        lua_newtable(L);
-        lua_pushstring(L, "v");
-        lua_setfield(L, -2, "__mode");
+        lua_pop(L, 1); // Remove nil
         
-        lua_pushstring(L, "__userdata");
-        lua_pushvalue(L, -2);
-        lua_rawset(L, -4);        
+        lua_newtable(L);
+        lua_pushvalue(L, -1);
+        lua_setmetatable(L, -1); // "oink_userdata" is it's own metatable
+        
+        lua_pushstring(L, "v");
+        lua_setfield(L, -2, "__mode");  // Make weak table
+                
+        lua_pushstring(L, "__oink_userdata"); // Table name
+        lua_pushvalue(L, -2); // copy the userdata table
+        lua_rawset(L, -4); // Add __oink_userdata table to metatable      
     }
 
     
     // register the userdata in the weak table in the metatable (so we can access it from obj-c)
     lua_pushlightuserdata(L, instanceUserdata->instance);
-    lua_pushvalue(L, -4);
+    lua_pushvalue(L, -4); // Push userdata
     lua_rawset(L, -3);
         
-    lua_settop(L, -3); // Pop off table and metatable
+    lua_pop(L, 2); // Pop off userdata table and metatable
     
     END_STACK_MODIFY(L, 1)
     
@@ -153,15 +157,15 @@ void oink_instance_pushUserdata(lua_State *L, id object) {
     BEGIN_STACK_MODIFY(L);
     
     luaL_getmetatable(L, OINK_INSTANCE_METATABLE_NAME);
-    lua_getfield(L, -1, "__userdata");
+    lua_getfield(L, -1, "__oink_userdata");
     
-    if (lua_isnil(L, -1)) { // __userdata table does not exist yet 
+    if (lua_isnil(L, -1)) { // __oink_userdata table does not exist yet 
         lua_remove(L, -2); // remove metadata table
     }
     else {
         lua_pushlightuserdata(L, object);    
         lua_rawget(L, -2);
-        lua_remove(L, -2); // remove __userdata table
+        lua_remove(L, -2); // remove __oink_userdata table
         lua_remove(L, -2); // remove metadata table
     }
     
@@ -235,12 +239,14 @@ static int __gc(lua_State *L) {
     oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 1, OINK_INSTANCE_METATABLE_NAME);
     
     if (!instanceUserdata->isClass && !instanceUserdata->isSuper) {
-        luaL_getmetafield(L, -1, "__userdata");
+        luaL_getmetatable(L, OINK_INSTANCE_METATABLE_NAME);
+        lua_getfield(L, -1, "__oink_userdata");
+
         lua_pushlightuserdata(L, instanceUserdata);
-        lua_pushnil(L); // Remove this instance from the __userdata table.
+        lua_pushnil(L); // Remove this instance from the __oink_userdata table.
         lua_rawset(L, -3);
         
-		NSLog(@"Releasing(%d) %@", [instanceUserdata->instance retainCount], instanceUserdata->instance);
+		//NSLog(@"Releasing(%d) %@", [instanceUserdata->instance retainCount], instanceUserdata->instance);
         [instanceUserdata->instance release];
     }
     
@@ -343,20 +349,19 @@ static int methodClosure(lua_State *L) {
         [invocation getReturnValue:buffer];
             
         oink_fromObjc(L, [signature methodReturnType], buffer);
-        
-        if (autoAlloc || // If autoAlloc'd then we assume the returned object is the same as the alloc'd method (gets around placeholder problem)
+                
+        if (lua_isuserdata(L, -1) && (
+            autoAlloc || // If autoAlloc'd then we assume the returned object is the same as the alloc'd method (gets around placeholder problem)
             strcmp(selectorName, "alloc") == 0 || // If this object was alloc, retain, copy then don't "auto retain"
             strcmp(selectorName, "copy") == 0 || 
-            strcmp(selectorName, "retain") == 0 ||
             strcmp(selectorName, "mutableCopy") == 0 ||
             strcmp(selectorName, "allocWithZone") == 0 ||
             strcmp(selectorName, "copyWithZone") == 0 ||
-            strcmp(selectorName, "mutableCopyWithZone") == 0) {
+            strcmp(selectorName, "mutableCopyWithZone") == 0)) {
+            // strcmp(selectorName, "retain") == 0 || // explicit retaining should not autorelease
             
-            if (lua_isuserdata(L, -1)) {
-                oink_instance_userdata *returnedObjLuaInstance = (oink_instance_userdata *)lua_topointer(L, -1);
-                [returnedObjLuaInstance->instance release];
-            }
+            oink_instance_userdata *returnedObjLuaInstance = (oink_instance_userdata *)lua_topointer(L, -1);
+            [returnedObjLuaInstance->instance release];
         }
         
         free(buffer);

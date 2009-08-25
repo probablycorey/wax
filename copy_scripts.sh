@@ -30,10 +30,7 @@ window:addSubview(label)
 INITFILE
 fi
 
-# copy the oink lua scripts into the dir... unless the oink directory already exists
-destPath="$PROJECT_DIR/data/oink"
-if [ ! -d $destPath ]; then
-  cp -r "$PROJECT_DIR/`dirname $0`/scripts/" $destPath
-fi
-
 rsync -v -r --delete "$PROJECT_DIR/data" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH" > /dev/null
+
+# copies the oink scripts over
+rsync -v -r --delete "$PROJECT_DIR/`dirname $0`/oink-scripts/" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/data/oink-scripts" > /dev/null
