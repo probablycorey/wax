@@ -37,7 +37,10 @@
 }
 
 + (BOOL)expectsCGRectOneTwoThreeFour:(CGRect)rect {
-    return rect.origin.x == 1 && rect.origin.y == 2 && rect.size.width == 3 && rect.size.height == 4;
+    return rect.origin.x == 1 && rect.origin.y == 2 && rect.size.width == 3 && rect.size.height == 4;}
+
++ (BOOL)expectsCGRectTwoFourSixEight:(CGRect)rect {
+    return rect.origin.x == 2 && rect.origin.y == 4 && rect.size.width == 6 && rect.size.height == 8;
 }
 
 + (BOOL)expectsCustomStructFiftySixty:(struct CustomStruct)s {

@@ -9,7 +9,6 @@ oinkCallback = function(callback)
   
   function object.__call(self, ...)
     if self.canceled then 
-      puts("I was canceled!")
       return 
     end
     

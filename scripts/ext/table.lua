@@ -36,6 +36,35 @@ function table.keys(t)
   return keys
 end
 
+function table.indexOf(t, value)
+  for k, v in pairs(t) do
+    if v == value then return k end
+  end
+  
+  return nil
+end
+
+function table.includes(t, value)
+  return table.indexOf(t, value)
+end
+
+function table.find(t, func)
+  for k, v in pairs(t) do
+    if func(v) then return k, v  end
+  end
+  
+  return nil
+end
+
+function table.findAll(t, func)
+  local matches = {}
+  for k, v in pairs(t) do
+    if func(v) then table.insert(matches, v) end
+  end
+  
+  return matches
+end
+
 function table.map(t, func)
   local mapped = {}
   for k, v in pairs(t) do
@@ -45,41 +74,25 @@ function table.map(t, func)
   return mapped
 end
 
--- TMP --
-function table_print (tt, indent, done)
-  done = done or {}
-  indent = indent or 0
-  if type(tt) == "table" then
-    local sb = {}
-    for key, value in pairs (tt) do
-      table.insert(sb, string.rep (" ", indent)) -- indent it
-      if type (value) == "table" and not done [value] then
-        done [value] = true
-        table.insert(sb, "{\n");
-        table.insert(sb, table_print (value, indent + 2, done))
-        table.insert(sb, string.rep (" ", indent)) -- indent it
-        table.insert(sb, "}\n");
-      elseif "number" == type(key) then
-        table.insert(sb, string.format("\"%s\"\n", tostring(value)))
-      else
-        table.insert(sb, string.format(
-            "%s = \"%s\"\n", tostring (key), tostring(value)))
-       end
+function table.tostring(t, indent)
+  local output = {}
+  if type(t) == "table" then
+    table.insert(output, "{\n")
+    for k, v in pairs(t) do
+      local innerIndent = (indent or " ") .. (indent or " ")
+      table.insert(output, innerIndent .. tostring(k) .. " = ")
+      table.insert(output, table.tostring(v, innerIndent))
     end
-    return table.concat(sb)
+    
+    if indent then
+      table.insert(output, (indent or "") .. "},\n")
+    else
+      table.insert(output, "}")
+    end
   else
-    return tt .. "\n"
+    if type(t) == "string" then t = string.format("%q", t) end -- quote strings      
+    table.insert(output, tostring(t) .. ",\n")
   end
-end
-
-function table.print(tbl)
-  if "nil" == type(tbl) then
-    print(tostring(nil))
-  elseif "table" == type(tbl) then
-    print(table_print(tbl))
-  elseif "string" == type(tbl) then
-    print(tbl)
-  else
-    print(tostring(tbl))
-  end
+  
+  return table.concat(output)
 end

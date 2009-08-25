@@ -21,9 +21,9 @@ Object = {
     for k, v in pairs(self) do
       if type(v) == "number" or 
          type(v) == "string" or
-         (type(v) == "table" and k ~= "prototype" and k ~= "defaults") then
-         
-         data[k] = self[k]
+         type(v) == "boolean" or
+         (type(v) == "table" and k ~= "prototype" and k ~= "defaults") then         
+         data[k] = v
       end
     end    
     

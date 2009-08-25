@@ -1,5 +1,6 @@
 require "ext.table"
 require "ext.string"
+require "ext.number"
 require "ext.object"
 
 function printf(string, ...)
@@ -7,7 +8,7 @@ end
 
 function puts(obj, ...)
   if type(obj) == "table" then 
-    table.print(obj)
+    print(table.tostring(obj))
     return
   end
   if ... then obj = string.format(tostring(obj), ...) end
@@ -49,8 +50,6 @@ function deserialize(filename)
   if not f then return nil end
 
   local output = f:read("*all")
-  puts(output)
   local success, value = pcall(function() return loadstring("return " .. output)() end)
-  puts(filename .. " deserialization successs? " .. tostring(success))
   return value
 end

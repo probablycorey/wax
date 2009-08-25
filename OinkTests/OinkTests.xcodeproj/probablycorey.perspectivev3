@@ -311,7 +311,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>9140C3091039015100F269F9</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>oink_struct.m</string>
+								<string>oink_instance.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -319,26 +319,31 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>9140C30A1039015100F269F9</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>oink_struct.m</string>
+										<string>oink_instance.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>91142D7A104346AA00DD8DA7</string>
+										<string>91142E1D1043554B00DD8DA7</string>
 										<key>history</key>
 										<array>
 											<string>9140D6DE103B0E0000F269F9</string>
 											<string>91142D59104344F900DD8DA7</string>
-											<string>91142D6C104345F000DD8DA7</string>
+											<string>91142DF51043534C00DD8DA7</string>
+											<string>91142E03104354EC00DD8DA7</string>
+											<string>91142E06104354EC00DD8DA7</string>
+											<string>91142E10104354F900DD8DA7</string>
+											<string>91142E11104354F900DD8DA7</string>
 										</array>
 										<key>prevStack</key>
 										<array>
 											<string>9140D596103909EF00F269F9</string>
 											<string>91142D5B104344F900DD8DA7</string>
 											<string>91142D5C104344F900DD8DA7</string>
-											<string>91142D5D104344F900DD8DA7</string>
-											<string>91142D5E104344F900DD8DA7</string>
-											<string>91142D5F104344F900DD8DA7</string>
-											<string>91142D60104344F900DD8DA7</string>
+											<string>91142DD01043523200DD8DA7</string>
+											<string>91142DF71043534C00DD8DA7</string>
+											<string>91142E09104354EC00DD8DA7</string>
+											<string>91142E0B104354EC00DD8DA7</string>
+											<string>91142E0E104354EC00DD8DA7</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -457,11 +462,11 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>91142D63104344FA00DD8DA7</string>
+				<string>91142DD31043523300DD8DA7</string>
 				<string>1CA23ED40692098700951B8B</string>
-				<string>91142D64104344FA00DD8DA7</string>
+				<string>91142DD41043523300DD8DA7</string>
 				<string>9140C3091039015100F269F9</string>
-				<string>91142D65104344FA00DD8DA7</string>
+				<string>91142DD51043523300DD8DA7</string>
 				<string>1CA23EDF0692099D00951B8B</string>
 				<string>1CA23EE00692099D00951B8B</string>
 				<string>1CA23EE10692099D00951B8B</string>
@@ -538,8 +543,8 @@
 								<string>yes</string>
 								<key>sizes</key>
 								<array>
-									<string>{{0, 0}, {777, 255}}</string>
-									<string>{{777, 0}, {816, 255}}</string>
+									<string>{{0, 0}, {777, 257}}</string>
+									<string>{{777, 0}, {816, 257}}</string>
 								</array>
 							</dict>
 							<key>VerticalSplitView</key>
@@ -554,8 +559,8 @@
 								<string>yes</string>
 								<key>sizes</key>
 								<array>
-									<string>{{0, 0}, {1593, 255}}</string>
-									<string>{{0, 255}, {1593, 541}}</string>
+									<string>{{0, 0}, {1593, 257}}</string>
+									<string>{{0, 257}, {1593, 539}}</string>
 								</array>
 							</dict>
 						</dict>
@@ -588,7 +593,7 @@
 								<real>586</real>
 							</array>
 							<key>Frame</key>
-							<string>{{777, 0}, {816, 255}}</string>
+							<string>{{777, 0}, {816, 257}}</string>
 							<key>RubberWindowFrame</key>
 							<string>0 55 1593 1123 0 0 1920 1178 </string>
 						</dict>
@@ -616,14 +621,14 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>91142D66104344FA00DD8DA7</string>
+				<string>91142DC4104351AF00DD8DA7</string>
 				<string>1CCC7628064C1048000F2A68</string>
 				<string>1CCC7629064C1048000F2A68</string>
-				<string>91142D67104344FA00DD8DA7</string>
-				<string>91142D68104344FA00DD8DA7</string>
-				<string>91142D69104344FA00DD8DA7</string>
-				<string>91142D6A104344FA00DD8DA7</string>
-				<string>91142D4F10433EBC00DD8DA7</string>
+				<string>91142DC5104351AF00DD8DA7</string>
+				<string>91142DC6104351AF00DD8DA7</string>
+				<string>91142DC7104351AF00DD8DA7</string>
+				<string>91142DC8104351AF00DD8DA7</string>
+				<string>91142DC9104351AF00DD8DA7</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
@@ -653,9 +658,8 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>91142D791043469B00DD8DA7</string>
-		<string>91142D751043460100DD8DA7</string>
-		<string>91142D73104345F600DD8DA7</string>
+		<string>91142DDC1043525300DD8DA7</string>
+		<string>91142DD71043523300DD8DA7</string>
 		<string>/Users/probablycorey/iPhone/oink/OinkTests/OinkTests.xcodeproj</string>
 	</array>
 	<key>WindowString</key>

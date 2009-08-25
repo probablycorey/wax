@@ -41,7 +41,7 @@ describe["Packing structs"] = function()
   end
 end
 
-describe["Creating custom structs"] = function()
+describe["Creating structs"] = function()
   before = function()
     Structs = oink.class["Structs"]
   end
@@ -56,6 +56,11 @@ describe["Creating custom structs"] = function()
     oink.struct.create("CustomStruct", "dd", "x", "y")
     expect( Structs:expectsCustomStructFiftySixty(CustomStruct(50,60)) ).should_be(true)
   end
+
+  it["reads existing structs by obj-c correctly"] = function()
+    oink.struct.create("CGRect", "ffff", "x", "y", "width", "height")
+    expect( Structs:expectsCGRectTwoFourSixEight(CGRect(2,4,6,8)) ).should_be(true)
+  end
 end
 
 describe["Reading custom structs"] = function()
@@ -65,15 +70,24 @@ describe["Reading custom structs"] = function()
   end
 
   it["can access values by name"] = function()
-    result = CustomStruct(10, 20.2)
+    local result = CustomStruct(10, 20.2)
     expect( result.x ).should_be(10)
     expect( result.y ).should_be(20.2)
   end
   
   it["can access struct via obj-c by name"] = function()
-    result = Structs:seventyPointFiveEighty()
+    local result = Structs:seventyPointFiveEighty()
     expect( result.x ).should_be(70.5)
     expect( result.y ).should_be(80)
+  end
+  
+  it["can access existing structs by name"] = function()
+    oink.struct.create("CGRect", "ffff", "x", "y", "width", "height")
+    local result = CGRect(2,4,6,8)
+    expect( result.x ).should_be(2)
+    expect( result.y ).should_be(4)
+    expect( result.width ).should_be(6)
+    expect( result.height ).should_be(8)    
   end
 end
 

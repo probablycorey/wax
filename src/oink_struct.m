@@ -163,10 +163,6 @@ static int __newindex(lua_State *L) {
 static int __gc(lua_State *L) {
     oink_struct_userdata *structUserdata = (oink_struct_userdata *)luaL_checkudata(L, 1, OINK_STRUCT_METATABLE_NAME);    
     NSLog(@"STRUCT NAMED %s is GOING AWAY", structUserdata->name);
-    //    oink_struct_userdata *structUserdata = (oink_struct_userdata *)luaL_checkudata(L, 1, OINK_STRUCT_METATABLE_NAME);
-    //    lua_getfenv(L, 1);
-    //    lua_insert(L, -3);    
-    //    lua_rawset(L, -3);
     
     return 0;
 }

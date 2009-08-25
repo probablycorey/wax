@@ -322,7 +322,7 @@ static int methodClosure(lua_State *L) {
         arguements[i] = oink_copyToObjc(L, [signature getArgumentTypeAtIndex:i + 2], i + 2, nil);
         [invocation setArgument:arguements[i] atIndex:i + 2];
     }
-    
+
     @try {
         [invocation invoke];
     }
