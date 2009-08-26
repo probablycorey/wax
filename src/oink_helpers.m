@@ -60,6 +60,15 @@ void oink_printTable(lua_State *L, int t) {
     }
 }
 
+void oink_log(int flag, NSString *format, ...) {
+    if (flag & LOG_FLAGS) {
+        va_list args;
+        va_start(args, format);
+        NSLogv(format, args);
+        va_end(args);
+    }
+}
+
 int oink_fromObjc(lua_State *L, const char *typeDescription, void *buffer) {
     BEGIN_STACK_MODIFY(L)
     

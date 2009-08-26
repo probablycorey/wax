@@ -20,11 +20,11 @@ UIBarButtonItemStyleDone = 2
 
 -- UIButtonType
 UIButtonTypeCustom = 0
-UIButtonTypeRoundedRect = 2
-UIButtonTypeDetailDisclosure = 3
-UIButtonTypeInfoLight = 4
-UIButtonTypeInfoDark = 5
-UIButtonTypeContactAdd = 6
+UIButtonTypeRoundedRect = 1
+UIButtonTypeDetailDisclosure = 2
+UIButtonTypeInfoLight = 3
+UIButtonTypeInfoDark = 4
+UIButtonTypeContactAdd = 5
 
 UILineBreakModeWordWrap = 0
 UILineBreakModeCharacterWrap = 1

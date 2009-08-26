@@ -5,7 +5,7 @@ I'm assuming you've got oink... if not, grab it at http://github.com/probablycor
 
 • Create a new "Window-based Application" iPhone project in xcode
 
-• Drag the oink folder into the your app's root folder (the actual folder via Finder/Terminal not into xCode). Then drag the oink/src folder into the xcode "Groups & Files" pane. You want to make sure "Copy items into destination group's folder" is NOT checked and "Recursively create groups for any added folders" is selected. 
+• Drag the oink folder into the your <PROJECT ROOT> folder (the actual folder via Finder/Terminal not into xCode). Then drag the <PROJECT ROOT>/oink/src folder into the xcode "Groups & Files" pane. You want to make sure "Copy items into destination group's folder" is NOT checked and "Recursively create groups for any added folders" is selected. 
 
 • In your UIApplication delegate file add...
     #import "oink.h"
@@ -21,7 +21,7 @@ I'm assuming you've got oink... if not, grab it at http://github.com/probablycor
 3.) A weird little editor window should pop up. In the Script text area write 
   oink/copy_scripts.sh
   
-• Now build your app! It should compile and you should have a new folder named "data" (The data folder won't show up in xcode unless you add it to the project... that is optional though)
+• Now build your app! It should compile and you should have a new folder named "data" in <PROJECT ROOT> (If you want to see the data folder in xcode you have to add the xcode project, this is optional though.)
 
 • When you run the app, it will run the lua script located at /data/scripts/init.lua Put your magic in there
 
@@ -72,5 +72,13 @@ end
 
 Trouble shooting
 ----------------
-*bad argument #1 to '???' (oink.instance expected, got ???)
+* bad argument #1 to '???' (oink.instance expected, got ???)
 Usually means you called a function with a '.' instead of a ':'
+
+* Error invoking method 'addSubview:' on 'UIWindow' because *** -[??? superview]: unrecognized selector sent to instance
+If you are trying to add a UIViewController, make sure you are adding the view, not the viewController.
+
+
+Known issues
+------------
+Don't override dealloc in lua... this will break.

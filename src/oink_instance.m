@@ -52,9 +52,11 @@ oink_instance_userdata *oink_instance_create(lua_State *L, id instance, BOOL isC
     oink_instance_pushUserdata(L, instance);
    
     if (lua_isnil(L, -1)) {
+        oink_log(LOG_GC, @"Creating object for %@(%p)", instance, instance);
         lua_pop(L, 1); // pop nil stack
     }
     else {
+        oink_log(LOG_GC, @"Found existing userdata object for %@(%p)", instance, instance);
         return lua_touserdata(L, -1);
     }
     
@@ -65,6 +67,7 @@ oink_instance_userdata *oink_instance_create(lua_State *L, id instance, BOOL isC
     instanceUserdata->isSuper = NO;
  
     if (!isClass) {
+        oink_log(LOG_GC, @"Retaining object for %@(%p)", instance, instance);        
         [instanceUserdata->instance retain];
     }
     
@@ -159,8 +162,6 @@ void oink_instance_pushUserdata(lua_State *L, id object) {
     
     luaL_getmetatable(L, OINK_INSTANCE_METATABLE_NAME);
     lua_getfield(L, -1, "__oink_userdata");
-
-//    NSLog(@"%d %@", [object isKindOfClass:[NSObject class]], [object class]);
     
     if (lua_isnil(L, -1)) { // __oink_userdata table does not exist yet 
         lua_remove(L, -2); // remove metadata table
@@ -255,7 +256,7 @@ static int __oinkretain(lua_State *L) {
 static int __gc(lua_State *L) {
     oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 1, OINK_INSTANCE_METATABLE_NAME);
     if (!instanceUserdata->isClass && !instanceUserdata->isSuper) {
-		NSLog(@"Releasing(%d) %@", [instanceUserdata->instance retainCount], [instanceUserdata->instance class]);
+		oink_log(LOG_GC, @"Releasing %@(%p)", [instanceUserdata->instance class], instanceUserdata->instance);
         [instanceUserdata->instance release];
     }
     
@@ -370,6 +371,7 @@ static int methodClosure(lua_State *L) {
             // strcmp(selectorName, "retain") == 0 || // explicit retaining should not autorelease
             
             oink_instance_userdata *returnedObjLuaInstance = (oink_instance_userdata *)lua_topointer(L, -1);
+            oink_log(LOG_GC, @"Releasing %@(%p) autoAlloc=%d", [returnedObjLuaInstance->instance class], instanceUserdata->instance, autoAlloc);            
             [returnedObjLuaInstance->instance release];
         }
         
@@ -412,6 +414,7 @@ static int customInitMethodClosure(lua_State *L) {
     
     if (instanceUserdata->isClass) {
         instanceUserdata = oink_instance_create(L, [instanceUserdata->instance alloc], NO);
+        [instanceUserdata->instance release]; // The userdata is taking care of retaining this now
         lua_replace(L, 1); // replace the old userdata with the new one!
     }
     else {
@@ -435,8 +438,6 @@ static int customInitMethodClosure(lua_State *L) {
 static int pcallUserdata(lua_State *L, id self, SEL selector, va_list args) {
     BEGIN_STACK_MODIFY(L)    
 	
-    if (![[NSThread currentThread] isEqual:[NSThread mainThread]]) NSLog(@"PACALLUSERDATA: OH NO SEPERATE THREAD");
-    
     if (![[NSThread currentThread] isEqual:[NSThread mainThread]]) NSLog(@"PACALLUSERDATA: OH NO SEPERATE THREAD");
     
     // Find the function... could be in the object or in the class

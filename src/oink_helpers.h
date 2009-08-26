@@ -62,6 +62,11 @@
 
 #define END_STACK_MODIFY(L, i) while(lua_gettop((L)) > (__startStackIndex + i)) lua_remove(L, __startStackIndex + 1);
 
+#ifndef LOG_FLAGS
+    #define LOG_FLAGS 0
+#endif
+
+#define LOG_GC 1
 
 // This struct seem unnessessary
 typedef struct _oink_selectors {
@@ -72,6 +77,7 @@ typedef struct _oink_selectors {
 void oink_printStack(lua_State *L);
 void oink_printStackAt(lua_State *L, int i);
 void oink_printTable(lua_State *L, int t);
+void oink_log(int flag, NSString *format, ...);
 
 // Convertion Helpers
 int oink_fromObjc(lua_State *L, const char *typeDescription, void *buffer);
@@ -85,7 +91,6 @@ oink_selectors oink_selectorsForName(const char *methodName);
 SEL oink_selectorForInstance(oink_instance_userdata *instanceUserdata, const char *methodName, BOOL forceInstanceCheck);
 void oink_pushMethodNameFromSelector(lua_State *L, SEL selector);
 BOOL oink_isInitMethod(const char *methodName);
-
 
 const char *oink_removeProtocolEncodings(const char *type_descriptions);
 
