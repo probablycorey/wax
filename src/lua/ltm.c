@@ -33,7 +33,7 @@ void luaT_init (lua_State *L) {
     "__gc", "__mode", "__eq",
     "__add", "__sub", "__mul", "__div", "__mod",
     "__pow", "__unm", "__len", "__lt", "__le",
-    "__concat", "__call", "__objcgc"
+    "__concat", "__call", "__oinkretain"
   };
   int i;
   for (i=0; i<TM_N; i++) {

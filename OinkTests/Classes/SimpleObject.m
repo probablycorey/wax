@@ -35,4 +35,14 @@
     return _value;
 }
 
++ (id)stored:(id)obj {
+    static id stored;
+    if (obj) {
+        [stored release];
+        stored = [obj retain];    
+    }
+    
+    return stored;
+}
+
 @end

@@ -159,6 +159,7 @@ static int traversetable (global_State *g, Table *h) {
   int i;
   int weakkey = 0;
   int weakvalue = 0;
+  int oinkvalue = 0;    
   const TValue *mode;
   if (h->metatable)
     markobject(g, h->metatable);
@@ -166,6 +167,7 @@ static int traversetable (global_State *g, Table *h) {
   if (mode && ttisstring(mode)) {  /* is there a weak mode? */
     weakkey = (strchr(svalue(mode), 'k') != NULL);
     weakvalue = (strchr(svalue(mode), 'v') != NULL);
+    oinkvalue = (strchr(svalue(mode), '!') != NULL);
     if (weakkey || weakvalue) {  /* is really weak? */
       h->marked &= ~(KEYWEAK | VALUEWEAK);  /* clear bits */
       h->marked |= cast_byte((weakkey << KEYWEAKBIT) |
@@ -190,6 +192,26 @@ static int traversetable (global_State *g, Table *h) {
       lua_assert(!ttisnil(gkey(n)));
       if (!weakkey) markvalue(g, gkey(n));
       if (!weakvalue) markvalue(g, gval(n));
+      if (oinkvalue && ttisuserdata(gval(n))) {
+        Udata *udata = (Udata *)uvalue(gval(n)); 
+        lua_State *L = g->mainthread;
+        const TValue *tm = gfasttm(g, udata->uv.metatable, TM_OINKRETAIN);
+        if (tm != NULL) {
+          lu_mem oldt = g->GCthreshold;
+          g->GCthreshold = 2*g->totalbytes;  /* avoid GC steps */
+            
+          setobj2s(L, L->top, tm);
+          setuvalue(L, L->top+1, udata);
+          L->top += 2;
+          luaD_call(L, L->top - 2, 1);
+          if (lua_toboolean(L, -1)) {
+              markvalue(g, gval(n)); // Only get rid of it sometimes?
+          }
+          lua_pop(L, 1);
+
+          g->GCthreshold = oldt;  /* restore threshold */  
+        }        
+      }      
     }
   }
   return weakkey || weakvalue;
@@ -455,9 +477,7 @@ static void GCTM (lua_State *L) {
   udata->uv.next = g->mainthread->next;  /* return it to `root' list */
   g->mainthread->next = o;
   makewhite(g, o);
-  tm = fasttm(L, udata->uv.metatable, TM_OBJCGC);
-  
-  // OINK SPECIFIC!
+  tm = fasttm(L, udata->uv.metatable, TM_GC);
   if (tm != NULL) {
     lu_byte oldah = L->allowhook;
     lu_mem oldt = g->GCthreshold;
@@ -466,31 +486,9 @@ static void GCTM (lua_State *L) {
     setobj2s(L, L->top, tm);
     setuvalue(L, L->top+1, udata);
     L->top += 2;
-    luaD_call(L, L->top - 2, 1);
-    
-    // If this returns false, then don't collect it!
-    if (!lua_toboolean(L, -1)) {
-      white2gray(o);      
-      gray2black(o);
-    }
+    luaD_call(L, L->top - 2, 0);
     L->allowhook = oldah;  /* restore hooks */
     g->GCthreshold = oldt;  /* restore threshold */
-    
-  }
-  else {
-    tm = fasttm(L, udata->uv.metatable, TM_GC);
-    if (tm != NULL) {
-      lu_byte oldah = L->allowhook;
-      lu_mem oldt = g->GCthreshold;
-      L->allowhook = 0;  /* stop debug hooks during GC tag method */
-      g->GCthreshold = 2*g->totalbytes;  /* avoid GC steps */
-      setobj2s(L, L->top, tm);
-      setuvalue(L, L->top+1, udata);
-      L->top += 2;
-      luaD_call(L, L->top - 2, 0);
-      L->allowhook = oldah;  /* restore hooks */
-      g->GCthreshold = oldt;  /* restore threshold */
-    }
   }
 }
 

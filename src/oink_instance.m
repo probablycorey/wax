@@ -18,6 +18,7 @@ static const struct luaL_Reg metaFunctions[] = {
     {"__index", __index},
     {"__newindex", __newindex},
     {"__gc", __gc},
+    {"__oinkretain", __oinkretain},
     {"__tostring", __tostring},
     {"__eq", __eq},
     {NULL, NULL}
@@ -87,7 +88,7 @@ oink_instance_userdata *oink_instance_create(lua_State *L, id instance, BOOL isC
         lua_pushvalue(L, -1);
         lua_setmetatable(L, -1); // "oink_userdata" is it's own metatable
         
-        lua_pushstring(L, "v");
+        lua_pushstring(L, "v!");
         lua_setfield(L, -2, "__mode");  // Make weak table
                 
         lua_pushstring(L, "__oink_userdata"); // Table name
@@ -159,7 +160,7 @@ void oink_instance_pushUserdata(lua_State *L, id object) {
     luaL_getmetatable(L, OINK_INSTANCE_METATABLE_NAME);
     lua_getfield(L, -1, "__oink_userdata");
 
-//    NSLog(@"%@ %@", object , [object class]);
+//    NSLog(@"%d %@", [object isKindOfClass:[NSObject class]], [object class]);
     
     if (lua_isnil(L, -1)) { // __oink_userdata table does not exist yet 
         lua_remove(L, -2); // remove metadata table
@@ -236,12 +237,25 @@ static int __newindex(lua_State *L) {
     
     return 0;
 }
-    
+
+static int __oinkretain(lua_State *L) {
+  oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 1, OINK_INSTANCE_METATABLE_NAME);
+
+  if (!instanceUserdata->isClass && !instanceUserdata->isSuper && [instanceUserdata->instance retainCount] > 1) {
+    lua_pushboolean(L, true);
+  }
+  else {
+    lua_pushboolean(L, false);
+  }
+  
+  return 1;
+}
+
+
 static int __gc(lua_State *L) {
     oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 1, OINK_INSTANCE_METATABLE_NAME);
-//    NSLog(@"%@ %@", instanceUserdata->instance , [instanceUserdata->instance class]);
     if (!instanceUserdata->isClass && !instanceUserdata->isSuper) {
-//		NSLog(@"Releasing(%d) %@", [instanceUserdata->instance retainCount], instanceUserdata->instance);
+		NSLog(@"Releasing(%d) %@", [instanceUserdata->instance retainCount], [instanceUserdata->instance class]);
         [instanceUserdata->instance release];
     }
     

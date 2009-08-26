@@ -17,11 +17,10 @@ spec:report(true)
 --   -- local savedNumber = oink.class.SimpleObject:initWithValue("1234")
 --   puts("create letter")  
 --   local letter = oink.class.SimpleObject:initWithValue("abcd")
+--   letter.name = "hello!"
 -- 
 --   puts("store letter")  
 --   oink.class.SimpleObject:stored(letter)
---   
---   table.insert(saved, savedNumber)
 -- end
 -- 
 -- go()
@@ -32,10 +31,11 @@ spec:report(true)
 -- 
 -- puts("getting stored letter")
 -- 
--- puts(oink.class.SimpleObject:stored())
--- --oink.class.SimpleObject:stored(saved[1])
--- oink.class.SimpleObject:stored(1)
+-- puts(oink.class.SimpleObject:stored().name)
+-- oink.class.SimpleObject:stored(3)
 -- 
 -- collectgarbage("collect")
+-- 
+-- puts(oink.class.SimpleObject:stored())
 -- 
 -- print("Script done!")
