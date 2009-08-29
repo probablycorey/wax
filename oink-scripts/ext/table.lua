@@ -36,6 +36,14 @@ function table.keys(t)
   return keys
 end
 
+function table.append(t, moreValues)
+  for i, v in ipairs(moreValues) do
+    table.insert(t, v)
+  end
+  
+  return t
+end
+
 function table.indexOf(t, value)
   for k, v in pairs(t) do
     if v == value then return k end

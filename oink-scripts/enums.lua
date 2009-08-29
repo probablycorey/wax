@@ -179,3 +179,9 @@ UIBarButtonSystemItemRewind = 19
 UIBarButtonSystemItemFastForward = 20
 UIBarButtonSystemItemUndo = 21
 UIBarButtonSystemItemRedo = 22
+
+-- UITextBorderStyle
+UITextBorderStyleNone = 0
+UITextBorderStyleLine = 1
+UITextBorderStyleBezel = 2
+UITextBorderStyleRoundedRect = 3
