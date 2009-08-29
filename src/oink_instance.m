@@ -374,6 +374,10 @@ static int methodClosure(lua_State *L) {
             oink_log(LOG_GC, @"Releasing %@(%p) autoAlloc=%d", [returnedObjLuaInstance->instance class], instanceUserdata->instance, autoAlloc);            
             [returnedObjLuaInstance->instance release];
         }
+        else if (autoAlloc && lua_isnil(L, -1)) {
+          // The init method returned nil... means initializization failed! Zero out the userdata
+          instanceUserdata->instance = nil;
+        }
         
         free(buffer);
     }
