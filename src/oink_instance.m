@@ -433,6 +433,13 @@ static int customInitMethodClosure(lua_State *L) {
         luaL_error(L, "Custom init method on '%s' failed.\n%s", class_getName([instanceUserdata->instance class]), errorString);
     }
     
+    // Possibly check to make sure the custom init returns a userdata object or nil
+  
+    if (lua_isnil(L, -1)) {
+      // The init method returned nil... means initializization failed! Zero out the userdata
+      instanceUserdata->instance = nil;
+    }
+  
     return 1;
 }
 
