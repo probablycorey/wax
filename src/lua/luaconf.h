@@ -83,7 +83,7 @@
 
 // BEGIN OINK PATCH
 #define LUA_ROOT	"./data/"
-#define LUA_PATH_DEFAULT  LUA_ROOT "scripts/?.lua;" LUA_ROOT "scripts/?/init.lua;" LUA_ROOT "oink-scripts/?.lua;" LUA_ROOT "oink-scripts/?/init.lua;"
+#define LUA_PATH_DEFAULT LUA_ROOT "scripts/?.dat;" LUA_ROOT "scripts/?/init.lua;" LUA_ROOT "oink-scripts/?.lua;" LUA_ROOT "oink-scripts/?/init.lua;"
 #define LUA_CPATH_DEFAULT ""
 // END OINK PATCH
 

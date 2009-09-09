@@ -30,18 +30,18 @@ void uncaughtExceptionHandler(NSException *e) {
 void oink_startWithExtensions(lua_CFunction func, ...) {
     char *mainFile;
 
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    [fileManager changeCurrentDirectoryPath:[[NSBundle mainBundle] bundlePath]];
+    lua_State *L = oink_currentLuaState();    
+    
 	NSArray *args = [[NSProcessInfo processInfo] arguments];	
 	if ([args containsObject:@"test"]) {
 		mainFile = "data/scripts/tests/init.lua";
 	}
 	else {
-		mainFile = "data/scripts/init.lua";
-	}
-        
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    [fileManager changeCurrentDirectoryPath:[[NSBundle mainBundle] bundlePath]];
-    lua_State *L = oink_currentLuaState();
-    
+   		mainFile = "data/scripts/init.dat";        
+//        if ([[NSFileManager defaultManager] fileExistsAtPath:<#(NSString *)path#>
+	}            
     
     luaL_openlibs(L); 
     luaopen_oink(L);
