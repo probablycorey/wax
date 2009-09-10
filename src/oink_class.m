@@ -22,7 +22,7 @@ static const struct luaL_Reg MetaMethods[] = {
 };
 
 static const struct luaL_Reg Methods[] = {
-	{"addProtocols", addProtocols},
+    {"addProtocols", addProtocols},
     {NULL, NULL}
 };
 
@@ -87,7 +87,7 @@ static void forwardInvocation(id self, SEL _cmd, NSInvocation *invocation) {
 
 static NSMethodSignature *methodSignatureForSelector(id self, SEL _cmd, SEL selector) {
     lua_State *L = oink_currentLuaState();
-	BEGIN_STACK_MODIFY(L)	
+    BEGIN_STACK_MODIFY(L)    
 
     struct objc_super super;
     super.receiver = self;
@@ -100,13 +100,13 @@ static NSMethodSignature *methodSignatureForSelector(id self, SEL _cmd, SEL sele
     NSMethodSignature *signature = objc_msgSendSuper(&super, _cmd, selector);
     
     if (signature) {
-		return signature;
-	}
+        return signature;
+    }
 
     oink_instance_pushFunction(L, self, selector);
     
     if (lua_isnil(L, -1)) {
-		END_STACK_MODIFY(L, 0)
+        END_STACK_MODIFY(L, 0)
         return nil;
     }
     else {
@@ -125,21 +125,21 @@ static NSMethodSignature *methodSignatureForSelector(id self, SEL _cmd, SEL sele
     typeString[typeStringSize - 1] = '\0';
     signature = [NSMethodSignature signatureWithObjCTypes:typeString];
 
-	END_STACK_MODIFY(L, 0)
-	
+    END_STACK_MODIFY(L, 0)
+    
     return signature;
 }
 
 // Finds an obj-c class
 static int __index(lua_State *L) {
     const char *className = luaL_checkstring(L, 2);
-	Class class = objc_getClass(className);
-	if (class) {
-		oink_instance_create(L, class, YES);
-	}
-	else {
-		lua_pushnil(L);
-	}
+    Class class = objc_getClass(className);
+    if (class) {
+        oink_instance_create(L, class, YES);
+    }
+    else {
+        lua_pushnil(L);
+    }
     
     return 1;
 }
@@ -158,9 +158,9 @@ static int __call(lua_State *L) {
             oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 3, OINK_INSTANCE_METATABLE_NAME);
             superClass = instanceUserdata->instance;
         }
-		else if (lua_isnoneornil(L, 3)) {
-			superClass = [NSObject class];
-		}
+        else if (lua_isnoneornil(L, 3)) {
+            superClass = [NSObject class];
+        }
         else {
             const char *superClassName = luaL_checkstring(L, 3);    
             superClass = objc_getClass(superClassName);

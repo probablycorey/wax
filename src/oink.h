@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "lua.h"
+#import "oink_conf.h"
 
 void oink_start();
 void oink_startWithExtensions(lua_CFunction func, ...);

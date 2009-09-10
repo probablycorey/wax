@@ -33,4 +33,4 @@ fi
 rsync -v -r --delete "$PROJECT_DIR/data" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH" > /dev/null
 
 # copies the oink scripts over
-rsync -v -r --delete "$PROJECT_DIR/`dirname $0`/oink-scripts/" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/data/oink-scripts" > /dev/null
+rsync -v -r "$PROJECT_DIR/`dirname $0`/oink-scripts/" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/data/scripts/" > /dev/null

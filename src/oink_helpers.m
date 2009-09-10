@@ -72,10 +72,10 @@ void oink_log(int flag, NSString *format, ...) {
 int oink_fromObjc(lua_State *L, const char *typeDescription, void *buffer) {
     BEGIN_STACK_MODIFY(L)
     
-	typeDescription = oink_removeProtocolEncodings(typeDescription);
-	
+    typeDescription = oink_removeProtocolEncodings(typeDescription);
+    
     int size = oink_sizeOfTypeDescription(typeDescription);
-	
+    
     switch (typeDescription[0]) {
         case OINK_TYPE_VOID:
             lua_pushnil(L);
@@ -83,11 +83,11 @@ int oink_fromObjc(lua_State *L, const char *typeDescription, void *buffer) {
 
 //        case OINK_TYPE_POINTER:
 //            return oink_fromObjc(L, &typeDescription[1], *(void **)buffer); // Dereference pointer and deal with it!
-//            break;						
-			
+//            break;                        
+            
         case OINK_TYPE_CHAR: {
             char c = *(char *)buffer;
-				if (c <= 1) lua_pushboolean(L, c); // If it's 1 or 0, then treat it like a bool
+                if (c <= 1) lua_pushboolean(L, c); // If it's 1 or 0, then treat it like a bool
             else lua_pushinteger(L, c);
             break;
         }
@@ -190,27 +190,27 @@ void oink_fromInstance(lua_State *L, id instance) {
             lua_pushnumber(L, [instance doubleValue]);
         }
         else if ([instance isKindOfClass:[NSArray class]]) {
-			lua_newtable(L);
-			for (id obj in instance) {
-				int i = lua_objlen(L, -1);
-				oink_fromInstance(L, obj);
-				lua_rawseti(L, -2, i + 1);
-			}
+            lua_newtable(L);
+            for (id obj in instance) {
+                int i = lua_objlen(L, -1);
+                oink_fromInstance(L, obj);
+                lua_rawseti(L, -2, i + 1);
+            }
         }
         else if ([instance isKindOfClass:[NSDictionary class]]) {
-			lua_newtable(L);
-			for (id key in instance) {
-				oink_fromInstance(L, key);
-				oink_fromInstance(L, [instance objectForKey:key]);
-				lua_rawset(L, -3);
-			}
-        }				
-		else if ([instance isKindOfClass:[NSValue class]]) {
-			void *buffer = malloc(oink_sizeOfTypeDescription([instance objCType]));
-			[instance getValue:buffer];
-			oink_fromObjc(L, [instance objCType], buffer);
-			free(buffer);
-        }	
+            lua_newtable(L);
+            for (id key in instance) {
+                oink_fromInstance(L, key);
+                oink_fromInstance(L, [instance objectForKey:key]);
+                lua_rawset(L, -3);
+            }
+        }                
+        else if ([instance isKindOfClass:[NSValue class]]) {
+            void *buffer = malloc(oink_sizeOfTypeDescription([instance objCType]));
+            [instance getValue:buffer];
+            oink_fromObjc(L, [instance objCType], buffer);
+            free(buffer);
+        }    
         else {
             oink_instance_create(L, instance, NO);
         }
@@ -313,7 +313,7 @@ void *oink_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex,
             break;
         }
 
-		case OINK_TYPE_POINTER:
+        case OINK_TYPE_POINTER:
         case OINK_TYPE_ID: {
             *outsize = sizeof(id);
 
@@ -324,7 +324,7 @@ void *oink_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex,
 
             switch (lua_type(L, stackIndex)) {
                 case LUA_TNIL:
-				case LUA_TNONE:
+                case LUA_TNONE:
                     instance = nil;
                     break;
                     
@@ -334,50 +334,50 @@ void *oink_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex,
                     break;
                     
                 case LUA_TSTRING: 
-					instance = [NSString stringWithCString:lua_tostring(L, stackIndex)];  
-					break;
+                    instance = [NSString stringWithCString:lua_tostring(L, stackIndex)];  
+                    break;
 
                 case LUA_TTABLE: {
-					BOOL dictionary = NO;
-					
-					lua_pushvalue(L, stackIndex);
-					lua_pushnil(L);  /* first key */
-					while (!dictionary && lua_next(L, -2)) {
-						if (lua_type(L, -2) != LUA_TNUMBER) dictionary = YES;						
-						lua_pop(L, 1);
-					}
-					
-					if (dictionary) {
-						instance = [NSMutableDictionary dictionary];
-						
-						lua_pushnil(L);  /* first key */
-						while (lua_next(L, -2)) {
-							id *key = oink_copyToObjc(L, "@", -2, nil);
-							id *object = oink_copyToObjc(L, "@", -1, nil);
-							[instance setObject:*object forKey:*key];
-							lua_pop(L, 1); // Pop off the value
-							free(key);
-							free(object);
-						}						
-					}
-					else {
-						instance = [NSMutableArray array];
-						
-						lua_pushnil(L);  /* first key */
-						while (lua_next(L, -2)) {
-							int index = lua_tonumber(L, -2) - 1;
-							id *object = oink_copyToObjc(L, "@", -1, nil);
-							[instance insertObject:*object atIndex:index];
-							lua_pop(L, 1);
-							free(object);
-						}								
-					}
-					
-					lua_pop(L, 1);
+                    BOOL dictionary = NO;
+                    
+                    lua_pushvalue(L, stackIndex);
+                    lua_pushnil(L);  /* first key */
+                    while (!dictionary && lua_next(L, -2)) {
+                        if (lua_type(L, -2) != LUA_TNUMBER) dictionary = YES;                        
+                        lua_pop(L, 1);
+                    }
+                    
+                    if (dictionary) {
+                        instance = [NSMutableDictionary dictionary];
+                        
+                        lua_pushnil(L);  /* first key */
+                        while (lua_next(L, -2)) {
+                            id *key = oink_copyToObjc(L, "@", -2, nil);
+                            id *object = oink_copyToObjc(L, "@", -1, nil);
+                            [instance setObject:*object forKey:*key];
+                            lua_pop(L, 1); // Pop off the value
+                            free(key);
+                            free(object);
+                        }                        
+                    }
+                    else {
+                        instance = [NSMutableArray array];
+                        
+                        lua_pushnil(L);  /* first key */
+                        while (lua_next(L, -2)) {
+                            int index = lua_tonumber(L, -2) - 1;
+                            id *object = oink_copyToObjc(L, "@", -1, nil);
+                            [instance insertObject:*object atIndex:index];
+                            lua_pop(L, 1);
+                            free(object);
+                        }                                
+                    }
+                    
+                    lua_pop(L, 1);
                     
                     break;
-				}
-					                    
+                }
+                                        
                 case LUA_TUSERDATA: {
                     oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, stackIndex, OINK_INSTANCE_METATABLE_NAME);
                     instance = instanceUserdata->instance;
@@ -436,17 +436,17 @@ oink_selectors oink_selectorsForName(const char *methodName) {
     return posibleSelectors;
 }
 
-SEL oink_selectorForInstance(oink_instance_userdata *instanceUserdata, const char *methodName, BOOL forceInstanceCheck) {	
+SEL oink_selectorForInstance(oink_instance_userdata *instanceUserdata, const char *methodName, BOOL forceInstanceCheck) {    
     SEL *posibleSelectors = &oink_selectorsForName(methodName).selectors[0];
     
-	if (instanceUserdata->isClass && (forceInstanceCheck || oink_isInitMethod(methodName))) {
-		if ([instanceUserdata->instance instancesRespondToSelector:posibleSelectors[0]]) return posibleSelectors[0];
-		if ([instanceUserdata->instance instancesRespondToSelector:posibleSelectors[1]]) return posibleSelectors[1];
+    if (instanceUserdata->isClass && (forceInstanceCheck || oink_isInitMethod(methodName))) {
+        if ([instanceUserdata->instance instancesRespondToSelector:posibleSelectors[0]]) return posibleSelectors[0];
+        if ([instanceUserdata->instance instancesRespondToSelector:posibleSelectors[1]]) return posibleSelectors[1];
     }
-	else {
-		if ([instanceUserdata->instance respondsToSelector:posibleSelectors[0]]) return posibleSelectors[0];
-		if ([instanceUserdata->instance respondsToSelector:posibleSelectors[1]]) return posibleSelectors[1];    		
-    }	
+    else {
+        if ([instanceUserdata->instance respondsToSelector:posibleSelectors[0]]) return posibleSelectors[0];
+        if ([instanceUserdata->instance respondsToSelector:posibleSelectors[1]]) return posibleSelectors[1];            
+    }    
     
     return nil;
 }
@@ -487,7 +487,7 @@ BOOL oink_isInitMethod(const char *methodName) {
 // I could get rid of this
 const char *oink_removeProtocolEncodings(const char *type_descriptions) {
     switch (type_descriptions[0]) {
-		case OINK_PROTOCOL_TYPE_CONST:
+        case OINK_PROTOCOL_TYPE_CONST:
         case OINK_PROTOCOL_TYPE_INOUT:
         case OINK_PROTOCOL_TYPE_OUT:
         case OINK_PROTOCOL_TYPE_BYCOPY:

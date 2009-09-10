@@ -256,7 +256,7 @@ static int __oinkretain(lua_State *L) {
 static int __gc(lua_State *L) {
     oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 1, OINK_INSTANCE_METATABLE_NAME);
     if (!instanceUserdata->isClass && !instanceUserdata->isSuper) {
-		oink_log(LOG_GC, @"Releasing %@(%p)", [instanceUserdata->instance class], instanceUserdata->instance);
+        oink_log(LOG_GC, @"Releasing %@(%p)", [instanceUserdata->instance class], instanceUserdata->instance);
         [instanceUserdata->instance release];
     }
     
@@ -436,8 +436,8 @@ static int customInitMethodClosure(lua_State *L) {
     // Possibly check to make sure the custom init returns a userdata object or nil
   
     if (lua_isnil(L, -1)) {
-      // The init method returned nil... means initializization failed! Zero out the userdata
-      instanceUserdata->instance = nil;
+        // The init method returned nil... means initializization failed! Zero out the userdata
+        instanceUserdata->instance = nil;
     }
   
     return 1;
@@ -448,7 +448,7 @@ static int customInitMethodClosure(lua_State *L) {
 
 static int pcallUserdata(lua_State *L, id self, SEL selector, va_list args) {
     BEGIN_STACK_MODIFY(L)    
-	
+    
     if (![[NSThread currentThread] isEqual:[NSThread mainThread]]) NSLog(@"PACALLUSERDATA: OH NO SEPERATE THREAD");
     
     // Find the function... could be in the object or in the class
@@ -457,9 +457,9 @@ static int pcallUserdata(lua_State *L, id self, SEL selector, va_list args) {
     // Push userdata as the first argument
     oink_fromInstance(L, self);
     if (lua_isnil(L, -1)) {
-		lua_pushfstring(L, "Could not convert '%s' into lua", class_getName([self class]));
-		goto error;
-	}
+        lua_pushfstring(L, "Could not convert '%s' into lua", class_getName([self class]));
+        goto error;
+    }
                 
     NSMethodSignature *signature = [self methodSignatureForSelector:selector];
     int nargs = [signature numberOfArguments] - 1; // Don't send in the _cmd argument, only self
@@ -531,7 +531,7 @@ static BOOL overrideMethod(lua_State *L, oink_instance_userdata *instanceUserdat
     const char *methodName = lua_tostring(L, 2);
     SEL selector = oink_selectorForInstance(instanceUserdata, methodName, YES);
     Class class = [instanceUserdata->instance class];
-	
+    
     const char *typeDescription = nil;
     char *returnType = nil;
     
@@ -568,11 +568,11 @@ static BOOL overrideMethod(lua_State *L, oink_instance_userdata *instanceUserdat
     }
     
     if (returnType) { // Matching method found! Create an Obj-C method on the 
-		if (!instanceUserdata->isClass) {
-			luaL_error(L, "Trying to override method '%s' on an instance. You can only override classes", methodName);
-		}			
-		
-		const char *simplifiedReturnType = oink_removeProtocolEncodings(returnType);
+        if (!instanceUserdata->isClass) {
+            luaL_error(L, "Trying to override method '%s' on an instance. You can only override classes", methodName);
+        }            
+        
+        const char *simplifiedReturnType = oink_removeProtocolEncodings(returnType);
         IMP imp;
         switch (simplifiedReturnType[0]) {
             case OINK_TYPE_VOID:
@@ -622,7 +622,7 @@ static BOOL overrideMethod(lua_State *L, oink_instance_userdata *instanceUserdat
         }
         
         success = class_addMethod(class, selector, imp, typeDescription);
-        free(returnType);				
+        free(returnType);                
     }
     else {
         //NSLog(@"No method name '%s' found in superclass or protocols", methodName);

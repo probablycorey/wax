@@ -168,11 +168,11 @@ static int __gc(lua_State *L) {
 }
 
 
-static int __tostring(lua_State *L) {	
+static int __tostring(lua_State *L) {    
     luaL_checkudata(L, 1, OINK_STRUCT_METATABLE_NAME);
-	lua_pushstring(L, "oink struct");
-	
-	return 1;
+    lua_pushstring(L, "oink struct");
+    
+    return 1;
 }
 
 static int create(lua_State *L) {
