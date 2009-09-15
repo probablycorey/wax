@@ -13,7 +13,7 @@ mkdir -p "$PROJECT_DIR/data/scripts"
 initPath="$PROJECT_DIR/data/scripts/init.lua"
 if [ ! -f $initPath ]; then
   cat <<INITFILE >> $initPath
-require "oink"
+require "wax"
 
 window = UI.Application:sharedApplication():keyWindow()
 window:setBackgroundColor(UI.Color:orangeColor())
@@ -32,5 +32,5 @@ fi
 
 rsync -v -r --delete "$PROJECT_DIR/data" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH" > /dev/null
 
-# copies the oink scripts over
-rsync -v -r "$PROJECT_DIR/`dirname $0`/oink-scripts/" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/data/scripts/" > /dev/null
+# copies the wax scripts over
+rsync -v -r "$PROJECT_DIR/`dirname $0`/../wax-scripts/" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/data/scripts/" > /dev/null
