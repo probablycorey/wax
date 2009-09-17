@@ -1,5 +1,5 @@
 /*
- *  oink_instance.c
+ *  wax_instance.c
  *  Lua
  *
  *  Created by ProbablyInteractive on 5/18/09.
@@ -7,9 +7,9 @@
  *
  */
 
-#import "oink_instance.h"
-#import "oink.h"
-#import "oink_helpers.h"
+#import "wax_instance.h"
+#import "wax.h"
+#import "wax_helpers.h"
 
 #import "lauxlib.h"
 #import "lobject.h"
@@ -18,7 +18,7 @@ static const struct luaL_Reg metaFunctions[] = {
     {"__index", __index},
     {"__newindex", __newindex},
     {"__gc", __gc},
-    {"__oinkretain", __oinkretain},
+    {"__waxretain", __waxretain},
     {"__tostring", __tostring},
     {"__eq", __eq},
     {NULL, NULL}
@@ -29,12 +29,12 @@ static const struct luaL_Reg functions[] = {
     {NULL, NULL}
 };
 
-int luaopen_oink_instance(lua_State *L) {
+int luaopen_wax_instance(lua_State *L) {
     BEGIN_STACK_MODIFY(L);
     
-    luaL_newmetatable(L, OINK_INSTANCE_METATABLE_NAME);
+    luaL_newmetatable(L, WAX_INSTANCE_METATABLE_NAME);
     luaL_register(L, NULL, metaFunctions);
-    luaL_register(L, OINK_INSTANCE_METATABLE_NAME, functions);    
+    luaL_register(L, WAX_INSTANCE_METATABLE_NAME, functions);    
     
     END_STACK_MODIFY(L, 0)
     
@@ -45,34 +45,34 @@ int luaopen_oink_instance(lua_State *L) {
 #pragma -------------------
 
 // Creates userdata object for obj-c instance/class and pushes it onto the stack
-oink_instance_userdata *oink_instance_create(lua_State *L, id instance, BOOL isClass) {
+wax_instance_userdata *wax_instance_create(lua_State *L, id instance, BOOL isClass) {
     BEGIN_STACK_MODIFY(L)
     
     // Does user data already exist?
-    oink_instance_pushUserdata(L, instance);
+    wax_instance_pushUserdata(L, instance);
    
     if (lua_isnil(L, -1)) {
-        oink_log(LOG_GC, @"Creating object for %@(%p)", instance, instance);
+        wax_log(LOG_GC, @"Creating object for %@(%p)", instance, instance);
         lua_pop(L, 1); // pop nil stack
     }
     else {
-        oink_log(LOG_GC, @"Found existing userdata object for %@(%p)", instance, instance);
+        wax_log(LOG_GC, @"Found existing userdata object for %@(%p)", instance, instance);
         return lua_touserdata(L, -1);
     }
     
-    size_t nbytes = sizeof(oink_instance_userdata);
-    oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)lua_newuserdata(L, nbytes);
+    size_t nbytes = sizeof(wax_instance_userdata);
+    wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)lua_newuserdata(L, nbytes);
     instanceUserdata->instance = instance;
     instanceUserdata->isClass = isClass;
     instanceUserdata->isSuper = NO;
  
     if (!isClass) {
-        oink_log(LOG_GC, @"Retaining object for %@(%p)", instance, instance);        
+        wax_log(LOG_GC, @"Retaining object for %@(%p)", instance, instance);        
         [instanceUserdata->instance retain];
     }
     
     // set the metatable
-    luaL_getmetatable(L, OINK_INSTANCE_METATABLE_NAME);
+    luaL_getmetatable(L, WAX_INSTANCE_METATABLE_NAME);
     lua_setmetatable(L, -2);
 
     // give it a nice clean environment
@@ -81,22 +81,22 @@ oink_instance_userdata *oink_instance_create(lua_State *L, id instance, BOOL isC
     lua_setfenv(L, -2);
     
     // look for weak table
-    luaL_getmetatable(L, OINK_INSTANCE_METATABLE_NAME);
-    lua_getfield(L, -1, "__oink_userdata");
+    luaL_getmetatable(L, WAX_INSTANCE_METATABLE_NAME);
+    lua_getfield(L, -1, "__wax_userdata");
     
     if (lua_isnil(L, -1)) { // Create new weak table, add it to metatable
         lua_pop(L, 1); // Remove nil
         
         lua_newtable(L);
         lua_pushvalue(L, -1);
-        lua_setmetatable(L, -1); // "oink_userdata" is it's own metatable
+        lua_setmetatable(L, -1); // "wax_userdata" is it's own metatable
         
         lua_pushstring(L, "v!");
         lua_setfield(L, -2, "__mode");  // Make weak table
                 
-        lua_pushstring(L, "__oink_userdata"); // Table name
+        lua_pushstring(L, "__wax_userdata"); // Table name
         lua_pushvalue(L, -2); // copy the userdata table
-        lua_rawset(L, -4); // Add __oink_userdata table to metatable      
+        lua_rawset(L, -4); // Add __wax_userdata table to metatable      
     }
 
     
@@ -113,17 +113,17 @@ oink_instance_userdata *oink_instance_create(lua_State *L, id instance, BOOL isC
 }
 
 // Creates pseudo-super userdata object for obj-c instance and pushes it onto the stack
-oink_instance_userdata *oink_instance_createSuper(lua_State *L, oink_instance_userdata *instanceUserdata) {
+wax_instance_userdata *wax_instance_createSuper(lua_State *L, wax_instance_userdata *instanceUserdata) {
     BEGIN_STACK_MODIFY(L)
     
-    size_t nbytes = sizeof(oink_instance_userdata);
-    oink_instance_userdata *superInstanceUserdata = (oink_instance_userdata *)lua_newuserdata(L, nbytes);
+    size_t nbytes = sizeof(wax_instance_userdata);
+    wax_instance_userdata *superInstanceUserdata = (wax_instance_userdata *)lua_newuserdata(L, nbytes);
     superInstanceUserdata->instance = instanceUserdata->instance;
     superInstanceUserdata->isClass = instanceUserdata->isClass;
     superInstanceUserdata->isSuper = YES;
     
     // set the metatable
-    luaL_getmetatable(L, OINK_INSTANCE_METATABLE_NAME);
+    luaL_getmetatable(L, WAX_INSTANCE_METATABLE_NAME);
     lua_setmetatable(L, -2);
         
     END_STACK_MODIFY(L, 1)
@@ -132,24 +132,24 @@ oink_instance_userdata *oink_instance_createSuper(lua_State *L, oink_instance_us
 }
 
 // First look in the object's userdata for the function, then look in the object's class's userdata
-BOOL oink_instance_pushFunction(lua_State *L, id self, SEL selector) {
+BOOL wax_instance_pushFunction(lua_State *L, id self, SEL selector) {
     BEGIN_STACK_MODIFY(L)
     
-    oink_instance_pushUserdata(L, self);
+    wax_instance_pushUserdata(L, self);
     if (lua_isnil(L, -1)) {
         END_STACK_MODIFY(L, 0)
         return NO; // userdata doesn't exist
     }
     
     lua_getfenv(L, -1);
-    oink_pushMethodNameFromSelector(L, selector);
+    wax_pushMethodNameFromSelector(L, selector);
     lua_rawget(L, -2);
     
     BOOL result = YES;
     
     if (!lua_isfunction(L, -1)) { // function not found in userdata
         if ([self class] == self) result = NO; // End of the line bub, can't go any further up
-        else result = oink_instance_pushFunction(L, [self class], selector);
+        else result = wax_instance_pushFunction(L, [self class], selector);
     }
     
     END_STACK_MODIFY(L, 1)
@@ -157,19 +157,19 @@ BOOL oink_instance_pushFunction(lua_State *L, id self, SEL selector) {
     return result;
 }
 
-void oink_instance_pushUserdata(lua_State *L, id object) {
+void wax_instance_pushUserdata(lua_State *L, id object) {
     BEGIN_STACK_MODIFY(L);
     
-    luaL_getmetatable(L, OINK_INSTANCE_METATABLE_NAME);
-    lua_getfield(L, -1, "__oink_userdata");
+    luaL_getmetatable(L, WAX_INSTANCE_METATABLE_NAME);
+    lua_getfield(L, -1, "__wax_userdata");
     
-    if (lua_isnil(L, -1)) { // __oink_userdata table does not exist yet 
+    if (lua_isnil(L, -1)) { // __wax_userdata table does not exist yet 
         lua_remove(L, -2); // remove metadata table
     }
     else {
         lua_pushlightuserdata(L, object);    
         lua_rawget(L, -2);
-        lua_remove(L, -2); // remove __oink_userdata table
+        lua_remove(L, -2); // remove __wax_userdata table
         lua_remove(L, -2); // remove metadata table
     }
     
@@ -180,10 +180,10 @@ void oink_instance_pushUserdata(lua_State *L, id object) {
 #pragma ---------------------------------
 
 static int __index(lua_State *L) {
-    oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 1, OINK_INSTANCE_METATABLE_NAME);    
+    wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);    
     
     if (lua_isstring(L, 2) && strcmp("super", lua_tostring(L, 2)) == 0) { // call to super!        
-        oink_instance_createSuper(L, instanceUserdata);        
+        wax_instance_createSuper(L, instanceUserdata);        
         return 1;
     }
     
@@ -196,7 +196,7 @@ static int __index(lua_State *L) {
     if (lua_isnil(L, -1) && !instanceUserdata->isClass && !instanceUserdata->isSuper) {
         lua_pop(L, 1);
         
-        oink_instance_pushUserdata(L, [instanceUserdata->instance class]);
+        wax_instance_pushUserdata(L, [instanceUserdata->instance class]);
         
         // If there is no userdata for this instance's class, then leave the nil on the stack and don't anything else
         if (!lua_isnil(L, -1)) {
@@ -209,14 +209,14 @@ static int __index(lua_State *L) {
     }
             
     if (instanceUserdata->isSuper || lua_isnil(L, -1) ) { // Couldn't find that in the userdata environment table, assume it is defined in obj-c classes
-        SEL selector = oink_selectorForInstance(instanceUserdata, lua_tostring(L, 2), NO);
+        SEL selector = wax_selectorForInstance(instanceUserdata, lua_tostring(L, 2), NO);
 
         if (selector) { // If the class has a method with this name, push as a closure            
             lua_pushstring(L, sel_getName(selector));
             lua_pushcclosure(L, instanceUserdata->isSuper ? superMethodClosure : methodClosure, 1);
         }
     }
-    else if (instanceUserdata->isClass && oink_isInitMethod(lua_tostring(L, 2))) { // Is this an init method create in lua?
+    else if (instanceUserdata->isClass && wax_isInitMethod(lua_tostring(L, 2))) { // Is this an init method create in lua?
         lua_pushcclosure(L, customInitMethodClosure, 1);
     }
     
@@ -224,7 +224,7 @@ static int __index(lua_State *L) {
 }
 
 static int __newindex(lua_State *L) {
-    oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 1, OINK_INSTANCE_METATABLE_NAME);
+    wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);
     
     // If this already exists in a protocol, or superclass make sure it will call the lua functions
     if (lua_type(L, 3) == LUA_TFUNCTION) {
@@ -239,8 +239,8 @@ static int __newindex(lua_State *L) {
     return 0;
 }
 
-static int __oinkretain(lua_State *L) {
-  oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 1, OINK_INSTANCE_METATABLE_NAME);
+static int __waxretain(lua_State *L) {
+  wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);
 
   if (!instanceUserdata->isClass && !instanceUserdata->isSuper && [instanceUserdata->instance retainCount] > 1) {
     lua_pushboolean(L, true);
@@ -254,9 +254,9 @@ static int __oinkretain(lua_State *L) {
 
 
 static int __gc(lua_State *L) {
-    oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 1, OINK_INSTANCE_METATABLE_NAME);
+    wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);
     if (!instanceUserdata->isClass && !instanceUserdata->isSuper) {
-        oink_log(LOG_GC, @"Releasing %@(%p)", [instanceUserdata->instance class], instanceUserdata->instance);
+        wax_log(LOG_GC, @"Releasing %@(%p)", [instanceUserdata->instance class], instanceUserdata->instance);
         [instanceUserdata->instance release];
     }
     
@@ -264,15 +264,15 @@ static int __gc(lua_State *L) {
 }
 
 static int __tostring(lua_State *L) {
-    oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 1, OINK_INSTANCE_METATABLE_NAME);
+    wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);
     lua_pushstring(L, [[NSString stringWithFormat:@"(%p => %p) %@", instanceUserdata, instanceUserdata->instance, instanceUserdata->instance] UTF8String]);
     
     return 1;
 }
 
 static int __eq(lua_State *L) {
-    oink_instance_userdata *o1 = (oink_instance_userdata *)luaL_checkudata(L, 1, OINK_INSTANCE_METATABLE_NAME);
-    oink_instance_userdata *o2 = (oink_instance_userdata *)luaL_checkudata(L, 2, OINK_INSTANCE_METATABLE_NAME);
+    wax_instance_userdata *o1 = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);
+    wax_instance_userdata *o2 = (wax_instance_userdata *)luaL_checkudata(L, 2, WAX_INSTANCE_METATABLE_NAME);
     
     lua_pushboolean(L, [o1->instance isEqual:o2->instance]);
     return 1;
@@ -282,7 +282,7 @@ static int __eq(lua_State *L) {
 #pragma -----------------------
 
 static int methods(lua_State *L) {
-    oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 1, OINK_INSTANCE_METATABLE_NAME);
+    wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);
     
     uint count;
     Method *methods = class_copyMethodList([instanceUserdata->instance class], &count);
@@ -304,15 +304,15 @@ static int methods(lua_State *L) {
 static int methodClosure(lua_State *L) {
     if (![[NSThread currentThread] isEqual:[NSThread mainThread]]) NSLog(@"METHODCLOSURE: OH NO SEPERATE THREAD");
     
-    oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 1, OINK_INSTANCE_METATABLE_NAME);    
+    wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);    
     const char *selectorName = luaL_checkstring(L, lua_upvalueindex(1));
     SEL selector = sel_getUid(selectorName);
     BOOL autoAlloc = NO;
         
-    if (instanceUserdata->isClass && oink_isInitMethod(selectorName)) {
+    if (instanceUserdata->isClass && wax_isInitMethod(selectorName)) {
         // If init is called on a class, allocate it.
         // This is done to get around the placeholder stuff the foundation class uses
-        instanceUserdata = oink_instance_create(L, [instanceUserdata->instance alloc], NO);
+        instanceUserdata = wax_instance_create(L, [instanceUserdata->instance alloc], NO);
         autoAlloc = YES;
         
         // Also, replace the old userdata with the new one!
@@ -335,7 +335,7 @@ static int methodClosure(lua_State *L) {
     
     void **arguements = calloc(sizeof(void*), objcArgumentCount);
     for (int i = 0; i < objcArgumentCount; i++) {
-        arguements[i] = oink_copyToObjc(L, [signature getArgumentTypeAtIndex:i + 2], i + 2, nil);
+        arguements[i] = wax_copyToObjc(L, [signature getArgumentTypeAtIndex:i + 2], i + 2, nil);
         [invocation setArgument:arguements[i] atIndex:i + 2];
     }
 
@@ -358,7 +358,7 @@ static int methodClosure(lua_State *L) {
         void *buffer = calloc(1, methodReturnLength);
         [invocation getReturnValue:buffer];
             
-        oink_fromObjc(L, [signature methodReturnType], buffer);
+        wax_fromObjc(L, [signature methodReturnType], buffer);
                 
         if (lua_isuserdata(L, -1) && (
             autoAlloc || // If autoAlloc'd then we assume the returned object is the same as the alloc'd method (gets around placeholder problem)
@@ -370,8 +370,8 @@ static int methodClosure(lua_State *L) {
             strcmp(selectorName, "mutableCopyWithZone") == 0)) {
             // strcmp(selectorName, "retain") == 0 || // explicit retaining should not autorelease
             
-            oink_instance_userdata *returnedObjLuaInstance = (oink_instance_userdata *)lua_topointer(L, -1);
-            oink_log(LOG_GC, @"Releasing %@(%p) autoAlloc=%d", [returnedObjLuaInstance->instance class], instanceUserdata->instance, autoAlloc);            
+            wax_instance_userdata *returnedObjLuaInstance = (wax_instance_userdata *)lua_topointer(L, -1);
+            wax_log(LOG_GC, @"Releasing %@(%p) autoAlloc=%d", [returnedObjLuaInstance->instance class], instanceUserdata->instance, autoAlloc);            
             [returnedObjLuaInstance->instance release];
         }
         else if (autoAlloc && lua_isnil(L, -1)) {
@@ -386,7 +386,7 @@ static int methodClosure(lua_State *L) {
 }
 
 static int superMethodClosure(lua_State *L) {
-    oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 1, OINK_INSTANCE_METATABLE_NAME);
+    wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);
     const char *selectorName = luaL_checkstring(L, lua_upvalueindex(1));    
     SEL selector = sel_getUid(selectorName);
     
@@ -414,10 +414,10 @@ static int superMethodClosure(lua_State *L) {
 }
 
 static int customInitMethodClosure(lua_State *L) {
-    oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 1, OINK_INSTANCE_METATABLE_NAME);
+    wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);
     
     if (instanceUserdata->isClass) {
-        instanceUserdata = oink_instance_create(L, [instanceUserdata->instance alloc], NO);
+        instanceUserdata = wax_instance_create(L, [instanceUserdata->instance alloc], NO);
         [instanceUserdata->instance release]; // The userdata is taking care of retaining this now
         lua_replace(L, 1); // replace the old userdata with the new one!
     }
@@ -428,7 +428,7 @@ static int customInitMethodClosure(lua_State *L) {
     lua_pushvalue(L, lua_upvalueindex(1)); // Grab the function!
     lua_insert(L, 1); // push it up top
     
-    if (oink_pcall(L, lua_gettop(L) - 1, 1)) {
+    if (wax_pcall(L, lua_gettop(L) - 1, 1)) {
         const char* errorString = lua_tostring(L, -1);
         luaL_error(L, "Custom init method on '%s' failed.\n%s", class_getName([instanceUserdata->instance class]), errorString);
     }
@@ -452,10 +452,10 @@ static int pcallUserdata(lua_State *L, id self, SEL selector, va_list args) {
     if (![[NSThread currentThread] isEqual:[NSThread mainThread]]) NSLog(@"PACALLUSERDATA: OH NO SEPERATE THREAD");
     
     // Find the function... could be in the object or in the class
-    if (!oink_instance_pushFunction(L, self, selector)) goto error; // function not found in userdata...
+    if (!wax_instance_pushFunction(L, self, selector)) goto error; // function not found in userdata...
     
     // Push userdata as the first argument
-    oink_fromInstance(L, self);
+    wax_fromInstance(L, self);
     if (lua_isnil(L, -1)) {
         lua_pushfstring(L, "Could not convert '%s' into lua", class_getName([self class]));
         goto error;
@@ -467,11 +467,11 @@ static int pcallUserdata(lua_State *L, id self, SEL selector, va_list args) {
         
     for (int i = 2; i < [signature numberOfArguments]; i++) { // start at 2 because to skip the automatic self and _cmd arugments
         const char *type = [signature getArgumentTypeAtIndex:i];
-        int size = oink_fromObjc(L, type, args);
+        int size = wax_fromObjc(L, type, args);
         args += size; // HACK! Since va_arg requires static type, I manually increment the args
     }
 
-    if (oink_pcall(L, nargs, nresults)) { // Userdata will allways be the first object sent to the function  
+    if (wax_pcall(L, nargs, nresults)) { // Userdata will allways be the first object sent to the function  
         goto error;
     }
     
@@ -483,16 +483,16 @@ error:
     return -1;
 }
 
-#define OINK_METHOD_NAME(_type_) oink_##_type_##_call
+#define WAX_METHOD_NAME(_type_) wax_##_type_##_call
 
-#define OINK_METHOD(_type_) \
-static _type_ OINK_METHOD_NAME(_type_)(id self, SEL _cmd, ...) { \
+#define WAX_METHOD(_type_) \
+static _type_ WAX_METHOD_NAME(_type_)(id self, SEL _cmd, ...) { \
 va_list args; \
 va_start(args, _cmd); \
 va_list args_copy; \
 va_copy(args_copy, args); \
 /* Grab the static L... this is a hack */ \
-lua_State *L = oink_currentLuaState(); \
+lua_State *L = wax_currentLuaState(); \
 BEGIN_STACK_MODIFY(L); \
 int result = pcallUserdata(L, self, _cmd, args_copy); \
 va_end(args_copy); \
@@ -508,7 +508,7 @@ else if (result == 0) { \
 } \
 \
 NSMethodSignature *signature = [self methodSignatureForSelector:_cmd]; \
-_type_ *pReturnValue = (_type_ *)oink_copyToObjc(L, [signature methodReturnType], -1, nil); \
+_type_ *pReturnValue = (_type_ *)wax_copyToObjc(L, [signature methodReturnType], -1, nil); \
 _type_ returnValue = *pReturnValue; \
 free(pReturnValue); \
 END_STACK_MODIFY(L, 0) \
@@ -517,19 +517,19 @@ return returnValue; \
 
 typedef struct _buffer_16 {char b[16];} buffer_16;
 
-OINK_METHOD(buffer_16)
-OINK_METHOD(id)
-OINK_METHOD(int)
-OINK_METHOD(long)
-OINK_METHOD(float)
-OINK_METHOD(BOOL) 
+WAX_METHOD(buffer_16)
+WAX_METHOD(id)
+WAX_METHOD(int)
+WAX_METHOD(long)
+WAX_METHOD(float)
+WAX_METHOD(BOOL) 
 
 // Only allow classes to do this
-static BOOL overrideMethod(lua_State *L, oink_instance_userdata *instanceUserdata) {
+static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata) {
     BEGIN_STACK_MODIFY(L);
     BOOL success = NO;
     const char *methodName = lua_tostring(L, 2);
-    SEL selector = oink_selectorForInstance(instanceUserdata, methodName, YES);
+    SEL selector = wax_selectorForInstance(instanceUserdata, methodName, YES);
     Class class = [instanceUserdata->instance class];
     
     const char *typeDescription = nil;
@@ -545,7 +545,7 @@ static BOOL overrideMethod(lua_State *L, oink_instance_userdata *instanceUserdat
         uint count;
         Protocol **protocols = class_copyProtocolList(class, &count);
         
-        SEL *posibleSelectors = &oink_selectorsForName(methodName).selectors[0];
+        SEL *posibleSelectors = &wax_selectorsForName(methodName).selectors[0];
         
         for (int i = 0; !returnType && i < count; i++) {
             Protocol *protocol = protocols[i];
@@ -572,42 +572,42 @@ static BOOL overrideMethod(lua_State *L, oink_instance_userdata *instanceUserdat
             luaL_error(L, "Trying to override method '%s' on an instance. You can only override classes", methodName);
         }            
         
-        const char *simplifiedReturnType = oink_removeProtocolEncodings(returnType);
+        const char *simplifiedReturnType = wax_removeProtocolEncodings(returnType);
         IMP imp;
         switch (simplifiedReturnType[0]) {
-            case OINK_TYPE_VOID:
-            case OINK_TYPE_ID:
-                imp = (IMP)OINK_METHOD_NAME(id);
+            case WAX_TYPE_VOID:
+            case WAX_TYPE_ID:
+                imp = (IMP)WAX_METHOD_NAME(id);
                 break;
                 
-            case OINK_TYPE_CHAR:
-            case OINK_TYPE_INT:
-            case OINK_TYPE_SHORT:
-            case OINK_TYPE_UNSIGNED_CHAR:
-            case OINK_TYPE_UNSIGNED_INT:
-            case OINK_TYPE_UNSIGNED_SHORT:   
-                imp = (IMP)OINK_METHOD_NAME(int);
+            case WAX_TYPE_CHAR:
+            case WAX_TYPE_INT:
+            case WAX_TYPE_SHORT:
+            case WAX_TYPE_UNSIGNED_CHAR:
+            case WAX_TYPE_UNSIGNED_INT:
+            case WAX_TYPE_UNSIGNED_SHORT:   
+                imp = (IMP)WAX_METHOD_NAME(int);
                 break;            
                 
-            case OINK_TYPE_LONG:
-            case OINK_TYPE_LONG_LONG:
-            case OINK_TYPE_UNSIGNED_LONG:
-            case OINK_TYPE_UNSIGNED_LONG_LONG:
-                imp = (IMP)OINK_METHOD_NAME(long);
+            case WAX_TYPE_LONG:
+            case WAX_TYPE_LONG_LONG:
+            case WAX_TYPE_UNSIGNED_LONG:
+            case WAX_TYPE_UNSIGNED_LONG_LONG:
+                imp = (IMP)WAX_METHOD_NAME(long);
                 
-            case OINK_TYPE_FLOAT:
-                imp = (IMP)OINK_METHOD_NAME(float);
+            case WAX_TYPE_FLOAT:
+                imp = (IMP)WAX_METHOD_NAME(float);
                 break;
                 
-            case OINK_TYPE_C99_BOOL:
-                imp = (IMP)OINK_METHOD_NAME(BOOL);
+            case WAX_TYPE_C99_BOOL:
+                imp = (IMP)WAX_METHOD_NAME(BOOL);
                 break;
                 
-            case OINK_TYPE_STRUCT: {
-                int size = oink_sizeOfTypeDescription(simplifiedReturnType);
+            case WAX_TYPE_STRUCT: {
+                int size = wax_sizeOfTypeDescription(simplifiedReturnType);
                 switch (size) {
                     case 16:
-                        imp = (IMP)OINK_METHOD_NAME(buffer_16);
+                        imp = (IMP)WAX_METHOD_NAME(buffer_16);
                         break;
                     default:
                         luaL_error(L, "Trying to override a method that has a struct return type of size '%d'. There is no implementation for this size yet.", size);

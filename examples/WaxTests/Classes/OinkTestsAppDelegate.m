@@ -8,7 +8,7 @@
 
 #import "OinkTestsAppDelegate.h"
 #import "SimpleProtocolLoader.h" // Runtime can't dynamically load protocols... lame
-#import "oink.h"
+#import "wax.h"
 
 @implementation OinkTestsAppDelegate
 
@@ -17,7 +17,7 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {    
     [window makeKeyAndVisible];
-	oink_start();
+	wax_start();
 }
 
 

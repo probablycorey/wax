@@ -1,5 +1,5 @@
 //
-//  oink_struct.h
+//  wax_struct.h
 //  Rentals
 //
 //  Created by ProbablyInteractive on 7/7/09.
@@ -9,21 +9,21 @@
 #import <Foundation/Foundation.h>
 #import "lua.h"
 
-#define OINK_STRUCT_METATABLE_NAME "oink.struct"
+#define WAX_STRUCT_METATABLE_NAME "wax.struct"
 
-typedef struct _oink_struct_userdata {
+typedef struct _wax_struct_userdata {
     void *data;
     int size;
     char *name;
     char *typeDescription;
-} oink_struct_userdata;
+} wax_struct_userdata;
 
-int luaopen_oink_struct(lua_State *L);
+int luaopen_wax_struct(lua_State *L);
 
-oink_struct_userdata *oink_struct_create(lua_State *L, const char *typeDescription, void *buffer);
-void oink_struct_pushValueAt(lua_State *L, oink_struct_userdata *structUserdata, int index);
-void oink_struct_setValueAt(lua_State *L, oink_struct_userdata *structUserdata, int index, int stackIndex);
-int oink_struct_getOffsetForName(lua_State *L, oink_struct_userdata *structUserdata, const char *name);
+wax_struct_userdata *wax_struct_create(lua_State *L, const char *typeDescription, void *buffer);
+void wax_struct_pushValueAt(lua_State *L, wax_struct_userdata *structUserdata, int index);
+void wax_struct_setValueAt(lua_State *L, wax_struct_userdata *structUserdata, int index, int stackIndex);
+int wax_struct_getOffsetForName(lua_State *L, wax_struct_userdata *structUserdata, const char *name);
 
 static int __index(lua_State *L);
 static int __newindex(lua_State *L);

@@ -1,9 +1,9 @@
-function oinkClass(className, superclassName, opts)
+function waxClass(className, superclassName, opts)
   local opts = opts or {}
-  local class = oink.class(className, superclassName)
+  local class = wax.class(className, superclassName)
 
   for i, protocol in ipairs(opts.protocols or {}) do
-    oink.class.addProtocols(class, protocol)
+    wax.class.addProtocols(class, protocol)
   end 
 
   local _M = setmetatable({}, {

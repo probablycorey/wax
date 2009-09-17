@@ -1,6 +1,6 @@
 require "fixtures.ExtendedSimpleObject"
 
--- TEST oink.class's forwardInvocation stuff (return values)
+-- TEST wax.class's forwardInvocation stuff (return values)
 
 describe["An 'Lua created' ObjClass"] = function()
   before = function()

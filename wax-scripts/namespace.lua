@@ -1,7 +1,7 @@
 -- Possibly throw this into the bridge
 _G.namespace = function(name)
   local metatable = {}
-  metatable.__index = function(self, key) return oink.class[self.name .. key] end
+  metatable.__index = function(self, key) return wax.class[self.name .. key] end
   
   local n = setmetatable({}, metatable)
   n.name = name

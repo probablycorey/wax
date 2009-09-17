@@ -1,30 +1,30 @@
 //
-//  oink_helpers.m
+//  wax_helpers.m
 //  Lua
 //
 //  Created by ProbablyInteractive on 5/18/09.
 //  Copyright 2009 Probably Interactive. All rights reserved.
 //
 
-#import "oink_helpers.h"
-#import "oink_instance.h"
-#import "oink_struct.h"
+#import "wax_helpers.h"
+#import "wax_instance.h"
+#import "wax_struct.h"
 #import "lauxlib.h"
 
-void oink_printStack(lua_State *L) {
+void wax_printStack(lua_State *L) {
     int i;
     int top = lua_gettop(L);
     
     for (i = 1; i <= top; i++) {        
         printf("%d: ", i);
-        oink_printStackAt(L, i);
+        wax_printStackAt(L, i);
         printf("\n");
     }
     
     printf("\n");
 }
 
-void oink_printStackAt(lua_State *L, int i) {
+void wax_printStackAt(lua_State *L, int i) {
     int t = lua_type(L, i);
     printf("(%s) ", lua_typename(L, t));
     
@@ -44,23 +44,23 @@ void oink_printStackAt(lua_State *L, int i) {
     }
 }
 
-void oink_printTable(lua_State *L, int t) {
+void wax_printTable(lua_State *L, int t) {
     // table is in the stack at index 't'
     
     lua_pushnil(L);  // first key
     if (t < 0) t--; // if t is negative, we need to updated it
     
     while (lua_next(L, t) != 0) {
-        oink_printStackAt(L, -2);
+        wax_printStackAt(L, -2);
         printf(" : ");
-        oink_printStackAt(L, -1);
+        wax_printStackAt(L, -1);
         printf("\n");
 
         lua_pop(L, 1); // remove 'value'; keeps 'key' for next iteration
     }
 }
 
-void oink_log(int flag, NSString *format, ...) {
+void wax_log(int flag, NSString *format, ...) {
     if (flag & LOG_FLAGS) {
         va_list args;
         va_start(args, format);
@@ -69,99 +69,99 @@ void oink_log(int flag, NSString *format, ...) {
     }
 }
 
-int oink_fromObjc(lua_State *L, const char *typeDescription, void *buffer) {
+int wax_fromObjc(lua_State *L, const char *typeDescription, void *buffer) {
     BEGIN_STACK_MODIFY(L)
     
-    typeDescription = oink_removeProtocolEncodings(typeDescription);
+    typeDescription = wax_removeProtocolEncodings(typeDescription);
     
-    int size = oink_sizeOfTypeDescription(typeDescription);
+    int size = wax_sizeOfTypeDescription(typeDescription);
     
     switch (typeDescription[0]) {
-        case OINK_TYPE_VOID:
+        case WAX_TYPE_VOID:
             lua_pushnil(L);
             break;
 
-//        case OINK_TYPE_POINTER:
-//            return oink_fromObjc(L, &typeDescription[1], *(void **)buffer); // Dereference pointer and deal with it!
+//        case WAX_TYPE_POINTER:
+//            return wax_fromObjc(L, &typeDescription[1], *(void **)buffer); // Dereference pointer and deal with it!
 //            break;                        
             
-        case OINK_TYPE_CHAR: {
+        case WAX_TYPE_CHAR: {
             char c = *(char *)buffer;
                 if (c <= 1) lua_pushboolean(L, c); // If it's 1 or 0, then treat it like a bool
             else lua_pushinteger(L, c);
             break;
         }
             
-        case OINK_TYPE_SHORT:
+        case WAX_TYPE_SHORT:
             lua_pushinteger(L, *(short *)buffer);            
             break;
             
-        case OINK_TYPE_INT:
+        case WAX_TYPE_INT:
             lua_pushnumber(L, *(int *)buffer);
             break;
 
-        case OINK_TYPE_UNSIGNED_CHAR:
+        case WAX_TYPE_UNSIGNED_CHAR:
             lua_pushnumber(L, *(unsigned char *)buffer);
             break;
 
-        case OINK_TYPE_UNSIGNED_INT:
+        case WAX_TYPE_UNSIGNED_INT:
             lua_pushnumber(L, *(unsigned int *)buffer);
             break;
 
-        case OINK_TYPE_UNSIGNED_SHORT:
+        case WAX_TYPE_UNSIGNED_SHORT:
             lua_pushinteger(L, *(short *)buffer);
             break;
             
-        case OINK_TYPE_LONG:
+        case WAX_TYPE_LONG:
             lua_pushnumber(L, *(long *)buffer);
             break;
 
-        case OINK_TYPE_LONG_LONG:
+        case WAX_TYPE_LONG_LONG:
             lua_pushnumber(L, *(long long *)buffer);
             break;
 
-        case OINK_TYPE_UNSIGNED_LONG:
+        case WAX_TYPE_UNSIGNED_LONG:
             lua_pushnumber(L, *(unsigned long *)buffer);
             break;
 
-        case OINK_TYPE_UNSIGNED_LONG_LONG:
+        case WAX_TYPE_UNSIGNED_LONG_LONG:
             lua_pushnumber(L, *(unsigned long long *)buffer);
             break;
 
-        case OINK_TYPE_FLOAT:
+        case WAX_TYPE_FLOAT:
             lua_pushnumber(L, *(float *)buffer);
             break;
 
-        case OINK_TYPE_DOUBLE:
+        case WAX_TYPE_DOUBLE:
             lua_pushnumber(L, *(double *)buffer);
             break;
             
-        case OINK_TYPE_C99_BOOL:
+        case WAX_TYPE_C99_BOOL:
             lua_pushboolean(L, *(BOOL *)buffer);
             break;
             
-        case OINK_TYPE_STRING:
+        case WAX_TYPE_STRING:
             lua_pushstring(L, *(char **)buffer);
             break;
             
-        case OINK_TYPE_ID: {
+        case WAX_TYPE_ID: {
             id instance = *(id *)buffer;
-            oink_fromInstance(L, instance);
+            wax_fromInstance(L, instance);
             break;
         }
             
-        case OINK_TYPE_STRUCT: {
-            oink_fromStruct(L, typeDescription, buffer);
+        case WAX_TYPE_STRUCT: {
+            wax_fromStruct(L, typeDescription, buffer);
             break;
         }
             
-        case OINK_TYPE_SELECTOR:
+        case WAX_TYPE_SELECTOR:
             lua_pushstring(L, sel_getName(*(SEL *)buffer));
             break;            
 
-        case OINK_TYPE_CLASS: {
+        case WAX_TYPE_CLASS: {
             id instance = *(id *)buffer;
-            oink_instance_create(L, instance, YES);
+            wax_instance_create(L, instance, YES);
             break;                        
         }
             
@@ -175,11 +175,11 @@ int oink_fromObjc(lua_State *L, const char *typeDescription, void *buffer) {
     return size;
 }
 
-void oink_fromStruct(lua_State *L, const char *typeDescription, void *buffer) {
-    oink_struct_create(L, typeDescription, buffer);
+void wax_fromStruct(lua_State *L, const char *typeDescription, void *buffer) {
+    wax_struct_create(L, typeDescription, buffer);
 }
 
-void oink_fromInstance(lua_State *L, id instance) {
+void wax_fromInstance(lua_State *L, id instance) {
     BEGIN_STACK_MODIFY(L)
     
     if (instance) {
@@ -193,26 +193,26 @@ void oink_fromInstance(lua_State *L, id instance) {
             lua_newtable(L);
             for (id obj in instance) {
                 int i = lua_objlen(L, -1);
-                oink_fromInstance(L, obj);
+                wax_fromInstance(L, obj);
                 lua_rawseti(L, -2, i + 1);
             }
         }
         else if ([instance isKindOfClass:[NSDictionary class]]) {
             lua_newtable(L);
             for (id key in instance) {
-                oink_fromInstance(L, key);
-                oink_fromInstance(L, [instance objectForKey:key]);
+                wax_fromInstance(L, key);
+                wax_fromInstance(L, [instance objectForKey:key]);
                 lua_rawset(L, -3);
             }
         }                
         else if ([instance isKindOfClass:[NSValue class]]) {
-            void *buffer = malloc(oink_sizeOfTypeDescription([instance objCType]));
+            void *buffer = malloc(wax_sizeOfTypeDescription([instance objCType]));
             [instance getValue:buffer];
-            oink_fromObjc(L, [instance objCType], buffer);
+            wax_fromObjc(L, [instance objCType], buffer);
             free(buffer);
         }    
         else {
-            oink_instance_create(L, instance, NO);
+            wax_instance_create(L, instance, NO);
         }
     }
     else {
@@ -222,80 +222,80 @@ void oink_fromInstance(lua_State *L, id instance) {
     END_STACK_MODIFY(L, 1)
 }
 
-#define OINK_TO_INTEGER(_type_) *outsize = sizeof(_type_); value = calloc(sizeof(_type_), 1); *((_type_ *)value) = (_type_)lua_tointeger(L, stackIndex);
-#define OINK_TO_NUMBER(_type_) *outsize = sizeof(_type_); value = calloc(sizeof(_type_), 1); *((_type_ *)value) = (_type_)lua_tonumber(L, stackIndex);
-#define OINK_TO_BOOL_OR_CHAR(_type_) *outsize = sizeof(_type_); value = calloc(sizeof(_type_), 1); *((_type_ *)value) = (_type_)(lua_isstring(L, stackIndex) ? lua_tostring(L, stackIndex)[0] : lua_toboolean(L, stackIndex));
+#define WAX_TO_INTEGER(_type_) *outsize = sizeof(_type_); value = calloc(sizeof(_type_), 1); *((_type_ *)value) = (_type_)lua_tointeger(L, stackIndex);
+#define WAX_TO_NUMBER(_type_) *outsize = sizeof(_type_); value = calloc(sizeof(_type_), 1); *((_type_ *)value) = (_type_)lua_tonumber(L, stackIndex);
+#define WAX_TO_BOOL_OR_CHAR(_type_) *outsize = sizeof(_type_); value = calloc(sizeof(_type_), 1); *((_type_ *)value) = (_type_)(lua_isstring(L, stackIndex) ? lua_tostring(L, stackIndex)[0] : lua_toboolean(L, stackIndex));
 
 // MAKE SURE YOU RELEASE THIS!
-void *oink_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, int *outsize) {
+void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, int *outsize) {
     void *value = nil;
 
     if (outsize == nil) outsize = alloca(sizeof(int)); // if no outsize address set, treat it as a junk var
     
     switch (typeDescription[0]) {
-        case OINK_TYPE_C99_BOOL:
-            OINK_TO_BOOL_OR_CHAR(BOOL)
+        case WAX_TYPE_C99_BOOL:
+            WAX_TO_BOOL_OR_CHAR(BOOL)
             break;            
             
-        case OINK_TYPE_CHAR:
-            OINK_TO_BOOL_OR_CHAR(char)
+        case WAX_TYPE_CHAR:
+            WAX_TO_BOOL_OR_CHAR(char)
             break;
             
-        case OINK_TYPE_INT:
-            OINK_TO_INTEGER(int)
+        case WAX_TYPE_INT:
+            WAX_TO_INTEGER(int)
             break;            
             
-        case OINK_TYPE_SHORT:
-            OINK_TO_INTEGER(short)
+        case WAX_TYPE_SHORT:
+            WAX_TO_INTEGER(short)
             break;            
             
-        case OINK_TYPE_UNSIGNED_CHAR:
-            OINK_TO_INTEGER(unsigned char)
+        case WAX_TYPE_UNSIGNED_CHAR:
+            WAX_TO_INTEGER(unsigned char)
             break;            
             
-        case OINK_TYPE_UNSIGNED_INT:
-            OINK_TO_INTEGER(unsigned int)
+        case WAX_TYPE_UNSIGNED_INT:
+            WAX_TO_INTEGER(unsigned int)
             break;            
             
-        case OINK_TYPE_UNSIGNED_SHORT:
-            OINK_TO_INTEGER(unsigned short)
+        case WAX_TYPE_UNSIGNED_SHORT:
+            WAX_TO_INTEGER(unsigned short)
             break;
             
-        case OINK_TYPE_LONG:
-            OINK_TO_NUMBER(long)
+        case WAX_TYPE_LONG:
+            WAX_TO_NUMBER(long)
             break;
             
-        case OINK_TYPE_LONG_LONG:
-            OINK_TO_NUMBER(long long)
+        case WAX_TYPE_LONG_LONG:
+            WAX_TO_NUMBER(long long)
             break;
             
-        case OINK_TYPE_UNSIGNED_LONG:
-            OINK_TO_NUMBER(unsigned long)
+        case WAX_TYPE_UNSIGNED_LONG:
+            WAX_TO_NUMBER(unsigned long)
             break;
             
-        case OINK_TYPE_UNSIGNED_LONG_LONG:
-            OINK_TO_NUMBER(unsigned long long);
+        case WAX_TYPE_UNSIGNED_LONG_LONG:
+            WAX_TO_NUMBER(unsigned long long);
             break;            
             
-        case OINK_TYPE_FLOAT:
-            OINK_TO_NUMBER(float);
+        case WAX_TYPE_FLOAT:
+            WAX_TO_NUMBER(float);
             break;
             
-        case OINK_TYPE_DOUBLE:
-            OINK_TO_NUMBER(double);
+        case WAX_TYPE_DOUBLE:
+            WAX_TO_NUMBER(double);
             break;
             
-        case OINK_TYPE_SELECTOR:
+        case WAX_TYPE_SELECTOR:
             *outsize = sizeof(SEL);
             value = calloc(sizeof(SEL), 1);
             *((SEL *)value) = sel_getUid(lua_tostring(L, stackIndex));
             break;            
 
-        case OINK_TYPE_CLASS:
+        case WAX_TYPE_CLASS:
             *outsize = sizeof(Class);
             value = calloc(sizeof(Class), 1);
             if (lua_isuserdata(L, stackIndex)) {
-                oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, stackIndex, OINK_INSTANCE_METATABLE_NAME);
+                wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, stackIndex, WAX_INSTANCE_METATABLE_NAME);
                 *(id *)value = instanceUserdata->instance;   
             }
             else {
@@ -303,7 +303,7 @@ void *oink_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex,
             }
             break;             
             
-        case OINK_TYPE_STRING: {
+        case WAX_TYPE_STRING: {
             const char *string = lua_tostring(L, stackIndex);
             int length = strlen(string) + 1;
             *outsize = length;
@@ -313,8 +313,8 @@ void *oink_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex,
             break;
         }
 
-        case OINK_TYPE_POINTER:
-        case OINK_TYPE_ID: {
+        case WAX_TYPE_POINTER:
+        case WAX_TYPE_ID: {
             *outsize = sizeof(id);
 
             value = calloc(sizeof(id), 1);            
@@ -352,8 +352,8 @@ void *oink_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex,
                         
                         lua_pushnil(L);  /* first key */
                         while (lua_next(L, -2)) {
-                            id *key = oink_copyToObjc(L, "@", -2, nil);
-                            id *object = oink_copyToObjc(L, "@", -1, nil);
+                            id *key = wax_copyToObjc(L, "@", -2, nil);
+                            id *object = wax_copyToObjc(L, "@", -1, nil);
                             [instance setObject:*object forKey:*key];
                             lua_pop(L, 1); // Pop off the value
                             free(key);
@@ -366,7 +366,7 @@ void *oink_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex,
                         lua_pushnil(L);  /* first key */
                         while (lua_next(L, -2)) {
                             int index = lua_tonumber(L, -2) - 1;
-                            id *object = oink_copyToObjc(L, "@", -1, nil);
+                            id *object = wax_copyToObjc(L, "@", -1, nil);
                             [instance insertObject:*object atIndex:index];
                             lua_pop(L, 1);
                             free(object);
@@ -379,7 +379,7 @@ void *oink_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex,
                 }
                                         
                 case LUA_TUSERDATA: {
-                    oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, stackIndex, OINK_INSTANCE_METATABLE_NAME);
+                    wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, stackIndex, WAX_INSTANCE_METATABLE_NAME);
                     instance = instanceUserdata->instance;
                     break;                                  
                 }
@@ -395,9 +395,9 @@ void *oink_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex,
             break;
         }        
             
-        case OINK_TYPE_STRUCT: {
+        case WAX_TYPE_STRUCT: {
             if (lua_isuserdata(L, stackIndex)) {
-                oink_struct_userdata *structUserdata = (oink_struct_userdata *)luaL_checkudata(L, stackIndex, OINK_STRUCT_METATABLE_NAME);
+                wax_struct_userdata *structUserdata = (wax_struct_userdata *)luaL_checkudata(L, stackIndex, WAX_STRUCT_METATABLE_NAME);
                 value = malloc(structUserdata->size);
                 memcpy(value, structUserdata->data, structUserdata->size);
             }
@@ -420,8 +420,8 @@ void *oink_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex,
     return value;
 }
 
-oink_selectors oink_selectorsForName(const char *methodName) {
-    oink_selectors posibleSelectors;
+wax_selectors wax_selectorsForName(const char *methodName) {
+    wax_selectors posibleSelectors;
     int strlength = strlen(methodName) + 2; // Add 2. One for trailing : and one for \0
     char *objcMethodName = calloc(strlength, 1); 
     
@@ -436,10 +436,10 @@ oink_selectors oink_selectorsForName(const char *methodName) {
     return posibleSelectors;
 }
 
-SEL oink_selectorForInstance(oink_instance_userdata *instanceUserdata, const char *methodName, BOOL forceInstanceCheck) {    
-    SEL *posibleSelectors = &oink_selectorsForName(methodName).selectors[0];
+SEL wax_selectorForInstance(wax_instance_userdata *instanceUserdata, const char *methodName, BOOL forceInstanceCheck) {    
+    SEL *posibleSelectors = &wax_selectorsForName(methodName).selectors[0];
     
-    if (instanceUserdata->isClass && (forceInstanceCheck || oink_isInitMethod(methodName))) {
+    if (instanceUserdata->isClass && (forceInstanceCheck || wax_isInitMethod(methodName))) {
         if ([instanceUserdata->instance instancesRespondToSelector:posibleSelectors[0]]) return posibleSelectors[0];
         if ([instanceUserdata->instance instancesRespondToSelector:posibleSelectors[1]]) return posibleSelectors[1];
     }
@@ -451,7 +451,7 @@ SEL oink_selectorForInstance(oink_instance_userdata *instanceUserdata, const cha
     return nil;
 }
 
-void oink_pushMethodNameFromSelector(lua_State *L, SEL selector) {
+void wax_pushMethodNameFromSelector(lua_State *L, SEL selector) {
     BEGIN_STACK_MODIFY(L)
     const char *methodName = [NSStringFromSelector(selector) UTF8String];
     int length = strlen(methodName);
@@ -475,7 +475,7 @@ void oink_pushMethodNameFromSelector(lua_State *L, SEL selector) {
     END_STACK_MODIFY(L, 1)
 }
 
-BOOL oink_isInitMethod(const char *methodName) {
+BOOL wax_isInitMethod(const char *methodName) {
     if (strncmp(methodName, "init", 4) == 0) {
         if (methodName[4] == '\0') return YES; // It's just an init
         if (isupper(methodName[4]) || isdigit(methodName[4])) return YES; // It's init[A-Z1-9]
@@ -485,14 +485,14 @@ BOOL oink_isInitMethod(const char *methodName) {
 }
 
 // I could get rid of this
-const char *oink_removeProtocolEncodings(const char *type_descriptions) {
+const char *wax_removeProtocolEncodings(const char *type_descriptions) {
     switch (type_descriptions[0]) {
-        case OINK_PROTOCOL_TYPE_CONST:
-        case OINK_PROTOCOL_TYPE_INOUT:
-        case OINK_PROTOCOL_TYPE_OUT:
-        case OINK_PROTOCOL_TYPE_BYCOPY:
-        case OINK_PROTOCOL_TYPE_BYREF:
-        case OINK_PROTOCOL_TYPE_ONEWAY:
+        case WAX_PROTOCOL_TYPE_CONST:
+        case WAX_PROTOCOL_TYPE_INOUT:
+        case WAX_PROTOCOL_TYPE_OUT:
+        case WAX_PROTOCOL_TYPE_BYCOPY:
+        case WAX_PROTOCOL_TYPE_BYREF:
+        case WAX_PROTOCOL_TYPE_ONEWAY:
             return &type_descriptions[1];
             break;
         default:
@@ -501,113 +501,113 @@ const char *oink_removeProtocolEncodings(const char *type_descriptions) {
     }
 }
 
-int oink_sizeOfTypeDescription(const char *full_type_description) {
+int wax_sizeOfTypeDescription(const char *full_type_description) {
     int index = 0;
     int size = 0;
     
     size_t length = strlen(full_type_description) + 1;
     char *type_description = alloca(length);
     bzero(type_description, length);
-    oink_simplifyTypeDescription(full_type_description, type_description);
+    wax_simplifyTypeDescription(full_type_description, type_description);
     
     while(type_description[index]) {
         switch (type_description[index]) {
-            case OINK_TYPE_POINTER:
+            case WAX_TYPE_POINTER:
                 size += sizeof(void *);
                 
-            case OINK_TYPE_CHAR:
+            case WAX_TYPE_CHAR:
                 size += sizeof(char);
                 break;
                 
-            case OINK_TYPE_INT:
+            case WAX_TYPE_INT:
                 size += sizeof(int);
                 break;
                 
-            case OINK_TYPE_ARRAY:
-                //OINK_TYPE_ARRAY_END:
+            case WAX_TYPE_ARRAY:
+                //WAX_TYPE_ARRAY_END:
                 assert(false); // Not implemented yet
                 break;
             
-            case OINK_TYPE_SHORT:
+            case WAX_TYPE_SHORT:
                 size += sizeof(short);
                 break;
                 
-            case OINK_TYPE_UNSIGNED_CHAR:
+            case WAX_TYPE_UNSIGNED_CHAR:
                 size += sizeof(unsigned char);
                 break;
                 
-            case OINK_TYPE_UNSIGNED_INT:
+            case WAX_TYPE_UNSIGNED_INT:
                 size += sizeof(unsigned int);
                 break;
                 
-            case OINK_TYPE_UNSIGNED_SHORT:
+            case WAX_TYPE_UNSIGNED_SHORT:
                 size += sizeof(unsigned short);
                 break;
                 
-            case OINK_TYPE_LONG:
+            case WAX_TYPE_LONG:
                 size += sizeof(long);
                 break;
                 
-            case OINK_TYPE_LONG_LONG:
+            case WAX_TYPE_LONG_LONG:
                 size += sizeof(long long);
                 break;
                 
-            case OINK_TYPE_UNSIGNED_LONG:
+            case WAX_TYPE_UNSIGNED_LONG:
                 size += sizeof(unsigned long);
                 break;
                 
-            case OINK_TYPE_UNSIGNED_LONG_LONG:
+            case WAX_TYPE_UNSIGNED_LONG_LONG:
                 size += sizeof(unsigned long long);
                 break;
                 
-            case OINK_TYPE_FLOAT:
+            case WAX_TYPE_FLOAT:
                 size += sizeof(float);
                 break;
                 
-            case OINK_TYPE_DOUBLE:
+            case WAX_TYPE_DOUBLE:
                 size += sizeof(double);
                 break;
                 
-            case OINK_TYPE_C99_BOOL:
+            case WAX_TYPE_C99_BOOL:
                 size += sizeof(_Bool);
                 break;
                 
-            case OINK_TYPE_STRING:
+            case WAX_TYPE_STRING:
                 size += sizeof(char *);
                 break;
                 
-            case OINK_TYPE_VOID:
+            case WAX_TYPE_VOID:
                 size += sizeof(void);
                 break;
                 
-            case OINK_TYPE_BITFIELD:
+            case WAX_TYPE_BITFIELD:
                 assert(false); // I was to lazy to implement bitfields
                 break;
                 
-            case OINK_TYPE_ID:
+            case WAX_TYPE_ID:
                 size += sizeof(id);
                 break;
                 
-            case OINK_TYPE_CLASS:
+            case WAX_TYPE_CLASS:
                 size += sizeof(Class);
                 break;
                 
-            case OINK_TYPE_SELECTOR:
+            case WAX_TYPE_SELECTOR:
                 size += sizeof(SEL);
                 break;
                 
-            case OINK_TYPE_STRUCT:
-            case OINK_TYPE_STRUCT_END:
-            case OINK_TYPE_UNION:
-            case OINK_TYPE_UNION_END:
-            case OINK_TYPE_UNKNOWN:                
-            case OINK_PROTOCOL_TYPE_CONST:                
-            case OINK_PROTOCOL_TYPE_IN:                
-            case OINK_PROTOCOL_TYPE_INOUT:
-            case OINK_PROTOCOL_TYPE_OUT:
-            case OINK_PROTOCOL_TYPE_BYCOPY:
-            case OINK_PROTOCOL_TYPE_BYREF:
-            case OINK_PROTOCOL_TYPE_ONEWAY:                    
+            case WAX_TYPE_STRUCT:
+            case WAX_TYPE_STRUCT_END:
+            case WAX_TYPE_UNION:
+            case WAX_TYPE_UNION_END:
+            case WAX_TYPE_UNKNOWN:                
+            case WAX_PROTOCOL_TYPE_CONST:                
+            case WAX_PROTOCOL_TYPE_IN:                
+            case WAX_PROTOCOL_TYPE_INOUT:
+            case WAX_PROTOCOL_TYPE_OUT:
+            case WAX_PROTOCOL_TYPE_BYCOPY:
+            case WAX_PROTOCOL_TYPE_BYREF:
+            case WAX_PROTOCOL_TYPE_ONEWAY:                    
                 // Weeeee!
                 break;
             default:
@@ -621,46 +621,46 @@ int oink_sizeOfTypeDescription(const char *full_type_description) {
     return size;
 }
 
-int oink_simplifyTypeDescription(const char *in, char *out) {
+int wax_simplifyTypeDescription(const char *in, char *out) {
     int out_index = 0;
     int in_index = 0;
     
     while(in[in_index]) {
         switch (in[in_index]) {
-            case OINK_TYPE_STRUCT:
-            case OINK_TYPE_UNION:                
+            case WAX_TYPE_STRUCT:
+            case WAX_TYPE_UNION:                
                 for (; in[in_index] != '='; in_index++); // Eat the name!
                 in_index++; // Eat the = sign 
                 break;
                 
-            case OINK_TYPE_ARRAY:            
+            case WAX_TYPE_ARRAY:            
                 do {
                     out[out_index++] = in[in_index++];
-                } while(in[in_index] != OINK_TYPE_ARRAY_END);
+                } while(in[in_index] != WAX_TYPE_ARRAY_END);
                 break;
                 
-            case OINK_TYPE_POINTER: {
+            case WAX_TYPE_POINTER: {
                 //get rid of enternal stucture parts
                 out[out_index++] = in[in_index++]; 
                 for (; in[in_index] == '^'; in_index++); // Eat all the pointers
                 
                 switch (in[in_index]) {
-                    case OINK_TYPE_UNION:
-                    case OINK_TYPE_STRUCT: {
+                    case WAX_TYPE_UNION:
+                    case WAX_TYPE_STRUCT: {
                         in_index++;
                         int openCurlies = 1;
                         
-                        for (; openCurlies > 1 || (in[in_index] != OINK_TYPE_UNION_END && in[in_index] != OINK_TYPE_STRUCT_END); in_index++) {
-                            if (in[in_index] == OINK_TYPE_UNION || in[in_index] == OINK_TYPE_STRUCT) openCurlies++;
-                            else if (in[in_index] == OINK_TYPE_UNION_END || in[in_index] == OINK_TYPE_STRUCT_END) openCurlies--;
+                        for (; openCurlies > 1 || (in[in_index] != WAX_TYPE_UNION_END && in[in_index] != WAX_TYPE_STRUCT_END); in_index++) {
+                            if (in[in_index] == WAX_TYPE_UNION || in[in_index] == WAX_TYPE_STRUCT) openCurlies++;
+                            else if (in[in_index] == WAX_TYPE_UNION_END || in[in_index] == WAX_TYPE_STRUCT_END) openCurlies--;
                         }
                         break;
                     }
                 }
             }
                 
-            case OINK_TYPE_STRUCT_END:
-            case OINK_TYPE_UNION_END:
+            case WAX_TYPE_STRUCT_END:
+            case WAX_TYPE_UNION_END:
             case '0':
             case '1':
             case '2':
@@ -685,7 +685,7 @@ int oink_simplifyTypeDescription(const char *in, char *out) {
     return out_index;
 }
 
-int oink_errorFunction(lua_State *L) {
+int wax_errorFunction(lua_State *L) {
     lua_getfield(L, LUA_GLOBALSINDEX, "debug");
     if (!lua_istable(L, -1)) {
         lua_pop(L, 1);
@@ -708,8 +708,8 @@ int oink_errorFunction(lua_State *L) {
     return 1;
 }
 
-int oink_pcall(lua_State *L, int argumentCount, int returnCount) {
-    lua_pushcclosure(L, oink_errorFunction, 0);
+int wax_pcall(lua_State *L, int argumentCount, int returnCount) {
+    lua_pushcclosure(L, wax_errorFunction, 0);
     int errorFuncStackIndex = lua_gettop(L) - (argumentCount + 1); // Insert error function before arguments
     lua_insert(L, errorFuncStackIndex);
     

@@ -1,9 +1,9 @@
-oink.struct.create("CGSize", "ff", "width", "height")
-oink.struct.create("CGPoint", "ff", "x", "y")
-oink.struct.create("CGRect", "ffff", "x", "y", "width", "height")
+wax.struct.create("CGSize", "ff", "width", "height")
+wax.struct.create("CGPoint", "ff", "x", "y")
+wax.struct.create("CGRect", "ffff", "x", "y", "width", "height")
 
-oink.struct.create("NSRange", "II", "location", "length")
+wax.struct.create("NSRange", "II", "location", "length")
 
-oink.struct.create("CLLocationCoordinate2D", "dd", "latitude", "longitude")
-oink.struct.create("MKCoordinateSpan", "dd", "latitudeDelta", "longitudeDelta")
-oink.struct.create("MKCoordinateRegion", "dddd", "latitude", "longitude", "latitudeDelta", "longitudeDelta")
+wax.struct.create("CLLocationCoordinate2D", "dd", "latitude", "longitude")
+wax.struct.create("MKCoordinateSpan", "dd", "latitudeDelta", "longitudeDelta")
+wax.struct.create("MKCoordinateRegion", "dddd", "latitude", "longitude", "latitudeDelta", "longitudeDelta")

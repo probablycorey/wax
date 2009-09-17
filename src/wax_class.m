@@ -1,16 +1,16 @@
 //
-//  oink_class.m
+//  wax_class.m
 //  Lua
 //
 //  Created by ProbablyInteractive on 5/20/09.
 //  Copyright 2009 Probably Interactive. All rights reserved.
 //
 
-#import "oink_class.h"
+#import "wax_class.h"
 
-#import "oink.h"
-#import "oink_instance.h"
-#import "oink_helpers.h"
+#import "wax.h"
+#import "wax_instance.h"
+#import "wax_helpers.h"
 
 #import "lua.h"
 #import "lauxlib.h"
@@ -26,15 +26,15 @@ static const struct luaL_Reg Methods[] = {
     {NULL, NULL}
 };
 
-int luaopen_oink_class(lua_State *L) {
+int luaopen_wax_class(lua_State *L) {
     BEGIN_STACK_MODIFY(L);
     
-    luaL_newmetatable(L, OINK_CLASS_METATABLE_NAME);
+    luaL_newmetatable(L, WAX_CLASS_METATABLE_NAME);
     luaL_register(L, NULL, MetaMethods);
-    luaL_register(L, OINK_CLASS_METATABLE_NAME, Methods);    
+    luaL_register(L, WAX_CLASS_METATABLE_NAME, Methods);    
 
     // Set the metatable for the module
-    luaL_getmetatable(L, OINK_CLASS_METATABLE_NAME);
+    luaL_getmetatable(L, WAX_CLASS_METATABLE_NAME);
     lua_setmetatable(L, -2);
     
     END_STACK_MODIFY(L, 0)
@@ -43,10 +43,10 @@ int luaopen_oink_class(lua_State *L) {
 }
 
 static void forwardInvocation(id self, SEL _cmd, NSInvocation *invocation) {
-    lua_State *L = oink_currentLuaState();
+    lua_State *L = wax_currentLuaState();
     
     BEGIN_STACK_MODIFY(L);
-    oink_instance_pushFunction(L, self, [invocation selector]);
+    wax_instance_pushFunction(L, self, [invocation selector]);
     
     if (lua_isnil(L, -1)) {
         END_STACK_MODIFY(L, 0)   
@@ -54,28 +54,28 @@ static void forwardInvocation(id self, SEL _cmd, NSInvocation *invocation) {
     }
     else {
         if (![[NSThread currentThread] isEqual:[NSThread mainThread]]) NSLog(@"FORWARD INVOCATION: OH NO SEPERATE THREAD");
-        oink_instance_pushUserdata(L, self);
+        wax_instance_pushUserdata(L, self);
 
         NSMethodSignature *signature = [invocation methodSignature];
         int argumentCount = [signature numberOfArguments];                
         
         for (int i = 2; i < argumentCount; i++) { // Skip the hidden seld and _cmd arguements (self already added above)
             const char *typeDescription = [signature getArgumentTypeAtIndex:i];
-            int argSize = oink_sizeOfTypeDescription(typeDescription);
+            int argSize = wax_sizeOfTypeDescription(typeDescription);
 
             void *buffer = malloc(argSize);
             [invocation getArgument:buffer atIndex:i];
-            oink_fromObjc(L, typeDescription, buffer);
+            wax_fromObjc(L, typeDescription, buffer);
             free(buffer);
         }
                 
-        if (oink_pcall(L, argumentCount - 1, 1)) { // Subtract 1 from argumentCount because we don't want to send the hidden _cmd arguement
+        if (wax_pcall(L, argumentCount - 1, 1)) { // Subtract 1 from argumentCount because we don't want to send the hidden _cmd arguement
             const char* error_string = lua_tostring(L, -1);
             
             printf("Problem calling Lua function '%s' on userdata.\n%s", [invocation selector], error_string);
         }
 
-        void *returnValue = oink_copyToObjc(L, [signature methodReturnType], -1, nil);
+        void *returnValue = wax_copyToObjc(L, [signature methodReturnType], -1, nil);
         [invocation setReturnValue:returnValue];
         free(returnValue);
     }
@@ -86,7 +86,7 @@ static void forwardInvocation(id self, SEL _cmd, NSInvocation *invocation) {
 }
 
 static NSMethodSignature *methodSignatureForSelector(id self, SEL _cmd, SEL selector) {
-    lua_State *L = oink_currentLuaState();
+    lua_State *L = wax_currentLuaState();
     BEGIN_STACK_MODIFY(L)    
 
     struct objc_super super;
@@ -103,7 +103,7 @@ static NSMethodSignature *methodSignatureForSelector(id self, SEL _cmd, SEL sele
         return signature;
     }
 
-    oink_instance_pushFunction(L, self, selector);
+    wax_instance_pushFunction(L, self, selector);
     
     if (lua_isnil(L, -1)) {
         END_STACK_MODIFY(L, 0)
@@ -135,7 +135,7 @@ static int __index(lua_State *L) {
     const char *className = luaL_checkstring(L, 2);
     Class class = objc_getClass(className);
     if (class) {
-        oink_instance_create(L, class, YES);
+        wax_instance_create(L, class, YES);
     }
     else {
         lua_pushnil(L);
@@ -155,7 +155,7 @@ static int __call(lua_State *L) {
     else {
         Class superClass;    
         if (lua_isuserdata(L, 3)) {
-            oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 3, OINK_INSTANCE_METATABLE_NAME);
+            wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 3, WAX_INSTANCE_METATABLE_NAME);
             superClass = instanceUserdata->instance;
         }
         else if (lua_isnoneornil(L, 3)) {
@@ -177,13 +177,13 @@ static int __call(lua_State *L) {
         class_addMethod(class, @selector(forwardInvocation:), (IMP)forwardInvocation, "v@:@");
     }
         
-    oink_instance_create(L, class, YES);
+    wax_instance_create(L, class, YES);
     
     return 1;
 }
 
 static int addProtocols(lua_State *L) {
-    oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 1, OINK_INSTANCE_METATABLE_NAME);
+    wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);
     
     if (!instanceUserdata->isClass) {
         luaL_error(L, "ERROR: Can only set a protocol on a class (You are trying to set one on an instance)");

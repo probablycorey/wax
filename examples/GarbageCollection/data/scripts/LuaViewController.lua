@@ -1,4 +1,4 @@
-oinkClass("LuaViewController", UI.ViewController)
+waxClass("LuaViewController", UI.ViewController)
 
 function init(self)
   self.super:init()

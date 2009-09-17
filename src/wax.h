@@ -1,5 +1,5 @@
 //
-//  oink.h
+//  wax.h
 //  Lua
 //
 //  Created by ProbablyInteractive on 5/27/09.
@@ -8,15 +8,15 @@
 
 #import <Foundation/Foundation.h>
 #import "lua.h"
-#import "oink_conf.h"
+#import "wax_conf.h"
 
-void oink_start();
-void oink_startWithExtensions(lua_CFunction func, ...);
-void oink_end();
+void wax_start();
+void wax_startWithExtensions(lua_CFunction func, ...);
+void wax_end();
 
-lua_State *oink_currentLuaState();
+lua_State *wax_currentLuaState();
 
-void luaopen_oink(lua_State *L);
+void luaopen_wax(lua_State *L);
 
 static void addGlobals(lua_State *L);
 

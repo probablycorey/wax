@@ -3,7 +3,7 @@ require "fixtures.ProtocolSimpleObject"
 describe["An ObjClass with delegate"] = function()
   before = function()
     delegateObject = ProtocolSimpleObject:init()
-    object = oink.class["SimpleDelegateObject"]:init()
+    object = wax.class["SimpleDelegateObject"]:init()
     
     object:setDelegate(delegateObject)
   end

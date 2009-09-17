@@ -1,6 +1,6 @@
 require "LuaViewController"
 
-oinkClass("MainViewController", UI.ViewController)
+waxClass("MainViewController", UI.ViewController)
 
 function init(self)
   self.super:init()
@@ -32,7 +32,7 @@ function loadView(self)
 end
 
 function pushViewButtonTouched(self, button)
-  local viewController = oink.class.PureViewController:init()
+  local viewController = wax.class.PureViewController:init()
   self:navigationController():pushViewController_animated(viewController, true)
 end
 

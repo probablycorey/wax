@@ -3,12 +3,12 @@ require "ext"
 require "enums"
 require "structs"
 
-require "oinkClass"
-require "oinkCallback"
+require "waxClass"
+require "waxCallback"
 require "namespace"
 
 namespace("UI")
 namespace("NS")
 namespace("MK")
 namespace("MF")
-namespace("Oink")
+namespace("Wax")

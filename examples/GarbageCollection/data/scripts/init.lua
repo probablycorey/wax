@@ -1,4 +1,4 @@
-require "oink"
+require "wax"
 require "MainViewController"
 
 window = UI.Application:sharedApplication():keyWindow()

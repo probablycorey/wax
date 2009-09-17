@@ -6,17 +6,17 @@
 //  Copyright 2009 Probably Interactive. All rights reserved.
 //
 
-#import "oink.h"
-#import "oink_class.h"
-#import "oink_instance.h"
-#import "oink_struct.h"
-#import "oink_helpers.h"
+#import "wax.h"
+#import "wax_class.h"
+#import "wax_instance.h"
+#import "wax_struct.h"
+#import "wax_helpers.h"
 
 #import "lauxlib.h"
 #import "lobject.h"
 #import "lualib.h"
 
-lua_State *oink_currentLuaState() {
+lua_State *wax_currentLuaState() {
     static lua_State *L;    
     if (!L) L = lua_open();  
     
@@ -24,16 +24,16 @@ lua_State *oink_currentLuaState() {
 }
 
 void uncaughtExceptionHandler(NSException *e) {
-    NSLog(@"OINK! Uncaught exception %@", e);
+    NSLog(@"WAX! Uncaught exception %@", e);
 }
 
-void oink_startWithExtensions(lua_CFunction func, ...) {   
+void wax_startWithExtensions(lua_CFunction func, ...) {   
     char *mainFile;    
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    [fileManager changeCurrentDirectoryPath:OINK_DATA_PATH];
+    [fileManager changeCurrentDirectoryPath:WAX_DATA_PATH];
     
-    lua_State *L = oink_currentLuaState();    
+    lua_State *L = wax_currentLuaState();    
     
     NSArray *args = [[NSProcessInfo processInfo] arguments];    
     if ([args containsObject:@"test"]) {
@@ -47,7 +47,7 @@ void oink_startWithExtensions(lua_CFunction func, ...) {
     }            
     
     luaL_openlibs(L); 
-    luaopen_oink(L);
+    luaopen_wax(L);
     
     if (func) { // Load extentions
         func(L);
@@ -65,18 +65,18 @@ void oink_startWithExtensions(lua_CFunction func, ...) {
     if (luaL_dofile(L, mainFile) != 0) fprintf(stderr,"Fatal Error: %s\n", lua_tostring(L,-1));    
 }
 
-void oink_start() {
-    oink_startWithExtensions(nil);
+void wax_start() {
+    wax_startWithExtensions(nil);
 }
 
-void oink_end() {
-    lua_close(oink_currentLuaState());
+void wax_end() {
+    lua_close(wax_currentLuaState());
 }
 
-void luaopen_oink(lua_State *L) {
-    luaopen_oink_class(L);
-    luaopen_oink_instance(L);
-    luaopen_oink_struct(L);
+void luaopen_wax(lua_State *L) {
+    luaopen_wax_class(L);
+    luaopen_wax_instance(L);
+    luaopen_wax_struct(L);
 }
 
 static void addGlobals(lua_State *L) {
@@ -103,18 +103,18 @@ static void addGlobals(lua_State *L) {
 
 static int tolua(lua_State *L) {
     if (lua_isuserdata(L, 1)) { // If it's not userdata... it's already lua!
-        oink_instance_userdata *instanceUserdata = (oink_instance_userdata *)luaL_checkudata(L, 1, OINK_INSTANCE_METATABLE_NAME);
-        oink_fromInstance(L, instanceUserdata->instance);
+        wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);
+        wax_fromInstance(L, instanceUserdata->instance);
     }
     
     return 1;
 }
 
 static int toobjc(lua_State *L) {
-    id *instancePointer = oink_copyToObjc(L, "@", 1, nil);
+    id *instancePointer = wax_copyToObjc(L, "@", 1, nil);
     id instance = *(id *)instancePointer;
     
-    oink_instance_create(L, instance, NO);
+    wax_instance_create(L, instance, NO);
     
     free(instancePointer);
     

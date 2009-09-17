@@ -1,13 +1,13 @@
 //
-//  oink_struct_userdata.m
+//  wax_struct_userdata.m
 //  Rentals
 //
 //  Created by ProbablyInteractive on 7/7/09.
 //  Copyright 2009 Probably Interactive. All rights reserved.
 //
 
-#import "oink_struct.h"
-#import "oink_helpers.h"
+#import "wax_struct.h"
+#import "wax_helpers.h"
 
 #import "lua.h"
 #import "lauxlib.h"
@@ -28,16 +28,16 @@ static const struct luaL_Reg functions[] = {
 {NULL, NULL}
 };
 
-int luaopen_oink_struct(lua_State *L) {
+int luaopen_wax_struct(lua_State *L) {
     BEGIN_STACK_MODIFY(L);
     
-    luaL_newmetatable(L, OINK_STRUCT_METATABLE_NAME);
+    luaL_newmetatable(L, WAX_STRUCT_METATABLE_NAME);
     
     luaL_register(L, NULL, metaFunctions);
-    luaL_register(L, OINK_STRUCT_METATABLE_NAME, functions);    
+    luaL_register(L, WAX_STRUCT_METATABLE_NAME, functions);    
 
     // metatable stores all the labeled structs and their mappings
-    luaL_getmetatable(L, OINK_STRUCT_METATABLE_NAME);    
+    luaL_getmetatable(L, WAX_STRUCT_METATABLE_NAME);    
     lua_newtable(L);
     lua_setfield(L, -2, LABELED_STRUCT_TABLE_NAME);
     
@@ -45,13 +45,13 @@ int luaopen_oink_struct(lua_State *L) {
     return 1;
 }
 
-oink_struct_userdata *oink_struct_create(lua_State *L, const char *typeDescription, void *buffer) {
+wax_struct_userdata *wax_struct_create(lua_State *L, const char *typeDescription, void *buffer) {
     BEGIN_STACK_MODIFY(L);
     
-    size_t nbytes = sizeof(oink_struct_userdata);
-    oink_struct_userdata *structUserdata = (oink_struct_userdata *)lua_newuserdata(L, nbytes);
+    size_t nbytes = sizeof(wax_struct_userdata);
+    wax_struct_userdata *structUserdata = (wax_struct_userdata *)lua_newuserdata(L, nbytes);
 
-    int size = oink_sizeOfTypeDescription(typeDescription);
+    int size = wax_sizeOfTypeDescription(typeDescription);
     structUserdata->data = malloc(size);
     memcpy(structUserdata->data, buffer, size);
 
@@ -72,7 +72,7 @@ oink_struct_userdata *oink_struct_create(lua_State *L, const char *typeDescripti
     }
     
     // set the metatable
-    luaL_getmetatable(L, OINK_STRUCT_METATABLE_NAME);
+    luaL_getmetatable(L, WAX_STRUCT_METATABLE_NAME);
     lua_setmetatable(L, -2);
     
     // give it a nice clean environment
@@ -84,43 +84,43 @@ oink_struct_userdata *oink_struct_create(lua_State *L, const char *typeDescripti
     return structUserdata;
 }
 
-// Maybe all this data should be created at oink_struct_userdata creation time? I think so!
-void oink_struct_pushValueAt(lua_State *L, oink_struct_userdata *structUserdata, int index) {
+// Maybe all this data should be created at wax_struct_userdata creation time? I think so!
+void wax_struct_pushValueAt(lua_State *L, wax_struct_userdata *structUserdata, int index) {
     char *simplifiedTypeDescription = alloca(strlen(structUserdata->typeDescription) + 1);
-    oink_simplifyTypeDescription(structUserdata->typeDescription, simplifiedTypeDescription);
+    wax_simplifyTypeDescription(structUserdata->typeDescription, simplifiedTypeDescription);
     
     int position = 0;
     char type[2] = {simplifiedTypeDescription[0], '\0'};    
     for (int i = 1; i < index; i++) {
-        position += oink_sizeOfTypeDescription(type);
+        position += wax_sizeOfTypeDescription(type);
         type[0] = simplifiedTypeDescription[i];
     }
     
-    oink_fromObjc(L, type, structUserdata->data + position);
+    wax_fromObjc(L, type, structUserdata->data + position);
 }
 
-void oink_struct_setValueAt(lua_State *L, oink_struct_userdata *structUserdata, int index, int stackIndex) {
+void wax_struct_setValueAt(lua_State *L, wax_struct_userdata *structUserdata, int index, int stackIndex) {
     char *simplifiedTypeDescription = alloca(strlen(structUserdata->typeDescription) + 1);
-    oink_simplifyTypeDescription(structUserdata->typeDescription, simplifiedTypeDescription);
+    wax_simplifyTypeDescription(structUserdata->typeDescription, simplifiedTypeDescription);
     
     int position = 0;
     char type[2] = {simplifiedTypeDescription[0], '\0'};    
     for (int i = 1; i < index; i++) {
-        position += oink_sizeOfTypeDescription(type);
+        position += wax_sizeOfTypeDescription(type);
         type[0] = simplifiedTypeDescription[i];
     }
     
     int size;
-    void *value = oink_copyToObjc(L, type, stackIndex, &size);
+    void *value = wax_copyToObjc(L, type, stackIndex, &size);
     memcpy(structUserdata->data + position, value, size);
     free(value);
 }
 
-int oink_struct_getOffsetForName(lua_State *L, oink_struct_userdata *structUserdata, const char *name) {
+int wax_struct_getOffsetForName(lua_State *L, wax_struct_userdata *structUserdata, const char *name) {
     BEGIN_STACK_MODIFY(L);
     
     // Get the labeled struct table
-    luaL_getmetatable(L, OINK_STRUCT_METATABLE_NAME);    
+    luaL_getmetatable(L, WAX_STRUCT_METATABLE_NAME);    
     lua_getfield(L, -1, LABELED_STRUCT_TABLE_NAME);
     lua_getfield(L, -1, structUserdata->name);
     
@@ -141,27 +141,27 @@ int oink_struct_getOffsetForName(lua_State *L, oink_struct_userdata *structUserd
 }
 
 static int __index(lua_State *L) {
-    oink_struct_userdata *structUserdata = (oink_struct_userdata *)luaL_checkudata(L, 1, OINK_STRUCT_METATABLE_NAME);
+    wax_struct_userdata *structUserdata = (wax_struct_userdata *)luaL_checkudata(L, 1, WAX_STRUCT_METATABLE_NAME);
     const char *name = lua_tostring(L, 2);
         
-    int index = oink_struct_getOffsetForName(L, structUserdata, name);
-    oink_struct_pushValueAt(L, structUserdata, index);
+    int index = wax_struct_getOffsetForName(L, structUserdata, name);
+    wax_struct_pushValueAt(L, structUserdata, index);
     
     return 1;
 }
 
 static int __newindex(lua_State *L) {
-    oink_struct_userdata *structUserdata = (oink_struct_userdata *)luaL_checkudata(L, 1, OINK_STRUCT_METATABLE_NAME);
+    wax_struct_userdata *structUserdata = (wax_struct_userdata *)luaL_checkudata(L, 1, WAX_STRUCT_METATABLE_NAME);
     const char *name = lua_tostring(L, 2);
 
-    int index = oink_struct_getOffsetForName(L, structUserdata, name);
-    oink_struct_setValueAt(L, structUserdata, index, 3);
+    int index = wax_struct_getOffsetForName(L, structUserdata, name);
+    wax_struct_setValueAt(L, structUserdata, index, 3);
 
     return 0;
 }
 
 static int __gc(lua_State *L) {
-    oink_struct_userdata *structUserdata = (oink_struct_userdata *)luaL_checkudata(L, 1, OINK_STRUCT_METATABLE_NAME);    
+    wax_struct_userdata *structUserdata = (wax_struct_userdata *)luaL_checkudata(L, 1, WAX_STRUCT_METATABLE_NAME);    
     NSLog(@"STRUCT NAMED %s is GOING AWAY", structUserdata->name);
     
     return 0;
@@ -169,8 +169,8 @@ static int __gc(lua_State *L) {
 
 
 static int __tostring(lua_State *L) {    
-    luaL_checkudata(L, 1, OINK_STRUCT_METATABLE_NAME);
-    lua_pushstring(L, "oink struct");
+    luaL_checkudata(L, 1, WAX_STRUCT_METATABLE_NAME);
+    lua_pushstring(L, "wax struct");
     
     return 1;
 }
@@ -181,7 +181,7 @@ static int create(lua_State *L) {
     int mappingsCount = lua_gettop(L) - 2;
     
     // Get the labeled struct table
-    luaL_getmetatable(L, OINK_STRUCT_METATABLE_NAME);    
+    luaL_getmetatable(L, WAX_STRUCT_METATABLE_NAME);    
     lua_getfield(L, -1, LABELED_STRUCT_TABLE_NAME);
     
     lua_pushstring(L, name);
@@ -204,10 +204,10 @@ static int create(lua_State *L) {
 }
 
 static int unpack(lua_State *L) {
-    oink_struct_userdata *structUserdata = (oink_struct_userdata *)luaL_checkudata(L, 1, OINK_STRUCT_METATABLE_NAME);
+    wax_struct_userdata *structUserdata = (wax_struct_userdata *)luaL_checkudata(L, 1, WAX_STRUCT_METATABLE_NAME);
     
     char *simplifiedTypeDescription = alloca(strlen(structUserdata->typeDescription) + 1);
-    oink_simplifyTypeDescription(structUserdata->typeDescription, simplifiedTypeDescription);
+    wax_simplifyTypeDescription(structUserdata->typeDescription, simplifiedTypeDescription);
     
     lua_newtable(L);
     
@@ -215,9 +215,9 @@ static int unpack(lua_State *L) {
     int position = 0;
     char type[2] = {'\0', '\0'};    
     while(type[0] = simplifiedTypeDescription[index]) {         
-        oink_fromObjc(L, type, structUserdata->data + position);
+        wax_fromObjc(L, type, structUserdata->data + position);
         lua_rawseti(L, -2, index + 1);
-        position += oink_sizeOfTypeDescription(type);
+        position += wax_sizeOfTypeDescription(type);
         index++;
     }
     
@@ -230,7 +230,7 @@ static int pack(lua_State *L) {
     const char *typeDescription = lua_tostring(L, 1);
 
     char *simplifiedTypeDescription = alloca(strlen(typeDescription) + 1);
-    oink_simplifyTypeDescription(typeDescription, simplifiedTypeDescription);
+    wax_simplifyTypeDescription(typeDescription, simplifiedTypeDescription);
 
     if (strlen(simplifiedTypeDescription) != lua_gettop(L) - 1) {
         luaL_error(L, "Couldn't pack struct. Received %d arguments for struct with type description '%s' (should have received %d)", lua_gettop(L) - 1, typeDescription, strlen(simplifiedTypeDescription));
@@ -243,13 +243,13 @@ static int pack(lua_State *L) {
         int size;
         int stackIndex = i + 2; // start at 2 (1 is where the type description is)
         
-        void *value = oink_copyToObjc(L, &simplifiedTypeDescription[i], stackIndex, &size);
+        void *value = wax_copyToObjc(L, &simplifiedTypeDescription[i], stackIndex, &size);
         luaL_addlstring(&b, value, size);
         free(value);
     }
     luaL_pushresult(&b);
     
-    oink_struct_create(L, typeDescription, b.buffer);
+    wax_struct_create(L, typeDescription, b.buffer);
     
     return 1;
 }
@@ -263,7 +263,7 @@ static int createClosure(lua_State *L) {
     pack(L); // Creates the userdata for us...    
     
     // Set the name for the structUserdata (Make this automatic in the future!)
-    oink_struct_userdata *structUserdata = (oink_struct_userdata *)lua_touserdata(L, -1);
+    wax_struct_userdata *structUserdata = (wax_struct_userdata *)lua_touserdata(L, -1);
     if (!structUserdata->name) {    
         structUserdata->name = malloc(strlen(name) + 1);
         strcpy(structUserdata->name, name);

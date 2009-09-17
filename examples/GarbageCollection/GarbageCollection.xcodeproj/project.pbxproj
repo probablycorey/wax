@@ -43,11 +43,11 @@
 		911433BB1045A77900DD8DA7 /* lvm.c in Sources */ = {isa = PBXBuildFile; fileRef = 911433911045A77900DD8DA7 /* lvm.c */; };
 		911433BC1045A77900DD8DA7 /* lzio.c in Sources */ = {isa = PBXBuildFile; fileRef = 911433931045A77900DD8DA7 /* lzio.c */; };
 		911433BD1045A77900DD8DA7 /* print.c in Sources */ = {isa = PBXBuildFile; fileRef = 911433951045A77900DD8DA7 /* print.c */; };
-		911433BE1045A77900DD8DA7 /* oink.m in Sources */ = {isa = PBXBuildFile; fileRef = 911433971045A77900DD8DA7 /* oink.m */; };
-		911433BF1045A77900DD8DA7 /* oink_class.m in Sources */ = {isa = PBXBuildFile; fileRef = 911433991045A77900DD8DA7 /* oink_class.m */; };
-		911433C01045A77900DD8DA7 /* oink_helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 9114339B1045A77900DD8DA7 /* oink_helpers.m */; };
-		911433C11045A77900DD8DA7 /* oink_instance.m in Sources */ = {isa = PBXBuildFile; fileRef = 9114339D1045A77900DD8DA7 /* oink_instance.m */; };
-		911433C21045A77900DD8DA7 /* oink_struct.m in Sources */ = {isa = PBXBuildFile; fileRef = 9114339F1045A77900DD8DA7 /* oink_struct.m */; };
+		911433BE1045A77900DD8DA7 /* wax.m in Sources */ = {isa = PBXBuildFile; fileRef = 911433971045A77900DD8DA7 /* wax.m */; };
+		911433BF1045A77900DD8DA7 /* wax_class.m in Sources */ = {isa = PBXBuildFile; fileRef = 911433991045A77900DD8DA7 /* wax_class.m */; };
+		911433C01045A77900DD8DA7 /* wax_helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 9114339B1045A77900DD8DA7 /* wax_helpers.m */; };
+		911433C11045A77900DD8DA7 /* wax_instance.m in Sources */ = {isa = PBXBuildFile; fileRef = 9114339D1045A77900DD8DA7 /* wax_instance.m */; };
+		911433C21045A77900DD8DA7 /* wax_struct.m in Sources */ = {isa = PBXBuildFile; fileRef = 9114339F1045A77900DD8DA7 /* wax_struct.m */; };
 		911434191045DC3000DD8DA7 /* PureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 911434181045DC3000DD8DA7 /* PureViewController.m */; };
 /* End PBXBuildFile section */
 
@@ -115,16 +115,16 @@
 		911433931045A77900DD8DA7 /* lzio.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lzio.c; sourceTree = "<group>"; };
 		911433941045A77900DD8DA7 /* lzio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lzio.h; sourceTree = "<group>"; };
 		911433951045A77900DD8DA7 /* print.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = print.c; sourceTree = "<group>"; };
-		911433961045A77900DD8DA7 /* oink.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = oink.h; sourceTree = "<group>"; };
-		911433971045A77900DD8DA7 /* oink.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = oink.m; sourceTree = "<group>"; };
-		911433981045A77900DD8DA7 /* oink_class.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = oink_class.h; sourceTree = "<group>"; };
-		911433991045A77900DD8DA7 /* oink_class.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = oink_class.m; sourceTree = "<group>"; };
-		9114339A1045A77900DD8DA7 /* oink_helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = oink_helpers.h; sourceTree = "<group>"; };
-		9114339B1045A77900DD8DA7 /* oink_helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = oink_helpers.m; sourceTree = "<group>"; };
-		9114339C1045A77900DD8DA7 /* oink_instance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = oink_instance.h; sourceTree = "<group>"; };
-		9114339D1045A77900DD8DA7 /* oink_instance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = oink_instance.m; sourceTree = "<group>"; };
-		9114339E1045A77900DD8DA7 /* oink_struct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = oink_struct.h; sourceTree = "<group>"; };
-		9114339F1045A77900DD8DA7 /* oink_struct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = oink_struct.m; sourceTree = "<group>"; };
+		911433961045A77900DD8DA7 /* wax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax.h; sourceTree = "<group>"; };
+		911433971045A77900DD8DA7 /* wax.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax.m; sourceTree = "<group>"; };
+		911433981045A77900DD8DA7 /* wax_class.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_class.h; sourceTree = "<group>"; };
+		911433991045A77900DD8DA7 /* wax_class.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_class.m; sourceTree = "<group>"; };
+		9114339A1045A77900DD8DA7 /* wax_helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_helpers.h; sourceTree = "<group>"; };
+		9114339B1045A77900DD8DA7 /* wax_helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_helpers.m; sourceTree = "<group>"; };
+		9114339C1045A77900DD8DA7 /* wax_instance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_instance.h; sourceTree = "<group>"; };
+		9114339D1045A77900DD8DA7 /* wax_instance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_instance.m; sourceTree = "<group>"; };
+		9114339E1045A77900DD8DA7 /* wax_struct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_struct.h; sourceTree = "<group>"; };
+		9114339F1045A77900DD8DA7 /* wax_struct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_struct.m; sourceTree = "<group>"; };
 		911434171045DC3000DD8DA7 /* PureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PureViewController.h; sourceTree = "<group>"; };
 		911434181045DC3000DD8DA7 /* PureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PureViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -165,7 +165,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				9114335F1045A77900DD8DA7 /* oink */,
+				9114335F1045A77900DD8DA7 /* wax */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -203,22 +203,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		9114335F1045A77900DD8DA7 /* oink */ = {
+		9114335F1045A77900DD8DA7 /* wax */ = {
 			isa = PBXGroup;
 			children = (
 				911433601045A77900DD8DA7 /* lua */,
-				911433961045A77900DD8DA7 /* oink.h */,
-				911433971045A77900DD8DA7 /* oink.m */,
-				911433981045A77900DD8DA7 /* oink_class.h */,
-				911433991045A77900DD8DA7 /* oink_class.m */,
-				9114339A1045A77900DD8DA7 /* oink_helpers.h */,
-				9114339B1045A77900DD8DA7 /* oink_helpers.m */,
-				9114339C1045A77900DD8DA7 /* oink_instance.h */,
-				9114339D1045A77900DD8DA7 /* oink_instance.m */,
-				9114339E1045A77900DD8DA7 /* oink_struct.h */,
-				9114339F1045A77900DD8DA7 /* oink_struct.m */,
+				911433961045A77900DD8DA7 /* wax.h */,
+				911433971045A77900DD8DA7 /* wax.m */,
+				911433981045A77900DD8DA7 /* wax_class.h */,
+				911433991045A77900DD8DA7 /* wax_class.m */,
+				9114339A1045A77900DD8DA7 /* wax_helpers.h */,
+				9114339B1045A77900DD8DA7 /* wax_helpers.m */,
+				9114339C1045A77900DD8DA7 /* wax_instance.h */,
+				9114339D1045A77900DD8DA7 /* wax_instance.m */,
+				9114339E1045A77900DD8DA7 /* wax_struct.h */,
+				9114339F1045A77900DD8DA7 /* wax_struct.m */,
 			);
-			name = oink;
+			name = wax;
 			path = ../../src;
 			sourceTree = SOURCE_ROOT;
 		};
@@ -384,11 +384,11 @@
 				911433BB1045A77900DD8DA7 /* lvm.c in Sources */,
 				911433BC1045A77900DD8DA7 /* lzio.c in Sources */,
 				911433BD1045A77900DD8DA7 /* print.c in Sources */,
-				911433BE1045A77900DD8DA7 /* oink.m in Sources */,
-				911433BF1045A77900DD8DA7 /* oink_class.m in Sources */,
-				911433C01045A77900DD8DA7 /* oink_helpers.m in Sources */,
-				911433C11045A77900DD8DA7 /* oink_instance.m in Sources */,
-				911433C21045A77900DD8DA7 /* oink_struct.m in Sources */,
+				911433BE1045A77900DD8DA7 /* wax.m in Sources */,
+				911433BF1045A77900DD8DA7 /* wax_class.m in Sources */,
+				911433C01045A77900DD8DA7 /* wax_helpers.m in Sources */,
+				911433C11045A77900DD8DA7 /* wax_instance.m in Sources */,
+				911433C21045A77900DD8DA7 /* wax_struct.m in Sources */,
 				911434191045DC3000DD8DA7 /* PureViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

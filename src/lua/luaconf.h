@@ -81,11 +81,11 @@
 ** non-conventional directories.
 */
 
-// BEGIN OINK PATCH
+// BEGIN WAX PATCH
 #define LUA_ROOT    "./"
 #define LUA_PATH_DEFAULT LUA_ROOT "scripts/?.dat;" LUA_ROOT "scripts/?.lua;" LUA_ROOT "scripts/?/init.lua;"
 #define LUA_CPATH_DEFAULT ""
-// END OINK PATCH
+// END WAX PATCH
 
 /*
 @@ LUA_DIRSEP is the directory separator (for submodules).

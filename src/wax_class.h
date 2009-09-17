@@ -1,5 +1,5 @@
 //
-//  oink_class.h
+//  wax_class.h
 //  Lua
 //
 //  Created by ProbablyInteractive on 5/20/09.
@@ -12,13 +12,13 @@
 
 #import "lua.h"
 
-#define OINK_CLASS_METATABLE_NAME "oink.class"
+#define WAX_CLASS_METATABLE_NAME "wax.class"
 
-typedef struct _oink_class {
+typedef struct _wax_class {
     Class objcClass;
-} oink_class;
+} wax_class;
 
-int luaopen_oink_class(lua_State *L);
+int luaopen_wax_class(lua_State *L);
 static int __index(lua_State *L);
 static int __call(lua_State *L);
 

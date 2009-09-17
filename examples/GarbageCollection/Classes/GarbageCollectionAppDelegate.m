@@ -7,7 +7,7 @@
 //
 
 #import "GarbageCollectionAppDelegate.h"
-#import "oink.h"
+#import "wax.h"
 
 @implementation GarbageCollectionAppDelegate
 
@@ -15,7 +15,7 @@
 
 - (void)applicationDidFinishLaunching:(UIApplication *)application {    
     [window makeKeyAndVisible];    
-    oink_start();
+    wax_start();
 }
 
 - (void)dealloc {

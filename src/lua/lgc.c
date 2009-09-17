@@ -159,7 +159,7 @@ static int traversetable (global_State *g, Table *h) {
   int i;
   int weakkey = 0;
   int weakvalue = 0;
-  int oinkvalue = 0;    
+  int waxvalue = 0;    
   const TValue *mode;
   if (h->metatable)
     markobject(g, h->metatable);
@@ -167,7 +167,7 @@ static int traversetable (global_State *g, Table *h) {
   if (mode && ttisstring(mode)) {  /* is there a weak mode? */
     weakkey = (strchr(svalue(mode), 'k') != NULL);
     weakvalue = (strchr(svalue(mode), 'v') != NULL);
-    oinkvalue = (strchr(svalue(mode), '!') != NULL);
+    waxvalue = (strchr(svalue(mode), '!') != NULL);
     if (weakkey || weakvalue) {  /* is really weak? */
       h->marked &= ~(KEYWEAK | VALUEWEAK);  /* clear bits */
       h->marked |= cast_byte((weakkey << KEYWEAKBIT) |
@@ -192,10 +192,10 @@ static int traversetable (global_State *g, Table *h) {
       lua_assert(!ttisnil(gkey(n)));
       if (!weakkey) markvalue(g, gkey(n));
       if (!weakvalue) markvalue(g, gval(n));
-      if (oinkvalue && ttisuserdata(gval(n))) {
+      if (waxvalue && ttisuserdata(gval(n))) {
         Udata *udata = (Udata *)uvalue(gval(n)); 
         lua_State *L = g->mainthread;
-        const TValue *tm = gfasttm(g, udata->uv.metatable, TM_OINKRETAIN);
+        const TValue *tm = gfasttm(g, udata->uv.metatable, TM_WAXRETAIN);
         if (tm != NULL) {
           lu_mem oldt = g->GCthreshold;
           g->GCthreshold = 2*g->totalbytes;  /* avoid GC steps */

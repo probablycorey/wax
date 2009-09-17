@@ -1,16 +1,16 @@
 describe["Unpacking structs"] = function()
   before = function()
-    Structs = oink.class["Structs"]
+    Structs = wax.class["Structs"]
   end
   
   it["can upack a single value struct"] = function()
-    local struct = oink.struct.unpack(Structs:numberFive())
+    local struct = wax.struct.unpack(Structs:numberFive())
     expect( #struct ).should_be(1)
     expect( struct[1] ).should_be(5)
   end
   
   it["can upack a multivalue struct"] = function()
-    local struct = oink.struct.unpack(Structs:rangeTwoTwenty())
+    local struct = wax.struct.unpack(Structs:rangeTwoTwenty())
     expect( #struct ).should_be(2)
     expect( struct[1] ).should_be(2)
     expect( struct[2] ).should_be(20)
@@ -19,54 +19,54 @@ end
 
 describe["Packing structs"] = function()
   before = function()
-    Structs = oink.class["Structs"]
+    Structs = wax.class["Structs"]
   end
   
   it["can pack a single value struct"] = function()
-    local struct = oink.struct.pack("i", 6)
+    local struct = wax.struct.pack("i", 6)
     expect( Structs:expectSix(struct) ).should_be(true)
   end
   
   it["can pack a multivalue struct"] = function()
-    local struct = oink.struct.pack("ffff", 1, 2, 3, 4)
+    local struct = wax.struct.pack("ffff", 1, 2, 3, 4)
     expect( Structs:expectsCGRectOneTwoThreeFour(struct) ).should_be(true)
   end
   
   it["creates an error when there are not enough arguments to fill the struct"] = function()
-    expect( function() oink.struct.pack("ffff", 1, 2, 3) end ).should_error()    
+    expect( function() wax.struct.pack("ffff", 1, 2, 3) end ).should_error()    
   end
   
   it["creates an error when there are too many arguments to fill the struct"] = function()
-    expect( function() oink.struct.pack("ffff", 1, 2, 3, 4, 5) end ).should_error()    
+    expect( function() wax.struct.pack("ffff", 1, 2, 3, 4, 5) end ).should_error()    
   end
 end
 
 describe["Creating structs"] = function()
   before = function()
-    Structs = oink.class["Structs"]
+    Structs = wax.class["Structs"]
   end
 
   it["can be created"] = function()
-    oink.struct.create("CustomStruct", "dd", "x", "y")
+    wax.struct.create("CustomStruct", "dd", "x", "y")
     expect( type(CustomStruct) ).should_be("function")
     expect( CustomStruct(10, 20) ).should_exist()
   end
   
   it["is read by obj-c correctly"] = function()
-    oink.struct.create("CustomStruct", "dd", "x", "y")
+    wax.struct.create("CustomStruct", "dd", "x", "y")
     expect( Structs:expectsCustomStructFiftySixty(CustomStruct(50,60)) ).should_be(true)
   end
 
   it["reads existing structs by obj-c correctly"] = function()
-    oink.struct.create("CGRect", "ffff", "x", "y", "width", "height")
+    wax.struct.create("CGRect", "ffff", "x", "y", "width", "height")
     expect( Structs:expectsCGRectTwoFourSixEight(CGRect(2,4,6,8)) ).should_be(true)
   end
 end
 
 describe["Reading custom structs"] = function()
   before = function()
-    Structs = oink.class["Structs"]
-    oink.struct.create("CustomStruct", "dd", "x", "y")
+    Structs = wax.class["Structs"]
+    wax.struct.create("CustomStruct", "dd", "x", "y")
   end
 
   it["can access values by name"] = function()
@@ -82,7 +82,7 @@ describe["Reading custom structs"] = function()
   end
   
   it["can access existing structs by name"] = function()
-    oink.struct.create("CGRect", "ffff", "x", "y", "width", "height")
+    wax.struct.create("CGRect", "ffff", "x", "y", "width", "height")
     local result = CGRect(2,4,6,8)
     expect( result.x ).should_be(2)
     expect( result.y ).should_be(4)
@@ -93,8 +93,8 @@ end
 
 describe["Writing custom structs"] = function()
   before = function()
-    Structs = oink.class["Structs"]
-    oink.struct.create("CustomStruct", "dd", "x", "y")    
+    Structs = wax.class["Structs"]
+    wax.struct.create("CustomStruct", "dd", "x", "y")    
   end
 
   it["can set value from lua"] = function()

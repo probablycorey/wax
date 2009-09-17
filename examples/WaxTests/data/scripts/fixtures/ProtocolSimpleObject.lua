@@ -1,4 +1,4 @@
-oinkClass("ProtocolSimpleObject", "SimpleObject", {protocols = {"SimpleProtocol"}})
+waxClass("ProtocolSimpleObject", "SimpleObject", {protocols = {"SimpleProtocol"}})
 
 function requiredMethod()
   return 1
