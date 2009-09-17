@@ -1,25 +1,25 @@
 Setup
 -----
 
-I'm assuming you've got oink... if not, grab it at http://github.com/probablycorey/oink
+I'm assuming you've got wax... if not, grab it at http://github.com/probablycorey/wax
 
 • Create a new "Window-based Application" iPhone project in xcode
 
-• Drag the oink folder into the your <PROJECT ROOT> folder (the actual folder via Finder/Terminal not into xCode). Then drag the <PROJECT ROOT>/oink/src folder into the xcode "Groups & Files" pane. You want to make sure "Copy items into destination group's folder" is NOT checked and "Recursively create groups for any added folders" is selected. 
+• Drag the wax folder into the your <PROJECT ROOT> folder (the actual folder via Finder/Terminal not into xCode). Then drag the <PROJECT ROOT>/wax/src folder into the xcode "Groups & Files" pane. You want to make sure "Copy items into destination group's folder" is NOT checked and "Recursively create groups for any added folders" is selected. 
 
 • In your UIApplication delegate file add...
-    #import "oink.h"
+    #import "wax.h"
 
 • In your UIApplication delegate's "applicationDidFinishLaunching:" method (after the call to [window makeKeyAndVisible]) add...
-  oink_start();
+  wax_start();
   // OR if you want to add extensions
-  // oink_startWithExtensions(luaopen_libXfunction, luaopen_libYfunction, nil);
+  // wax_startWithExtensions(luaopen_libXfunction, luaopen_libYfunction, nil);
     
 • Add a run script build phase (This will copy all your lua scripts into the app bundle every time you build the project.)
 1.) In the xcode Groups & Files pane right click "Targets"
 2.) Click Add > New Build Phase > New Run Script Build Phase
 3.) A weird little editor window should pop up. In the Script text area write 
-  oink/copy_scripts.sh
+  wax/copy_scripts.sh
   
 • Now build your app! It should compile and you should have a new folder named "data" in <PROJECT ROOT> (If you want to see the data folder in xcode you have to add the xcode project, this is optional though.)
 
@@ -30,7 +30,7 @@ Examples
 
 • Simple UITableViewController Example
 
-oinkClass("BasicTableViewController", UI.TableViewController, {protocols = {"UITableViewDelegate", "UITableViewDataSource"}})
+waxClass("BasicTableViewController", UI.TableViewController, {protocols = {"UITableViewDelegate", "UITableViewDataSource"}})
 
 function init(self)
   self.super:init()
@@ -72,7 +72,7 @@ end
 
 Trouble shooting
 ----------------
-* bad argument #1 to '???' (oink.instance expected, got ???)
+* bad argument #1 to '???' (wax.instance expected, got ???)
 Usually means you called a function with a '.' instead of a ':'
 
 * Error invoking method 'addSubview:' on 'UIWindow' because *** -[??? superview]: unrecognized selector sent to instance
