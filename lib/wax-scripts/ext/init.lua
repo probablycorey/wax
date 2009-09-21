@@ -1,7 +1,7 @@
-require "ext.table"
-require "ext.string"
-require "ext.number"
-require "ext.object"
+require "wax.ext.table"
+require "wax.ext.string"
+require "wax.ext.number"
+require "wax.ext.object"
 
 function printf(string, ...)
 end
