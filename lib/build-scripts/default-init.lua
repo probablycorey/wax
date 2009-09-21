@@ -6,7 +6,7 @@
 -- You should see a dull, bland "hello world" app popup!
 --
 -- What's next?
--- 1. I don't know, I need to figure out how to eaze people
+-- 1. I don't know, I need to figure out how to ease people
 --    into this framework.
 -- 2. Awesomeness
 
