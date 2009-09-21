@@ -13,54 +13,56 @@ Setup
 Examples
 --------
 
-- Simple UITableViewController Example
+Simple UITableViewController Example
 
-waxClass("BasicTableViewController", UI.TableViewController, {protocols = {"UITableViewDelegate", "UITableViewDataSource"}})
+    waxClass("BasicTableViewController", UI.TableViewController, {protocols = {"UITableViewDelegate", "UITableViewDataSource"}})
 
-function init(self)
-  self.super:init()
-  self.states = {"Michigan", "California", "New York", "Illinois", "Minnesota", "Florida"}
-  return self
-end
+    function init(self)
+      self.super:init()
+      self.states = {"Michigan", "California", "New York", "Illinois", "Minnesota", "Florida"}
+      return self
+    end
 
-function viewDidLoad(self)
-  self:tableView():setDataSource(self)
-  self:tableView():setDelegate(self)
-end
+    function viewDidLoad(self)
+      self:tableView():setDataSource(self)
+      self:tableView():setDelegate(self)
+    end
 
--- DataSource
--------------
-function numberOfSectionsInTableView(self, tableView)
-  return 1
-end
+    -- DataSource
+    -------------
+    function numberOfSectionsInTableView(self, tableView)
+      return 1
+    end
 
-function tableView_numberOfRowsInSection(self, tableView, section)
-  return #self.states
-end
+    function tableView_numberOfRowsInSection(self, tableView, section)
+      return #self.states
+    end
 
-function tableView_cellForRowAtIndexPath(self, tableView, indexPath)  
-  local identifier = "BasicableViewCell"
-  local cell = tableView:dequeueReusableCellWithIdentifier(identifier)
-  cell = cell or UI.TableViewCell:initWithStyle_reuseIdentifier(UITableViewCellStyleDefault, identifier)  
+    function tableView_cellForRowAtIndexPath(self, tableView, indexPath)  
+      local identifier = "BasicableViewCell"
+      local cell = tableView:dequeueReusableCellWithIdentifier(identifier)
+      cell = cell or UI.TableViewCell:initWithStyle_reuseIdentifier(UITableViewCellStyleDefault, identifier)  
 
-  cell:setText(self.stats[indexPath:row() + 1]) -- Must +1 because lua arrays are 1 based
-    
-  return cell
-end
+      cell:setText(self.stats[indexPath:row() + 1]) -- Must +1 because lua arrays are 1 based
 
--- Delegate
------------
-function tableView_didSelectRowAtIndexPath(self, tableView, indexPath)
-  tableView:deselectRowAtIndexPath_animated(indexPath, true)
-  -- Do something cool here!
-end
+      return cell
+    end
+
+    -- Delegate
+    -----------
+    function tableView_didSelectRowAtIndexPath(self, tableView, indexPath)
+      tableView:deselectRowAtIndexPath_animated(indexPath, true)
+      -- Do something cool here!
+    end
 
 Common problems
 ---------------
-**bad argument #1 to '???' (wax.instance expected, got ???)**
+- bad argument #1 to '???' (wax.instance expected, got ???)
+
 Usually means you called a function with a '.' instead of a ':'
 
-**Error invoking method 'addSubview:' on 'UIWindow' because *** -[??? superview]: unrecognized selector sent to instance**
+- Error invoking method 'addSubview:' on 'UIWindow' because *** -[??? superview]: unrecognized selector sent to instance
+
 If you are trying to add a UIViewController, make sure you are adding the view, not the viewController.
 
 Known issues
