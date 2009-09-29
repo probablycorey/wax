@@ -141,7 +141,7 @@
 		91373A4B1066A8990089FEE3 /* init.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = init.lua; sourceTree = "<group>"; };
 		91373A4C1066A8990089FEE3 /* luamock.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = luamock.lua; sourceTree = "<group>"; };
 		91373A4D1066A8990089FEE3 /* luaspec.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = luaspec.lua; sourceTree = "<group>"; };
-		91373A4E1066A8990089FEE3 /* namespace.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = namespace.lua; sourceTree = "<group>"; };
+		91373A4E1066A8990089FEE3 /* cocoaNamespace.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = cocoaNamespace.lua; sourceTree = "<group>"; };
 		91373A4F1066A8990089FEE3 /* structs.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = structs.lua; sourceTree = "<group>"; };
 		91373A501066A8990089FEE3 /* init.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = init.lua; sourceTree = "<group>"; };
 		91373A511066A8990089FEE3 /* waxCallback.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = waxCallback.lua; sourceTree = "<group>"; };
@@ -333,7 +333,7 @@
 				91373A501066A8990089FEE3 /* init.lua */,
 				91373A421066A8990089FEE3 /* enums.lua */,
 				91373A491066A8990089FEE3 /* json.lua */,
-				91373A4E1066A8990089FEE3 /* namespace.lua */,
+				91373A4E1066A8990089FEE3 /* cocoaNamespace.lua */,
 				91373A4F1066A8990089FEE3 /* structs.lua */,
 				91373A511066A8990089FEE3 /* waxCallback.lua */,
 				91373A521066A8990089FEE3 /* waxClass.lua */,

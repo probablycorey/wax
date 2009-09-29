@@ -43,7 +43,7 @@ Simple UITableViewController Example
       local cell = tableView:dequeueReusableCellWithIdentifier(identifier)
       cell = cell or UI.TableViewCell:initWithStyle_reuseIdentifier(UITableViewCellStyleDefault, identifier)  
 
-      cell:setText(self.stats[indexPath:row() + 1]) -- Must +1 because lua arrays are 1 based
+      cell:setText(self.states[indexPath:row() + 1]) -- Must +1 because lua arrays are 1 based
 
       return cell
     end

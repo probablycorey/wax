@@ -5,10 +5,9 @@ require "wax.structs"
 
 require "wax.waxClass"
 require "wax.waxCallback"
-require "wax.namespace"
+require "wax.cocoaNamespace"
 
-namespace("UI")
-namespace("NS")
-namespace("MK")
-namespace("MF")
-namespace("WAX")
+cocoaNamespace("UI")
+cocoaNamespace("NS")
+cocoaNamespace("MK")
+cocoaNamespace("MF")

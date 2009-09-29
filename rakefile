@@ -8,6 +8,7 @@ CLEAN.include(TARGET_XCODE_TEMPLATE)
 
 task :default => :install
 
+desc "Install wax xcode templates"
 task :install => [:clean, :template]
 
 task :template do

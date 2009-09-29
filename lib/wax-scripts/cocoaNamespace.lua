@@ -1,5 +1,5 @@
 -- Possibly throw this into the bridge
-_G.namespace = function(name)
+_G.cocoaNamespace = function(name)
   local metatable = {}
   metatable.__index = function(self, key) return wax.class[self.name .. key] end
   
