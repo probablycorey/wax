@@ -11,7 +11,9 @@ function puts(obj, ...)
     print(table.tostring(obj))
     return
   end
+  
   if ... then obj = string.format(tostring(obj), ...) end
+  
   print(obj)
 end
 

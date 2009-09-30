@@ -1,8 +1,9 @@
-function waxClass(className, superclassName, opts)
-  local opts = opts or {}
+function waxClass(options)
+  className = options[1]
+  superclassName = options[2]
   local class = wax.class(className, superclassName)
 
-  for i, protocol in ipairs(opts.protocols or {}) do
+  for i, protocol in ipairs(options.protocols or {}) do
     wax.class.addProtocols(class, protocol)
   end 
 

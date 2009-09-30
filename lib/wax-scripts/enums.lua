@@ -33,11 +33,22 @@ UILineBreakModeHeadTruncation = 3
 UILineBreakModeTailTruncation = 4
 UILineBreakModeMiddleTruncation = 5
 
+-- UITableViewCellSelectionStyle
+UITableViewCellSelectionStyleNone = 0
+UITableViewCellSelectionStyleBlue = 1
+UITableViewCellSelectionStyleGray = 2
+
 -- UITableViewCellStyle
 UITableViewCellStyleDefault = 0
 UITableViewCellStyleValue1 = 1
 UITableViewCellStyleValue2 = 2
 UITableViewCellStyleSubtitle = 3
+
+-- UITableViewCellAccessoryType
+UITableViewCellAccessoryNone = 0
+UITableViewCellAccessoryDisclosureIndicator = 1
+UITableViewCellAccessoryDetailDisclosureButton = 2
+UITableViewCellAccessoryCheckmark = 3
 
 -- UIActivityIndicatorViewStyle
 UIActivityIndicatorViewStyleWhiteLarge = 0

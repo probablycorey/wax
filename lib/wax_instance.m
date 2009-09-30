@@ -211,7 +211,7 @@ static int __index(lua_State *L) {
     if (instanceUserdata->isSuper || lua_isnil(L, -1) ) { // Couldn't find that in the userdata environment table, assume it is defined in obj-c classes
         SEL selector = wax_selectorForInstance(instanceUserdata, lua_tostring(L, 2), NO);
 
-        if (selector) { // If the class has a method with this name, push as a closure            
+        if (selector) { // If the class has a method with this name, push as a closure
             lua_pushstring(L, sel_getName(selector));
             lua_pushcclosure(L, instanceUserdata->isSuper ? superMethodClosure : methodClosure, 1);
         }
@@ -332,6 +332,14 @@ static int methodClosure(lua_State *L) {
     [invocation setSelector:selector];
     
     int objcArgumentCount = [signature numberOfArguments] - 2; // skip the hidden self and _cmd argument
+    int luaArgumentCount = lua_gettop(L) - 1;
+    
+    if (objcArgumentCount > luaArgumentCount) {
+        luaL_error(L, "Not Enough arguments given! Method named '%s' requires %d argument(s), you gave %d. (Make sure you used ':' to call the method)", selectorName, objcArgumentCount + 1, lua_gettop(L));
+    }
+    else if (objcArgumentCount < luaArgumentCount) {
+        luaL_error(L, "Too many arguments given! Method named '%s' requires %d argument(s), you gave %d.", selectorName, objcArgumentCount + 1, lua_gettop(L));
+    }
     
     void **arguements = calloc(sizeof(void*), objcArgumentCount);
     for (int i = 0; i < objcArgumentCount; i++) {

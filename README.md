@@ -15,7 +15,7 @@ Examples
 
 Simple UITableViewController Example
 
-    waxClass("BasicTableViewController", UI.TableViewController, {protocols = {"UITableViewDelegate", "UITableViewDataSource"}})
+    waxClass{"BasicTableViewController", "UITableViewController", {protocols = {"UITableViewDelegate", "UITableViewDataSource"}}}
 
     function init(self)
       self.super:init()
@@ -51,16 +51,12 @@ Simple UITableViewController Example
     -- Delegate
     -----------
     function tableView_didSelectRowAtIndexPath(self, tableView, indexPath)
-      tableView:deselectRowAtIndexPath_animated(indexPath, true)
+      self:tableView():deselectRowAtIndexPath_animated(indexPath, true)
       -- Do something cool here!
     end
 
 Common problems
 ---------------
-- bad argument #1 to '???' (wax.instance expected, got ???)
-
-Usually means you called a function with a '.' instead of a ':'
-
 - Error invoking method 'addSubview:' on 'UIWindow' because *** -[??? superview]: unrecognized selector sent to instance
 
 If you are trying to add a UIViewController, make sure you are adding the view, not the viewController.
