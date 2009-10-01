@@ -15,7 +15,7 @@ Example
 
 Simple UITableViewController Example
 
-    waxClass{"BasicTableViewController", "UITableViewController", {protocols = {"UITableViewDelegate", "UITableViewDataSource"}}}
+    waxClass{"BasicTableViewController", "UITableViewController", protocols = {"UITableViewDelegate", "UITableViewDataSource"}}
 
     function init(self)
       self.super:init()
