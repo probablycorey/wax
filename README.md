@@ -1,9 +1,9 @@
 Setup
 -----
 
-1. Download wax here http://github.com/probablycorey/wax
+1. Download wax http://github.com/probablycorey/wax
 
-2. Jump into a terminal and type **rake install**. This will setup an xcode project template.
+2. From the inside the wax folder type **rake install**. This will install an xcode project template.
 
 3. Open up xcode and create a new **Wax** project, it should be located under the **User Tempates** section. 
 

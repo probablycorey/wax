@@ -60,7 +60,7 @@
 
 #define BEGIN_STACK_MODIFY(L) int __startStackIndex = lua_gettop((L));
 
-#define END_STACK_MODIFY(L, i) while(lua_gettop((L)) > (__startStackIndex + i)) lua_remove(L, __startStackIndex + 1);
+#define END_STACK_MODIFY(L, i) while(lua_gettop((L)) > (__startStackIndex + (i))) lua_remove((L), __startStackIndex + 1);
 
 #ifndef LOG_FLAGS
     #define LOG_FLAGS 0

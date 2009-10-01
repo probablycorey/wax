@@ -94,6 +94,9 @@ static void addGlobals(lua_State *L) {
     lua_setglobal(L, "objcDebug");
     
     // Variables
+    lua_pushnumber(L, WAX_VERSION);
+    lua_setglobal(L, "WaxVersion");
+    
     lua_pushstring(L, [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] UTF8String]);
     lua_setglobal(L, "NSDocumentDirectory");
     
