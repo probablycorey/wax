@@ -10,8 +10,8 @@ Setup
 4. Build and Run! You've got lua running on the iPhone!
 
 
-Examples
---------
+Example
+-------
 
 Simple UITableViewController Example
 
@@ -55,12 +55,13 @@ Simple UITableViewController Example
       -- Do something cool here!
     end
 
-Common problems
----------------
-- Error invoking method 'addSubview:' on 'UIWindow' because *** -[??? superview]: unrecognized selector sent to instance
+Created By
+----------
+Corey Johnson (probablycorey at gmail dot com)
 
-If you are trying to add a UIViewController, make sure you are adding the view, not the viewController.
 
-Known issues
-------------
-Don't override dealloc in lua... this seems to cause problems for some people.
+More
+----
+* [Found Bugs?](http://github.com/probablycorey/wax/issues] - Issue tracking and release planning.
+* [Mailing List][http://groups.google.com/group/iphonewax]
+* [IRC: #wax](irc://chat.freenode.net/#wax) on http://freenode.net
