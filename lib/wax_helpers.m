@@ -81,13 +81,13 @@ int wax_fromObjc(lua_State *L, const char *typeDescription, void *buffer) {
             lua_pushnil(L);
             break;
 
-//        case WAX_TYPE_POINTER:
-//            return wax_fromObjc(L, &typeDescription[1], *(void **)buffer); // Dereference pointer and deal with it!
-//            break;                        
+        case WAX_TYPE_POINTER:
+            lua_pushlightuserdata(L, *(void **)buffer);
+            break;                        
             
         case WAX_TYPE_CHAR: {
             char c = *(char *)buffer;
-                if (c <= 1) lua_pushboolean(L, c); // If it's 1 or 0, then treat it like a bool
+            if (c <= 1) lua_pushboolean(L, c); // If it's 1 or 0, then treat it like a bool
             else lua_pushinteger(L, c);
             break;
         }
@@ -189,7 +189,7 @@ void wax_fromInstance(lua_State *L, id instance) {
         else if ([instance isKindOfClass:[NSNumber class]]) {
             lua_pushnumber(L, [instance doubleValue]);
         }
-        else if ([instance isKindOfClass:[NSArray class]]) {
+        else if ([instance isKindOfClass:[NSArray class]] || [instance isKindOfClass:[NSSet class]]) {
             lua_newtable(L);
             for (id obj in instance) {
                 int i = lua_objlen(L, -1);
@@ -288,7 +288,8 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
         case WAX_TYPE_SELECTOR:
             *outsize = sizeof(SEL);
             value = calloc(sizeof(SEL), 1);
-            *((SEL *)value) = sel_getUid(lua_tostring(L, stackIndex));
+            const char *selectorName = luaL_checkstring(L, stackIndex);
+            *((SEL *)value) = sel_getUid(selectorName);
             break;            
 
         case WAX_TYPE_CLASS:
@@ -334,7 +335,7 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
                     break;
                     
                 case LUA_TSTRING: 
-                    instance = [NSString stringWithCString:lua_tostring(L, stackIndex)];  
+                    instance = [NSString stringWithUTF8String:lua_tostring(L, stackIndex)];  
                     break;
 
                 case LUA_TTABLE: {

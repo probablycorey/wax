@@ -72,7 +72,7 @@ static void forwardInvocation(id self, SEL _cmd, NSInvocation *invocation) {
         if (wax_pcall(L, argumentCount - 1, 1)) { // Subtract 1 from argumentCount because we don't want to send the hidden _cmd arguement
             const char* error_string = lua_tostring(L, -1);
             
-            printf("Problem calling Lua function '%s' on userdata.\n%s", [invocation selector], error_string);
+            printf("Problem calling Lua function '%s' on userdata.\n%s", sel_getName([invocation selector]), error_string);
         }
 
         void *returnValue = wax_copyToObjc(L, [signature methodReturnType], -1, nil);
