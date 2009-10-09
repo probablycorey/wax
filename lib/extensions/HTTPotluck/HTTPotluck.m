@@ -49,12 +49,12 @@ int luaopen_HTTPotluck(lua_State *L) {
 //   timout = [number]
 //   callback = function(body, response)
 static int request(lua_State *L) {
-	lua_rawgeti(L, 1, 1);
-	
+    lua_rawgeti(L, 1, 1);
+    
     NSString *urlString = [[NSString stringWithUTF8String:luaL_checkstring(L, -1)] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *url = [NSURL URLWithString:urlString];
-	
-	lua_pop(L, 1); // Pop the url off the stack
+    
+    lua_pop(L, 1); // Pop the url off the stack
     
     if (!url) luaL_error(L, "HTTPotluck: Could not create URL from string '%s'", [urlString UTF8String]);
     
@@ -83,12 +83,12 @@ static int request(lua_State *L) {
     if (pushCallback(L, 1)) { 
         lua_setfield(L, -2, HTTPOTLUCK_CALLBACK_FUNCTION_NAME); // Set the callback function for the userdata         
 
-		[connection start];
-		
+        [connection start];
+        
         return 1; // Return the connectionDelegate as userdata
     }
     else {    
-		[connection start];
+        [connection start];
 
         NSRunLoop* runLoop = [NSRunLoop currentRunLoop];        
         while (!connection.finished) {
