@@ -41,15 +41,20 @@ int luaopen_HTTPotluck(lua_State *L) {
     return 1;
 }
 
-// request(url, options)
+// request(table)
+// request{url, options}
 // options:
 //   method = *"get" | "post" | "put" | "delete"
 //   format = *"text" | "binary" | "json"
 //   timout = [number]
 //   callback = function(body, response)
-static int request(lua_State *L) {    
-    NSString *urlString = [[NSString stringWithCString:luaL_checkstring(L, 1)] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+static int request(lua_State *L) {
+	lua_rawgeti(L, 1, 1);
+	
+    NSString *urlString = [[NSString stringWithUTF8String:luaL_checkstring(L, -1)] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSURL *url = [NSURL URLWithString:urlString];
+	
+	lua_pop(L, 1); // Pop the url off the stack
     
     if (!url) luaL_error(L, "HTTPotluck: Could not create URL from string '%s'", [urlString UTF8String]);
     
@@ -60,9 +65,9 @@ static int request(lua_State *L) {
     NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:cachePolicy timeoutInterval:HTTPOTLUCK_TIMEOUT];
         
     // Get the format
-    int format = getFormat(L, 2);    
-    NSTimeInterval timeout = getTimeout(L, 2);
-    NSString *method = getMethod(L, 2);
+    int format = getFormat(L, 1);    
+    NSTimeInterval timeout = getTimeout(L, 1);
+    NSString *method = getMethod(L, 1);
 
     [urlRequest setAllHTTPHeaderFields:headerFields];
     [urlRequest setHTTPMethod:method];
@@ -73,16 +78,18 @@ static int request(lua_State *L) {
     connection.format = format;
 
     wax_instance_create(L, connection, NO);
-    [connection start];
     
     // Asyncronous or Syncronous
-    if (pushCallback(L, 2)) { 
-        lua_insert(L, -2); // Move the callback function to the top of the stack
+    if (pushCallback(L, 1)) { 
         lua_setfield(L, -2, HTTPOTLUCK_CALLBACK_FUNCTION_NAME); // Set the callback function for the userdata         
 
+		[connection start];
+		
         return 1; // Return the connectionDelegate as userdata
     }
     else {    
+		[connection start];
+
         NSRunLoop* runLoop = [NSRunLoop currentRunLoop];        
         while (!connection.finished) {
             [runLoop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
@@ -145,8 +152,6 @@ static int getFormat(lua_State *L, int tableIndex) {
 
 // Assumes table is on top of the stack
 static BOOL pushCallback(lua_State *L, int tableIndex) {
-    if (lua_isnoneornil(L, tableIndex)) return NO;
-    
     lua_getfield(L, tableIndex, "callback");
 
     if (lua_isnil(L, -1)) {
