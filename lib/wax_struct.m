@@ -170,36 +170,36 @@ static int __gc(lua_State *L) {
 
 static int __tostring(lua_State *L) {    
     wax_struct_userdata *structUserdata = (wax_struct_userdata *)luaL_checkudata(L, 1, WAX_STRUCT_METATABLE_NAME);
-	lua_getmetatable(L, -1);
+    lua_getmetatable(L, -1);
     lua_getfield(L, -1, LABELED_STRUCT_TABLE_NAME);
-	lua_getfield(L, -1, structUserdata->name);
-	
-	if (lua_isnil(L, -1)) {
-		lua_pushstring(L, "wax struct");
-	}
-	else {
-		luaL_Buffer b;
-		luaL_buffinit(L, &b);
-		luaL_addstring(&b, structUserdata->name);
-		luaL_addstring(&b, " {\n");
-		
-		lua_pushnil(L); // First key
-		while (lua_next(L, -2)) {
-			luaL_addstring(&b, "\t");			   
-			luaL_addstring(&b, lua_tostring(L, -2));
-			luaL_addstring(&b, " : ");
-			
-			wax_struct_pushValueAt(L, structUserdata, lua_tonumber(L, -1));
-			luaL_addstring(&b, lua_tostring(L, -1));
-								   
-			luaL_addstring(&b, "\n");
-			lua_pop(L, 2); // pops the value and the struct offset, keeps the key for the next iteration
-		}
-		
-		luaL_addstring(&b, "}");
-		
-		luaL_pushresult(&b);
-	}
+    lua_getfield(L, -1, structUserdata->name);
+    
+    if (lua_isnil(L, -1)) {
+        lua_pushstring(L, "wax struct");
+    }
+    else {
+        luaL_Buffer b;
+        luaL_buffinit(L, &b);
+        luaL_addstring(&b, structUserdata->name);
+        luaL_addstring(&b, " {\n");
+        
+        lua_pushnil(L); // First key
+        while (lua_next(L, -2)) {
+            luaL_addstring(&b, "\t");               
+            luaL_addstring(&b, lua_tostring(L, -2));
+            luaL_addstring(&b, " : ");
+            
+            wax_struct_pushValueAt(L, structUserdata, lua_tonumber(L, -1));
+            luaL_addstring(&b, lua_tostring(L, -1));
+                                   
+            luaL_addstring(&b, "\n");
+            lua_pop(L, 2); // pops the value and the struct offset, keeps the key for the next iteration
+        }
+        
+        luaL_addstring(&b, "}");
+        
+        luaL_pushresult(&b);
+    }
     
     return 1;
 }
