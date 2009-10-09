@@ -167,7 +167,7 @@ void wax_instance_pushUserdata(lua_State *L, id object) {
         lua_remove(L, -2); // remove metadata table
     }
     else {
-        lua_pushlightuserdata(L, object);    
+        lua_pushlightuserdata(L, object);
         lua_rawget(L, -2);
         lua_remove(L, -2); // remove __wax_userdata table
         lua_remove(L, -2); // remove metadata table
