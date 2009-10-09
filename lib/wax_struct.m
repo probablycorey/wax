@@ -85,13 +85,13 @@ wax_struct_userdata *wax_struct_create(lua_State *L, const char *typeDescription
 }
 
 // Maybe all this data should be created at wax_struct_userdata creation time? I think so!
-void wax_struct_pushValueAt(lua_State *L, wax_struct_userdata *structUserdata, int index) {
+void wax_struct_pushValueAt(lua_State *L, wax_struct_userdata *structUserdata, int offset) {
     char *simplifiedTypeDescription = alloca(strlen(structUserdata->typeDescription) + 1);
     wax_simplifyTypeDescription(structUserdata->typeDescription, simplifiedTypeDescription);
     
     int position = 0;
     char type[2] = {simplifiedTypeDescription[0], '\0'};    
-    for (int i = 1; i < index; i++) {
+    for (int i = 1; i < offset; i++) {
         position += wax_sizeOfTypeDescription(type);
         type[0] = simplifiedTypeDescription[i];
     }
@@ -99,13 +99,13 @@ void wax_struct_pushValueAt(lua_State *L, wax_struct_userdata *structUserdata, i
     wax_fromObjc(L, type, structUserdata->data + position);
 }
 
-void wax_struct_setValueAt(lua_State *L, wax_struct_userdata *structUserdata, int index, int stackIndex) {
+void wax_struct_setValueAt(lua_State *L, wax_struct_userdata *structUserdata, int offset, int stackIndex) {
     char *simplifiedTypeDescription = alloca(strlen(structUserdata->typeDescription) + 1);
     wax_simplifyTypeDescription(structUserdata->typeDescription, simplifiedTypeDescription);
     
     int position = 0;
     char type[2] = {simplifiedTypeDescription[0], '\0'};    
-    for (int i = 1; i < index; i++) {
+    for (int i = 1; i < offset; i++) {
         position += wax_sizeOfTypeDescription(type);
         type[0] = simplifiedTypeDescription[i];
     }
@@ -144,8 +144,8 @@ static int __index(lua_State *L) {
     wax_struct_userdata *structUserdata = (wax_struct_userdata *)luaL_checkudata(L, 1, WAX_STRUCT_METATABLE_NAME);
     const char *name = lua_tostring(L, 2);
         
-    int index = wax_struct_getOffsetForName(L, structUserdata, name);
-    wax_struct_pushValueAt(L, structUserdata, index);
+    int offset = wax_struct_getOffsetForName(L, structUserdata, name);
+    wax_struct_pushValueAt(L, structUserdata, offset);
     
     return 1;
 }
@@ -154,8 +154,8 @@ static int __newindex(lua_State *L) {
     wax_struct_userdata *structUserdata = (wax_struct_userdata *)luaL_checkudata(L, 1, WAX_STRUCT_METATABLE_NAME);
     const char *name = lua_tostring(L, 2);
 
-    int index = wax_struct_getOffsetForName(L, structUserdata, name);
-    wax_struct_setValueAt(L, structUserdata, index, 3);
+    int offset = wax_struct_getOffsetForName(L, structUserdata, name);
+    wax_struct_setValueAt(L, structUserdata, offset, 3);
 
     return 0;
 }
@@ -169,8 +169,37 @@ static int __gc(lua_State *L) {
 
 
 static int __tostring(lua_State *L) {    
-    luaL_checkudata(L, 1, WAX_STRUCT_METATABLE_NAME);
-    lua_pushstring(L, "wax struct");
+    wax_struct_userdata *structUserdata = (wax_struct_userdata *)luaL_checkudata(L, 1, WAX_STRUCT_METATABLE_NAME);
+	lua_getmetatable(L, -1);
+    lua_getfield(L, -1, LABELED_STRUCT_TABLE_NAME);
+	lua_getfield(L, -1, structUserdata->name);
+	
+	if (lua_isnil(L, -1)) {
+		lua_pushstring(L, "wax struct");
+	}
+	else {
+		luaL_Buffer b;
+		luaL_buffinit(L, &b);
+		luaL_addstring(&b, structUserdata->name);
+		luaL_addstring(&b, " {\n");
+		
+		lua_pushnil(L); // First key
+		while (lua_next(L, -2)) {
+			luaL_addstring(&b, "\t");			   
+			luaL_addstring(&b, lua_tostring(L, -2));
+			luaL_addstring(&b, " : ");
+			
+			wax_struct_pushValueAt(L, structUserdata, lua_tonumber(L, -1));
+			luaL_addstring(&b, lua_tostring(L, -1));
+								   
+			luaL_addstring(&b, "\n");
+			lua_pop(L, 2); // pops the value and the struct offset, keeps the key for the next iteration
+		}
+		
+		luaL_addstring(&b, "}");
+		
+		luaL_pushresult(&b);
+	}
     
     return 1;
 }
