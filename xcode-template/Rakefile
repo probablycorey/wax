@@ -10,15 +10,18 @@ end
 namespace :tm do
   desc "Install textmate lua & wax bundles"
   task :install_bundles do
-    lua_bundle_dir = "~/Library/Application\\ Support/TextMate/Bundles/Lua.tmbundle"
-    if not File.exists? lua_bundle_dir
+    
+    lua_bundle_dir = "~/Library/Application\\ Support/TextMate/Bundles/Lua.tmbundle"    
+    sh("test -s #{lua_bundle_dir}") do |exists, _|
+      break if exists
       sh "curl -L http://github.com/textmate/lua.tmbundle/tarball/master | tar xvz"
-      mkdir_p "~/Library/Application Support/TextMate/Bundles/"
+      sh "mkdir -p ~/Library/Application\\ Support/TextMate/Bundles/"
       sh "mv textmate-lua.tmbundle* #{lua_bundle_dir}"
     end
-
+    
     wax_bundle_dir = "~/Library/Application\\ Support/TextMate/Bundles/Wax.tmbundle"
-    if not File.exists? wax_bundle_dir    
+    sh("test -s #{wax_bundle_dir}") do |exists, _|
+      break if exists
       sh "curl -L http://github.com/probablycorey/Wax.tmbundle/tarball/master | tar xvz"
       sh "mv probablycorey-[Ww]ax.tmbundle* #{wax_bundle_dir}"
     end
