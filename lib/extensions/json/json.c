@@ -8,6 +8,30 @@
 #include "lua.h"
 #include "lauxlib.h"
 
+static const struct luaL_Reg metaFunctions[] = {
+    {NULL, NULL}
+};
+
+static const struct luaL_Reg functions[] = {
+    {"parse", parse},
+    {NULL, NULL}
+};
+
+int luaopen_json(lua_State *L) {    
+    luaL_newmetatable(L, JSON_METATABLE_NAME);        
+    luaL_register(L, NULL, metaFunctions);
+    luaL_register(L, JSON_METATABLE_NAME, functions);    
+    
+    return 1;
+}
+
+// parse("some jsons string") => table
+static int parse(lua_State *L) {
+    json_parseString(L, lua_tostring(L, -1));
+    
+    return 1;
+}
+
 // Code needed by the generated parser
 // -----------------------------------
 static const char *json_input;
@@ -92,27 +116,4 @@ void json_parseString(lua_State *L, const char *input) {
     if(!yyparse()) {
         json_error("JSON Parsing Error");
     }
-}
-
-static const struct luaL_Reg metaFunctions[] = {
-    {NULL, NULL}
-};
-
-static const struct luaL_Reg functions[] = {
-    {"parse", parse},
-    {NULL, NULL}
-};
-
-static int parse(lua_State *L) {
-    json_parseString(L, lua_tostring(L, -1));
-    
-    return 1;
-}
-
-int luaopen_json(lua_State *L) {    
-    luaL_newmetatable(L, JSON_METATABLE_NAME);        
-    luaL_register(L, NULL, metaFunctions);
-    luaL_register(L, JSON_METATABLE_NAME, functions);    
-    
-    return 1;
 }
