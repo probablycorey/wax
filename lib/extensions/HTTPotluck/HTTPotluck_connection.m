@@ -92,8 +92,9 @@
     }
     
     wax_fromObjc(L, "@", &_response);
+	wax_fromObjc(L, "@", &_body); // Pust the raw body too!
         
-    if (hasCallback && wax_pcall(L, 2, 0)) {
+    if (hasCallback && wax_pcall(L, 3, 0)) {
         const char* error_string = lua_tostring(L, -1);
         printf("Problem calling Lua function '%s' from HTTPPotluck.\n%s", HTTPOTLUCK_CALLBACK_FUNCTION_NAME, error_string);
     }
@@ -102,7 +103,7 @@
     
     _finished = YES;
     
-    END_STACK_MODIFY(L, hasCallback ? 0 : 2)
+    END_STACK_MODIFY(L, hasCallback ? 0 : 3)
 }
 
 @end
