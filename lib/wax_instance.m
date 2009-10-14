@@ -303,7 +303,7 @@ static int methods(lua_State *L) {
 
 static int methodClosure(lua_State *L) {
     if (![[NSThread currentThread] isEqual:[NSThread mainThread]]) NSLog(@"METHODCLOSURE: OH NO SEPERATE THREAD");
-    
+
     wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);    
     const char *selectorName = luaL_checkstring(L, lua_upvalueindex(1));
     SEL selector = sel_getUid(selectorName);
@@ -337,9 +337,9 @@ static int methodClosure(lua_State *L) {
     if (objcArgumentCount > luaArgumentCount) {
         luaL_error(L, "Not Enough arguments given! Method named '%s' requires %d argument(s), you gave %d. (Make sure you used ':' to call the method)", selectorName, objcArgumentCount + 1, lua_gettop(L));
     }
-    else if (objcArgumentCount < luaArgumentCount) {
-        luaL_error(L, "Too many arguments given! Method named '%s' requires %d argument(s), you gave %d.", selectorName, objcArgumentCount + 1, lua_gettop(L));
-    }
+//    else if (objcArgumentCount < luaArgumentCount) {
+//        luaL_error(L, "Too many arguments given! Method named '%s' requires %d argument(s), you gave %d.", selectorName, objcArgumentCount + 1, lua_gettop(L));
+//    }
     
     void **arguements = calloc(sizeof(void*), objcArgumentCount);
     for (int i = 0; i < objcArgumentCount; i++) {
