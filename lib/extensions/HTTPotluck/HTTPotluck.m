@@ -41,8 +41,8 @@ int luaopen_HTTPotluck(lua_State *L) {
     return 1;
 }
 
-// request(table)
-// request{url, options}
+// request(table) => connection object or (body, response) if syncronous
+// request{url, options} => connection object or (body, response) if syncronous
 // options:
 //   method = *"get" | "post" | "put" | "delete"
 //   format = *"text" | "binary" | "json"
