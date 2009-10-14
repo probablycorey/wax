@@ -90,9 +90,6 @@ static void addGlobals(lua_State *L) {
     lua_pushcfunction(L, exitApp);
     lua_setglobal(L, "exitApp");
     
-    lua_pushcclosure(L, objcDebug, 0);
-    lua_setglobal(L, "objcDebug");
-    
     // Variables
     lua_pushnumber(L, WAX_VERSION);
     lua_setglobal(L, "WaxVersion");
@@ -102,6 +99,10 @@ static void addGlobals(lua_State *L) {
     
     lua_pushstring(L, [[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0] UTF8String]);
     lua_setglobal(L, "NSLibraryDirectory");
+	
+	lua_pushstring(L, [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] UTF8String]);
+    lua_setglobal(L, "NSCacheDirectory");
+
 }
 
 static int tolua(lua_State *L) {
@@ -119,18 +120,12 @@ static int toobjc(lua_State *L) {
     
     wax_instance_create(L, instance, NO);
     
-    free(instancePointer);
+    if (instancePointer) free(instancePointer);
     
     return 1;
 }
 
 static int exitApp(lua_State *L) {
     exit(0);
-    return 0;
-}
-
-static int objcDebug(lua_State *L) {
-    //Debugger();
-    NSLog(@"I don't know how this will work yet. For now just set a breakpoint in the method.");
     return 0;
 }
