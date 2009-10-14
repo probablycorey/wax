@@ -3,7 +3,7 @@
 
 #import "lua.h"
 
-#define JSON_METATABLE_NAME "json"
+#define JSON_METATABLE_NAME "JSON"
 
 int luaopen_json(lua_State *L);
 static int parse(lua_State *L);
