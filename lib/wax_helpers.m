@@ -315,6 +315,41 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
         }
 
         case WAX_TYPE_POINTER:
+			*outsize = sizeof(void *);
+			
+            value = calloc(sizeof(void *), 1);            
+            void *pointer;
+			
+			switch (typeDescription[1]) {
+                case WAX_TYPE_VOID:
+				case WAX_TYPE_ID: {
+					switch (lua_type(L, stackIndex)) {
+						case LUA_TNIL:
+						case LUA_TNONE:
+							break;
+							
+						case LUA_TUSERDATA: {
+							wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, stackIndex, WAX_INSTANCE_METATABLE_NAME);
+							pointer = &instanceUserdata->instance;
+							break;                                  
+						}
+						default:
+							luaL_error(L, "Can't convert %s to wax_instance_userdata.", luaL_typename(L, stackIndex));
+							break;
+					}	
+					break;
+				}
+				default:
+					free(value);
+					luaL_error(L, "Converstion from %s to Objective-c not implemented.", typeDescription);
+			}
+			
+			if (pointer) {
+                memcpy(value, &pointer, *outsize);
+            }   
+			
+			break;
+			
         case WAX_TYPE_ID: {
             *outsize = sizeof(id);
 
@@ -392,6 +427,7 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
             if (instance) {
                 *(id *)value = instance;
             }
+
             
             break;
         }        
