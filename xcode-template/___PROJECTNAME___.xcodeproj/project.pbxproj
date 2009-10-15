@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		04EB02CF10869C81004666AF /* HTTPotluck.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EB02C710869C81004666AF /* HTTPotluck.m */; };
+		04EB02D010869C81004666AF /* HTTPotluck_connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EB02C910869C81004666AF /* HTTPotluck_connection.m */; };
+		04EB02D110869C81004666AF /* json.c in Sources */ = {isa = PBXBuildFile; fileRef = 04EB02CB10869C81004666AF /* json.c */; };
+		04EB02D210869C81004666AF /* json.peg in Resources */ = {isa = PBXBuildFile; fileRef = 04EB02CD10869C81004666AF /* json.peg */; };
 		1D3623260D0F684500981E51 /* ___PROJECTNAMEASIDENTIFIER___AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* ___PROJECTNAMEASIDENTIFIER___AppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -67,6 +71,14 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXFileReference section */
+		04EB02C610869C81004666AF /* HTTPotluck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPotluck.h; sourceTree = "<group>"; };
+		04EB02C710869C81004666AF /* HTTPotluck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPotluck.m; sourceTree = "<group>"; };
+		04EB02C810869C81004666AF /* HTTPotluck_connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPotluck_connection.h; sourceTree = "<group>"; };
+		04EB02C910869C81004666AF /* HTTPotluck_connection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPotluck_connection.m; sourceTree = "<group>"; };
+		04EB02CB10869C81004666AF /* json.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = json.c; sourceTree = "<group>"; };
+		04EB02CC10869C81004666AF /* json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = json.h; sourceTree = "<group>"; };
+		04EB02CD10869C81004666AF /* json.peg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = json.peg; sourceTree = "<group>"; };
+		04EB02CE10869C81004666AF /* json.peg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = json.peg.h; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* ___PROJECTNAMEASIDENTIFIER___AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "___PROJECTNAMEASIDENTIFIER___AppDelegate.h"; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* ___PROJECTNAMEASIDENTIFIER___AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "___PROJECTNAMEASIDENTIFIER___AppDelegate.m"; sourceTree = "<group>"; };
@@ -137,7 +149,6 @@
 		91373A461066A8990089FEE3 /* object.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = object.lua; sourceTree = "<group>"; };
 		91373A471066A8990089FEE3 /* string.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = string.lua; sourceTree = "<group>"; };
 		91373A481066A8990089FEE3 /* table.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = table.lua; sourceTree = "<group>"; };
-		91373A491066A8990089FEE3 /* json.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = json.lua; sourceTree = "<group>"; };
 		91373A4B1066A8990089FEE3 /* init.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = init.lua; sourceTree = "<group>"; };
 		91373A4C1066A8990089FEE3 /* luamock.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = luamock.lua; sourceTree = "<group>"; };
 		91373A4D1066A8990089FEE3 /* luaspec.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = luaspec.lua; sourceTree = "<group>"; };
@@ -176,6 +187,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04EB02C410869C81004666AF /* extensions */ = {
+			isa = PBXGroup;
+			children = (
+				04EB02C510869C81004666AF /* HTTPotluck */,
+				04EB02CA10869C81004666AF /* json */,
+			);
+			path = extensions;
+			sourceTree = "<group>";
+		};
+		04EB02C510869C81004666AF /* HTTPotluck */ = {
+			isa = PBXGroup;
+			children = (
+				04EB02C610869C81004666AF /* HTTPotluck.h */,
+				04EB02C710869C81004666AF /* HTTPotluck.m */,
+				04EB02C810869C81004666AF /* HTTPotluck_connection.h */,
+				04EB02C910869C81004666AF /* HTTPotluck_connection.m */,
+			);
+			path = HTTPotluck;
+			sourceTree = "<group>";
+		};
+		04EB02CA10869C81004666AF /* json */ = {
+			isa = PBXGroup;
+			children = (
+				04EB02CB10869C81004666AF /* json.c */,
+				04EB02CC10869C81004666AF /* json.h */,
+				04EB02CD10869C81004666AF /* json.peg */,
+				04EB02CE10869C81004666AF /* json.peg.h */,
+			);
+			path = json;
+			sourceTree = "<group>";
+		};
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -196,9 +238,9 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				91373AE81066AEEA0089FEE3 /* scripts */,
-				91373A081066A8990089FEE3 /* wax */,
 				080E96DDFE201D6D7F000001 /* Classes */,
+				91373A081066A8990089FEE3 /* wax */,
+				91373AE81066AEEA0089FEE3 /* scripts */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -240,6 +282,7 @@
 		91373A081066A8990089FEE3 /* wax */ = {
 			isa = PBXGroup;
 			children = (
+				04EB02C410869C81004666AF /* extensions */,
 				91373A091066A8990089FEE3 /* build-scripts */,
 				91373A0B1066A8990089FEE3 /* lua */,
 				91373A531066A8990089FEE3 /* wax.h */,
@@ -332,7 +375,6 @@
 				91373A4A1066A8990089FEE3 /* luaspec */,
 				91373A501066A8990089FEE3 /* init.lua */,
 				91373A421066A8990089FEE3 /* enums.lua */,
-				91373A491066A8990089FEE3 /* json.lua */,
 				91373A4E1066A8990089FEE3 /* cocoaNamespace.lua */,
 				91373A4F1066A8990089FEE3 /* structs.lua */,
 				91373A511066A8990089FEE3 /* waxCallback.lua */,
@@ -422,6 +464,7 @@
 				91373AEC1066AEEA0089FEE3 /* init.lua in Resources */,
 				91373B241066B2B30089FEE3 /* Entitlements.plist in Resources */,
 				91373BF01066C8930089FEE3 /* Icon.png in Resources */,
+				04EB02D210869C81004666AF /* json.peg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -486,6 +529,9 @@
 				91373A8E1066A8990089FEE3 /* wax_helpers.m in Sources */,
 				91373A8F1066A8990089FEE3 /* wax_instance.m in Sources */,
 				91373A901066A8990089FEE3 /* wax_struct.m in Sources */,
+				04EB02CF10869C81004666AF /* HTTPotluck.m in Sources */,
+				04EB02D010869C81004666AF /* HTTPotluck_connection.m in Sources */,
+				04EB02D110869C81004666AF /* json.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
