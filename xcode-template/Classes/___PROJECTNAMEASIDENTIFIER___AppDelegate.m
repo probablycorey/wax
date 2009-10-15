@@ -26,8 +26,14 @@
     
     wax_start();
     
-    // If you want to load wax with some extensions use this function
-    //wax_startWithExtensions(luaopen_HTTPotluck, luaopen_json, nil);
+    // If you want to load wax with some extensions, replace the wax_start() line
+    // above with
+    // wax_startWithExtensions(luaopen_HTTPotluck, luaopen_json, nil);
+    // 
+    // Also import these files
+    // #import "json.h"
+    // #import "HTTPotluck.h"
+    
 }
 
 

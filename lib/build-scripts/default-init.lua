@@ -6,13 +6,12 @@
 -- You should see a dull, bland "hello world" app popup!
 --
 -- I prefer using TextMate to edit the Lua code. If that is your editor of
--- choice too just type 'rake tm' from the command line to setup a wax
+-- choice just type 'rake tm' from the command line to setup a wax
 -- TextMate project.
 --
 -- What's next?
--- 1. I don't know, I need to figure out how to ease people
---    into this framework.
--- 2. Awesomeness
+-- 1. Open up the AppDelegate.m file and add some extensions (like the HTTPotluck for networking)
+-- 2. ???
 
 require "wax"
 
