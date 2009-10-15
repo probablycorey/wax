@@ -9,6 +9,7 @@ Setup
 
 4. Build and Run! You've got lua running on the iPhone!
 
+5. Check [MobileOrchard.com](http://www.mobileorchard.com/announcing-iphone-wax-native-uikit-iphone-apps-written-in-lua/)'s Wax tutorial!
 
 Example
 -------
@@ -62,6 +63,6 @@ Corey Johnson (probablycorey at gmail dot com)
 
 More
 ----
-* [Found Bugs?](http://github.com/probablycorey/wax/issues] - Issue tracking and release planning.
-* [Mailing List][http://groups.google.com/group/iphonewax]
+* [Found Bugs?](http://github.com/probablycorey/wax/issues) - Issue tracking and release planning.
+* [Mailing List](http://groups.google.com/group/iphonewax)
 * [IRC: #wax](irc://chat.freenode.net/#wax) on http://freenode.net
