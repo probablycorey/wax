@@ -1,0 +1,53 @@
+TEXTMATE_FILE="TEXTMATE"
+
+desc "Create a Wax TextMate project"
+task :tm => "TEXTMATE" do
+  sh "mate #{TEXTMATE_FILE} ./data/scripts ./wax/wax-scripts"
+  sh "mate #{TEXTMATE_FILE}"
+end
+
+
+namespace :tm do
+  desc "Install textmate lua & wax bundles"
+  task :install_bundles do
+    
+    lua_bundle_dir = "~/Library/Application\\ Support/TextMate/Bundles/Lua.tmbundle"    
+    sh("test -s #{lua_bundle_dir}") do |exists, _|
+      break if exists
+      sh "curl -L http://github.com/textmate/lua.tmbundle/tarball/master | tar xvz"
+      sh "mkdir -p ~/Library/Application\\ Support/TextMate/Bundles/"
+      sh "mv textmate-lua.tmbundle* #{lua_bundle_dir}"
+    end
+    
+    wax_bundle_dir = "~/Library/Application\\ Support/TextMate/Bundles/Wax.tmbundle"
+    sh("test -s #{wax_bundle_dir}") do |exists, _|
+      break if exists
+      sh "curl -L http://github.com/probablycorey/Wax.tmbundle/tarball/master | tar xvz"
+      sh "mv probablycorey-[Ww]ax.tmbundle* #{wax_bundle_dir}"
+    end
+  end
+
+  file TEXTMATE_FILE do |t|
+    open(t.name, "w") do |file|
+      file.write <<-TEXTMATE_HELP
+Some tips to make life easier
+
+1) Install the Lua and Wax TextMate Bundles.
+  a) Either type "rake tm:install_bundles"
+  
+     Or, you can manually install the bundles from 
+     http://github.com/textmate/lua.tmbundle and
+     http://github.com/probablycorey/Wax.tmbundle
+     into ~/Library/Application Support/TextMate/Bundles
+     
+  b) From TextMate click Bundles > Bundle Editor > Reload Bundles
+ 
+2) The lua code for the wax framework is located in the wax-scripts folder. You
+   should check it out, it has some helpful functions to make coding easier.
+  
+3) Open up the file scripts/init.lua and get started!
+
+TEXTMATE_HELP
+    end
+  end
+end
