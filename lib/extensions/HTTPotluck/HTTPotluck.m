@@ -58,7 +58,7 @@ static int request(lua_State *L) {
     
     if (!url) luaL_error(L, "HTTPotluck: Could not create URL from string '%s'", [urlString UTF8String]);
     
-    NSURLRequestCachePolicy cachePolicy = NSURLRequestReloadIgnoringLocalAndRemoteCacheData;
+    NSURLRequestCachePolicy cachePolicy = NSURLRequestUseProtocolCachePolicy;
     NSDictionary *headerFields = [NSDictionary dictionary];
     NSData *body = [@"" dataUsingEncoding:NSUTF8StringEncoding];    
     
@@ -95,7 +95,7 @@ static int request(lua_State *L) {
             [runLoop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
         }
 
-        return 2;
+        return 3;
     }
 }
 
@@ -126,7 +126,7 @@ static NSString *getMethod(lua_State *L, int tableIndex) {
 }
 
 static int getFormat(lua_State *L, int tableIndex) {
-    int format = HTTPOTLUCK_TEXT;
+    int format = HTTPOTLUCK_UNKNOWN;
     if (lua_isnoneornil(L, tableIndex)) return format;
 
     lua_getfield(L, tableIndex, "format");

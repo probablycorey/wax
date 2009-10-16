@@ -10,6 +10,7 @@
 #import "lua.h"
 
 enum {
+	HTTPOTLUCK_UNKNOWN,
     HTTPOTLUCK_TEXT,
     HTTPOTLUCK_BINARY, // Like an image or something
     HTTPOTLUCK_JSON
@@ -21,13 +22,12 @@ enum {
     lua_State *L;
     NSMutableData *_data;
     NSHTTPURLResponse *_response;
-    id _body;
-
+	
     int _format;
     bool _finished;
+	bool _error;
 }
 
-@property (nonatomic, assign) id body;
 @property (nonatomic, assign) NSHTTPURLResponse *response;
 
 @property (nonatomic, assign) int format;

@@ -14,7 +14,6 @@
 
 @implementation HTTPotluck_connection
 
-@synthesize body=_body;
 @synthesize response=_response;
 @synthesize format=_format;
 @synthesize finished=_finished;
@@ -22,7 +21,6 @@
 - (void)dealloc {
     [_data release];
     [_response release];
-    [_body release];
     [super dealloc];
 }
 
@@ -30,7 +28,8 @@
     [super initWithRequest:urlRequest delegate:self];
     L = luaState;
     _data = [[NSMutableData alloc] init];
-    _format = HTTPOTLUCK_TEXT;
+    _format = HTTPOTLUCK_UNKNOWN;
+	_error = NO;
     return self;
 }
 
@@ -49,26 +48,13 @@
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-    _body = [[error localizedDescription] retain];
+	_error = YES;
+	[_data release];
+    _data = [[error localizedDescription] retain];
     [self callLuaCallback:connection];
-    
-//    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Connection Error" message:@"Could not connect to the Internet." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-//    [alertView show];
-//    [alertView release];    
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    // Body
-    if (_format == HTTPOTLUCK_TEXT || _format == HTTPOTLUCK_JSON) {
-        _body = [[NSString alloc] initWithData:_data encoding:NSUTF8StringEncoding];
-    }
-    else if (_format == HTTPOTLUCK_BINARY) {
-        _body = [_data retain];
-    }
-    else {
-        luaL_error(L, "HTTPotluck: Unknown HTTPotlock format '%d'", _format);
-    }
-            
     [self callLuaCallback:connection];
 }
 
@@ -83,16 +69,49 @@
         hasCallback = NO;
         lua_pop(L, 1);
     }
-
-    if (_format == HTTPOTLUCK_JSON) {
-        json_parseString(L, [_body UTF8String]);
-    }
-    else {
-        wax_fromObjc(L, "@", &_body);
-    }
     
+	// Try and guess the format type
+	if (_format == HTTPOTLUCK_UNKNOWN) {
+		NSString *contentType = [[_response allHeaderFields] objectForKey:@"Content-Type"];
+		if ([contentType hasPrefix:@"application/json"] ||
+			[contentType hasPrefix:@"text/json"] ||
+			[contentType hasPrefix:@"application/javascript"] ||
+			[contentType hasPrefix:@"text/javascript"]) {
+			_format = HTTPOTLUCK_JSON;
+		}
+		else if ([contentType hasPrefix:@"image/"] ||
+				 [contentType hasPrefix:@"audio/"]) {
+			_format = HTTPOTLUCK_BINARY;
+		}
+		else {
+			_format = HTTPOTLUCK_TEXT;
+		}
+	}
+	
+	if (_error) {
+		lua_pushnil(L);
+	}
+	else if (_format == HTTPOTLUCK_TEXT || _format == HTTPOTLUCK_JSON) {
+		NSString *string = [[NSString alloc] initWithData:_data encoding:NSUTF8StringEncoding];
+		
+		if (_format == HTTPOTLUCK_TEXT) {
+			wax_fromObjc(L, "@", &string);
+		}
+		else {
+			json_parseString(L, [string UTF8String]);
+		}
+		
+		[string release];
+	}
+	else if (_format == HTTPOTLUCK_BINARY) {		
+		wax_fromObjc(L, "@", &_data);
+	}
+	else {
+		luaL_error(L, "HTTPotluck: Unknown HTTPotlock format '%d'", _format);
+	}
+	
     wax_fromObjc(L, "@", &_response);
-	wax_fromObjc(L, "@", &_body); // Pust the raw body too!
+	wax_fromObjc(L, "@", &_data); // Send the raw data too (since oddly, the response doesn't contain it)
         
     if (hasCallback && wax_pcall(L, 3, 0)) {
         const char* error_string = lua_tostring(L, -1);
