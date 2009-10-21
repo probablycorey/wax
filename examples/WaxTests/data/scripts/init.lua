@@ -9,7 +9,3 @@ require "structTest"
 require "gcTest"
 
 spec:report(true)
-
-UITabl
-
-UI.Label:indexOfObjectIdenticalTo_inRange(thing, mooo)
