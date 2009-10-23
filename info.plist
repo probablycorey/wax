@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>mainMenu</key>
+	<dict>
+		<key>items</key>
+		<array>
+			<string>4C55D5A6-0889-483E-B752-32FE2DA757A7</string>
+			<string>535EA416-4AB8-418C-A008-27CCFFD7AF0B</string>
+			<string>E1860993-CE5C-454D-9EB5-1B22BCA3BC08</string>
+			<string>441EEC01-553E-460D-B9F8-80A4F8EDD20C</string>
+			<string>FEF3F881-6DC9-4BD7-99A2-0F4EC167EE92</string>
+<<<<<<< HEAD
+			<string>DE47D37C-7506-4051-8775-65BFBB3278BB</string>
+			<string>1CB7296C-CFD7-49D2-8A43-7BE0F62F0094</string>
+			<string>5396363C-000D-430E-B20E-75B137C45408</string>
+			<string>575882AA-8765-4556-B42B-0C1CC7A7A2DB</string>
+=======
+			<string>1CB7296C-CFD7-49D2-8A43-7BE0F62F0094</string>
+>>>>>>> 8ea02f491317c6c600d8d700cb715030f6f55d2c
+		</array>
+		<key>submenus</key>
+		<dict>
+			<key>1CB7296C-CFD7-49D2-8A43-7BE0F62F0094</key>
+			<dict>
+				<key>items</key>
+				<array>
+<<<<<<< HEAD
+=======
+					<string>DE47D37C-7506-4051-8775-65BFBB3278BB</string>
+>>>>>>> 8ea02f491317c6c600d8d700cb715030f6f55d2c
+					<string>C0265B87-4006-4760-931E-6C5DACA6F4E1</string>
+					<string>873EC4D1-7747-4068-8ED8-C56AC6D5F010</string>
+				</array>
+				<key>name</key>
+				<string>Snippets</string>
+			</dict>
+		</dict>
+	</dict>
+	<key>name</key>
+	<string>Lua Wax</string>
+	<key>ordering</key>
+	<array>
+		<string>4C55D5A6-0889-483E-B752-32FE2DA757A7</string>
+<<<<<<< HEAD
+		<string>5396363C-000D-430E-B20E-75B137C45408</string>
+		<string>5F7A37FB-9F15-4334-8D9D-9EE29600D456</string>
+=======
+>>>>>>> 8ea02f491317c6c600d8d700cb715030f6f55d2c
+		<string>535EA416-4AB8-418C-A008-27CCFFD7AF0B</string>
+		<string>E1860993-CE5C-454D-9EB5-1B22BCA3BC08</string>
+		<string>441EEC01-553E-460D-B9F8-80A4F8EDD20C</string>
+		<string>FEF3F881-6DC9-4BD7-99A2-0F4EC167EE92</string>
+<<<<<<< HEAD
+		<string>575882AA-8765-4556-B42B-0C1CC7A7A2DB</string>
+=======
+>>>>>>> 8ea02f491317c6c600d8d700cb715030f6f55d2c
+		<string>873EC4D1-7747-4068-8ED8-C56AC6D5F010</string>
+		<string>DE47D37C-7506-4051-8775-65BFBB3278BB</string>
+		<string>C0265B87-4006-4760-931E-6C5DACA6F4E1</string>
+	</array>
+	<key>uuid</key>
+	<string>25385556-F53A-4509-9CDA-7CC2455EAF78</string>
+</dict>
+</plist>

@@ -1,0 +1,88 @@
+#!/usr/bin/env ruby
+
+# ---------------------
+# Builds xcode projects
+# ---------------------
+
+require 'optparse'
+require 'ostruct'
+
+args = {"-configuration " => "Debug"}
+should_run = false
+verbose = false;
+
+opts = OptionParser.new do |opts|
+  opts.banner = "Description: Builds an iPhone app and optionaly will run it in the simulator"
+  opts.banner = "Usage: hammer [options]"
+  opts.on("-h", "--help", "Help stuff") do
+    puts opts
+    exit
+  end
+
+  opts.on("-c", "--configuration ARG", "Debug? Release?") do |v|
+    args["-configuration "] = v
+  end
+  
+  opts.on("-o", "--outputname ARG", "Name of the executable") do |v|
+    v.gsub!(/\.app$/, "") # .app is automatically added by xcode
+    args["CONFIGURATION_BUILD_DIR="]= "."
+    args["PRODUCT_NAME="] = v
+  end
+
+  opts.on("-s", "--sdk ARG", "Choose he SDK. Use --showsdks to see options.") do |v|  
+    v = "iphonesimulator#{v}" if v =~ /^[\d\.]+/ # if only the version is given... assume user wants a simulator build
+    args["-sdk "] = v    
+  end
+  
+  opts.on("-v", "--verbose", "blah blah blah.") do |v|  
+    verbose = v
+  end
+
+  opts.on("-r", "--run", "Runs the file in the simulator after it is built.") do
+    should_run = true
+  end
+
+  opts.on("--showsdks", "Lists available SDKS.") do
+    output = `xcodebuild -showsdks`
+    sdks = output.scan(/-sdk (.*?$)/m)
+    puts "Availible sdks:"
+    sdks.each {|sdk| puts "  #{sdk}"}
+    
+    exit
+  end
+end.parse!
+
+# if no sdk given, default to the most recent simulator build
+if !args["-sdk "]
+  output = `xcodebuild -showsdks`
+  sdks = output.scan(/-sdk (.*?$)/m).map {|a| a.join}
+  args["-sdk "] = sdks.find_all {|sdk| sdk =~ /iphonesimulator/}.sort.first
+end
+
+# Build the app
+extra_args = ARGV
+extra_args += ["build"] if extra_args.empty?
+arg_string = args.collect {|k, v| v ? "#{k}#{v}" : k}.join(" ")
+cmd = "xcodebuild #{arg_string} #{extra_args.join(' ')}"
+puts cmd
+
+output = `#{cmd}`
+successful = ($? == 0)
+
+if verbose or not successful
+  puts output
+  puts("** BUILD FAILED **") if not successful
+end
+
+if successful and should_run
+  app_dir = "build/#{args["-configuration "]}-#{args['-sdk '].sub(/[\d\.]+/, '')}"
+  app_path = Dir[app_dir + "/*.app"].first
+  
+  sdk_version = args['-sdk '] ? args['-sdk '][/([\d\.]+)$/] : nil
+  cmd = "hamburger "
+  cmd += "-s #{sdk_version} " if sdk_version
+  cmd += app_path
+
+  puts cmd
+  system cmd
+end

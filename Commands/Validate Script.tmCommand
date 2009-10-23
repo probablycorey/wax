@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>beforeRunningCommand</key>
+	<string>saveActiveFile</string>
+	<key>command</key>
+<<<<<<< HEAD
+	<string>${TM_RUBY:-ruby} "$TM_BUNDLE_PATH/Support/simplify.rb" validate</string>
+=======
+	<string>#!/usr/bin/env ${TM_RUBY:-ruby}
+
+require ENV['TM_SUPPORT_PATH'] + '/lib/textmate'
+
+result = `${TM_LUAC:-/usr/local/bin/luac} -p "$TM_FILEPATH" 2&gt;&amp;1`
+
+if not result.empty?
+	TextMate.go_to :line =&gt; $1 if result =~ /:(\d+):/
+	puts result
+else
+	puts "VALID LUA!"
+end</string>
+>>>>>>> 8ea02f491317c6c600d8d700cb715030f6f55d2c
+	<key>input</key>
+	<string>none</string>
+	<key>keyEquivalent</key>
+	<string>^V</string>
+	<key>name</key>
+	<string>Validate</string>
+	<key>output</key>
+	<string>showAsTooltip</string>
+	<key>scope</key>
+	<string>source.lua</string>
+	<key>uuid</key>
+	<string>4C55D5A6-0889-483E-B752-32FE2DA757A7</string>
+</dict>
+</plist>

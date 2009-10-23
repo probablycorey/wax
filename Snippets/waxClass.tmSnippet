@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>content</key>
+	<string>waxClass{"${1:${TM_FILENAME/\.lua//}}"${2:, ${3:parentClassName}}}
+
+$0</string>
+	<key>name</key>
+	<string>waxClass</string>
+	<key>scope</key>
+	<string>source.lua</string>
+	<key>tabTrigger</key>
+	<string>waxClass</string>
+	<key>uuid</key>
+	<string>873EC4D1-7747-4068-8ED8-C56AC6D5F010</string>
+</dict>
+</plist>

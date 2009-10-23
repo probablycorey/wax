@@ -1,0 +1,31 @@
+TM_APP_PATH:		/Applications/TextMate.app
+TM_BUNDLE_PATH:		/Users/probablycorey/Library/Application Support/TextMate/Bundles/Wax.tmbundle
+TM_COLUMNS:		78
+TM_COLUMN_NUMBER:		1
+TM_COMMENT_END:		 -->
+TM_COMMENT_START:		<!-- 
+TM_CURRENT_LINE:		
+TM_DIRECTORY:		/Users/probablycorey/Library/Application Support/TextMate/Bundles/Ruby.tmbundle/Commands
+TM_FILENAME:		Check Ruby Syntax.plist
+TM_FILEPATH:		/Users/probablycorey/Library/Application Support/TextMate/Bundles/Ruby.tmbundle/Commands/Check Ruby Syntax.plist
+TM_FULLNAME:		Corey Johnson
+TM_LINE_INDEX:		0
+TM_LINE_NUMBER:		30
+TM_LINK_FORMAT:		(this language is not supported, see … for more info)
+TM_MODE:		Property List
+TM_ORGANIZATION_NAME:		__MyCompanyName__
+TM_PID:		1224`
+TM_PROJECT_DIRECTORY:		/Users/probablycorey/Library/Application Support/TextMate/Bundles/Ruby.tmbundle
+TM_SCOPE:		 text.xml.plist
+TM_SELECTED_FILE:		/Users/probablycorey/Library/Application Support/TextMate/Bundles/Ruby.tmbundle/Commands/Check Ruby Syntax.plist
+TM_SELECTED_FILES:		'/Users/probablycorey/Library/Application Support/TextMate/Bundles/Ruby.tmbundle/Commands/Check Ruby Syntax.plist'
+TM_SOFT_TABS:		YES
+TM_SUPPORT_PATH:		/Applications/TextMate.app/Contents/SharedSupport/Support
+TM_TAB_SIZE:		4
+
+UI.Tabl:()
+
+
+${TM_RUBY:-ruby} -e "puts env['TM_BUNDLE_PATH']"
+${TM_RUBY:-ruby} "$TM_BUNDLE_PATH/Support/simplify.rb" completion
+
