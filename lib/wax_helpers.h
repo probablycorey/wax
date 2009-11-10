@@ -63,10 +63,12 @@
 #define END_STACK_MODIFY(L, i) while(lua_gettop((L)) > (__startStackIndex + (i))) lua_remove((L), __startStackIndex + 1);
 
 #ifndef LOG_FLAGS
-    #define LOG_FLAGS 0
+    #define LOG_FLAGS (LOG_GC | LOG_FATAL | LOG_DEBUG)
 #endif
 
 #define LOG_GC 1
+#define LOG_DEBUG 2
+#define LOG_FATAL 4
 
 // This struct seem unnessessary
 typedef struct _wax_selectors {
@@ -96,6 +98,9 @@ const char *wax_removeProtocolEncodings(const char *type_descriptions);
 
 int wax_sizeOfTypeDescription(const char *full_type_description);
 int wax_simplifyTypeDescription(const char *in, char *out);
+
+void wax_copyTable(lua_State *from, lua_State *to, int index);
+void wax_copyObject(lua_State *from, lua_State *to, int index);
 
 int wax_errorFunction(lua_State *L);
 int wax_pcall(lua_State *L, int argumentCount, int returnCount);

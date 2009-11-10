@@ -58,13 +58,13 @@ end
 
 function table.find(t, func)
   for k, v in pairs(t) do
-    if func(v) then return k, v  end
+    if func(v) then return k, v end
   end
   
   return nil
 end
 
-function table.findAll(t, func)
+function table.select(t, func)
   local matches = {}
   for k, v in pairs(t) do
     if func(v) then table.insert(matches, v) end

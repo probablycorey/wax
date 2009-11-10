@@ -18,7 +18,7 @@
 
 lua_State *wax_currentLuaState() {
     static lua_State *L;    
-    if (!L) L = lua_open();  
+    if (!L) L = lua_open();
     
     return L;
 }
@@ -35,8 +35,8 @@ void wax_startWithExtensions(lua_CFunction func, ...) {
     
     lua_State *L = wax_currentLuaState();    
     
-    NSArray *args = [[NSProcessInfo processInfo] arguments];    
-    if ([args containsObject:@"test"]) {
+    NSDictionary *env = [[NSProcessInfo processInfo] environment];
+    if ([[env objectForKey:@"WAX_TEST"] isEqual:@"1"]) { // If there is a WAX_TEST env, then run the tests!
         mainFile = "scripts/tests/init.lua";
     }
     else {

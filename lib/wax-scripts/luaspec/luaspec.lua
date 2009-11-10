@@ -88,8 +88,6 @@ end
 function spec:add_pending_spec(context_name, spec_name, pending_description)
 end
 
---
-
 -- create tables to support pending specifications
 local pending = {}
 
@@ -115,14 +113,14 @@ setmetatable(pending, pending)
 
 -- define matchers
 
-matchers = {  
+matchers = {
   should_be = function(value, expected)
     if value ~= expected then
       return false, "expecting "..tostring(expected)..", not ".. tostring(value)
     end
     return true
   end;
-
+  
   should_not_be = function(value, expected)
     if value == expected then
       return false, "should not be "..tostring(value)

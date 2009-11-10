@@ -196,3 +196,25 @@ UITextBorderStyleNone = 0
 UITextBorderStyleLine = 1
 UITextBorderStyleBezel = 2
 UITextBorderStyleRoundedRect = 3
+
+
+-- UITableViewScrollPosition
+UITableViewScrollPositionNone = 0
+UITableViewScrollPositionTop = 1
+UITableViewScrollPositionMiddle = 2
+UITableViewScrollPositionBottom = 3
+
+-- UIKeyboardAppearance
+UIKeyboardAppearanceDefault = 0
+UIKeyboardAppearanceAlert = 1
+
+-- UITextFieldViewMode
+UITextFieldViewModeNever = 0
+UITextFieldViewModeWhileEditing = 1
+UITextFieldViewModeUnlessEditing = 2
+UITextFieldViewModeAlways = 3
+
+-- UITextAutocorrectionType
+UITextAutocorrectionTypeDefault = 0
+UITextAutocorrectionTypeNo = 1
+UITextAutocorrectionTypeYes = 2

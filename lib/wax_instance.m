@@ -52,11 +52,11 @@ wax_instance_userdata *wax_instance_create(lua_State *L, id instance, BOOL isCla
     wax_instance_pushUserdata(L, instance);
    
     if (lua_isnil(L, -1)) {
-        wax_log(LOG_GC, @"Creating object for %@(%p)", instance, instance);
+        wax_log(LOG_GC, @"Creating object for %@(%p)", [instance class], instance);
         lua_pop(L, 1); // pop nil stack
     }
     else {
-        wax_log(LOG_GC, @"Found existing userdata object for %@(%p)", instance, instance);
+        wax_log(LOG_GC, @"Found existing userdata object for %@(%p)", [instance class], instance);
         return lua_touserdata(L, -1);
     }
     
@@ -67,7 +67,7 @@ wax_instance_userdata *wax_instance_create(lua_State *L, id instance, BOOL isCla
     instanceUserdata->isSuper = NO;
  
     if (!isClass) {
-        wax_log(LOG_GC, @"Retaining object for %@(%p)", instance, instance);        
+        wax_log(LOG_GC, @"Retaining object for %@(%p)", [instance class], instance);        
         [instanceUserdata->instance retain];
     }
     
