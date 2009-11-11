@@ -92,7 +92,7 @@ static int request(lua_State *L) {
 
         NSRunLoop* runLoop = [NSRunLoop currentRunLoop];        
         while (!connection.finished) {
-            [runLoop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+            [runLoop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
         }
 
         return 3;

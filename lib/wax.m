@@ -10,6 +10,7 @@
 #import "wax_class.h"
 #import "wax_instance.h"
 #import "wax_struct.h"
+#import "wax_gc.h"
 #import "wax_helpers.h"
 
 #import "lauxlib.h"
@@ -18,7 +19,7 @@
 
 lua_State *wax_currentLuaState() {
     static lua_State *L;    
-    if (!L) L = lua_open();  
+    if (!L) L = lua_open();
     
     return L;
 }
@@ -33,10 +34,10 @@ void wax_startWithExtensions(lua_CFunction func, ...) {
     NSFileManager *fileManager = [NSFileManager defaultManager];
     [fileManager changeCurrentDirectoryPath:WAX_DATA_PATH];
     
-    lua_State *L = wax_currentLuaState();    
+    lua_State *L = wax_currentLuaState();
     
-    NSArray *args = [[NSProcessInfo processInfo] arguments];    
-    if ([args containsObject:@"test"]) {
+    NSDictionary *env = [[NSProcessInfo processInfo] environment];
+    if ([[env objectForKey:@"WAX_TEST"] isEqual:@"1"]) { // If there is a WAX_TEST env, then run the tests!
         mainFile = "scripts/tests/init.lua";
     }
     else {
@@ -62,6 +63,8 @@ void wax_startWithExtensions(lua_CFunction func, ...) {
     NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
     
     addGlobals(L);
+	wax_gc_create(L); // starts the wax GC object!
+
     if (luaL_dofile(L, mainFile) != 0) fprintf(stderr,"Fatal Error: %s\n", lua_tostring(L,-1));    
 }
 
@@ -77,6 +80,7 @@ void luaopen_wax(lua_State *L) {
     luaopen_wax_class(L);
     luaopen_wax_instance(L);
     luaopen_wax_struct(L);
+	luaopen_wax_gc(L);
 }
 
 static void addGlobals(lua_State *L) {

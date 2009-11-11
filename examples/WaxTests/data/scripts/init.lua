@@ -8,4 +8,4 @@ require "protocolTest"
 require "structTest"
 require "gcTest"
 
-spec:report(true)
+  

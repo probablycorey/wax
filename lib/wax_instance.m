@@ -18,7 +18,6 @@ static const struct luaL_Reg metaFunctions[] = {
     {"__index", __index},
     {"__newindex", __newindex},
     {"__gc", __gc},
-    {"__waxretain", __waxretain},
     {"__tostring", __tostring},
     {"__eq", __eq},
     {NULL, NULL}
@@ -52,11 +51,11 @@ wax_instance_userdata *wax_instance_create(lua_State *L, id instance, BOOL isCla
     wax_instance_pushUserdata(L, instance);
    
     if (lua_isnil(L, -1)) {
-        wax_log(LOG_GC, @"Creating object for %@(%p)", instance, instance);
+        wax_log(LOG_GC, @"Creating object for %@(%p)", [instance class], instance);
         lua_pop(L, 1); // pop nil stack
     }
     else {
-        wax_log(LOG_GC, @"Found existing userdata object for %@(%p)", instance, instance);
+        wax_log(LOG_GC, @"Found existing userdata object for %@(%p)", [instance class], instance);
         return lua_touserdata(L, -1);
     }
     
@@ -65,9 +64,9 @@ wax_instance_userdata *wax_instance_create(lua_State *L, id instance, BOOL isCla
     instanceUserdata->instance = instance;
     instanceUserdata->isClass = isClass;
     instanceUserdata->isSuper = NO;
- 
+ 	
     if (!isClass) {
-        wax_log(LOG_GC, @"Retaining object for %@(%p)", instance, instance);        
+        wax_log(LOG_GC, @"Retaining object for %@(%p -> %p)", [instance class], instance, instanceUserdata);
         [instanceUserdata->instance retain];
     }
     
@@ -75,37 +74,19 @@ wax_instance_userdata *wax_instance_create(lua_State *L, id instance, BOOL isCla
     luaL_getmetatable(L, WAX_INSTANCE_METATABLE_NAME);
     lua_setmetatable(L, -2);
 
-    // give it a nice clean environment
-    // TODO: Is this step needed?
+	// give it a nice clean environment
     lua_newtable(L); 
     lua_setfenv(L, -2);
-    
-    // look for weak table
-    luaL_getmetatable(L, WAX_INSTANCE_METATABLE_NAME);
-    lua_getfield(L, -1, "__wax_userdata");
-    
-    if (lua_isnil(L, -1)) { // Create new weak table, add it to metatable
-        lua_pop(L, 1); // Remove nil
-        
-        lua_newtable(L);
-        lua_pushvalue(L, -1);
-        lua_setmetatable(L, -1); // "wax_userdata" is it's own metatable
-        
-        lua_pushstring(L, "v!");
-        lua_setfield(L, -2, "__mode");  // Make weak table
-                
-        lua_pushstring(L, "__wax_userdata"); // Table name
-        lua_pushvalue(L, -2); // copy the userdata table
-        lua_rawset(L, -4); // Add __wax_userdata table to metatable      
-    }
+	
+	wax_instance_pushUserdataTable(L);
 
-    
-    // register the userdata in the weak table in the metatable (so we can access it from obj-c)
+    // register the userdata table in the metatable (so we can access it from obj-c)
+	wax_log(LOG_GC, @"Storing refernce of instance to userdata %@(%p -> %p)", [instance class], instance, instanceUserdata);        
     lua_pushlightuserdata(L, instanceUserdata->instance);
-    lua_pushvalue(L, -4); // Push userdata
+    lua_pushvalue(L, -3); // Push userdata
     lua_rawset(L, -3);
         
-    lua_pop(L, 2); // Pop off userdata table and metatable
+    lua_pop(L, 1); // Pop off userdata table
     
     END_STACK_MODIFY(L, 1)
     
@@ -130,6 +111,25 @@ wax_instance_userdata *wax_instance_createSuper(lua_State *L, wax_instance_userd
     
     return superInstanceUserdata;
 }
+
+void wax_instance_pushUserdataTable(lua_State *L) {
+	BEGIN_STACK_MODIFY(L)
+	static const char* userdataTableName = "__wax_userdata";
+    luaL_getmetatable(L, WAX_INSTANCE_METATABLE_NAME);
+    lua_getfield(L, -1, userdataTableName);
+    
+    if (lua_isnil(L, -1)) { // Create new userdata table, add it to metatable
+        lua_pop(L, 1); // Remove nil
+		
+        lua_pushstring(L, userdataTableName); // Table name
+        lua_newtable(L);        
+        lua_rawset(L, -3); // Add userdataTableName table to WAX_INSTANCE_METATABLE_NAME      
+		lua_getfield(L, -1, userdataTableName);
+    }
+	
+    END_STACK_MODIFY(L, 1)
+}
+
 
 // First look in the object's userdata for the function, then look in the object's class's userdata
 BOOL wax_instance_pushFunction(lua_State *L, id self, SEL selector) {
@@ -160,18 +160,10 @@ BOOL wax_instance_pushFunction(lua_State *L, id self, SEL selector) {
 void wax_instance_pushUserdata(lua_State *L, id object) {
     BEGIN_STACK_MODIFY(L);
     
-    luaL_getmetatable(L, WAX_INSTANCE_METATABLE_NAME);
-    lua_getfield(L, -1, "__wax_userdata");
-    
-    if (lua_isnil(L, -1)) { // __wax_userdata table does not exist yet 
-        lua_remove(L, -2); // remove metadata table
-    }
-    else {
-        lua_pushlightuserdata(L, object);
-        lua_rawget(L, -2);
-        lua_remove(L, -2); // remove __wax_userdata table
-        lua_remove(L, -2); // remove metadata table
-    }
+	wax_instance_pushUserdataTable(L);
+	lua_pushlightuserdata(L, object);
+	lua_rawget(L, -2);
+	lua_remove(L, -2); // remove userdataTable
     
     END_STACK_MODIFY(L, 1)
 }
@@ -238,20 +230,6 @@ static int __newindex(lua_State *L) {
     
     return 0;
 }
-
-static int __waxretain(lua_State *L) {
-  wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);
-
-  if (!instanceUserdata->isClass && !instanceUserdata->isSuper && [instanceUserdata->instance retainCount] > 1) {
-    lua_pushboolean(L, true);
-  }
-  else {
-    lua_pushboolean(L, false);
-  }
-  
-  return 1;
-}
-
 
 static int __gc(lua_State *L) {
     wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);
@@ -337,9 +315,6 @@ static int methodClosure(lua_State *L) {
     if (objcArgumentCount > luaArgumentCount) {
         luaL_error(L, "Not Enough arguments given! Method named '%s' requires %d argument(s), you gave %d. (Make sure you used ':' to call the method)", selectorName, objcArgumentCount + 1, lua_gettop(L));
     }
-//    else if (objcArgumentCount < luaArgumentCount) {
-//        luaL_error(L, "Too many arguments given! Method named '%s' requires %d argument(s), you gave %d.", selectorName, objcArgumentCount + 1, lua_gettop(L));
-//    }
     
     void **arguements = calloc(sizeof(void*), objcArgumentCount);
     for (int i = 0; i < objcArgumentCount; i++) {
@@ -383,8 +358,16 @@ static int methodClosure(lua_State *L) {
             [returnedObjLuaInstance->instance release];
         }
         else if (autoAlloc && lua_isnil(L, -1)) {
-          // The init method returned nil... means initializization failed! Zero out the userdata
-          instanceUserdata->instance = nil;
+			// The init method returned nil... means initialization failed!
+			// Remove it from the userdataTable (We don't ever want to clean up after this... it should have cleaned up after itself)
+			wax_instance_pushUserdataTable(L);
+			lua_pushlightuserdata(L, instanceUserdata->instance);
+			lua_pushnil(L);
+			lua_rawset(L, -3);
+			lua_pop(L, 1); // Pop the userdataTable
+			
+			// and zero out the userdata
+			instanceUserdata->instance = nil;
         }
         
         free(buffer);

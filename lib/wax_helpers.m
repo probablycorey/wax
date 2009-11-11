@@ -286,10 +286,16 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
             break;
             
         case WAX_TYPE_SELECTOR:
-            *outsize = sizeof(SEL);
-            value = calloc(sizeof(SEL), 1);
-            const char *selectorName = luaL_checkstring(L, stackIndex);
-            *((SEL *)value) = sel_getUid(selectorName);
+			if (lua_isnil(L, stackIndex)) { // If no slector is passed it, just use an empty string
+				lua_pushstring(L, "");
+				lua_replace(L, stackIndex);
+			}
+			
+			*outsize = sizeof(SEL);
+			value = calloc(sizeof(SEL), 1);
+			const char *selectorName = luaL_checkstring(L, stackIndex);
+			*((SEL *)value) = sel_getUid(selectorName);				
+
             break;            
 
         case WAX_TYPE_CLASS:
@@ -376,13 +382,17 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
                 case LUA_TTABLE: {
                     BOOL dictionary = NO;
                     
-                    lua_pushvalue(L, stackIndex);
                     lua_pushnil(L);  /* first key */
                     while (!dictionary && lua_next(L, -2)) {
-                        if (lua_type(L, -2) != LUA_TNUMBER) dictionary = YES;                        
-                        lua_pop(L, 1);
+                        if (lua_type(L, -2) != LUA_TNUMBER) {
+							dictionary = YES;                        
+							lua_pop(L, 2); // pop key and value off the stack
+						}
+						else {
+							lua_pop(L, 1);
+						}
                     }
-                    
+                    					
                     if (dictionary) {
                         instance = [NSMutableDictionary dictionary];
                         
@@ -408,9 +418,7 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
                             free(object);
                         }                                
                     }
-                    
-                    lua_pop(L, 1);
-                    
+                                        
                     break;
                 }
                                         
@@ -720,6 +728,51 @@ int wax_simplifyTypeDescription(const char *in, char *out) {
     out[out_index] = '\0';
     
     return out_index;
+}
+
+void wax_copyTable(lua_State *from, lua_State *to, int index) {
+	lua_newtable(to);
+	
+    lua_pushnil(from); // first key
+    
+    while (lua_next(from, index) != 0) {
+		wax_copyObject(from, to, -2); // copy the key
+		wax_copyObject(from, to, -1); // copy the value
+
+		lua_rawset(to, -3);
+		
+		lua_pop(from, 1); // remove 'value'; keeps 'key' for next iteration			
+    }
+	
+	int i = 0;
+	i++;
+	i = 1 + i;
+}
+
+void wax_copyObject(lua_State *from, lua_State *to, int index) {
+	// make index positive
+	if (index < 0) index = lua_gettop(from) + 1 + index;
+	
+	switch (lua_type(from, index)) {
+		case LUA_TNIL:
+			lua_pushnil(to);
+			break;
+		case LUA_TNUMBER:
+			lua_pushnumber(to, lua_tonumber(from, index));
+			break;
+		case LUA_TBOOLEAN:
+			lua_pushboolean(to, lua_toboolean(from, index));
+			break;
+		case LUA_TSTRING:
+			lua_pushstring(to, lua_tostring(from, index));
+			break;
+		case LUA_TTABLE:
+			wax_copyTable(from, to, index);
+			break;
+		default:
+			luaL_error(from, "Can not copy object of type '%s'", lua_typename(from, index));
+			break;
+	}			
 }
 
 int wax_errorFunction(lua_State *L) {
