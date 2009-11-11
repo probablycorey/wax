@@ -382,13 +382,17 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
                 case LUA_TTABLE: {
                     BOOL dictionary = NO;
                     
-                    lua_pushvalue(L, stackIndex);
                     lua_pushnil(L);  /* first key */
                     while (!dictionary && lua_next(L, -2)) {
-                        if (lua_type(L, -2) != LUA_TNUMBER) dictionary = YES;                        
-                        lua_pop(L, 1);
+                        if (lua_type(L, -2) != LUA_TNUMBER) {
+							dictionary = YES;                        
+							lua_pop(L, 2); // pop key and value off the stack
+						}
+						else {
+							lua_pop(L, 1);
+						}
                     }
-                    
+                    					
                     if (dictionary) {
                         instance = [NSMutableDictionary dictionary];
                         
@@ -414,9 +418,7 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
                             free(object);
                         }                                
                     }
-                    
-                    lua_pop(L, 1);
-                    
+                                        
                     break;
                 }
                                         
