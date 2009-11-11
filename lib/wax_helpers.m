@@ -382,6 +382,7 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
                 case LUA_TTABLE: {
                     BOOL dictionary = NO;
                     
+					lua_pushvalue(L, stackIndex); // Push the table reference on the top
                     lua_pushnil(L);  /* first key */
                     while (!dictionary && lua_next(L, -2)) {
                         if (lua_type(L, -2) != LUA_TNUMBER) {
@@ -418,7 +419,8 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
                             free(object);
                         }                                
                     }
-                                        
+                      
+					lua_pop(L, 1); // Pop the table reference off 
                     break;
                 }
                                         
