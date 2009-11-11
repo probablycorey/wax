@@ -64,7 +64,7 @@ function table.find(t, func)
   return nil
 end
 
-function table.select(t, func)
+function table.filter(t, func)
   local matches = {}
   for k, v in pairs(t) do
     if func(v) then table.insert(matches, v) end
