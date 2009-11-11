@@ -10,7 +10,7 @@
 #import "lua.h"
 #import "wax_conf.h"
 
-#define WAX_VERSION 0.8
+#define WAX_VERSION 0.81
 
 void wax_start();
 void wax_startWithExtensions(lua_CFunction func, ...);
