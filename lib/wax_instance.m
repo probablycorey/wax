@@ -51,11 +51,11 @@ wax_instance_userdata *wax_instance_create(lua_State *L, id instance, BOOL isCla
     wax_instance_pushUserdata(L, instance);
    
     if (lua_isnil(L, -1)) {
-        wax_log(LOG_GC, @"Creating object for %@(%p)", [instance class], instance);
+        wax_log(LOG_GC, @"Creating %@ for %@(%p)", isClass ? @"class" : @"instance", [instance class], instance);
         lua_pop(L, 1); // pop nil stack
     }
     else {
-        wax_log(LOG_GC, @"Found existing userdata object for %@(%p)", [instance class], instance);
+        wax_log(LOG_GC, @"Found existing userdata %@ for %@(%p)", isClass ? @"class" : @"instance", [instance class], instance);
         return lua_touserdata(L, -1);
     }
     
@@ -66,7 +66,7 @@ wax_instance_userdata *wax_instance_create(lua_State *L, id instance, BOOL isCla
     instanceUserdata->isSuper = NO;
  	
     if (!isClass) {
-        wax_log(LOG_GC, @"Retaining object for %@(%p -> %p)", [instance class], instance, instanceUserdata);
+        wax_log(LOG_GC, @"Retaining %@ for %@(%p -> %p)", isClass ? @"class" : @"instance", [instance class], instance, instanceUserdata);
         [instanceUserdata->instance retain];
     }
     
@@ -81,7 +81,7 @@ wax_instance_userdata *wax_instance_create(lua_State *L, id instance, BOOL isCla
 	wax_instance_pushUserdataTable(L);
 
     // register the userdata table in the metatable (so we can access it from obj-c)
-	wax_log(LOG_GC, @"Storing refernce of instance to userdata %@(%p -> %p)", [instance class], instance, instanceUserdata);        
+	wax_log(LOG_GC, @"Storing reference of %@ to userdata %@(%p -> %p)", isClass ? @"class" : @"instance", [instance class], instance, instanceUserdata);        
     lua_pushlightuserdata(L, instanceUserdata->instance);
     lua_pushvalue(L, -3); // Push userdata
     lua_rawset(L, -3);
@@ -125,6 +125,12 @@ void wax_instance_pushUserdataTable(lua_State *L) {
         lua_newtable(L);        
         lua_rawset(L, -3); // Add userdataTableName table to WAX_INSTANCE_METATABLE_NAME      
 		lua_getfield(L, -1, userdataTableName);
+		
+        lua_pushvalue(L, -1);
+        lua_setmetatable(L, -2); // userdataTable is it's own metatable
+        
+        lua_pushstring(L, "v");
+        lua_setfield(L, -2, "__mode");  // Make weak table
     }
 	
     END_STACK_MODIFY(L, 1)
@@ -443,7 +449,10 @@ static int pcallUserdata(lua_State *L, id self, SEL selector, va_list args) {
     if (![[NSThread currentThread] isEqual:[NSThread mainThread]]) NSLog(@"PACALLUSERDATA: OH NO SEPERATE THREAD");
     
     // Find the function... could be in the object or in the class
-    if (!wax_instance_pushFunction(L, self, selector)) goto error; // function not found in userdata...
+    if (!wax_instance_pushFunction(L, self, selector)) {
+		lua_pushfstring(L, "Could not find userdata associated with object %s(%p) It was probably released by the GC.", class_getName([self class]), self);
+		goto error; // function not found in userdata...
+	}
     
     // Push userdata as the first argument
     wax_fromInstance(L, self);

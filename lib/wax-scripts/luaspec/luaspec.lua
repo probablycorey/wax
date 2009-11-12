@@ -53,12 +53,16 @@ function spec:report(verbose)
   end
 
   local summary = [[
-=========  Summary  ============
-%s Expectations
-Passed : %s, Failed : %s, Success rate : %.2f percent
+  
+  
+========== Summary =============
+%s Failed
+%s Passed
+--------------------------------
+%s Run, %.2f%% Success rate
 ]]
 
-  print(summary:format(report.total, report.num_passed, report.num_failed, report.percent))
+  print(summary:format(report.num_failed, report.num_passed, report.total, report.percent))
 end
 
 function spec:add_results(success, message, trace)
@@ -156,7 +160,15 @@ matchers = {
   
   should_exist = function(value)
     if not value then
-      return false, value .. " is nil"
+      return false, value .. " evaluates to false."
+    else
+      return true
+    end
+  end;
+  
+  should_not_exist = function(value)
+    if value then
+      return false, value .. " evaluates to true."
     else
       return true
     end

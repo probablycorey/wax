@@ -81,10 +81,16 @@ static int __gc(lua_State *L) {
 	// Go through each object in the userdata table
 	lua_pushnil(L); // First key
 	while (lua_next(L, 3)) {
+		if (!lua_islightuserdata(L, -2)) {
+			lua_pop(L, 1);
+			continue;
+		}
+		
 		wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, -1, WAX_INSTANCE_METATABLE_NAME);
 		lua_pop(L, 1); // pops the value, keeps the key for next iteration
 		
 		if (!instanceUserdata->isClass && !instanceUserdata->isSuper && [instanceUserdata->instance retainCount] <= 1) {
+			wax_log(LOG_GC, @"Removing userdata for instance for %@(%p -> %p)", [instanceUserdata->instance class], instanceUserdata->instance, instanceUserdata);
 			lua_pushvalue(L, -1); // Copy key
 			lua_rawseti(L, 2, lua_objlen(L, 2) + 1); // Store the key!
 		}		
