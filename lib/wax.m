@@ -10,7 +10,6 @@
 #import "wax_class.h"
 #import "wax_instance.h"
 #import "wax_struct.h"
-#import "wax_gc.h"
 #import "wax_helpers.h"
 
 #import "lauxlib.h"
@@ -63,7 +62,7 @@ void wax_startWithExtensions(lua_CFunction func, ...) {
     NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
     
     addGlobals(L);
-	wax_gc_create(L); // starts the wax GC object!
+	//wax_gc_create(L); // starts the wax GC object!
 
     if (luaL_dofile(L, mainFile) != 0) fprintf(stderr,"Fatal Error: %s\n", lua_tostring(L,-1));    
 }
@@ -80,7 +79,7 @@ void luaopen_wax(lua_State *L) {
     luaopen_wax_class(L);
     luaopen_wax_instance(L);
     luaopen_wax_struct(L);
-	luaopen_wax_gc(L);
+//	luaopen_wax_gc(L);
 }
 
 static void addGlobals(lua_State *L) {

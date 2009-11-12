@@ -20,6 +20,7 @@ static const struct luaL_Reg metaFunctions[] = {
     {"__gc", __gc},
     {"__tostring", __tostring},
     {"__eq", __eq},
+    {"__waxretain", __waxretain},
     {NULL, NULL}
 };
 
@@ -129,7 +130,7 @@ void wax_instance_pushUserdataTable(lua_State *L) {
         lua_pushvalue(L, -1);
         lua_setmetatable(L, -2); // userdataTable is it's own metatable
         
-        lua_pushstring(L, "v");
+        lua_pushstring(L, "v!");
         lua_setfield(L, -2, "__mode");  // Make weak table
     }
 	
@@ -245,6 +246,18 @@ static int __gc(lua_State *L) {
     }
     
     return 0;
+}
+
+static int __waxretain(lua_State *L) {
+    wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);
+    if (!instanceUserdata->isClass && !instanceUserdata->isSuper && [instanceUserdata->instance retainCount] > 1) {
+        lua_pushboolean(L, true);
+    }
+    else {
+        lua_pushboolean(L, false);
+    }
+    
+    return 1;
 }
 
 static int __tostring(lua_State *L) {
