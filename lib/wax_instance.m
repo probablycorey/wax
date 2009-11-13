@@ -240,8 +240,10 @@ static int __newindex(lua_State *L) {
 
 static int __gc(lua_State *L) {
     wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);
-    if (!instanceUserdata->isClass && !instanceUserdata->isSuper) {
-        wax_log(LOG_GC, @"Releasing %@(%p)", [instanceUserdata->instance class], instanceUserdata->instance);
+    
+    wax_log(LOG_GC, @"Releasing %@ %@(%p)", instanceUserdata->isClass ? @"Class" : @"Instance", [instanceUserdata->instance class], instanceUserdata->instance);
+    
+    if (!instanceUserdata->isClass && !instanceUserdata->isSuper) {        
         [instanceUserdata->instance release];
     }
     
@@ -373,7 +375,7 @@ static int methodClosure(lua_State *L) {
             // strcmp(selectorName, "retain") == 0 || // explicit retaining should not autorelease
             
             wax_instance_userdata *returnedObjLuaInstance = (wax_instance_userdata *)lua_topointer(L, -1);
-            wax_log(LOG_GC, @"Releasing %@(%p) autoAlloc=%d", [returnedObjLuaInstance->instance class], instanceUserdata->instance, autoAlloc);            
+            //wax_log(LOG_GC, @"Releasing %@(%p) autoAlloc=%d", [returnedObjLuaInstance->instance class], instanceUserdata->instance, autoAlloc);            
             [returnedObjLuaInstance->instance release];
         }
         else if (autoAlloc && lua_isnil(L, -1)) {

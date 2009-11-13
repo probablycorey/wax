@@ -63,7 +63,7 @@
 #define END_STACK_MODIFY(L, i) while(lua_gettop((L)) > (__startStackIndex + (i))) lua_remove((L), __startStackIndex + 1);
 
 #ifndef LOG_FLAGS
-    #define LOG_FLAGS (LOG_GC | LOG_FATAL | LOG_DEBUG)
+    #define LOG_FLAGS (LOG_FATAL | LOG_DEBUG)
 #endif
 
 #define LOG_GC 1
