@@ -5,7 +5,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface ProtocolLoader : NSObject <UIWebViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate> {}
+@interface ProtocolLoader : NSObject <UIWebViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate, UISearchBarDelegate, UITextViewDelegate, UITabBarControllerDelegate> {}
 @end
 
 @implementation ProtocolLoader
