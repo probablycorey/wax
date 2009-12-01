@@ -7,6 +7,15 @@ function string.unescape(url)
   return url
 end
 
+function string.split(s, sep)
+  local t = {}
+  for o in string.gmatch(s, "([^" .. (sep or " ") .. "]+)") do 
+    table.insert(t, o) 
+  end
+  
+  return t
+end
+
 function string.escape(s)
   s = string.gsub(s, "([&=+%c])", function (c)
     return string.format("%%%02X", string.byte(c))

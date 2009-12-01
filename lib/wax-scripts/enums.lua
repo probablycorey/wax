@@ -218,3 +218,19 @@ UITextFieldViewModeAlways = 3
 UITextAutocorrectionTypeDefault = 0
 UITextAutocorrectionTypeNo = 1
 UITextAutocorrectionTypeYes = 2
+
+-- UIBarStyle
+UIBarStyleDefault          = 0
+UIBarStyleBlack            = 1
+UIBarStyleBlackOpaque      = 1 -- Deprecated. Use UIBarStyleBlack
+UIBarStyleBlackTranslucent = 2 -- Deprecated. Use UIBarStyleBlack and set the translucent property to YES
+
+
+-- NSURLRequestCachePolicy
+NSURLRequestUseProtocolCachePolicy = 0
+NSURLRequestReloadIgnoringLocalCacheData = 1
+NSURLRequestReloadIgnoringLocalAndRemoteCacheData = 4 -- Unimplemented
+NSURLRequestReloadIgnoringCacheData = NSURLRequestReloadIgnoringLocalCacheData
+NSURLRequestReturnCacheDataElseLoad = 2
+NSURLRequestReturnCacheDataDontLoad = 3
+NSURLRequestReloadRevalidatingCacheData = 5 -- Unimplemented
