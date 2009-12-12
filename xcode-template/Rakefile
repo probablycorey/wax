@@ -1,4 +1,5 @@
 TEXTMATE_FILE="TEXTMATE"
+WAX_PATH = File.expand_path("wax")
 
 desc "Create a Wax TextMate project"
 task :tm => "TEXTMATE" do
@@ -43,4 +44,25 @@ Some tips to make life easier
       TEXTMATE_HELP
     end
   end
+end
+
+desc "Update the wax lib with the lastest code!"
+task :update do
+  puts
+  puts "User Input Required!"
+  puts "--------------------"  
+  print "About to remove wax directory '#{WAX_PATH}' and replace it with an updated version (y/n) "
+
+  if STDIN.gets !~ /^y/i
+    puts "Exiting... nothing was done!"
+    return
+  end  
+  
+  tmp_dir = "./_wax-download"
+  rm_rf tmp_dir
+  mkdir_p tmp_dir
+  sh "curl -L http://github.com/probablycorey/wax/tarball/master | tar -C #{tmp_dir} -x -z"  
+  rm_rf WAX_PATH
+  sh "mv #{tmp_dir}/*/lib \"#{WAX_PATH}\""
+  rm_rf tmp_dir
 end
