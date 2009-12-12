@@ -58,7 +58,7 @@ static int request(lua_State *L) {
     
     if (!url) luaL_error(L, "HTTPotluck: Could not create URL from string '%s'", [urlString UTF8String]);
     
-    NSURLRequestCachePolicy cachePolicy = NSURLRequestUseProtocolCachePolicy;
+    NSURLRequestCachePolicy cachePolicy = getCachePolicy(L, 1);
     NSDictionary *headerFields = [NSDictionary dictionary];
     NSData *body = [@"" dataUsingEncoding:NSUTF8StringEncoding];    
     
@@ -75,6 +75,7 @@ static int request(lua_State *L) {
     [urlRequest setTimeoutInterval:timeout];
 
     HTTPotluck_connection *connection = [[HTTPotluck_connection alloc] initWithRequest:urlRequest luaState:L];
+    [connection autorelease];
     connection.format = format;
 
     wax_instance_create(L, connection, NO);
@@ -94,9 +95,25 @@ static int request(lua_State *L) {
         while (!connection.finished) {
             [runLoop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
         }
+        
+        [connection release];
 
-        return 3;
+        return 2;
     }
+}
+
+
+static NSURLRequestCachePolicy getCachePolicy(lua_State *L, int tableIndex) {
+    NSURLRequestCachePolicy cachePolicy = NSURLRequestUseProtocolCachePolicy;
+    if (lua_isnoneornil(L, tableIndex)) return cachePolicy;
+    
+    lua_getfield(L, tableIndex, "cache");
+    if (lua_isnumber(L, -1)) {
+        cachePolicy = lua_tonumber(L, -1);
+    }
+    lua_pop(L, 1);
+    
+    return cachePolicy;
 }
 
 static NSTimeInterval getTimeout(lua_State *L, int tableIndex) {

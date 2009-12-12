@@ -30,12 +30,13 @@
     _data = [[NSMutableData alloc] init];
     _format = HTTPOTLUCK_UNKNOWN;
 	_error = NO;
+    _canceled = NO;
     return self;
 }
 
 - (void)cancel {
+    _canceled = YES;
     [super cancel];
-    [self release];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
@@ -48,19 +49,27 @@
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-	_error = YES;
-	[_data release];
-    _data = [[error localizedDescription] retain];
-    [self callLuaCallback:connection];
+    if (!_canceled) {
+        _error = YES;
+        [_data release];
+        _data = [[error localizedDescription] retain];
+        [self callLuaCallback:connection];
+    }
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
-    [self callLuaCallback:connection];
+    if (!_canceled) {
+        [self callLuaCallback:connection];
+    }
 }
 
 - (void)callLuaCallback:(NSURLConnection *)connection {    
     BEGIN_STACK_MODIFY(L)
-
+    
+    if (_canceled) {
+        assert("OH NO, URL CONNECTION WAS CANCELED BUT NOT CAUGHT");
+    }
+    
     wax_instance_pushUserdata(L, self);
     lua_getfield(L, -1, HTTPOTLUCK_CALLBACK_FUNCTION_NAME);
     
@@ -117,8 +126,6 @@
         const char* error_string = lua_tostring(L, -1);
         printf("Problem calling Lua function '%s' from HTTPPotluck.\n%s", HTTPOTLUCK_CALLBACK_FUNCTION_NAME, error_string);
     }
-    
-    [connection release];
     
     _finished = YES;
     

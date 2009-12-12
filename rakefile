@@ -23,6 +23,11 @@ task :create_template do
   # Create the default run script
   mkdir_p "#{TARGET_XCODE_TEMPLATE}/data/scripts"
   cp "./lib/build-scripts/default-init.lua", "#{TARGET_XCODE_TEMPLATE}/data/scripts/init.lua"
+  
+  puts
+  puts "Wax Xcode Template Installed!"
+  puts "-----------------------------"
+  puts 
 end
 
 task :edit_template do

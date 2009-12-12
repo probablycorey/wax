@@ -26,6 +26,7 @@ enum {
     int _format;
     bool _finished;
 	bool _error;
+    bool _canceled;
 }
 
 @property (nonatomic, assign) NSHTTPURLResponse *response;

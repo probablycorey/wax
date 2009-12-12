@@ -17,4 +17,5 @@ static int request(lua_State *L);
 static BOOL pushCallback(lua_State *L, int table_index);
 static int getFormat(lua_State *L, int tableIndex);
 static NSString *getMethod(lua_State *L, int tableIndex);
+static NSURLRequestCachePolicy getCachePolicy(lua_State *L, int tableIndex);
 static NSTimeInterval getTimeout(lua_State *L, int tableIndex);
