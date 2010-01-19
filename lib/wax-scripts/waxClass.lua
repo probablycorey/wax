@@ -1,6 +1,6 @@
 function waxClass(options)
-  className = options[1]
-  superclassName = options[2]
+  local className = options[1]
+  local superclassName = options[2]
   local class = wax.class(className, superclassName)
 
   for i, protocol in ipairs(options.protocols or {}) do
@@ -12,7 +12,9 @@ function waxClass(options)
       class[key] = value
     end,
     
-    __index = _G;
+    __index = function(self, key) 
+      return class[key] or _G[key]
+    end,
     
     }
   )
