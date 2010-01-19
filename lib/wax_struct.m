@@ -18,10 +18,12 @@ static const struct luaL_Reg metaFunctions[] = {
 {"__index", __index},
 {"__newindex", __newindex},
 {"__tostring", __tostring},
+{"__gc", __gc},
 {NULL, NULL}
 };
 
 static const struct luaL_Reg functions[] = {
+{"copy", copy},
 {"create", create},
 {"pack", pack},
 {"unpack", unpack},
@@ -163,7 +165,9 @@ static int __newindex(lua_State *L) {
 static int __gc(lua_State *L) {
     wax_struct_userdata *structUserdata = (wax_struct_userdata *)luaL_checkudata(L, 1, WAX_STRUCT_METATABLE_NAME);    
     NSLog(@"STRUCT NAMED %s is GOING AWAY", structUserdata->name);
-    
+    free(structUserdata->data);
+    free(structUserdata->name);
+    free(structUserdata->typeDescription);
     return 0;
 }
 
@@ -200,6 +204,17 @@ static int __tostring(lua_State *L) {
         
         luaL_pushresult(&b);
     }
+    
+    return 1;
+}
+
+static int copy(lua_State *L) {
+    wax_struct_userdata *structUserdata = (wax_struct_userdata *)luaL_checkudata(L, 1, WAX_STRUCT_METATABLE_NAME);
+    wax_struct_userdata *newStructUserdata = wax_struct_create(L, structUserdata->typeDescription, structUserdata->data);
+    
+    int size = strlen(structUserdata->name);
+    newStructUserdata->name = calloc(sizeof(char *), size + 1); // add 1 for '\0'
+    strncpy(newStructUserdata->name, structUserdata->name,  size);            
     
     return 1;
 }
@@ -253,7 +268,6 @@ static int unpack(lua_State *L) {
     return 1;
 }
 
-
 // ENCODINGS CAN BE FOUND AT http://developer.apple.com/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html
 static int pack(lua_State *L) {
     const char *typeDescription = lua_tostring(L, 1);
@@ -299,4 +313,4 @@ static int createClosure(lua_State *L) {
     }
 
     return 1;
-}
+}   

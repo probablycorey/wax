@@ -29,6 +29,7 @@ static int __index(lua_State *L);
 static int __newindex(lua_State *L);
 static int __tostring(lua_State *L);
 
+static int copy(lua_State *L);
 static int create(lua_State *L);
 static int unpack(lua_State *L);
 static int pack(lua_State *L);
