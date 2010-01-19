@@ -1,18 +1,19 @@
 //
-//    HTTPotluck_connection.m
+//    wax_http_connection.m
 //    RentList
 //
 //    Created by Corey Johnson on 8/9/09.
 //    Copyright 2009 ProbablyInteractive. All rights reserved.
 //
 
-#import "HTTPotluck_connection.h"
 #import "lauxlib.h"
+
+#import "wax_http_connection.h"
 #import "wax_instance.h"
 #import "wax_helpers.h"
 #import "json.h"
 
-@implementation HTTPotluck_connection
+@implementation wax_http_connection
 
 @synthesize response=_response;
 @synthesize format=_format;
@@ -28,7 +29,7 @@
     [super initWithRequest:urlRequest delegate:self];
     L = luaState;
     _data = [[NSMutableData alloc] init];
-    _format = HTTPOTLUCK_UNKNOWN;
+    _format = WAX_HTTP_UNKNOWN;
 	_error = NO;
     _canceled = NO;
     return self;
@@ -71,7 +72,7 @@
     }
     
     wax_instance_pushUserdata(L, self);
-    lua_getfield(L, -1, HTTPOTLUCK_CALLBACK_FUNCTION_NAME);
+    lua_getfield(L, -1, WAX_HTTP_CALLBACK_FUNCTION_NAME);
     
     bool hasCallback = YES;
     if (lua_isnil(L, -1)) { 
@@ -80,30 +81,30 @@
     }
     
 	// Try and guess the format type
-	if (_format == HTTPOTLUCK_UNKNOWN) {
+	if (_format == WAX_HTTP_UNKNOWN) {
 		NSString *contentType = [[_response allHeaderFields] objectForKey:@"Content-Type"];
 		if ([contentType hasPrefix:@"application/json"] ||
 			[contentType hasPrefix:@"text/json"] ||
 			[contentType hasPrefix:@"application/javascript"] ||
 			[contentType hasPrefix:@"text/javascript"]) {
-			_format = HTTPOTLUCK_JSON;
+			_format = WAX_HTTP_JSON;
 		}
 		else if ([contentType hasPrefix:@"image/"] ||
 				 [contentType hasPrefix:@"audio/"]) {
-			_format = HTTPOTLUCK_BINARY;
+			_format = WAX_HTTP_BINARY;
 		}
 		else {
-			_format = HTTPOTLUCK_TEXT;
+			_format = WAX_HTTP_TEXT;
 		}
 	}
 	
 	if (_error) {
 		lua_pushnil(L);
 	}
-	else if (_format == HTTPOTLUCK_TEXT || _format == HTTPOTLUCK_JSON) {
+	else if (_format == WAX_HTTP_TEXT || _format == WAX_HTTP_JSON) {
 		NSString *string = [[NSString alloc] initWithData:_data encoding:NSUTF8StringEncoding];
 		
-		if (_format == HTTPOTLUCK_TEXT) {
+		if (_format == WAX_HTTP_TEXT) {
 			wax_fromObjc(L, "@", &string);
 		}
 		else {
@@ -112,11 +113,11 @@
 		
 		[string release];
 	}
-	else if (_format == HTTPOTLUCK_BINARY) {		
+	else if (_format == WAX_HTTP_BINARY) {		
 		wax_fromObjc(L, "@", &_data);
 	}
 	else {
-		luaL_error(L, "HTTPotluck: Unknown HTTPotlock format '%d'", _format);
+		luaL_error(L, "wax_http: Unknown wax_http format '%d'", _format);
 	}
 	
     wax_fromObjc(L, "@", &_response);
@@ -124,7 +125,7 @@
         
     if (hasCallback && wax_pcall(L, 3, 0)) {
         const char* error_string = lua_tostring(L, -1);
-        printf("Problem calling Lua function '%s' from HTTPPotluck.\n%s", HTTPOTLUCK_CALLBACK_FUNCTION_NAME, error_string);
+        printf("Problem calling Lua function '%s' from wax_http.\n%s", WAX_HTTP_CALLBACK_FUNCTION_NAME, error_string);
     }
     
     _finished = YES;

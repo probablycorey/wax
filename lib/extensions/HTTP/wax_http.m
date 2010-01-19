@@ -1,20 +1,20 @@
 //
-//    HTTPotluck.m
+//    wax_http.m
 //    Rentals
 //
 //    Created by ProbablyInteractive on 7/13/09.
 //    Copyright 2009 Probably Interactive. All rights reserved.
 //
 
-#import "HTTPotluck.h"
-#import "HTTPotluck_connection.h"
+#import "wax_http.h"
+#import "wax_http_connection.h"
 #import "wax_instance.h"
 #import "wax_helpers.h"
 
 #import "lua.h"
 #import "lauxlib.h"
 
-const NSTimeInterval HTTPOTLUCK_TIMEOUT = 30;
+const NSTimeInterval WAX_HTTP_TIMEOUT = 30;
 
 
 static const struct luaL_Reg metaFunctions[] = {
@@ -26,12 +26,12 @@ static const struct luaL_Reg functions[] = {
     {NULL, NULL}
 };
 
-int luaopen_HTTPotluck(lua_State *L) {
+int luaopen_wax_http(lua_State *L) {
     BEGIN_STACK_MODIFY(L);
     
-    luaL_newmetatable(L, HTTPOTLUCK_METATABLE_NAME);        
+    luaL_newmetatable(L, WAX_HTTP_METATABLE_NAME);        
     luaL_register(L, NULL, metaFunctions);
-    luaL_register(L, HTTPOTLUCK_METATABLE_NAME, functions);    
+    luaL_register(L, WAX_HTTP_METATABLE_NAME, functions);    
     
     lua_pushvalue(L, -2);
     lua_setmetatable(L, -2); // Set the metatable for the module
@@ -41,13 +41,13 @@ int luaopen_HTTPotluck(lua_State *L) {
     return 1;
 }
 
-// request(table) => connection object or (body, response) if syncronous
-// request{url, options} => connection object or (body, response) if syncronous
+// wax.request(table) => returns connection object or (body, response) if syncronous
+// wax.request{url, options} => returns  connection object or (body, response) if syncronous
 // options:
-//   method = *"get" | "post" | "put" | "delete"
-//   format = *"text" | "binary" | "json"
-//   timout = [number]
-//   callback = function(body, response)
+//   method = "get" | "post" | "put" | "delete"
+//   format = "text" | "binary" | "json"
+//   timout = number
+//   callback = function(body, response) # No callback? Then treat as syncronous
 static int request(lua_State *L) {
     lua_rawgeti(L, 1, 1);
     
@@ -56,13 +56,13 @@ static int request(lua_State *L) {
     
     lua_pop(L, 1); // Pop the url off the stack
     
-    if (!url) luaL_error(L, "HTTPotluck: Could not create URL from string '%s'", [urlString UTF8String]);
+    if (!url) luaL_error(L, "wax_http: Could not create URL from string '%s'", [urlString UTF8String]);
     
     NSURLRequestCachePolicy cachePolicy = getCachePolicy(L, 1);
     NSDictionary *headerFields = [NSDictionary dictionary];
     NSData *body = [@"" dataUsingEncoding:NSUTF8StringEncoding];    
     
-    NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:cachePolicy timeoutInterval:HTTPOTLUCK_TIMEOUT];
+    NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:cachePolicy timeoutInterval:WAX_HTTP_TIMEOUT];
         
     // Get the format
     int format = getFormat(L, 1);    
@@ -74,7 +74,7 @@ static int request(lua_State *L) {
     [urlRequest setHTTPBody:body];    
     [urlRequest setTimeoutInterval:timeout];
 
-    HTTPotluck_connection *connection = [[HTTPotluck_connection alloc] initWithRequest:urlRequest luaState:L];
+    wax_http_connection *connection = [[wax_http_connection alloc] initWithRequest:urlRequest luaState:L];
     [connection autorelease];
     connection.format = format;
 
@@ -82,7 +82,7 @@ static int request(lua_State *L) {
     
     // Asyncronous or Syncronous
     if (pushCallback(L, 1)) { 
-        lua_setfield(L, -2, HTTPOTLUCK_CALLBACK_FUNCTION_NAME); // Set the callback function for the userdata         
+        lua_setfield(L, -2, WAX_HTTP_CALLBACK_FUNCTION_NAME); // Set the callback function for the userdata         
 
         [connection start];
         
@@ -117,7 +117,7 @@ static NSURLRequestCachePolicy getCachePolicy(lua_State *L, int tableIndex) {
 }
 
 static NSTimeInterval getTimeout(lua_State *L, int tableIndex) {
-    NSTimeInterval timeout = HTTPOTLUCK_TIMEOUT;
+    NSTimeInterval timeout = WAX_HTTP_TIMEOUT; // Default
     if (lua_isnoneornil(L, tableIndex)) return timeout;
     
     lua_getfield(L, tableIndex, "timeout");
@@ -130,7 +130,7 @@ static NSTimeInterval getTimeout(lua_State *L, int tableIndex) {
 }
 
 static NSString *getMethod(lua_State *L, int tableIndex) {
-    NSString *method = @"GET";
+    NSString *method = @"GET"; // Default
     if (lua_isnoneornil(L, tableIndex)) return method;
 
     lua_getfield(L, tableIndex, "method");
@@ -143,23 +143,23 @@ static NSString *getMethod(lua_State *L, int tableIndex) {
 }
 
 static int getFormat(lua_State *L, int tableIndex) {
-    int format = HTTPOTLUCK_UNKNOWN;
+    int format = WAX_HTTP_UNKNOWN; // Default
     if (lua_isnoneornil(L, tableIndex)) return format;
 
     lua_getfield(L, tableIndex, "format");
     if (lua_isstring(L, -1)) {
         const char *formatString = lua_tostring(L, -1);
         if (strcasecmp(formatString, "text") == 0) {
-            format = HTTPOTLUCK_TEXT;
+            format = WAX_HTTP_TEXT;
         }
         else if (strcasecmp(formatString, "binary") == 0) {
-            format = HTTPOTLUCK_BINARY;
+            format = WAX_HTTP_BINARY;
         }
         else if (strcasecmp(formatString, "json") == 0) {
-            format = HTTPOTLUCK_JSON;
+            format = WAX_HTTP_JSON;
         }
         else {
-            luaL_error(L, "HTTPotluck: Unknown format name '%s'", formatString);
+            luaL_error(L, "wax_http: Unknown format name '%s'", formatString);
         }
     }
     lua_pop(L, 1);  

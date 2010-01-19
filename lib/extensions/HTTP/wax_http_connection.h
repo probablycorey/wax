@@ -1,24 +1,24 @@
 //
-//    HTTPotluck_connection.h
+//    wax_http_connection.h
 //    RentList
 //
 //    Created by Corey Johnson on 8/9/09.
 //    Copyright 2009 ProbablyInteractive. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 #import "lua.h"
 
 enum {
-	HTTPOTLUCK_UNKNOWN,
-    HTTPOTLUCK_TEXT,
-    HTTPOTLUCK_BINARY, // Like an image or something
-    HTTPOTLUCK_JSON
+	WAX_HTTP_UNKNOWN,
+    WAX_HTTP_TEXT,
+    WAX_HTTP_BINARY, // Like an image or something
+    WAX_HTTP_JSON
 };
 
-#define HTTPOTLUCK_CALLBACK_FUNCTION_NAME "callback"
+#define WAX_HTTP_CALLBACK_FUNCTION_NAME "callback"
 
-@interface HTTPotluck_connection : NSURLConnection {
+@interface wax_http_connection : NSURLConnection {
     lua_State *L;
     NSMutableData *_data;
     NSHTTPURLResponse *_response;
