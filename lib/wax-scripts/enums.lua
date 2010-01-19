@@ -234,3 +234,8 @@ NSURLRequestReloadIgnoringCacheData = NSURLRequestReloadIgnoringLocalCacheData
 NSURLRequestReturnCacheDataElseLoad = 2
 NSURLRequestReturnCacheDataDontLoad = 3
 NSURLRequestReloadRevalidatingCacheData = 5 -- Unimplemented
+
+-- UISegmentedControlStyle
+UISegmentedControlStylePlain = 0
+UISegmentedControlStyleBordered = 1
+UISegmentedControlStyleBar = 2
