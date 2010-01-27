@@ -28,12 +28,18 @@ end
 
 function table.keys(t)
   local keys = {}
-    
-  for k, v in pairs(t) do
-    table.insert(keys, k)
-  end
-  
+  for k, v in pairs(t) do table.insert(keys, k) end
   return keys
+end
+
+function table.values(t)
+  local values = {}    
+  for k, v in pairs(t) do table.insert(values, v) end  
+  return values
+end
+
+function table.last(t)
+  return t[#t]
 end
 
 function table.append(t, moreValues)
@@ -58,7 +64,7 @@ end
 
 function table.find(t, func)
   for k, v in pairs(t) do
-    if func(v) then return k, v end
+    if func(v) then return v end
   end
   
   return nil
@@ -76,10 +82,21 @@ end
 function table.map(t, func)
   local mapped = {}
   for k, v in pairs(t) do
-    table.insert(mapped, func(k, v))
+    table.insert(mapped, func(v))
   end
   
   return mapped
+end
+
+function table.groupBy(t, func)
+  local grouped = {}
+  for k, v in pairs(t) do
+    local groupKey = func(v)
+    if not grouped[groupKey] then grouped[groupKey] = {} end    
+    table.insert(grouped[groupKey], v)
+  end
+  
+  return grouped
 end
 
 function table.tostring(t, indent)
