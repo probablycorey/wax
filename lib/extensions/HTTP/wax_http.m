@@ -52,6 +52,7 @@ static int request(lua_State *L) {
     lua_rawgeti(L, 1, 1);
     
     NSString *urlString = [[NSString stringWithUTF8String:luaL_checkstring(L, -1)] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    if (![urlString hasPrefix:@"http://"] || [urlString hasPrefix:@"https://"]) urlString = [NSString stringWithFormat:@"http://%@", urlString];
     NSURL *url = [NSURL URLWithString:urlString];
     
     lua_pop(L, 1); // Pop the url off the stack
@@ -60,15 +61,17 @@ static int request(lua_State *L) {
     
     NSURLRequestCachePolicy cachePolicy = getCachePolicy(L, 1);
     NSDictionary *headerFields = [NSDictionary dictionary];
-    NSData *body = [@"" dataUsingEncoding:NSUTF8StringEncoding];    
+    NSData *body = [getBody(L, 1) dataUsingEncoding:NSUTF8StringEncoding];
     
     NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:cachePolicy timeoutInterval:WAX_HTTP_TIMEOUT];
-        
+    
     // Get the format
     int format = getFormat(L, 1);    
     NSTimeInterval timeout = getTimeout(L, 1);
     NSString *method = getMethod(L, 1);
 
+    wax_log(LOG_DEBUG, @"%@ %@", method, url);
+    
     [urlRequest setAllHTTPHeaderFields:headerFields];
     [urlRequest setHTTPMethod:method];
     [urlRequest setHTTPBody:body];    
@@ -108,8 +111,8 @@ static NSURLRequestCachePolicy getCachePolicy(lua_State *L, int tableIndex) {
     if (lua_isnoneornil(L, tableIndex)) return cachePolicy;
     
     lua_getfield(L, tableIndex, "cache");
-    if (lua_isnumber(L, -1)) {
-        cachePolicy = lua_tonumber(L, -1);
+    if (!lua_isnil(L, -1)) {
+        cachePolicy = luaL_checknumber(L, -1);
     }
     lua_pop(L, 1);
     
@@ -121,8 +124,8 @@ static NSTimeInterval getTimeout(lua_State *L, int tableIndex) {
     if (lua_isnoneornil(L, tableIndex)) return timeout;
     
     lua_getfield(L, tableIndex, "timeout");
-    if (lua_isnumber(L, -1)) {
-        timeout = lua_tonumber(L, -1);
+    if (!lua_isnil(L, -1)) {
+        timeout = luaL_checknumber(L, -1);
     }
     lua_pop(L, 1);
     
@@ -134,8 +137,9 @@ static NSString *getMethod(lua_State *L, int tableIndex) {
     if (lua_isnoneornil(L, tableIndex)) return method;
 
     lua_getfield(L, tableIndex, "method");
-    if (lua_isnumber(L, -1)) {
-        method = [NSString stringWithUTF8String:lua_tostring(L, -1)];
+    if (!lua_isnil(L, -1)) {
+        const char *string = luaL_checkstring(L, -1);
+        method = [NSString stringWithUTF8String:string];
     }
     lua_pop(L, 1);
     
@@ -147,8 +151,8 @@ static int getFormat(lua_State *L, int tableIndex) {
     if (lua_isnoneornil(L, tableIndex)) return format;
 
     lua_getfield(L, tableIndex, "format");
-    if (lua_isstring(L, -1)) {
-        const char *formatString = lua_tostring(L, -1);
+    if (!lua_isnil(L, -1)) {
+        const char *formatString = luaL_checkstring(L, -1);
         if (strcasecmp(formatString, "text") == 0) {
             format = WAX_HTTP_TEXT;
         }
@@ -167,11 +171,25 @@ static int getFormat(lua_State *L, int tableIndex) {
     return format;
 }
 
+static NSString *getBody(lua_State *L, int tableIndex) {
+    NSString *body = @""; // Default
+    if (lua_isnoneornil(L, tableIndex)) return body;
+    
+    lua_getfield(L, tableIndex, "body");
+    if (!lua_isnil(L, -1)) {
+        const char *string = luaL_checkstring(L, -1);
+        body = [NSString stringWithUTF8String:string];
+    }
+    lua_pop(L, 1);
+    
+    return body;
+}
+
 // Assumes table is on top of the stack
 static BOOL pushCallback(lua_State *L, int tableIndex) {
     lua_getfield(L, tableIndex, "callback");
 
-    if (lua_isnil(L, -1)) {
+    if (lua_isnil(L, tableIndex)) {
         lua_pop(L, 1);
         return NO;
     }
