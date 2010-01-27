@@ -41,9 +41,6 @@ void wax_startWithExtensions(lua_CFunction func, ...) {
     }
     else {
         mainFile = "scripts/init.lua"; // Use this for compiled lua files        
-        if (![[NSFileManager defaultManager] fileExistsAtPath:[NSString stringWithUTF8String:mainFile]]) {
-          mainFile = "scripts/init.dat";        
-        }
     }            
     
     luaL_openlibs(L); 
@@ -62,9 +59,12 @@ void wax_startWithExtensions(lua_CFunction func, ...) {
     NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
     
     addGlobals(L);
-	//wax_gc_create(L); // starts the wax GC object!
-
-    if (luaL_dofile(L, mainFile) != 0) fprintf(stderr,"Fatal Error: %s\n", lua_tostring(L,-1));    
+    if (luaL_dofile(L, "scripts/wax/init.lua") != 0) {
+        fprintf(stderr,"Fatal error opening wax scripts: %s\n", lua_tostring(L,-1));
+        exit(1);
+    }
+    
+    if (luaL_dofile(L, mainFile) != 0) fprintf(stderr,"Fatal error: %s\n", lua_tostring(L,-1));
 }
 
 void wax_start() {
@@ -79,7 +79,7 @@ void luaopen_wax(lua_State *L) {
     luaopen_wax_class(L);
     luaopen_wax_instance(L);
     luaopen_wax_struct(L);
-//	luaopen_wax_gc(L);
+    luaL_dofile(L, "scripts/wax/init.lua"); // Preload all the wax lua scripts
 }
 
 static void addGlobals(lua_State *L) {
@@ -92,10 +92,20 @@ static void addGlobals(lua_State *L) {
     
     lua_pushcfunction(L, exitApp);
     lua_setglobal(L, "exitApp");
+
+    lua_pushcfunction(L, objcDebug);
+    lua_setglobal(L, "debugger");
     
     // Variables
+    lua_newtable(L);
+    
     lua_pushnumber(L, WAX_VERSION);
-    lua_setglobal(L, "WaxVersion");
+    lua_setfield(L, -2, "version");
+    
+    lua_pushstring(L, [WAX_DATA_PATH UTF8String]);
+    lua_setfield(L, -2, "root");
+    
+    lua_setglobal(L, "Wax"); // Sets the table name
     
     lua_pushstring(L, [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] UTF8String]);
     lua_setglobal(L, "NSDocumentDirectory");
@@ -130,5 +140,10 @@ static int toobjc(lua_State *L) {
 
 static int exitApp(lua_State *L) {
     exit(0);
+    return 0;
+}
+
+static int objcDebug(lua_State *L) {
+    NSLog(@"DEBUGGEG!");
     return 0;
 }

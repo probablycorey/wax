@@ -164,7 +164,7 @@ static int __newindex(lua_State *L) {
 
 static int __gc(lua_State *L) {
     wax_struct_userdata *structUserdata = (wax_struct_userdata *)luaL_checkudata(L, 1, WAX_STRUCT_METATABLE_NAME);    
-    NSLog(@"STRUCT NAMED %s is GOING AWAY", structUserdata->name);
+
     free(structUserdata->data);
     free(structUserdata->name);
     free(structUserdata->typeDescription);

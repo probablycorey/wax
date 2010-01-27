@@ -1,45 +1,41 @@
-require 'rake/clean'
-
 WAX_FILES = FileList["lib/*"]  
 
 TARGET_XCODE_TEMPLATE = "#{ENV['HOME']}/Library/Application Support/Developer/Shared/Xcode/Project Templates/Wax/Wax iPhone App"
 
-CLEAN.include(TARGET_XCODE_TEMPLATE)
-
 task :default => :install
 
 desc "Install wax xcode templates"
-task :install => [:clean, :create_template]
+task :install => "template:create"
 
-task :create_template do
-  mkdir_p File.dirname(TARGET_XCODE_TEMPLATE)
-  cp_r "xcode-template", TARGET_XCODE_TEMPLATE
+namespace :template do
+  task :create => :clean do
+    mkdir_p File.dirname(TARGET_XCODE_TEMPLATE)
+    cp_r "xcode-template", TARGET_XCODE_TEMPLATE
 
-  # Copy the wax files into the template
-  template_wax_path = "#{TARGET_XCODE_TEMPLATE}/wax"
-  mkdir_p template_wax_path
-  cp_r WAX_FILES, template_wax_path
+    # Copy the wax files into the template
+    template_wax_path = "#{TARGET_XCODE_TEMPLATE}/wax"
+    mkdir_p template_wax_path
+    cp_r WAX_FILES, template_wax_path
   
-  # Create the default run script
-  mkdir_p "#{TARGET_XCODE_TEMPLATE}/data/scripts"
-  cp "./lib/build-scripts/default-init.lua", "#{TARGET_XCODE_TEMPLATE}/data/scripts/init.lua"
-  
-  puts
-  puts "Wax Xcode Template Installed!"
-  puts "-----------------------------"
-  puts 
-end
+    # Create the default run script
+    puts
+    puts "Wax Xcode Template Installed!"
+    puts "-----------------------------"
+    puts 
+  end
 
-task :edit_template do
-  cp_r "lib", "xcode-template/wax"
-  mkdir_p "xcode-template/data/scripts"
-  touch "xcode-template/data/scripts/init.lua"
+  desc "Prepare xcode template for editing"
+  task :edit => :clean do
+    cp_r "lib", "xcode-template/wax"
   
-  `open xcode-template/___PROJECTNAME___.xcodeproj`
-end
+    `open xcode-template/___PROJECTNAME___.xcodeproj`
+  end
 
-task :clean_template do
-  rm_r "xcode-template/wax"
-  rm_r "xcode-template/data"
-  rm_r "xcode-template/build"
+  desc "Cleans up xcode template for packaging"
+  task :clean do
+    rm_r File.dirname(TARGET_XCODE_TEMPLATE), :force => true
+    
+    rm_r "xcode-template/wax", :force => true
+    rm_r "xcode-template/build", :force => true
+  end
 end

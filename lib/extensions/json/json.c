@@ -25,7 +25,7 @@ int luaopen_json(lua_State *L) {
     return 1;
 }
 
-// parse("some jsons string") => table
+// json.parse("some jsons string") => table
 static int parse(lua_State *L) {
     json_parseString(L, lua_tostring(L, -1));
     

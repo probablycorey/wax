@@ -175,6 +175,10 @@ static int __call(lua_State *L) {
         
         class_addMethod(class, @selector(methodSignatureForSelector:), (IMP)methodSignatureForSelector, "@@::");
         class_addMethod(class, @selector(forwardInvocation:), (IMP)forwardInvocation, "v@:@");
+        
+        id metaclass = object_getClass(class);
+        class_addMethod(metaclass, @selector(methodSignatureForSelector:), (IMP)methodSignatureForSelector, "@@::");
+        class_addMethod(metaclass, @selector(forwardInvocation:), (IMP)forwardInvocation, "v@:@");
     }
         
     wax_instance_create(L, class, YES);
