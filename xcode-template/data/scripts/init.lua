@@ -10,8 +10,8 @@
 -- TextMate project.
 --
 -- What's next?
--- 1. Open up the AppDelegate.m file and add some extensions (like the HTTPotluck for networking)
--- 2. ???
+-- 1. Corey needs to write some docs!
+-- 2. You start writing the app!
 
 local window = UI.Application:sharedApplication():keyWindow()
 window:setBackgroundColor(UI.Color:orangeColor())

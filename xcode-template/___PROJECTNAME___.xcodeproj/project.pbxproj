@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		040A624A10FCFE1300530831 /* wax_CGTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 040A624110FCFE1300530831 /* wax_CGTransform.m */; };
 		040A624B10FCFE1300530831 /* wax_CGContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 040A624410FCFE1300530831 /* wax_CGContext.m */; };
-		04EB02CF10869C81004666AF /* HTTPotluck.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EB02C710869C81004666AF /* HTTPotluck.m */; };
-		04EB02D010869C81004666AF /* HTTPotluck_connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EB02C910869C81004666AF /* HTTPotluck_connection.m */; };
-		04EB02D110869C81004666AF /* json.c in Sources */ = {isa = PBXBuildFile; fileRef = 04EB02CB10869C81004666AF /* json.c */; };
-		04EB02D210869C81004666AF /* json.peg in Resources */ = {isa = PBXBuildFile; fileRef = 04EB02CD10869C81004666AF /* json.peg */; };
+		04242E351110A0A10020F7F8 /* wax_http.m in Sources */ = {isa = PBXBuildFile; fileRef = 04242E321110A0A10020F7F8 /* wax_http.m */; };
+		04242E361110A0A10020F7F8 /* wax_http_connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 04242E341110A0A10020F7F8 /* wax_http_connection.m */; };
+		04EB02D110869C81004666AF /* wax_json.c in Sources */ = {isa = PBXBuildFile; fileRef = 04EB02CB10869C81004666AF /* wax_json.c */; };
+		04EB02D210869C81004666AF /* wax_json.peg in Resources */ = {isa = PBXBuildFile; fileRef = 04EB02CD10869C81004666AF /* wax_json.peg */; };
 		1D3623260D0F684500981E51 /* ___PROJECTNAMEASIDENTIFIER___AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* ___PROJECTNAMEASIDENTIFIER___AppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
@@ -77,14 +77,14 @@
 		040A624110FCFE1300530831 /* wax_CGTransform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_CGTransform.m; sourceTree = "<group>"; };
 		040A624310FCFE1300530831 /* wax_CGContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_CGContext.h; sourceTree = "<group>"; };
 		040A624410FCFE1300530831 /* wax_CGContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_CGContext.m; sourceTree = "<group>"; };
-		04EB02C610869C81004666AF /* HTTPotluck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPotluck.h; sourceTree = "<group>"; };
-		04EB02C710869C81004666AF /* HTTPotluck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPotluck.m; sourceTree = "<group>"; };
-		04EB02C810869C81004666AF /* HTTPotluck_connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPotluck_connection.h; sourceTree = "<group>"; };
-		04EB02C910869C81004666AF /* HTTPotluck_connection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPotluck_connection.m; sourceTree = "<group>"; };
-		04EB02CB10869C81004666AF /* json.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = json.c; sourceTree = "<group>"; };
-		04EB02CC10869C81004666AF /* json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = json.h; sourceTree = "<group>"; };
-		04EB02CD10869C81004666AF /* json.peg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = json.peg; sourceTree = "<group>"; };
-		04EB02CE10869C81004666AF /* json.peg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = json.peg.h; sourceTree = "<group>"; };
+		04242E311110A0A10020F7F8 /* wax_http.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_http.h; sourceTree = "<group>"; };
+		04242E321110A0A10020F7F8 /* wax_http.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_http.m; sourceTree = "<group>"; };
+		04242E331110A0A10020F7F8 /* wax_http_connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_http_connection.h; sourceTree = "<group>"; };
+		04242E341110A0A10020F7F8 /* wax_http_connection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_http_connection.m; sourceTree = "<group>"; };
+		04EB02CB10869C81004666AF /* wax_json.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = wax_json.c; sourceTree = "<group>"; };
+		04EB02CC10869C81004666AF /* wax_json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_json.h; sourceTree = "<group>"; };
+		04EB02CD10869C81004666AF /* wax_json.peg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wax_json.peg; sourceTree = "<group>"; };
+		04EB02CE10869C81004666AF /* wax_json.peg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_json.peg.h; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D3623240D0F684500981E51 /* ___PROJECTNAMEASIDENTIFIER___AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "___PROJECTNAMEASIDENTIFIER___AppDelegate.h"; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* ___PROJECTNAMEASIDENTIFIER___AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "___PROJECTNAMEASIDENTIFIER___AppDelegate.m"; sourceTree = "<group>"; };
@@ -211,35 +211,35 @@
 			path = CGContext;
 			sourceTree = "<group>";
 		};
+		04242E301110A0A10020F7F8 /* HTTP */ = {
+			isa = PBXGroup;
+			children = (
+				04242E311110A0A10020F7F8 /* wax_http.h */,
+				04242E321110A0A10020F7F8 /* wax_http.m */,
+				04242E331110A0A10020F7F8 /* wax_http_connection.h */,
+				04242E341110A0A10020F7F8 /* wax_http_connection.m */,
+			);
+			path = HTTP;
+			sourceTree = "<group>";
+		};
 		04EB02C410869C81004666AF /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				04242E301110A0A10020F7F8 /* HTTP */,
 				040A623F10FCFE1300530831 /* CGAffine */,
 				040A624210FCFE1300530831 /* CGContext */,
-				04EB02C510869C81004666AF /* HTTPotluck */,
 				04EB02CA10869C81004666AF /* json */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
 		};
-		04EB02C510869C81004666AF /* HTTPotluck */ = {
-			isa = PBXGroup;
-			children = (
-				04EB02C610869C81004666AF /* HTTPotluck.h */,
-				04EB02C710869C81004666AF /* HTTPotluck.m */,
-				04EB02C810869C81004666AF /* HTTPotluck_connection.h */,
-				04EB02C910869C81004666AF /* HTTPotluck_connection.m */,
-			);
-			path = HTTPotluck;
-			sourceTree = "<group>";
-		};
 		04EB02CA10869C81004666AF /* json */ = {
 			isa = PBXGroup;
 			children = (
-				04EB02CB10869C81004666AF /* json.c */,
-				04EB02CC10869C81004666AF /* json.h */,
-				04EB02CD10869C81004666AF /* json.peg */,
-				04EB02CE10869C81004666AF /* json.peg.h */,
+				04EB02CC10869C81004666AF /* wax_json.h */,
+				04EB02CB10869C81004666AF /* wax_json.c */,
+				04EB02CE10869C81004666AF /* wax_json.peg.h */,
+				04EB02CD10869C81004666AF /* wax_json.peg */,
 			);
 			path = json;
 			sourceTree = "<group>";
@@ -490,7 +490,7 @@
 				91373AEC1066AEEA0089FEE3 /* init.lua in Resources */,
 				91373B241066B2B30089FEE3 /* Entitlements.plist in Resources */,
 				91373BF01066C8930089FEE3 /* Icon.png in Resources */,
-				04EB02D210869C81004666AF /* json.peg in Resources */,
+				04EB02D210869C81004666AF /* wax_json.peg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -555,11 +555,11 @@
 				91373A8E1066A8990089FEE3 /* wax_helpers.m in Sources */,
 				91373A8F1066A8990089FEE3 /* wax_instance.m in Sources */,
 				91373A901066A8990089FEE3 /* wax_struct.m in Sources */,
-				04EB02CF10869C81004666AF /* HTTPotluck.m in Sources */,
-				04EB02D010869C81004666AF /* HTTPotluck_connection.m in Sources */,
-				04EB02D110869C81004666AF /* json.c in Sources */,
+				04EB02D110869C81004666AF /* wax_json.c in Sources */,
 				040A624A10FCFE1300530831 /* wax_CGTransform.m in Sources */,
 				040A624B10FCFE1300530831 /* wax_CGContext.m in Sources */,
+				04242E351110A0A10020F7F8 /* wax_http.m in Sources */,
+				04242E361110A0A10020F7F8 /* wax_http_connection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
