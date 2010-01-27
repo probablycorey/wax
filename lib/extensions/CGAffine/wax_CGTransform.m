@@ -14,7 +14,7 @@
 #import "lua.h"
 #import "lauxlib.h"
 
-#define METATABLE_NAME "WaxCGTransform"
+#define METATABLE_NAME "wax.CGTransform"
 
 static int identity(lua_State *L);
 static int scale(lua_State *L);
@@ -32,7 +32,7 @@ static const struct luaL_Reg functions[] = {
     {NULL, NULL}
 };
 
-int luaopen_CGTransform(lua_State *L) {
+int luaopen_wax_CGTransform(lua_State *L) {
     BEGIN_STACK_MODIFY(L);
     
     luaL_newmetatable(L, METATABLE_NAME);        

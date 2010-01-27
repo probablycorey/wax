@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "lua.h"
 
-int luaopen_WaxCGContext(lua_State *L);
+int luaopen_wax_CGContext(lua_State *L);
 static int currentContext(lua_State *L);
 
 static int translate(lua_State *L);

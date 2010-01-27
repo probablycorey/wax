@@ -1,4 +1,4 @@
-#include "json.h"
+#include "wax_json.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -17,7 +17,7 @@ static const struct luaL_Reg functions[] = {
     {NULL, NULL}
 };
 
-int luaopen_json(lua_State *L) {    
+int luaopen_wax_json(lua_State *L) {    
     luaL_newmetatable(L, JSON_METATABLE_NAME);        
     luaL_register(L, NULL, metaFunctions);
     luaL_register(L, JSON_METATABLE_NAME, functions);    
@@ -83,7 +83,7 @@ void json_addToArray() {
     lua_rawseti(json_L, -2, lua_objlen(json_L, -2) + 1);
 }
 
-#include "json.peg.h" // Import the peg parsing code
+#include "wax_json.peg.h" // Import the peg parsing code
 
 // Parsing code
 // ------------

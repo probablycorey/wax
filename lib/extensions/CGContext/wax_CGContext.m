@@ -14,7 +14,7 @@
 #import "lua.h"
 #import "lauxlib.h"
 
-#define METATABLE_NAME "WaxCGContext"
+#define METATABLE_NAME "wax.CGContext"
 
 static const struct luaL_Reg metaFunctions[] = {
     {NULL, NULL}
@@ -34,7 +34,7 @@ static const struct luaL_Reg functions[] = {
     {NULL, NULL}
 };
 
-int luaopen_WaxCGContext(lua_State *L) {
+int luaopen_wax_CGContext(lua_State *L) {
     BEGIN_STACK_MODIFY(L);
     
     luaL_newmetatable(L, METATABLE_NAME);        

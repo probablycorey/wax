@@ -9,4 +9,4 @@
 #import <Foundation/Foundation.h>
 #import "lua.h"
 
-int luaopen_CGTransform(lua_State *L);
+int luaopen_wax_CGTransform(lua_State *L);

@@ -11,7 +11,7 @@
 #import "wax_http_connection.h"
 #import "wax_instance.h"
 #import "wax_helpers.h"
-#import "json.h"
+#import "wax_json.h"
 
 @implementation wax_http_connection
 
