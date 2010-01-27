@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040A624A10FCFE1300530831 /* wax_CGTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 040A624110FCFE1300530831 /* wax_CGTransform.m */; };
+		040A624B10FCFE1300530831 /* wax_CGContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 040A624410FCFE1300530831 /* wax_CGContext.m */; };
 		04EB02CF10869C81004666AF /* HTTPotluck.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EB02C710869C81004666AF /* HTTPotluck.m */; };
 		04EB02D010869C81004666AF /* HTTPotluck_connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 04EB02C910869C81004666AF /* HTTPotluck_connection.m */; };
 		04EB02D110869C81004666AF /* json.c in Sources */ = {isa = PBXBuildFile; fileRef = 04EB02CB10869C81004666AF /* json.c */; };
@@ -71,6 +73,10 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXFileReference section */
+		040A624010FCFE1300530831 /* wax_CGTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_CGTransform.h; sourceTree = "<group>"; };
+		040A624110FCFE1300530831 /* wax_CGTransform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_CGTransform.m; sourceTree = "<group>"; };
+		040A624310FCFE1300530831 /* wax_CGContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_CGContext.h; sourceTree = "<group>"; };
+		040A624410FCFE1300530831 /* wax_CGContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_CGContext.m; sourceTree = "<group>"; };
 		04EB02C610869C81004666AF /* HTTPotluck.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPotluck.h; sourceTree = "<group>"; };
 		04EB02C710869C81004666AF /* HTTPotluck.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPotluck.m; sourceTree = "<group>"; };
 		04EB02C810869C81004666AF /* HTTPotluck_connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPotluck_connection.h; sourceTree = "<group>"; };
@@ -187,9 +193,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		040A623F10FCFE1300530831 /* CGAffine */ = {
+			isa = PBXGroup;
+			children = (
+				040A624010FCFE1300530831 /* wax_CGTransform.h */,
+				040A624110FCFE1300530831 /* wax_CGTransform.m */,
+			);
+			path = CGAffine;
+			sourceTree = "<group>";
+		};
+		040A624210FCFE1300530831 /* CGContext */ = {
+			isa = PBXGroup;
+			children = (
+				040A624310FCFE1300530831 /* wax_CGContext.h */,
+				040A624410FCFE1300530831 /* wax_CGContext.m */,
+			);
+			path = CGContext;
+			sourceTree = "<group>";
+		};
 		04EB02C410869C81004666AF /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				040A623F10FCFE1300530831 /* CGAffine */,
+				040A624210FCFE1300530831 /* CGContext */,
 				04EB02C510869C81004666AF /* HTTPotluck */,
 				04EB02CA10869C81004666AF /* json */,
 			);
@@ -532,6 +558,8 @@
 				04EB02CF10869C81004666AF /* HTTPotluck.m in Sources */,
 				04EB02D010869C81004666AF /* HTTPotluck_connection.m in Sources */,
 				04EB02D110869C81004666AF /* json.c in Sources */,
+				040A624A10FCFE1300530831 /* wax_CGTransform.m in Sources */,
+				040A624B10FCFE1300530831 /* wax_CGContext.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
