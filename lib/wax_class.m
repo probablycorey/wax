@@ -195,7 +195,7 @@ static int addProtocols(lua_State *L) {
     }
     
     for (int i = 2; i <= lua_gettop(L); i++) {
-        const char *protocolName = lua_tostring(L, i);
+        const char *protocolName = luaL_checkstring(L, i);
         Protocol *protocol = objc_getProtocol(protocolName);
         if (!protocol) luaL_error(L, "Could not find protocol named '%s'", protocolName);
         class_addProtocol(instanceUserdata->instance, protocol);
