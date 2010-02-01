@@ -346,8 +346,13 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
 					break;
 				}
 				default:
-					free(value);
-					luaL_error(L, "Converstion from %s to Objective-c not implemented.", typeDescription);
+                    if (lua_islightuserdata(L, stackIndex)) {
+                        pointer = lua_touserdata(L, stackIndex);
+                    }
+                    else {
+                        free(value);
+                        luaL_error(L, "Converstion from %s to Objective-c not implemented.", typeDescription);
+                    }
 			}
 			
 			if (pointer) {

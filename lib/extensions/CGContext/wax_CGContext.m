@@ -22,6 +22,9 @@ static const struct luaL_Reg metaFunctions[] = {
 
 static const struct luaL_Reg functions[] = {
     {"currentContext", currentContext},
+    {"imageContext", imageContext},
+    {"imageFromContext", imageFromContext},
+    
 	{"translate", translate},
 	
 	{"setFillColor", setFillColor},
@@ -52,6 +55,27 @@ static int currentContext(lua_State *L) {
 	wax_fromObjc(L, @encode(CGContextRef), &context);
 	
 	return 1;
+}
+
+static int imageContext(lua_State *L) {
+    int startTop = lua_gettop(L);
+    int width = luaL_checknumber(L, 1);
+    int height = luaL_checknumber(L, 2);
+
+    UIGraphicsBeginImageContext(CGSizeMake(width, height));    
+    lua_call(L, 0, LUA_MULTRET);
+    UIGraphicsEndImageContext();
+    
+    int nresults = lua_gettop(L) - startTop + 1; // Add one because the function is popped
+
+    return nresults;
+}
+
+static int imageFromContext(lua_State *L) {
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    wax_instance_create(L, image, NO);
+    
+    return 1;
 }
 
 static int translate(lua_State *L) {
