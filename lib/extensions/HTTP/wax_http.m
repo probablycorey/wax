@@ -52,7 +52,7 @@ static int request(lua_State *L) {
     lua_rawgeti(L, 1, 1);
     
     NSString *urlString = [[NSString stringWithUTF8String:luaL_checkstring(L, -1)] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    if (![urlString hasPrefix:@"http://"] || [urlString hasPrefix:@"https://"]) urlString = [NSString stringWithFormat:@"http://%@", urlString];
+    if (![urlString hasPrefix:@"http://"] && ![urlString hasPrefix:@"https://"]) urlString = [NSString stringWithFormat:@"http://%@", urlString];
     NSURL *url = [NSURL URLWithString:urlString];
     
     lua_pop(L, 1); // Pop the url off the stack
@@ -60,7 +60,7 @@ static int request(lua_State *L) {
     if (!url) luaL_error(L, "wax_http: Could not create URL from string '%s'", [urlString UTF8String]);
     
     NSURLRequestCachePolicy cachePolicy = getCachePolicy(L, 1);
-    NSDictionary *headerFields = [NSDictionary dictionary];
+    NSDictionary *headerFields = getHeaders(L, 1);
     NSData *body = [getBody(L, 1) dataUsingEncoding:NSUTF8StringEncoding];
     
     NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:cachePolicy timeoutInterval:WAX_HTTP_TIMEOUT];
@@ -82,6 +82,10 @@ static int request(lua_State *L) {
     connection.format = format;
 
     wax_instance_create(L, connection, NO);
+    
+    if (pushAuthCallback(L, 1)) {
+        lua_setfield(L, -2, WAX_HTTP_AUTH_CALLBACK_FUNCTION_NAME);
+    }
     
     // Asyncronous or Syncronous
     if (pushCallback(L, 1)) { 
@@ -130,6 +134,22 @@ static NSTimeInterval getTimeout(lua_State *L, int tableIndex) {
     lua_pop(L, 1);
     
     return timeout;
+}
+
+static NSDictionary *getHeaders(lua_State *L, int tableIndex) {
+    NSDictionary *headers = [NSDictionary dictionary];
+    
+    if (lua_isnoneornil(L, tableIndex)) return headers;
+
+    lua_getfield(L, tableIndex, "headers");
+    if (!lua_isnil(L, -1)) {
+        id *result = wax_copyToObjc(L, "@", -1, nil);
+        headers = *result;
+        free(result);
+    }
+    lua_pop(L, 1);
+    
+    return headers;
 }
 
 static NSString *getMethod(lua_State *L, int tableIndex) {
@@ -187,9 +207,22 @@ static NSString *getBody(lua_State *L, int tableIndex) {
 
 // Assumes table is on top of the stack
 static BOOL pushCallback(lua_State *L, int tableIndex) {
-    lua_getfield(L, tableIndex, "callback");
+    lua_getfield(L, tableIndex, WAX_HTTP_CALLBACK_FUNCTION_NAME);
 
-    if (lua_isnil(L, tableIndex)) {
+    if (lua_isnil(L, -1)) {
+        lua_pop(L, 1);
+        return NO;
+    }
+    else {
+        return YES;
+    }
+}
+
+// Assumes table is on top of the stack
+static BOOL pushAuthCallback(lua_State *L, int tableIndex) {
+    lua_getfield(L, tableIndex, WAX_HTTP_AUTH_CALLBACK_FUNCTION_NAME);
+    
+    if (lua_isnil(L, -1)) {
         lua_pop(L, 1);
         return NO;
     }

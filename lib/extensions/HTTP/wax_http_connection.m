@@ -45,6 +45,12 @@
     _response = [response retain];
 }
 
+- (void)connection:(NSURLConnection *)connection didReceiveAuthenticationChallenge:(NSURLAuthenticationChallenge *)challenge {
+    if (![self callLuaAuthCallback:challenge]) {
+        [[challenge sender] continueWithoutCredentialForAuthenticationChallenge:challenge];
+    }
+}
+
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     [_data appendData:data];
 }
@@ -64,7 +70,36 @@
     }
 }
 
-- (void)callLuaCallback:(NSURLConnection *)connection {    
+- (BOOL)callLuaAuthCallback:(NSURLAuthenticationChallenge *)challenge { 
+    BEGIN_STACK_MODIFY(L)
+    
+    if (_canceled) {
+        assert("OH NO, URL CONNECTION WAS CANCELED BUT NOT CAUGHT");
+    }
+    
+    wax_instance_pushUserdata(L, self);
+    lua_getfield(L, -1, WAX_HTTP_AUTH_CALLBACK_FUNCTION_NAME);
+    
+    bool hasCallback = YES;
+    if (lua_isnil(L, -1)) { 
+        hasCallback = NO;
+        lua_pop(L, 1);
+    }
+    
+    wax_fromObjc(L, "@", &challenge);
+    
+    if (hasCallback && wax_pcall(L, 1, 0)) {
+        const char* error_string = lua_tostring(L, -1);
+        printf("Problem calling Lua function '%s' from wax_http.\n%s", WAX_HTTP_AUTH_CALLBACK_FUNCTION_NAME, error_string);
+    }
+    
+    END_STACK_MODIFY(L, 0)
+    
+    return hasCallback;
+}
+
+
+- (void)callLuaCallback:(NSURLConnection *)connection { 
     BEGIN_STACK_MODIFY(L)
     
     if (_canceled) {

@@ -17,6 +17,7 @@ enum {
 };
 
 #define WAX_HTTP_CALLBACK_FUNCTION_NAME "callback"
+#define WAX_HTTP_AUTH_CALLBACK_FUNCTION_NAME "authCallback"
 
 @interface wax_http_connection : NSURLConnection {
     lua_State *L;
@@ -35,6 +36,7 @@ enum {
 @property (nonatomic, readonly) bool finished;
 
 - (id)initWithRequest:(NSURLRequest *)urlRequest luaState:(lua_State *)luaState;
+- (BOOL)callLuaAuthCallback:(NSURLAuthenticationChallenge *)challenge;
 - (void)callLuaCallback:(NSURLConnection *)connection;
 
 @end
