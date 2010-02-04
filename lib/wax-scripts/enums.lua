@@ -239,3 +239,14 @@ NSURLRequestReloadRevalidatingCacheData = 5 -- Unimplemented
 UISegmentedControlStylePlain = 0
 UISegmentedControlStyleBordered = 1
 UISegmentedControlStyleBar = 2
+
+-- UIRemoteNotificationType
+UIRemoteNotificationTypeNone = 0
+UIRemoteNotificationTypeBadge = math.pow(2, 0)
+UIRemoteNotificationTypeSound = math.pow(2, 1)
+UIRemoteNotificationTypeAlert = math.pow(2, 2)
+
+-- NSURLCredentialPersistence;
+NSURLCredentialPersistenceNone = 0
+NSURLCredentialPersistenceForSession = 1
+NSURLCredentialPersistencePermanent = 2
