@@ -105,7 +105,7 @@ static int request(lua_State *L) {
         
         [connection release];
 
-        return 2;
+        return 3;
     }
 }
 

@@ -165,7 +165,7 @@
     
     _finished = YES;
     
-    END_STACK_MODIFY(L, hasCallback ? 0 : 3)
+    END_STACK_MODIFY(L, 3)
 }
 
 @end
