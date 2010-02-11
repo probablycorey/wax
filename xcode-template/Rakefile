@@ -7,7 +7,6 @@ task :tm => "TEXTMATE" do
   sh "mate #{TEXTMATE_FILE}"
 end
 
-
 namespace :tm do
   desc "Install textmate lua & wax bundles"
   task :install_bundles do
@@ -46,7 +45,7 @@ Some tips to make life easier
   end
 end
 
-desc "Update the wax lib with the lastest code!"
+desc "Update the wax lib with the lastest code"
 task :update do
   puts
   puts "User Input Required!"
@@ -65,4 +64,9 @@ task :update do
   rm_rf WAX_PATH
   sh "mv #{tmp_dir}/*/lib \"#{WAX_PATH}\""
   rm_rf tmp_dir
+end
+
+desc "Runs tests on your app"
+task :test do
+  sh "#{WAX_PATH}/bin/hammer -t"
 end

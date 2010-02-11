@@ -1,6 +1,6 @@
 WAX_FILES = FileList["lib/*"]  
-
 TARGET_XCODE_TEMPLATE = "#{ENV['HOME']}/Library/Application Support/Developer/Shared/Xcode/Project Templates/Wax/Wax iPhone App"
+WAX_ROOT = File.expand_path("..", __FILE__)
 
 task :default => :install
 
