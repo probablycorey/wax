@@ -9,25 +9,25 @@
 
 @implementation WaxTextField
 - (UITextAutocapitalizationType)autocapitalizationType {
-	return [super autocapitalizationType];
+    return [super autocapitalizationType];
 }
 
 - (void)setAutocapitalizationType:(UITextAutocapitalizationType)value {
-	return [super setAutocapitalizationType:value];
+    return [super setAutocapitalizationType:value];
 }
 
 
 - (void)autocorrectionType:(UITextAutocorrectionType)value {
-	[super autocorrectionType];
+    [super autocorrectionType];
 }
 
 - (void)setAutocorrectionType:(UITextAutocorrectionType)value {
-	[super setAutocorrectionType:value];
+    [super setAutocorrectionType:value];
 }
 
 
 - (UIKeyboardType)keyboardType {
-	return [super keyboardType];
+    return [super keyboardType];
 }
 
 - (void)setKeyboardType:(UIKeyboardType)value {
@@ -35,11 +35,11 @@
 }
 
 - (UIKeyboardAppearance)keyboardAppearance {
-	return [super keyboardAppearance];
+    return [super keyboardAppearance];
 }
 
 - (void)setKeyboardAppearance:(UIKeyboardAppearance)value {
-	[super setKeyboardAppearance:value];
+    [super setKeyboardAppearance:value];
 }
 
 
@@ -53,19 +53,19 @@
 
 
 - (BOOL)enablesReturnKeyAutomatically {
-	return [super enablesReturnKeyAutomatically];
+    return [super enablesReturnKeyAutomatically];
 }
 
 - (void)setEnablesReturnKeyAutomatically:(BOOL)value {
-	[super setEnablesReturnKeyAutomatically:value];
+    [super setEnablesReturnKeyAutomatically:value];
 }
 
 - (BOOL)isSecureTextEntry {
-	return [super isSecureTextEntry];
+    return [super isSecureTextEntry];
 }
 
 - (void)setSecureTextEntry:(BOOL)value {
-	[super setSecureTextEntry:value];
+    [super setSecureTextEntry:value];
 }
 
 @end

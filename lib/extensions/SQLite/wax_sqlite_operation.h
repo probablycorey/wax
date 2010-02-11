@@ -12,9 +12,9 @@
 
 
 @interface SQLiteOperation : NSOperation {
-	sqlite3 *_db;
-	lua_State *_mainthread;
-	NSString *_sqlString;
+    sqlite3 *_db;
+    lua_State *_mainthread;
+    NSString *_sqlString;
 }
 
 + (NSOperationQueue *)operationQueue;

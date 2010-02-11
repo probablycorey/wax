@@ -28,9 +28,9 @@
     
     wax_startWithExtensions(luaopen_wax_http, luaopen_wax_json, nil);
 
-	// If you want to load wax with no extensions, replace the wax_startWithExtensions line
+    // If you want to load wax with no extensions, replace the wax_startWithExtensions line
     // above with    
-    // wax_start();	
+    // wax_start();    
 }
 
 

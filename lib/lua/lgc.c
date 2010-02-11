@@ -167,7 +167,7 @@ static int traversetable (global_State *g, Table *h) {
   if (mode && ttisstring(mode)) {  /* is there a weak mode? */
     weakkey = (strchr(svalue(mode), 'k') != NULL);
     weakvalue = (strchr(svalue(mode), 'v') != NULL);
-	waxvalue = (strchr(svalue(mode), '!') != NULL);	  
+    waxvalue = (strchr(svalue(mode), '!') != NULL);      
     if (weakkey || weakvalue) {  /* is really weak? */
       h->marked &= ~(KEYWEAK | VALUEWEAK);  /* clear bits */
       h->marked |= cast_byte((weakkey << KEYWEAKBIT) |
@@ -193,23 +193,23 @@ static int traversetable (global_State *g, Table *h) {
       if (!weakkey) markvalue(g, gkey(n));
       if (!weakvalue) markvalue(g, gval(n));
       if (waxvalue && ttisuserdata(gval(n))) {
-	    Udata *udata = (Udata *)uvalue(gval(n)); 
-	    lua_State *L = g->mainthread;
-	    const TValue *tm = gfasttm(g, udata->uv.metatable, TM_WAXRETAIN);
-	    if (tm != NULL) {
-		  lu_mem oldt = g->GCthreshold;
-		  g->GCthreshold = 2*g->totalbytes;  /* avoid GC steps */
-		            
-		  setobj2s(L, L->top, tm);
-		  setuvalue(L, L->top+1, udata);
-		  L->top += 2;
-		  luaD_call(L, L->top - 2, 1);
-		  if (lua_toboolean(L, -1)) {
-			  markvalue(g, gval(n)); // Only get rid of it sometimes?
-		  }
-	      lua_pop(L, 1);
-		
-		  g->GCthreshold = oldt;  /* restore threshold */  
+        Udata *udata = (Udata *)uvalue(gval(n)); 
+        lua_State *L = g->mainthread;
+        const TValue *tm = gfasttm(g, udata->uv.metatable, TM_WAXRETAIN);
+        if (tm != NULL) {
+          lu_mem oldt = g->GCthreshold;
+          g->GCthreshold = 2*g->totalbytes;  /* avoid GC steps */
+                    
+          setobj2s(L, L->top, tm);
+          setuvalue(L, L->top+1, udata);
+          L->top += 2;
+          luaD_call(L, L->top - 2, 1);
+          if (lua_toboolean(L, -1)) {
+              markvalue(g, gval(n)); // Only get rid of it sometimes?
+          }
+          lua_pop(L, 1);
+        
+          g->GCthreshold = oldt;  /* restore threshold */  
         }
       }
     }

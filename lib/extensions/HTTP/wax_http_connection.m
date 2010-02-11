@@ -30,7 +30,7 @@
     L = luaState;
     _data = [[NSMutableData alloc] init];
     _format = WAX_HTTP_UNKNOWN;
-	_error = NO;
+    _error = NO;
     _canceled = NO;
     return self;
 }
@@ -115,49 +115,49 @@
         lua_pop(L, 1);
     }
     
-	// Try and guess the format type
-	if (_format == WAX_HTTP_UNKNOWN) {
-		NSString *contentType = [[_response allHeaderFields] objectForKey:@"Content-Type"];
-		if ([contentType hasPrefix:@"application/json"] ||
-			[contentType hasPrefix:@"text/json"] ||
-			[contentType hasPrefix:@"application/javascript"] ||
-			[contentType hasPrefix:@"text/javascript"]) {
-			_format = WAX_HTTP_JSON;
-		}
-		else if ([contentType hasPrefix:@"image/"] ||
-				 [contentType hasPrefix:@"audio/"] ||
+    // Try and guess the format type
+    if (_format == WAX_HTTP_UNKNOWN) {
+        NSString *contentType = [[_response allHeaderFields] objectForKey:@"Content-Type"];
+        if ([contentType hasPrefix:@"application/json"] ||
+            [contentType hasPrefix:@"text/json"] ||
+            [contentType hasPrefix:@"application/javascript"] ||
+            [contentType hasPrefix:@"text/javascript"]) {
+            _format = WAX_HTTP_JSON;
+        }
+        else if ([contentType hasPrefix:@"image/"] ||
+                 [contentType hasPrefix:@"audio/"] ||
                  [contentType hasPrefix:@"application/octet-stream"]) {
-			_format = WAX_HTTP_BINARY;
-		}
-		else {
-			_format = WAX_HTTP_TEXT;
-		}
-	}
-	
-	if (_error) {
-		lua_pushnil(L);
-	}
-	else if (_format == WAX_HTTP_TEXT || _format == WAX_HTTP_JSON) {
-		NSString *string = [[NSString alloc] initWithData:_data encoding:NSUTF8StringEncoding];
-		
-		if (_format == WAX_HTTP_TEXT) {
-			wax_fromObjc(L, "@", &string);
-		}
-		else {
-			json_parseString(L, [string UTF8String]);
-		}
-		
-		[string release];
-	}
-	else if (_format == WAX_HTTP_BINARY) {		
-		wax_fromObjc(L, "@", &_data);
-	}
-	else {
-		luaL_error(L, "wax_http: Unknown wax_http format '%d'", _format);
-	}
-	
+            _format = WAX_HTTP_BINARY;
+        }
+        else {
+            _format = WAX_HTTP_TEXT;
+        }
+    }
+    
+    if (_error) {
+        lua_pushnil(L);
+    }
+    else if (_format == WAX_HTTP_TEXT || _format == WAX_HTTP_JSON) {
+        NSString *string = [[NSString alloc] initWithData:_data encoding:NSUTF8StringEncoding];
+        
+        if (_format == WAX_HTTP_TEXT) {
+            wax_fromObjc(L, "@", &string);
+        }
+        else {
+            json_parseString(L, [string UTF8String]);
+        }
+        
+        [string release];
+    }
+    else if (_format == WAX_HTTP_BINARY) {        
+        wax_fromObjc(L, "@", &_data);
+    }
+    else {
+        luaL_error(L, "wax_http: Unknown wax_http format '%d'", _format);
+    }
+    
     wax_fromObjc(L, "@", &_response);
-	wax_fromObjc(L, "@", &_data); // Send the raw data too (since oddly, the response doesn't contain it)
+    wax_fromObjc(L, "@", &_data); // Send the raw data too (since oddly, the response doesn't contain it)
         
     if (hasCallback && wax_pcall(L, 3, 0)) {
         const char* error_string = lua_tostring(L, -1);

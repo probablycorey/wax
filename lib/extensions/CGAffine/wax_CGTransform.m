@@ -26,9 +26,9 @@ static const struct luaL_Reg metaFunctions[] = {
 
 static const struct luaL_Reg functions[] = {
     {"identity", identity},
-	{"scale", scale},
-	{"translate", translate},
-	
+    {"scale", scale},
+    {"translate", translate},
+    
     {NULL, NULL}
 };
 
@@ -45,31 +45,31 @@ int luaopen_wax_CGTransform(lua_State *L) {
 }
 
 static int identity(lua_State *L) {
-	CGAffineTransform identity = CGAffineTransformIdentity;
-	wax_fromObjc(L, @encode(CGAffineTransform), &identity);
-	
-	return 1;
+    CGAffineTransform identity = CGAffineTransformIdentity;
+    wax_fromObjc(L, @encode(CGAffineTransform), &identity);
+    
+    return 1;
 }
 
 
 // WaxCGTransform.scale(transform, 2, 2)
 static int scale(lua_State *L) {
-	void *value = wax_copyToObjc(L, @encode(CGAffineTransform), 1, nil);
-	CGAffineTransform transform = *(CGAffineTransform *)value;
-	free(value);
-	transform = CGAffineTransformScale(transform, luaL_checknumber(L, 2), luaL_checknumber(L, 3));
-	wax_fromObjc(L, @encode(CGAffineTransform), &transform);
-	
-	return 1;
+    void *value = wax_copyToObjc(L, @encode(CGAffineTransform), 1, nil);
+    CGAffineTransform transform = *(CGAffineTransform *)value;
+    free(value);
+    transform = CGAffineTransformScale(transform, luaL_checknumber(L, 2), luaL_checknumber(L, 3));
+    wax_fromObjc(L, @encode(CGAffineTransform), &transform);
+    
+    return 1;
 }
 
 // WaxCGTransform.translate(transform, 2, 2)
 static int translate(lua_State *L) {
-	void *value = wax_copyToObjc(L, @encode(CGAffineTransform), 1, nil);
-	CGAffineTransform transform = *(CGAffineTransform *)value;
-	free(value);
-	transform = CGAffineTransformTranslate(transform, luaL_checknumber(L, 2), luaL_checknumber(L, 3));
-	wax_fromObjc(L, @encode(CGAffineTransform), &transform);
-	
-	return 1;
+    void *value = wax_copyToObjc(L, @encode(CGAffineTransform), 1, nil);
+    CGAffineTransform transform = *(CGAffineTransform *)value;
+    free(value);
+    transform = CGAffineTransformTranslate(transform, luaL_checknumber(L, 2), luaL_checknumber(L, 3));
+    wax_fromObjc(L, @encode(CGAffineTransform), &transform);
+    
+    return 1;
 }

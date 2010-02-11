@@ -10,7 +10,7 @@
 #import "lua.h"
 
 enum {
-	WAX_HTTP_UNKNOWN,
+    WAX_HTTP_UNKNOWN,
     WAX_HTTP_TEXT,
     WAX_HTTP_BINARY, // Like an image or something
     WAX_HTTP_JSON
@@ -23,10 +23,10 @@ enum {
     lua_State *L;
     NSMutableData *_data;
     NSHTTPURLResponse *_response;
-	
+    
     int _format;
     bool _finished;
-	bool _error;
+    bool _error;
     bool _canceled;
 }
 

@@ -221,7 +221,7 @@ void generate_value(yajl_gen gen, lua_State *L, int idx) {
                     dictionary = true;
                     lua_pop(L, 2); // pop key and value off the stack
                     break;
-				}
+                }
                 else {
                     lua_pop(L, 1);
                 }

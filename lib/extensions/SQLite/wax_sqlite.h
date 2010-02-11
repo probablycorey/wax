@@ -17,7 +17,7 @@ struct sqlite3;
 
 typedef struct _wax_sqlite_userdata {
     sqlite3 *db;
-	
+    
 } wax_sqlite_userdata;
 
 

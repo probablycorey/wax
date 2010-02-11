@@ -8,10 +8,10 @@
 -- -L and then runs all programs listed before -L.
 --
 -- assumptions:
---	file xxx.lua contains module xxx
---	'/' is the directory separator (could have used package.config)
---	int and size_t take 4 bytes (could have read sizes from header)
---	does not honor package.path
+--    file xxx.lua contains module xxx
+--    '/' is the directory separator (could have used package.config)
+--    int and size_t take 4 bytes (could have read sizes from header)
+--    does not honor package.path
 --
 -- Luiz Henrique de Figueiredo <lhf@tecgraf.puc-rio.br>
 -- Tue Aug  5 22:57:33 BRT 2008
