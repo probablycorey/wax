@@ -14,6 +14,7 @@ static const struct luaL_Reg metaFunctions[] = {
 
 static const struct luaL_Reg functions[] = {
     {"parse", parse},
+    {"generate", generate},
     {NULL, NULL}
 };
 
@@ -32,8 +33,10 @@ int luaopen_wax_json(lua_State *L) {
 #include "yajl/yajl_lex.h"
 #include "yajl/yajl_parser.h"
 #include "yajl/yajl_bytestack.h"
+#include "yajl/yajl_gen.h"
 #include <string.h>
 
+static yajl_gen gen;
 static yajl_handle hand;
 static yajl_bytestack state;
 enum {
@@ -180,6 +183,104 @@ void json_parseString(lua_State *L, const char *input) {
     parse_string(L, (const unsigned char *)input, strlen(input));
 }
 
+void generate_value(yajl_gen gen, lua_State *L, int idx) {
+    yajl_gen_status stat;
+    int type = lua_type(L, idx);
+
+    switch (type) {
+        case LUA_TNIL:
+        case LUA_TNONE:
+            stat = yajl_gen_null(gen);
+            break;
+
+        case LUA_TBOOLEAN:
+            stat = yajl_gen_bool(gen, lua_toboolean(L, idx));
+            break;
+
+        case LUA_TNUMBER:
+        case LUA_TSTRING: {
+            size_t len;
+            const char *str = lua_tolstring(L, idx, &len);
+            if (type == LUA_TNUMBER)
+                stat = yajl_gen_number(gen, (const unsigned char*)str, (unsigned int)len);
+            else
+                stat = yajl_gen_string(gen, (const unsigned char*)str, (unsigned int)len);
+            break;
+        }
+
+        case LUA_TTABLE: {
+            bool dictionary = false;
+            bool empty = true;
+
+            lua_pushvalue(L, idx); // Push the table reference on the top
+            lua_pushnil(L);  /* first key */
+
+            while (lua_next(L, -2)) {
+                empty = false;
+                if (lua_type(L, -2) != LUA_TNUMBER) {
+                    dictionary = true;
+                    lua_pop(L, 2); // pop key and value off the stack
+                    break;
+				}
+                else {
+                    lua_pop(L, 1);
+                }
+            }
+
+            if (empty)
+                dictionary = true;
+
+            if (dictionary)
+                yajl_gen_map_open(gen);
+            else
+                yajl_gen_array_open(gen);
+
+            lua_pushnil(L);  /* first key */
+            while (lua_next(L, idx-1)) {
+                if (dictionary) {
+                    size_t len;
+                    const char *str = lua_tolstring(L, -2, &len);
+                    stat = yajl_gen_string(gen, (const unsigned char*)str, (unsigned int)len);
+                }
+                generate_value(gen, L, -1);
+                lua_pop(L, 1); // Pop off the value
+            }
+
+            if (dictionary)
+                yajl_gen_map_close(gen);
+            else
+                yajl_gen_array_close(gen);
+
+            lua_pop(L, 1); // Pop the table reference off
+            break;
+        }
+
+        case LUA_TFUNCTION:
+        case LUA_TUSERDATA:
+        case LUA_TTHREAD:
+        case LUA_TLIGHTUSERDATA:
+        default:
+            stat = yajl_gen_null(gen);
+            break;
+    }
+}
+
+static int generate(lua_State *L) {
+    const unsigned char * buf;
+    unsigned int len;
+    yajl_gen_config conf = { .beautify = 1, .indentString = "  " };
+    gen = yajl_gen_alloc(&conf, NULL);
+
+    generate_value(gen, L, -1);
+
+    yajl_gen_get_buf(gen, &buf, &len);
+    lua_pushlstring(L, (const char *)buf, len);
+
+    yajl_gen_clear(gen);
+    yajl_gen_free(gen);
+    return 1;
+}
+
 #else
 
 // json.parse("some jsons string") => table
@@ -187,6 +288,10 @@ static int parse(lua_State *L) {
     json_parseString(L, lua_tostring(L, -1));
     
     return 1;
+}
+
+static int generate(lua_State *L) {
+    return luaL_error(L, "not implemented");
 }
 
 // Code needed by the generated parser
