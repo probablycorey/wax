@@ -1,5 +1,4 @@
-require "wax"
-require "luaspec"
+require "wax.luaspec"
 
 require "objcToLuaTest"
 require "instanceTest"
@@ -8,4 +7,4 @@ require "protocolTest"
 require "structTest"
 require "gcTest"
 
-  
+spec:report()
