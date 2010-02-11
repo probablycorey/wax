@@ -125,7 +125,8 @@
 			_format = WAX_HTTP_JSON;
 		}
 		else if ([contentType hasPrefix:@"image/"] ||
-				 [contentType hasPrefix:@"audio/"]) {
+				 [contentType hasPrefix:@"audio/"] ||
+                 [contentType hasPrefix:@"application/octet-stream"]) {
 			_format = WAX_HTTP_BINARY;
 		}
 		else {
