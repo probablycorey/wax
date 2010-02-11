@@ -27,20 +27,22 @@ void uncaughtExceptionHandler(NSException *e) {
     NSLog(@"WAX! Uncaught exception %@", e);
 }
 
-void wax_startWithExtensions(lua_CFunction func, ...) {   
-    char *mainFile;    
+void wax_startWithExtensions(lua_CFunction func, ...) {  
+    NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler); 
+     
+    char *initScript;    
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
-    [fileManager changeCurrentDirectoryPath:WAX_DATA_PATH];
+    [fileManager changeCurrentDirectoryPath:[[NSBundle mainBundle] bundlePath]];
     
     lua_State *L = wax_currentLuaState();
     
     NSDictionary *env = [[NSProcessInfo processInfo] environment];
     if ([[env objectForKey:@"WAX_TEST"] isEqual:@"1"]) { // If there is a WAX_TEST env, then run the tests!
-        mainFile = "scripts/tests/init.lua";
+        initScript = WAX_DATA_DIR "scripts/tests/init.lua";
     }
     else {
-        mainFile = "scripts/init.lua"; // Use this for compiled lua files        
+        initScript = WAX_DATA_DIR "scripts/init.lua"; // Use this for compiled lua files        
     }            
     
     luaL_openlibs(L); 
@@ -55,16 +57,17 @@ void wax_startWithExtensions(lua_CFunction func, ...) {
             
         va_end(ap);
     }
-    
-    NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler);
-    
+
     addGlobals(L);
-    if (luaL_dofile(L, "scripts/wax/init.lua") != 0) {
+
+    // Load all the wax lua scripts
+    if (luaL_dofile(L, WAX_DATA_DIR "scripts/wax/init.lua") != 0) {
         fprintf(stderr,"Fatal error opening wax scripts: %s\n", lua_tostring(L,-1));
         exit(1);
     }
     
-    if (luaL_dofile(L, mainFile) != 0) fprintf(stderr,"Fatal error: %s\n", lua_tostring(L,-1));
+    // Start the user's init script!
+    if (luaL_dofile(L, initScript) != 0) fprintf(stderr,"Fatal error: %s\n", lua_tostring(L,-1));
 }
 
 void wax_start() {
@@ -79,7 +82,6 @@ void luaopen_wax(lua_State *L) {
     luaopen_wax_class(L);
     luaopen_wax_instance(L);
     luaopen_wax_struct(L);
-    luaL_dofile(L, "scripts/wax/init.lua"); // Preload all the wax lua scripts
 }
 
 static void addGlobals(lua_State *L) {
@@ -96,16 +98,11 @@ static void addGlobals(lua_State *L) {
     lua_pushcfunction(L, objcDebug);
     lua_setglobal(L, "debugger");
     
-    // Variables
-    lua_newtable(L);
-    
     lua_pushnumber(L, WAX_VERSION);
-    lua_setfield(L, -2, "version");
+    lua_setglobal(L, "waxVersion");
     
-    lua_pushstring(L, [WAX_DATA_PATH UTF8String]);
-    lua_setfield(L, -2, "root");
-    
-    lua_setglobal(L, "Wax"); // Sets the table name
+    lua_pushstring(L, WAX_DATA_DIR);
+    lua_setglobal(L, "waxRoot");
     
     lua_pushstring(L, [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] UTF8String]);
     lua_setglobal(L, "NSDocumentDirectory");

@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import "lua.h"
-#import "wax_conf.h"
 
 #define WAX_VERSION 0.81
 
