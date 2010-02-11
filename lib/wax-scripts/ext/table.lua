@@ -32,6 +32,15 @@ function table.keys(t)
   return keys
 end
 
+function table.unique(t)
+  local seen = {}
+  for i, v in ipairs(t) do
+    if not table.includes(seen, v) then table.insert(seen, v) end
+  end
+
+  return seen
+end
+
 function table.values(t)
   local values = {}    
   for k, v in pairs(t) do table.insert(values, v) end  

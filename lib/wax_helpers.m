@@ -750,10 +750,6 @@ void wax_copyTable(lua_State *from, lua_State *to, int index) {
 		
 		lua_pop(from, 1); // remove 'value'; keeps 'key' for next iteration			
     }
-	
-	int i = 0;
-	i++;
-	i = 1 + i;
 }
 
 void wax_copyObject(lua_State *from, lua_State *to, int index) {
