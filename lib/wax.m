@@ -38,7 +38,7 @@ void wax_startWithExtensions(lua_CFunction func, ...) {
     lua_State *L = wax_currentLuaState();
     
     NSDictionary *env = [[NSProcessInfo processInfo] environment];
-    if ([[env objectForKey:@"WAX_TEST"] isEqual:@"1"]) { // If there is a WAX_TEST env, then run the tests!
+    if ([[env objectForKey:@"WAX_TEST"] isEqual:@"YES"]) {
         initScript = WAX_DATA_DIR "scripts/tests/init.lua";
     }
     else {
