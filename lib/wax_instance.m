@@ -318,7 +318,14 @@ static int methodClosure(lua_State *L) {
         
         // If a waxClass is alloc'd it will automatically create a wax_instance_userdata, if it's not a wax class
         // then we need to create it ourselves
-        if (!instanceUserdata) instanceUserdata = wax_instance_create(L, instance, NO);
+        if (!instanceUserdata) {
+            instanceUserdata = wax_instance_create(L, instance, NO);
+        }
+        else {
+            // Push the new instance data onto the stack
+            lua_pushlightuserdata(L, &instanceUserdata);
+        }
+
         
         // Also, replace the old userdata with the new one!
         lua_replace(L, 1);

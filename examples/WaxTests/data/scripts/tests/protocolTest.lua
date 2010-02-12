@@ -4,7 +4,6 @@ describe["An ObjClass with delegate"] = function()
   before = function()
     delegateObject = ProtocolSimpleObject:init()
     object = wax.class["SimpleDelegateObject"]:init()
-    
     object:setDelegate(delegateObject)
   end
   
@@ -22,7 +21,7 @@ describe["An ObjClass with delegate"] = function()
   it["returns required method with arg"] = function()        
     expect(tolua(object:callRequiredMethodWithArg(1))).should_be(2)
   end
-
+  
   it["returns optional method"] = function()        
     expect(tolua(object:callOptionalMethod(2))).should_be(2)
   end
@@ -30,5 +29,4 @@ describe["An ObjClass with delegate"] = function()
   it["returns optional method with arg"] = function()        
     expect(tolua(object:callOptionalMethodWithArg(2))).should_be(4)
   end
-  
 end

@@ -7,8 +7,5 @@ require "tests.protocolTest"
 require "tests.structTest"
 require "tests.gcTest"
 
-puts("")
-puts("Results")
-puts("-------")
+puts("\nResults\n-------")
 spec:report()
-exitApp()

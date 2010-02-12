@@ -42,11 +42,17 @@ int luaopen_wax_class(lua_State *L) {
     return 1;
 }
 
-static id alloc(id self, SEL _cmd) {
+static id alloc(id self, SEL _cmd) {    
     lua_State *L = wax_currentLuaState(); 
+
+    BEGIN_STACK_MODIFY(L);
+
     id instance = class_createInstance(self, 0);
     wax_instance_userdata *waxInstance = wax_instance_create(L, instance, NO);
-    object_setInstanceVariable(instance, WAX_CLASS_INSTANCE_USERDATA_IVAR_NAME, &waxInstance);
+    object_setInstanceVariable(instance, WAX_CLASS_INSTANCE_USERDATA_IVAR_NAME, waxInstance);
+    
+    END_STACK_MODIFY(L, 0);
+    
     return instance;
 }
 

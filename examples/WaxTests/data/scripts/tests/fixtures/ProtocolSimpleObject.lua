@@ -1,5 +1,10 @@
 waxClass{"ProtocolSimpleObject", "SimpleObject", protocols = {"SimpleProtocol"}}
 
+-- function init(self)
+--   self.super:init()
+--   return self
+-- end
+
 function requiredMethod()
   return 1
 end

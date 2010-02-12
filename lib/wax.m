@@ -63,7 +63,10 @@ void wax_startWithExtensions(lua_CFunction func, ...) {
     // Should we run the tests?
     NSDictionary *env = [[NSProcessInfo processInfo] environment];
     if ([[env objectForKey:@"WAX_TEST"] isEqual:@"YES"]) {
-        if (luaL_dofile(L, WAX_DATA_DIR "scripts/tests/init.lua") != 0) fprintf(stderr,"Fatal error running tests: %s\n", lua_tostring(L,-1));
+        if (luaL_dofile(L, WAX_DATA_DIR "scripts/tests/init.lua") != 0) {
+            fprintf(stderr,"Fatal error running tests: %s\n", lua_tostring(L,-1));
+        }
+        exit(1);
     }
 }
 
