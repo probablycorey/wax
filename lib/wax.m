@@ -30,20 +30,11 @@ void uncaughtExceptionHandler(NSException *e) {
 void wax_startWithExtensions(lua_CFunction func, ...) {  
     NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler); 
      
-    char *initScript;    
-    
     NSFileManager *fileManager = [NSFileManager defaultManager];
     [fileManager changeCurrentDirectoryPath:[[NSBundle mainBundle] bundlePath]];
     
     lua_State *L = wax_currentLuaState();
-    
-    NSDictionary *env = [[NSProcessInfo processInfo] environment];
-    if ([[env objectForKey:@"WAX_TEST"] isEqual:@"YES"]) {
-        initScript = WAX_DATA_DIR "scripts/tests/init.lua";
-    }
-    else {
-        initScript = WAX_DATA_DIR "scripts/init.lua"; // Use this for compiled lua files        
-    }            
+           
     
     luaL_openlibs(L); 
     luaopen_wax(L);
@@ -67,7 +58,13 @@ void wax_startWithExtensions(lua_CFunction func, ...) {
     }
     
     // Start the user's init script!
-    if (luaL_dofile(L, initScript) != 0) fprintf(stderr,"Fatal error: %s\n", lua_tostring(L,-1));
+    if (luaL_dofile(L, WAX_DATA_DIR "scripts/AppDelegate.lua") != 0) fprintf(stderr,"Fatal error: %s\n", lua_tostring(L,-1));
+    
+    // Should we run the tests?
+    NSDictionary *env = [[NSProcessInfo processInfo] environment];
+    if ([[env objectForKey:@"WAX_TEST"] isEqual:@"YES"]) {
+        if (luaL_dofile(L, WAX_DATA_DIR "scripts/tests/init.lua") != 0) fprintf(stderr,"Fatal error running tests: %s\n", lua_tostring(L,-1));
+    }
 }
 
 void wax_start() {

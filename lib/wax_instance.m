@@ -8,6 +8,7 @@
  */
 
 #import "wax_instance.h"
+#import "wax_class.h"
 #import "wax.h"
 #import "wax_helpers.h"
 
@@ -309,10 +310,15 @@ static int methodClosure(lua_State *L) {
     BOOL autoAlloc = NO;
         
     if (instanceUserdata->isClass && wax_isInitMethod(selectorName)) {
-        // If init is called on a class, allocate it.
-        // This is done to get around the placeholder stuff the foundation class uses
-        instanceUserdata = wax_instance_create(L, [instanceUserdata->instance alloc], NO);
         autoAlloc = YES;
+
+        // If init is called on a class, allocate it.
+        id instance = [instanceUserdata->instance alloc];
+        object_getInstanceVariable(instance, WAX_CLASS_INSTANCE_USERDATA_IVAR_NAME, (void **)&instanceUserdata);
+        
+        // If a waxClass is alloc'd it will automatically create a wax_instance_userdata, if it's not a wax class
+        // then we need to create it ourselves
+        if (!instanceUserdata) instanceUserdata = wax_instance_create(L, instance, NO);
         
         // Also, replace the old userdata with the new one!
         lua_replace(L, 1);

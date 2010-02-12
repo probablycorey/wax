@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0482731911260912003DFACB /* AppDelegate.lua in Resources */ = {isa = PBXBuildFile; fileRef = 0482731611260912003DFACB /* AppDelegate.lua */; };
+		0482731A11260912003DFACB /* init.lua in Resources */ = {isa = PBXBuildFile; fileRef = 0482731811260912003DFACB /* init.lua */; };
 		04A96D281124C7DE00768EF9 /* copy_scripts.sh in Resources */ = {isa = PBXBuildFile; fileRef = 04A96CA61124C7DD00768EF9 /* copy_scripts.sh */; };
 		04A96D291124C7DE00768EF9 /* luac.lua in Resources */ = {isa = PBXBuildFile; fileRef = 04A96CA71124C7DD00768EF9 /* luac.lua */; };
 		04A96D2A1124C7DE00768EF9 /* wax_CGTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A96CAB1124C7DD00768EF9 /* wax_CGTransform.m */; };
@@ -59,13 +61,10 @@
 		04A96D6A1124C7DE00768EF9 /* wax_helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A96D221124C7DE00768EF9 /* wax_helpers.m */; };
 		04A96D6B1124C7DE00768EF9 /* wax_instance.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A96D241124C7DE00768EF9 /* wax_instance.m */; };
 		04A96D6C1124C7DE00768EF9 /* wax_struct.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A96D261124C7DE00768EF9 /* wax_struct.m */; };
-		04A96D6F1124C82600768EF9 /* init.lua in Resources */ = {isa = PBXBuildFile; fileRef = 04A96D6E1124C82600768EF9 /* init.lua */; };
-		1D3623260D0F684500981E51 /* ___PROJECTNAMEASIDENTIFIER___AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* ___PROJECTNAMEASIDENTIFIER___AppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
-		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		91373B241066B2B30089FEE3 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91373B231066B2B30089FEE3 /* Entitlements.plist */; };
 		91373BF01066C8930089FEE3 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91373BEF1066C8930089FEE3 /* Icon.png */; };
 /* End PBXBuildFile section */
@@ -84,6 +83,10 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXFileReference section */
+		0482723B1125E152003DFACB /* ProtocolLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProtocolLoader.h; sourceTree = "<group>"; };
+		0482723C1125E152003DFACB /* WaxTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxTextField.h; sourceTree = "<group>"; };
+		0482731611260912003DFACB /* AppDelegate.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AppDelegate.lua; sourceTree = "<group>"; };
+		0482731811260912003DFACB /* init.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = init.lua; sourceTree = "<group>"; };
 		04A96CA61124C7DD00768EF9 /* copy_scripts.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = copy_scripts.sh; sourceTree = "<group>"; };
 		04A96CA71124C7DD00768EF9 /* luac.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = luac.lua; sourceTree = "<group>"; };
 		04A96CAA1124C7DD00768EF9 /* wax_CGTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_CGTransform.h; sourceTree = "<group>"; };
@@ -182,14 +185,10 @@
 		04A96D241124C7DE00768EF9 /* wax_instance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_instance.m; sourceTree = "<group>"; };
 		04A96D251124C7DE00768EF9 /* wax_struct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_struct.h; sourceTree = "<group>"; };
 		04A96D261124C7DE00768EF9 /* wax_struct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_struct.m; sourceTree = "<group>"; };
-		04A96D6E1124C82600768EF9 /* init.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = init.lua; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1D3623240D0F684500981E51 /* ___PROJECTNAMEASIDENTIFIER___AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "___PROJECTNAMEASIDENTIFIER___AppDelegate.h"; sourceTree = "<group>"; };
-		1D3623250D0F684500981E51 /* ___PROJECTNAMEASIDENTIFIER___AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "___PROJECTNAMEASIDENTIFIER___AppDelegate.m"; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* ___PROJECTNAME___.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "___PROJECTNAME___.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		28AD733E0D9D9553002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* ___PROJECTNAMEASIDENTIFIER____Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "___PROJECTNAMEASIDENTIFIER____Prefix.pch"; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* ___PROJECTNAMEASIDENTIFIER___-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "___PROJECTNAMEASIDENTIFIER___-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
@@ -211,6 +210,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0482731511260912003DFACB /* scripts */ = {
+			isa = PBXGroup;
+			children = (
+				0482731611260912003DFACB /* AppDelegate.lua */,
+				0482731711260912003DFACB /* tests */,
+			);
+			name = scripts;
+			path = data/scripts;
+			sourceTree = "<group>";
+		};
+		0482731711260912003DFACB /* tests */ = {
+			isa = PBXGroup;
+			children = (
+				0482731811260912003DFACB /* init.lua */,
+			);
+			path = tests;
+			sourceTree = "<group>";
+		};
 		04A96CA21124C7DD00768EF9 /* wax */ = {
 			isa = PBXGroup;
 			children = (
@@ -388,20 +405,11 @@
 			path = lua;
 			sourceTree = "<group>";
 		};
-		04A96D6D1124C82600768EF9 /* scripts */ = {
-			isa = PBXGroup;
-			children = (
-				04A96D6E1124C82600768EF9 /* init.lua */,
-			);
-			name = scripts;
-			path = data/scripts;
-			sourceTree = "<group>";
-		};
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				1D3623240D0F684500981E51 /* ___PROJECTNAMEASIDENTIFIER___AppDelegate.h */,
-				1D3623250D0F684500981E51 /* ___PROJECTNAMEASIDENTIFIER___AppDelegate.m */,
+				0482723B1125E152003DFACB /* ProtocolLoader.h */,
+				0482723C1125E152003DFACB /* WaxTextField.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -417,9 +425,10 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				29B97316FDCFA39411CA2CEA /* main.m */,
 				080E96DDFE201D6D7F000001 /* Classes */,
-				04A96D6D1124C82600768EF9 /* scripts */,
 				04A96CA21124C7DD00768EF9 /* wax */,
+				0482731511260912003DFACB /* scripts */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -432,7 +441,6 @@
 			isa = PBXGroup;
 			children = (
 				32CA4F630368D1EE00C91783 /* ___PROJECTNAMEASIDENTIFIER____Prefix.pch */,
-				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -440,7 +448,6 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
 				91373B231066B2B30089FEE3 /* Entitlements.plist */,
 				8D1107310486CEB800E47090 /* ___PROJECTNAMEASIDENTIFIER___-Info.plist */,
 				91373BEF1066C8930089FEE3 /* Icon.png */,
@@ -502,14 +509,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				91373B241066B2B30089FEE3 /* Entitlements.plist in Resources */,
 				91373BF01066C8930089FEE3 /* Icon.png in Resources */,
 				04A96D281124C7DE00768EF9 /* copy_scripts.sh in Resources */,
 				04A96D291124C7DE00768EF9 /* luac.lua in Resources */,
 				04A96D301124C7DE00768EF9 /* wax_json.peg in Resources */,
 				04A96D381124C7DE00768EF9 /* yajl-1.0.9.tar.gz in Resources */,
-				04A96D6F1124C82600768EF9 /* init.lua in Resources */,
+				0482731911260912003DFACB /* AppDelegate.lua in Resources */,
+				0482731A11260912003DFACB /* init.lua in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,7 +545,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
-				1D3623260D0F684500981E51 /* ___PROJECTNAMEASIDENTIFIER___AppDelegate.m in Sources */,
 				04A96D2A1124C7DE00768EF9 /* wax_CGTransform.m in Sources */,
 				04A96D2B1124C7DE00768EF9 /* wax_CGContext.m in Sources */,
 				04A96D2C1124C7DE00768EF9 /* wax_http.m in Sources */,

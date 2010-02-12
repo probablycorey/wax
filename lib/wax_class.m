@@ -42,6 +42,14 @@ int luaopen_wax_class(lua_State *L) {
     return 1;
 }
 
+static id alloc(id self, SEL _cmd) {
+    lua_State *L = wax_currentLuaState(); 
+    id instance = class_createInstance(self, 0);
+    wax_instance_userdata *waxInstance = wax_instance_create(L, instance, NO);
+    object_setInstanceVariable(instance, WAX_CLASS_INSTANCE_USERDATA_IVAR_NAME, &waxInstance);
+    return instance;
+}
+
 static void forwardInvocation(id self, SEL _cmd, NSInvocation *invocation) {
     lua_State *L = wax_currentLuaState();
     
@@ -171,14 +179,20 @@ static int __call(lua_State *L) {
         }
         
         class = objc_allocateClassPair(superClass, className, 0);
+        NSUInteger size;
+        NSUInteger alignment;
+        NSGetSizeAndAlignment("*", &size, &alignment);
+        class_addIvar(class, WAX_CLASS_INSTANCE_USERDATA_IVAR_NAME, size, alignment, "*"); // Holds a reference to the lua userdata
         objc_registerClassPair(class);        
-        
+
         class_addMethod(class, @selector(methodSignatureForSelector:), (IMP)methodSignatureForSelector, "@@::");
         class_addMethod(class, @selector(forwardInvocation:), (IMP)forwardInvocation, "v@:@");
         
         id metaclass = object_getClass(class);
         class_addMethod(metaclass, @selector(methodSignatureForSelector:), (IMP)methodSignatureForSelector, "@@::");
-        class_addMethod(metaclass, @selector(forwardInvocation:), (IMP)forwardInvocation, "v@:@");
+        class_addMethod(metaclass, @selector(forwardInvocation:), (IMP)forwardInvocation, "v@:@");        
+        
+        class_addMethod(metaclass, @selector(alloc), (IMP)alloc, "@@:");
     }
         
     wax_instance_create(L, class, YES);
