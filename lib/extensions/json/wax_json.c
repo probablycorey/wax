@@ -183,9 +183,9 @@ void json_parseString(lua_State *L, const char *input) {
     parse_string(L, (const unsigned char *)input, strlen(input));
 }
 
-void generate_value(yajl_gen gen, lua_State *L, int idx) {
+void generate_value(yajl_gen gen, lua_State *L) {
     yajl_gen_status stat;
-    int type = lua_type(L, idx);
+    int type = lua_type(L, -1);
 
     switch (type) {
         case LUA_TNIL:
@@ -194,17 +194,23 @@ void generate_value(yajl_gen gen, lua_State *L, int idx) {
             break;
 
         case LUA_TBOOLEAN:
-            stat = yajl_gen_bool(gen, lua_toboolean(L, idx));
+            stat = yajl_gen_bool(gen, lua_toboolean(L, -1));
             break;
 
         case LUA_TNUMBER:
         case LUA_TSTRING: {
             size_t len;
-            const char *str = lua_tolstring(L, idx, &len);
-            if (type == LUA_TNUMBER)
+            const char *str;
+
+            if (type == LUA_TNUMBER) {
+                lua_pushvalue(L, -1); // copy of the number
+                str = lua_tolstring(L, -1, &len); // converts value on stack to a string
+                lua_pop(L, 1); // pop off copy
                 stat = yajl_gen_number(gen, (const unsigned char*)str, (unsigned int)len);
-            else
+            } else {
+                str = lua_tolstring(L, -1, &len);
                 stat = yajl_gen_string(gen, (const unsigned char*)str, (unsigned int)len);
+            }
             break;
         }
 
@@ -212,9 +218,8 @@ void generate_value(yajl_gen gen, lua_State *L, int idx) {
             bool dictionary = false;
             bool empty = true;
 
-            lua_pushvalue(L, idx); // Push the table reference on the top
+            lua_pushvalue(L, -1); // Push the table reference on the top
             lua_pushnil(L);  /* first key */
-
             while (lua_next(L, -2)) {
                 empty = false;
                 if (lua_type(L, -2) != LUA_TNUMBER) {
@@ -236,13 +241,20 @@ void generate_value(yajl_gen gen, lua_State *L, int idx) {
                 yajl_gen_array_open(gen);
 
             lua_pushnil(L);  /* first key */
-            while (lua_next(L, idx-1)) {
+            while (lua_next(L, -2)) {
                 if (dictionary) {
                     size_t len;
-                    const char *str = lua_tolstring(L, -2, &len);
+                    const char *str;
+                    if (lua_type(L, -2) == LUA_TNUMBER) {
+                        lua_pushvalue(L, -2); // copy of the number
+                        str = lua_tolstring(L, -1, &len); // converts value on stack to a string
+                        lua_pop(L, 1); // pop off copy
+                    } else {
+                        str = lua_tolstring(L, -2, &len);
+                    }
                     stat = yajl_gen_string(gen, (const unsigned char*)str, (unsigned int)len);
                 }
-                generate_value(gen, L, -1);
+                generate_value(gen, L);
                 lua_pop(L, 1); // Pop off the value
             }
 
@@ -268,10 +280,10 @@ void generate_value(yajl_gen gen, lua_State *L, int idx) {
 static int generate(lua_State *L) {
     const unsigned char * buf;
     unsigned int len;
-    yajl_gen_config conf = { .beautify = 1, .indentString = "  " };
+    yajl_gen_config conf = { .beautify = 0, .indentString = "  " };
     gen = yajl_gen_alloc(&conf, NULL);
 
-    generate_value(gen, L, -1);
+    generate_value(gen, L);
 
     yajl_gen_get_buf(gen, &buf, &len);
     lua_pushlstring(L, (const char *)buf, len);
