@@ -3,7 +3,7 @@ WAX_PATH = File.expand_path("wax")
 
 desc "Create a Wax TextMate project"
 task :tm => "TEXTMATE" do
-  sh "mate #{TEXTMATE_FILE} ./data/scripts ./wax/wax-scripts"
+  sh "mate #{TEXTMATE_FILE} ./data/scripts"
   sh "mate #{TEXTMATE_FILE}"
 end
 
@@ -66,7 +66,17 @@ task :update do
   rm_rf tmp_dir
 end
 
-desc "Runs tests on your app"
+desc "Build and run tests on the app"
 task :test do
-  sh "#{WAX_PATH}/bin/hammer -t"
+  sh "#{WAX_PATH}/bin/hammer --test"
+end
+
+desc "Build"
+task :build do
+  sh "#{WAX_PATH}/bin/hammer --symlink"
+end
+
+desc "Build and run the app"
+task :run do
+  sh "#{WAX_PATH}/bin/hammer --symlink --run"
 end
