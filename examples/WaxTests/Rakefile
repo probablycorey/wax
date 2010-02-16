@@ -73,10 +73,10 @@ end
 
 desc "Build"
 task :build do
-  sh "#{WAX_PATH}/bin/hammer --symlink"
+  sh "#{WAX_PATH}/bin/hammer"
 end
 
 desc "Build and run the app"
 task :run do
-  sh "#{WAX_PATH}/bin/hammer --symlink --run"
+  sh "#{WAX_PATH}/bin/hammer --run"
 end

@@ -66,7 +66,17 @@ task :update do
   rm_rf tmp_dir
 end
 
-desc "Runs tests on your app"
+desc "Build and run tests on the app"
 task :test do
-  sh "#{WAX_PATH}/bin/hammer -t"
+  sh "#{WAX_PATH}/bin/hammer --test"
+end
+
+desc "Build"
+task :build do
+  sh "#{WAX_PATH}/bin/hammer"
+end
+
+desc "Build and run the app"
+task :run do
+  sh "#{WAX_PATH}/bin/hammer --run"
 end

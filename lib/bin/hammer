@@ -17,6 +17,7 @@ class Hammer
   @settings = {}
 
   @should_run_tests = false
+  @should_run = false
   @verbose = false
   
   def self.setup
@@ -41,6 +42,11 @@ class Hammer
       opts.on("-t", "--test", "Run all tests") do
         @should_run_tests = true
       end
+      
+      opts.on("-r", "--run", "Run the app in the simulator") do
+        @should_run = true
+
+      end
 
       opts.on("-s", "--sdk ARG", "Choose he SDK. Use --showsdks to see options.") do |v|  
         v = "iphonesimulator#{v}" if v =~ /^[\d\.]+/ # if only the version is given... assume user wants a simulator build
@@ -50,7 +56,7 @@ class Hammer
       opts.on("-v", "--verbose", "blah blah blah.") do |v|  
         @verbose = v
       end
-
+      
       opts.on("--showsdks", "Lists available SDKS.") do
         output = `xcodebuild -showsdks`
         sdks = output.scan(/-sdk (.*?$)/m)
@@ -85,15 +91,16 @@ class Hammer
       puts("** BUILD FAILED **") if not successful
       exit 1
     end
-  
+
+    # Take on the builds ENV
+    output.scan(/^\s*setenv\s+(\w+)\s+(.*?)$/).each {|k,v| ENV[k] = v}
+    
     return output
   end
 
-  def self.test(build_output)
+  def self.test  
     return if not @should_run_tests
-  
-    build_output.scan(/^\s*setenv\s+(\w+)\s+(.*?)$/).each {|k,v| ENV[k] = v}
-  
+    
     if ENV["PLATFORM_NAME"] !~ /simulator/
       puts "Can only run tests on the simulator not #{ENV["PLATFORM_NAME"]}"
       exit 1
@@ -112,18 +119,26 @@ class Hammer
   
     ENV["WAX_TEST"] = "YES"
     
-    # Open3.popen3("#{ENV['TARGET_BUILD_DIR']}/#{ENV['EXECUTABLE_PATH']} -RegisterForSystemEvents") { |stdin, stdout, stderr|
-    #   puts(stdout.read)
-    #   puts(stderr.read)
-    #   errors = stderr.read
-    # }
-
-    system("#{ENV['TARGET_BUILD_DIR']}/#{ENV['EXECUTABLE_PATH']} -RegisterForSystemEvents")
+    system("#{self.app_path}/#{ENV['EXECUTABLE_NAME']} -RegisterForSystemEvents")
     
     exit 0
   end
+  
+  def self.run
+    return if not @should_run
+    
+    system "wax/bin/waxsim #{self.app_path} #{File.expand_path('.')}"
+  end
+  
+  def self.app_path
+    return "#{ENV['TARGET_BUILD_DIR']}/#{ENV['EXECUTABLE_FOLDER_PATH']}"
+  end
 end
 
-Hammer.setup()
-build_output = Hammer.build()
-Hammer.test(build_output)
+Hammer.setup
+
+Hammer.build
+
+Hammer.test
+
+Hammer.run
