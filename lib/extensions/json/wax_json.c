@@ -206,7 +206,7 @@ void generate_value(yajl_gen gen, lua_State *L) {
                 lua_pushvalue(L, -1); // copy of the number
                 str = lua_tolstring(L, -1, &len); // converts value on stack to a string
                 lua_pop(L, 1); // pop off copy
-                stat = yajl_gen_number(gen, (const unsigned char*)str, (unsigned int)len);
+                stat = yajl_gen_number(gen, str, (unsigned int)len);
             } else {
                 str = lua_tolstring(L, -1, &len);
                 stat = yajl_gen_string(gen, (const unsigned char*)str, (unsigned int)len);
