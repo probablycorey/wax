@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0422E725112E1222007F6343 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0422E724112E1222007F6343 /* libxml2.dylib */; };
+		0453B95B112B7AEF00CD5694 /* wax_xml.m in Sources */ = {isa = PBXBuildFile; fileRef = 0453B95A112B7AEF00CD5694 /* wax_xml.m */; };
 		0482788B112B216B003DFACB /* SimpleDelegateObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 04827884112B216B003DFACB /* SimpleDelegateObject.m */; };
 		0482788C112B216B003DFACB /* SimpleObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 04827886112B216B003DFACB /* SimpleObject.m */; };
 		0482788D112B216B003DFACB /* Structs.m in Sources */ = {isa = PBXBuildFile; fileRef = 0482788A112B216B003DFACB /* Structs.m */; };
@@ -84,6 +86,9 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXFileReference section */
+		0422E724112E1222007F6343 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		0453B95A112B7AEF00CD5694 /* wax_xml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_xml.m; sourceTree = "<group>"; };
+		0453B95C112B7BBC00CD5694 /* wax_xml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_xml.h; sourceTree = "<group>"; };
 		0482723B1125E152003DFACB /* ProtocolLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProtocolLoader.h; sourceTree = "<group>"; };
 		0482723C1125E152003DFACB /* WaxTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxTextField.h; sourceTree = "<group>"; };
 		04827883112B216B003DFACB /* SimpleDelegateObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleDelegateObject.h; sourceTree = "<group>"; };
@@ -211,12 +216,23 @@
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
+				0422E725112E1222007F6343 /* libxml2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0453B959112B7AEF00CD5694 /* xml */ = {
+			isa = PBXGroup;
+			children = (
+				0453B95C112B7BBC00CD5694 /* wax_xml.h */,
+				0453B95A112B7AEF00CD5694 /* wax_xml.m */,
+			);
+			name = xml;
+			path = ../../lib/extensions/xml;
+			sourceTree = SOURCE_ROOT;
+		};
 		04A96CA21124C7DD00768EF9 /* wax */ = {
 			isa = PBXGroup;
 			children = (
@@ -249,6 +265,7 @@
 		04A96CA81124C7DD00768EF9 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				0453B959112B7AEF00CD5694 /* xml */,
 				04A96CA91124C7DD00768EF9 /* CGAffine */,
 				04A96CAC1124C7DD00768EF9 /* CGContext */,
 				04A96CAF1124C7DD00768EF9 /* HTTP */,
@@ -457,6 +474,7 @@
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
+				0422E724112E1222007F6343 /* libxml2.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -590,6 +608,7 @@
 				0482788B112B216B003DFACB /* SimpleDelegateObject.m in Sources */,
 				0482788C112B216B003DFACB /* SimpleObject.m in Sources */,
 				0482788D112B216B003DFACB /* Structs.m in Sources */,
+				0453B95B112B7AEF00CD5694 /* wax_xml.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -605,6 +624,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = WaxTests_Prefix.pch;
+				HEADER_SEARCH_PATHS = $SDKROOT/usr/include/libxml2;
 				INFOPLIST_FILE = "WaxTests-Info.plist";
 				PRODUCT_NAME = WaxTests;
 			};
@@ -617,6 +637,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = WaxTests_Prefix.pch;
+				HEADER_SEARCH_PATHS = $SDKROOT/usr/include/libxml2;
 				INFOPLIST_FILE = "WaxTests-Info.plist";
 				PRODUCT_NAME = WaxTests;
 			};
@@ -642,6 +663,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = WaxTests_Prefix.pch;
+				HEADER_SEARCH_PATHS = $SDKROOT/usr/include/libxml2;
 				INFOPLIST_FILE = "WaxTests-Info.plist";
 				PRODUCT_NAME = WaxTests;
 			};
@@ -666,6 +688,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = WaxTests_Prefix.pch;
+				HEADER_SEARCH_PATHS = $SDKROOT/usr/include/libxml2;
 				INFOPLIST_FILE = "WaxTests-Info.plist";
 				PRODUCT_NAME = WaxTests;
 			};
