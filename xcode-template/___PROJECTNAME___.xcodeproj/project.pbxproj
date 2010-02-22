@@ -15,7 +15,6 @@
 		04A96D2B1124C7DE00768EF9 /* wax_CGContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A96CAE1124C7DD00768EF9 /* wax_CGContext.m */; };
 		04A96D2C1124C7DE00768EF9 /* wax_http.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A96CB11124C7DD00768EF9 /* wax_http.m */; };
 		04A96D2D1124C7DE00768EF9 /* wax_http_connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A96CB31124C7DD00768EF9 /* wax_http_connection.m */; };
-		04A96D2E1124C7DE00768EF9 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 04A96CB51124C7DD00768EF9 /* Makefile */; };
 		04A96D2F1124C7DE00768EF9 /* wax_json.c in Sources */ = {isa = PBXBuildFile; fileRef = 04A96CB61124C7DD00768EF9 /* wax_json.c */; };
 		04A96D301124C7DE00768EF9 /* wax_json.peg in Resources */ = {isa = PBXBuildFile; fileRef = 04A96CB81124C7DD00768EF9 /* wax_json.peg */; };
 		04A96D311124C7DE00768EF9 /* yajl.c in Sources */ = {isa = PBXBuildFile; fileRef = 04A96CBF1124C7DD00768EF9 /* yajl.c */; };
@@ -97,7 +96,6 @@
 		04A96CB11124C7DD00768EF9 /* wax_http.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_http.m; sourceTree = "<group>"; };
 		04A96CB21124C7DD00768EF9 /* wax_http_connection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_http_connection.h; sourceTree = "<group>"; };
 		04A96CB31124C7DD00768EF9 /* wax_http_connection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_http_connection.m; sourceTree = "<group>"; };
-		04A96CB51124C7DD00768EF9 /* Makefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.make; path = Makefile; sourceTree = "<group>"; };
 		04A96CB61124C7DD00768EF9 /* wax_json.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = wax_json.c; sourceTree = "<group>"; };
 		04A96CB71124C7DD00768EF9 /* wax_json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_json.h; sourceTree = "<group>"; };
 		04A96CB81124C7DD00768EF9 /* wax_json.peg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wax_json.peg; sourceTree = "<group>"; };
@@ -300,7 +298,6 @@
 		04A96CB41124C7DD00768EF9 /* json */ = {
 			isa = PBXGroup;
 			children = (
-				04A96CB51124C7DD00768EF9 /* Makefile */,
 				04A96CB61124C7DD00768EF9 /* wax_json.c */,
 				04A96CB71124C7DD00768EF9 /* wax_json.h */,
 				04A96CB81124C7DD00768EF9 /* wax_json.peg */,
@@ -549,7 +546,6 @@
 				04A96D2B1124C7DE00768EF9 /* wax_CGContext.m in Sources */,
 				04A96D2C1124C7DE00768EF9 /* wax_http.m in Sources */,
 				04A96D2D1124C7DE00768EF9 /* wax_http_connection.m in Sources */,
-				04A96D2E1124C7DE00768EF9 /* Makefile in Sources */,
 				04A96D2F1124C7DE00768EF9 /* wax_json.c in Sources */,
 				04A96D311124C7DE00768EF9 /* yajl.c in Sources */,
 				04A96D321124C7DE00768EF9 /* yajl_alloc.c in Sources */,

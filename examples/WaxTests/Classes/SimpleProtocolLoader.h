@@ -19,4 +19,7 @@
 
 @implementation SimpleProtocolLoader
 
+- (id)requiredMethod {return nil;};
+- (id)requiredMethodWithArg:(id)arg {return nil;};
+
 @end
