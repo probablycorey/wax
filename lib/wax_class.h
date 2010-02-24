@@ -20,7 +20,3 @@ typedef struct _wax_class {
 } wax_class;
 
 int luaopen_wax_class(lua_State *L);
-static int __index(lua_State *L);
-static int __call(lua_State *L);
-
-static int addProtocols(lua_State *L);

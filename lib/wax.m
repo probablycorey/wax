@@ -11,6 +11,7 @@
 #import "wax_instance.h"
 #import "wax_struct.h"
 #import "wax_helpers.h"
+#import "wax_GarbageCollection.h"
 
 #import "lauxlib.h"
 #import "lobject.h"
@@ -50,6 +51,8 @@ void wax_startWithExtensions(lua_CFunction func, ...) {
     }
 
     addGlobals(L);
+    
+    [wax_GarbageCollection start];
 
     // Load all the wax lua scripts
     if (luaL_dofile(L, WAX_DATA_DIR "scripts/wax/init.lua") != 0) {

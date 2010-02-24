@@ -15,13 +15,28 @@
 #import "lauxlib.h"
 #import "lobject.h"
 
+static int __index(lua_State *L);
+static int __newindex(lua_State *L);
+static int __gc(lua_State *L);
+static int __tostring(lua_State *L);
+static int __eq(lua_State *L);
+
+static int setProtocols(lua_State *L);
+static int methods(lua_State *L);
+
+static int methodClosure(lua_State *L);
+static int superMethodClosure(lua_State *L);
+static int customInitMethodClosure(lua_State *L);
+
+static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata);
+static int pcallUserdata(lua_State *L, id self, SEL selector, va_list args);
+
 static const struct luaL_Reg metaFunctions[] = {
     {"__index", __index},
     {"__newindex", __newindex},
     {"__gc", __gc},
     {"__tostring", __tostring},
     {"__eq", __eq},
-    {"__waxretain", __waxretain},
     {NULL, NULL}
 };
 
@@ -83,12 +98,22 @@ wax_instance_userdata *wax_instance_create(lua_State *L, id instance, BOOL isCla
     wax_instance_pushUserdataTable(L);
 
     // register the userdata table in the metatable (so we can access it from obj-c)
-    wax_log(LOG_GC, @"Storing reference of %@ to userdata %@(%p -> %p)", isClass ? @"class" : @"instance", [instance class], instance, instanceUserdata);        
+    wax_log(LOG_GC, @"Storing reference of %@ to userdata table %@(%p -> %p)", isClass ? @"class" : @"instance", [instance class], instance, instanceUserdata);        
     lua_pushlightuserdata(L, instanceUserdata->instance);
     lua_pushvalue(L, -3); // Push userdata
     lua_rawset(L, -3);
         
     lua_pop(L, 1); // Pop off userdata table
+
+    
+    wax_instance_pushStrongUserdataTable(L);
+    lua_pushlightuserdata(L, instanceUserdata->instance);
+    lua_pushvalue(L, -3); // Push userdata
+    lua_rawset(L, -3);
+    
+    wax_log(LOG_GC, @"Storing reference to strong userdata table %@(%p -> %p)", [instance class], instance, instanceUserdata);        
+    
+    lua_pop(L, 1); // Pop off strong userdata table
     
     END_STACK_MODIFY(L, 1)
     
@@ -131,8 +156,28 @@ void wax_instance_pushUserdataTable(lua_State *L) {
         lua_pushvalue(L, -1);
         lua_setmetatable(L, -2); // userdataTable is it's own metatable
         
-        lua_pushstring(L, "v!");
+        lua_pushstring(L, "v");
         lua_setfield(L, -2, "__mode");  // Make weak table
+    }
+    
+    END_STACK_MODIFY(L, 1)
+}
+
+// Holds strong references to userdata created by wax... if the retain count dips below
+// 2, then we can remove it because we know obj-c doesn't care about it anymore
+void wax_instance_pushStrongUserdataTable(lua_State *L) {
+    BEGIN_STACK_MODIFY(L)
+    static const char* userdataTableName = "__wax_strong_userdata";
+    luaL_getmetatable(L, WAX_INSTANCE_METATABLE_NAME);
+    lua_getfield(L, -1, userdataTableName);
+    
+    if (lua_isnil(L, -1)) { // Create new userdata table, add it to metatable
+        lua_pop(L, 1); // Remove nil
+        
+        lua_pushstring(L, userdataTableName); // Table name
+        lua_newtable(L);        
+        lua_rawset(L, -3); // Add userdataTableName table to WAX_INSTANCE_METATABLE_NAME      
+        lua_getfield(L, -1, userdataTableName);
     }
     
     END_STACK_MODIFY(L, 1)
@@ -249,18 +294,6 @@ static int __gc(lua_State *L) {
     }
     
     return 0;
-}
-
-static int __waxretain(lua_State *L) {
-    wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);
-    if (!instanceUserdata->isClass && !instanceUserdata->isSuper && [instanceUserdata->instance retainCount] > 1) {
-        lua_pushboolean(L, true);
-    }
-    else {
-        lua_pushboolean(L, false);
-    }
-    
-    return 1;
 }
 
 static int __tostring(lua_State *L) {
@@ -460,9 +493,16 @@ static int customInitMethodClosure(lua_State *L) {
     
     // Possibly check to make sure the custom init returns a userdata object or nil
   
-    if (lua_isnil(L, -1)) {
-        // The init method returned nil... means initializization failed! Zero out the userdata
-        instanceUserdata->instance = nil;
+    if (lua_isnil(L, -1)) { // The init method returned nil... means initializization failed! 
+        wax_instance_pushStrongUserdataTable(L);
+        lua_pushlightuserdata(L, instanceUserdata->instance);
+        lua_pushnil(L);
+        lua_rawset(L, -3);
+        lua_pop(L, 1); // Pop the strongUserdataTable
+        
+        
+        // Clear out the userdata
+        instanceUserdata->instance = nil;        
     }
   
     return 1;

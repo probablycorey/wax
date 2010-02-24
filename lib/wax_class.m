@@ -15,6 +15,11 @@
 #import "lua.h"
 #import "lauxlib.h"
 
+static int __index(lua_State *L);
+static int __call(lua_State *L);
+
+static int addProtocols(lua_State *L);
+
 static const struct luaL_Reg MetaMethods[] = {
     {"__index", __index},
     {"__call", __call},

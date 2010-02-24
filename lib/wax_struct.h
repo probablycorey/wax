@@ -24,14 +24,3 @@ wax_struct_userdata *wax_struct_create(lua_State *L, const char *typeDescription
 void wax_struct_pushValueAt(lua_State *L, wax_struct_userdata *structUserdata, int index);
 void wax_struct_setValueAt(lua_State *L, wax_struct_userdata *structUserdata, int index, int stackIndex);
 int wax_struct_getOffsetForName(lua_State *L, wax_struct_userdata *structUserdata, const char *name);
-
-static int __index(lua_State *L);
-static int __newindex(lua_State *L);
-static int __tostring(lua_State *L);
-
-static int copy(lua_State *L);
-static int create(lua_State *L);
-static int unpack(lua_State *L);
-static int pack(lua_State *L);
-    
-static int createClosure(lua_State *L);
