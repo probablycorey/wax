@@ -8,6 +8,8 @@
 #include "lua.h"
 #include "lauxlib.h"
 
+
+
 static const struct luaL_Reg metaFunctions[] = {
     {NULL, NULL}
 };
@@ -23,7 +25,9 @@ int luaopen_wax_json(lua_State *L) {
     luaL_register(L, NULL, metaFunctions);
     luaL_register(L, JSON_METATABLE_NAME, functions);    
     
-    return 1;
+    lua_pop(L, 2); // Remove tables from stack,
+    
+    return 0;
 }
 
 #define USE_YAJL 1

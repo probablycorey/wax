@@ -24,11 +24,15 @@ static const struct luaL_Reg functions[] = {
 };
 
 int luaopen_wax_xml(lua_State *L) {    
+    BEGIN_STACK_MODIFY(L)
+    
     luaL_newmetatable(L, XML_METATABLE_NAME);
     luaL_register(L, NULL, metaFunctions);
     luaL_register(L, XML_METATABLE_NAME, functions);    
     
-    return 1;
+    END_STACK_MODIFY(L, 0)
+
+    return 0;
 }
 
 static char *appendNamespaceToName(const char *name, xmlNs *ns) {

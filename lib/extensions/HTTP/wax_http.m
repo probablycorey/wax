@@ -38,7 +38,7 @@ int luaopen_wax_http(lua_State *L) {
     
     END_STACK_MODIFY(L, 0)
     
-    return 1;
+    return 0;
 }
 
 // wax.request(table) => returns connection object or (body, response) if syncronous
@@ -101,6 +101,7 @@ static int request(lua_State *L) {
         NSRunLoop* runLoop = [NSRunLoop currentRunLoop];        
         while (!connection.finished) {
             [runLoop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
+//            [runLoop runMode:[NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]]]; // Does this work?
         }
         
         [connection release];
