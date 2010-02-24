@@ -11,4 +11,3 @@ require "tests.xmlTest"
 -- 
 puts("\nResults\n-------")
 spec:report()
-

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0422E725112E1222007F6343 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0422E724112E1222007F6343 /* libxml2.dylib */; };
+		0422EA3C11349549007F6343 /* wax_GarbageCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 0422EA3B11349549007F6343 /* wax_GarbageCollection.m */; };
 		0453B95B112B7AEF00CD5694 /* wax_xml.m in Sources */ = {isa = PBXBuildFile; fileRef = 0453B95A112B7AEF00CD5694 /* wax_xml.m */; };
 		0482788B112B216B003DFACB /* SimpleDelegateObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 04827884112B216B003DFACB /* SimpleDelegateObject.m */; };
 		0482788C112B216B003DFACB /* SimpleObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 04827886112B216B003DFACB /* SimpleObject.m */; };
@@ -86,6 +87,8 @@
 
 /* Begin PBXFileReference section */
 		0422E724112E1222007F6343 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		0422EA3A11349549007F6343 /* wax_GarbageCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wax_GarbageCollection.h; path = ../../lib/wax_GarbageCollection.h; sourceTree = SOURCE_ROOT; };
+		0422EA3B11349549007F6343 /* wax_GarbageCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = wax_GarbageCollection.m; path = ../../lib/wax_GarbageCollection.m; sourceTree = SOURCE_ROOT; };
 		0453B95A112B7AEF00CD5694 /* wax_xml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_xml.m; sourceTree = "<group>"; };
 		0453B95C112B7BBC00CD5694 /* wax_xml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_xml.h; sourceTree = "<group>"; };
 		0482723B1125E152003DFACB /* ProtocolLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProtocolLoader.h; sourceTree = "<group>"; };
@@ -247,6 +250,8 @@
 				04A96D241124C7DE00768EF9 /* wax_instance.m */,
 				04A96D251124C7DE00768EF9 /* wax_struct.h */,
 				04A96D261124C7DE00768EF9 /* wax_struct.m */,
+				0422EA3A11349549007F6343 /* wax_GarbageCollection.h */,
+				0422EA3B11349549007F6343 /* wax_GarbageCollection.m */,
 			);
 			path = wax;
 			sourceTree = "<group>";
@@ -605,6 +610,7 @@
 				0482788C112B216B003DFACB /* SimpleObject.m in Sources */,
 				0482788D112B216B003DFACB /* Structs.m in Sources */,
 				0453B95B112B7AEF00CD5694 /* wax_xml.m in Sources */,
+				0422EA3C11349549007F6343 /* wax_GarbageCollection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

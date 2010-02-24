@@ -17,16 +17,21 @@ waxClass{"AppDelegate", protocols = {"UIApplicationDelegate"}}
 
 function applicationDidFinishLaunching(self, application)
   local frame = UI.Screen:mainScreen():bounds()
-  local window = UI.Window:initWithFrame(frame)
-  window:setBackgroundColor(UI.Color:orangeColor())
+  self.window = UI.Window:initWithFrame(frame)
+  self.window:setBackgroundColor(UI.Color:orangeColor())
+
+  local view = UI.View:init()
   
+  local button = UI.Button:buttonWithType(UIButtonTypeRoundedRect)
+  button:setTitle_forState("Test GC", UIControlStateNormal)
+  button:setFrame(CGRect(100, 100, 120, 100))
+  button:addTarget_action_forControlEvents(self, "gcTouched:", UIControlEventTouchUpInside)
+  self.window:addSubview(button)
   
-  local label = UI.Label:initWithFrame(CGRect(0, 100, 320, 40))
-  label:setFont(UI.Font:boldSystemFontOfSize(30))
-  label:setColor(UI.Color:orangeColor())
-  label:setText("OMG! TESTING!")
-  label:setTextAlignment(UITextAlignmentCenter)    
-  window:addSubview(label)
-  
-  window:makeKeyAndVisible()
+  self.window:makeKeyAndVisible()
+end
+
+function gcTouched(self, sender)
+  puts("boom")
+  collectgarbage("collect")
 end
