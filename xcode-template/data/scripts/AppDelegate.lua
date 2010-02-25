@@ -17,8 +17,8 @@ waxClass{"AppDelegate", protocols = {"UIApplicationDelegate"}}
 
 function applicationDidFinishLaunching(self, application)
   local frame = UI.Screen:mainScreen():bounds()
-  local window = UI.Window:initWithFrame(frame)
-  window:setBackgroundColor(UI.Color:orangeColor())
+  self.window = UI.Window:initWithFrame(frame)
+  self.window:setBackgroundColor(UI.Color:orangeColor())
 
 
   local label = UI.Label:initWithFrame(CGRect(0, 100, 320, 40))
@@ -26,7 +26,7 @@ function applicationDidFinishLaunching(self, application)
   label:setColor(UI.Color:orangeColor())
   label:setText("Hello Lua!")
   label:setTextAlignment(UITextAlignmentCenter)    
-  window:addSubview(label)
+  self.window:addSubview(label)
   
-  window:makeKeyAndVisible()
+  self.window:makeKeyAndVisible()
 end

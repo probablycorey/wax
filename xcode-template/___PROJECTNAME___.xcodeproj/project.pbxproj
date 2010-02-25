@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0422EC6A1135DFBE007F6343 /* wax_xml.m in Sources */ = {isa = PBXBuildFile; fileRef = 0422EC691135DFBE007F6343 /* wax_xml.m */; };
 		0422EC721135DFE6007F6343 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0422EC711135DFE6007F6343 /* libxml2.dylib */; };
+		0422EC9F1135F1C1007F6343 /* wax_GarbageCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 0422EC9E1135F1C1007F6343 /* wax_GarbageCollection.m */; };
 		0482731911260912003DFACB /* AppDelegate.lua in Resources */ = {isa = PBXBuildFile; fileRef = 0482731611260912003DFACB /* AppDelegate.lua */; };
 		0482731A11260912003DFACB /* init.lua in Resources */ = {isa = PBXBuildFile; fileRef = 0482731811260912003DFACB /* init.lua */; };
 		04A96D281124C7DE00768EF9 /* copy_scripts.sh in Resources */ = {isa = PBXBuildFile; fileRef = 04A96CA61124C7DD00768EF9 /* copy_scripts.sh */; };
@@ -87,6 +88,8 @@
 		0422EC681135DFBE007F6343 /* wax_xml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_xml.h; sourceTree = "<group>"; };
 		0422EC691135DFBE007F6343 /* wax_xml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_xml.m; sourceTree = "<group>"; };
 		0422EC711135DFE6007F6343 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		0422EC9D1135F1C1007F6343 /* wax_GarbageCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_GarbageCollection.h; sourceTree = "<group>"; };
+		0422EC9E1135F1C1007F6343 /* wax_GarbageCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_GarbageCollection.m; sourceTree = "<group>"; };
 		0482723B1125E152003DFACB /* ProtocolLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProtocolLoader.h; sourceTree = "<group>"; };
 		0482723C1125E152003DFACB /* WaxTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxTextField.h; sourceTree = "<group>"; };
 		0482731611260912003DFACB /* AppDelegate.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AppDelegate.lua; sourceTree = "<group>"; };
@@ -257,6 +260,8 @@
 				04A96D241124C7DE00768EF9 /* wax_instance.m */,
 				04A96D251124C7DE00768EF9 /* wax_struct.h */,
 				04A96D261124C7DE00768EF9 /* wax_struct.m */,
+				0422EC9D1135F1C1007F6343 /* wax_GarbageCollection.h */,
+				0422EC9E1135F1C1007F6343 /* wax_GarbageCollection.m */,
 			);
 			path = wax;
 			sourceTree = "<group>";
@@ -607,6 +612,7 @@
 				04A96D6B1124C7DE00768EF9 /* wax_instance.m in Sources */,
 				04A96D6C1124C7DE00768EF9 /* wax_struct.m in Sources */,
 				0422EC6A1135DFBE007F6343 /* wax_xml.m in Sources */,
+				0422EC9F1135F1C1007F6343 /* wax_GarbageCollection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -622,7 +628,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "___PROJECTNAMEASIDENTIFIER____Prefix.pch";
-				HEADER_SEARCH_PATHS = $SDK_ROOT/usr/include/libxml2;
+				HEADER_SEARCH_PATHS = "$(SDK_ROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "___PROJECTNAMEASIDENTIFIER___-Info.plist";
 				PRODUCT_NAME = "___PROJECTNAME___";
 			};
@@ -635,7 +641,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "___PROJECTNAMEASIDENTIFIER____Prefix.pch";
-				HEADER_SEARCH_PATHS = $SDK_ROOT/usr/include/libxml2;
+				HEADER_SEARCH_PATHS = "$(SDK_ROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "___PROJECTNAMEASIDENTIFIER___-Info.plist";
 				PRODUCT_NAME = "___PROJECTNAME___";
 			};
@@ -661,7 +667,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "___PROJECTNAMEASIDENTIFIER____Prefix.pch";
-				HEADER_SEARCH_PATHS = $SDK_ROOT/usr/include/libxml2;
+				HEADER_SEARCH_PATHS = "$(SDK_ROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "___PROJECTNAMEASIDENTIFIER___-Info.plist";
 				PRODUCT_NAME = "___PROJECTNAME___";
 			};
@@ -686,7 +692,7 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "___PROJECTNAMEASIDENTIFIER____Prefix.pch";
-				HEADER_SEARCH_PATHS = $SDK_ROOT/usr/include/libxml2;
+				HEADER_SEARCH_PATHS = "$(SDK_ROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "___PROJECTNAMEASIDENTIFIER___-Info.plist";
 				PRODUCT_NAME = "___PROJECTNAME___";
 			};
