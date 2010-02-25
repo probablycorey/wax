@@ -9,9 +9,14 @@
 #import <libxml/parser.h>
 #import <libxml/tree.h>
 
+#define XML_DEFAULT_TEXT_LABEL "text"
+#define XML_DEFAULT_ATTRS_LABEL "attrs"
+#define XML_MAX_LABEL_LENGTH 1000
 
 static void createTable(lua_State *L, xmlNode *node, char *textLabel, char *attrsLabel);
 static int parse(lua_State *L);
+static int generate(lua_State *L);
+
 
 static const struct luaL_Reg metaFunctions[] = {
     {NULL, NULL}
@@ -19,7 +24,7 @@ static const struct luaL_Reg metaFunctions[] = {
 
 static const struct luaL_Reg functions[] = {
     {"parse", parse},
-//    {"generate", generate},
+    {"generate", generate},
     {NULL, NULL}
 };
 
@@ -136,32 +141,38 @@ static int parse(lua_State *L) {
     BEGIN_STACK_MODIFY(L);
     xmlDocPtr doc;
     
-    const char *xml = luaL_checkstring(L, 1);
-    size_t length = lua_objlen(L, 1);
+    int xmlLength = lua_objlen(L, 1) + 1;
+    char *xml = alloca(xmlLength);
+    strncpy(xml, luaL_checkstring(L, 1), xmlLength);
     
-    char *textLabel = "text";
-    char *attrsLabel = "attrs";
+    char textLabel[XML_MAX_LABEL_LENGTH] = XML_DEFAULT_TEXT_LABEL;
+    char attrsLabel[XML_MAX_LABEL_LENGTH] = XML_DEFAULT_ATTRS_LABEL;
     
     if (lua_istable(L, 2)) {
         // check for text label
-        lua_getfield(L, 2, "text");
+        lua_getfield(L, 2, XML_DEFAULT_TEXT_LABEL);
         if (!lua_isnil(L, -1)) {
-            textLabel = (char *)luaL_checkstring(L, -1);
-        }
+            int length = lua_objlen(L, -1);
+            memset(textLabel, 0, XML_MAX_LABEL_LENGTH);
+            strncpy(textLabel, luaL_checkstring(L, -1), MIN(length, XML_MAX_LABEL_LENGTH - 1));
+        } 
         lua_pop(L, 1); // pop off the custom text label, or nil
         
         // check for attrs label
-        lua_getfield(L, 2, "attrs");
+        lua_getfield(L, 2, XML_DEFAULT_ATTRS_LABEL);
         if (!lua_isnil(L, -1)) {
-            attrsLabel = (char *)luaL_checkstring(L, -1);
+            int length = lua_objlen(L, -1);
+            memset(attrsLabel, 0, XML_MAX_LABEL_LENGTH);
+            strncpy(attrsLabel, luaL_checkstring(L, -1), MIN(length, XML_MAX_LABEL_LENGTH - 1));
         }
         lua_pop(L, 1); // pop off the custom text label, or nil
+        
         lua_pop(L, 1); // pop the custom label table off the stack (just making room!)
     }
     
     lua_pop(L, 1); // pop the xml off the stack (just making room!)
     
-    doc = xmlReadMemory(xml, length, "noname.xml", NULL, 0);
+    doc = xmlReadMemory(xml, xmlLength, "noname.xml", NULL, 0);
     if (doc != NULL) {
         xmlNode *root_element = xmlDocGetRootElement(doc);
         
@@ -171,6 +182,99 @@ static int parse(lua_State *L) {
     else {
         luaL_error(L, "Unable open for parsing xml");
     }
+    
+    xmlFreeDoc(doc);
+    
+    END_STACK_MODIFY(L, 1);
+    
+    return 1;
+}
+
+static void createAttributes(lua_State *L, xmlNodePtr node) {
+    lua_pushnil(L);
+    while (lua_next(L, -2)) { 
+        xmlChar *name = BAD_CAST luaL_checkstring(L, -2);
+        xmlChar *value = BAD_CAST luaL_checkstring(L, -1);
+
+        xmlNewProp(node, name, value);
+        
+        lua_pop(L, 1); // pop the value
+    }
+}
+
+static void createXML(lua_State *L, xmlDocPtr doc, xmlNodePtr node, char *textLabel, char *attrsLabel) {
+    if (lua_isstring(L, -1)) { // Could just be a string. If so, just set the text of the node
+        xmlNodePtr textNode = xmlNewText(BAD_CAST lua_tostring(L, -1));
+        xmlAddChild(node, textNode);
+        return;
+    }
+    
+    lua_pushnil(L);
+    while (lua_next(L, -2)) {                         
+        const char *name = luaL_checkstring(L, -2);
+                   
+        if (strcmp(name, textLabel) == 0) {
+            xmlNodePtr textNode = xmlNewText(BAD_CAST lua_tostring(L, -1));
+            xmlAddChild(node, textNode);
+        }
+        else if (strcmp(name, attrsLabel) == 0) {
+            createAttributes(L, node);
+        }
+        else {
+            xmlNodePtr childNode = xmlNewNode(NULL, BAD_CAST name);
+            xmlAddChild(node, childNode);
+            createXML(L, doc, childNode, textLabel, attrsLabel);
+            
+            if (!node) { // Root node. Ignore other root nodes
+                xmlDocSetRootElement(doc, childNode);
+                lua_pop(L, 2); // remove the value and the key                
+                break;
+            } 
+        }
+        
+        lua_pop(L, 1); // remove the value
+    }
+}
+
+
+static int generate(lua_State *L) {
+    BEGIN_STACK_MODIFY(L);
+
+    xmlDocPtr doc = xmlNewDoc(BAD_CAST "1.0");
+    
+    char textLabel[XML_MAX_LABEL_LENGTH] = XML_DEFAULT_TEXT_LABEL;
+    char attrsLabel[XML_MAX_LABEL_LENGTH] = XML_DEFAULT_ATTRS_LABEL;
+    
+    if (lua_istable(L, 2)) {
+        // check for text label
+        lua_getfield(L, 2, XML_DEFAULT_TEXT_LABEL);
+        if (!lua_isnil(L, -1)) {
+            int length = lua_objlen(L, -1);
+            memset(textLabel, 0, XML_MAX_LABEL_LENGTH);
+            strncpy(textLabel, luaL_checkstring(L, -1), MIN(length, XML_MAX_LABEL_LENGTH - 1));
+        } 
+        lua_pop(L, 1); // pop off the custom text label, or nil
+        
+        // check for attrs label
+        lua_getfield(L, 2, XML_DEFAULT_ATTRS_LABEL);
+        if (!lua_isnil(L, -1)) {
+            int length = lua_objlen(L, -1);
+            memset(attrsLabel, 0, XML_MAX_LABEL_LENGTH);
+            strncpy(attrsLabel, luaL_checkstring(L, -1), MIN(length, XML_MAX_LABEL_LENGTH - 1));
+        }
+        lua_pop(L, 1); // pop off the custom text label, or nil
+     
+        lua_pop(L, 1); // pop the custom label table off the stack (just making room!)
+    }
+    
+    createXML(L, doc, nil, textLabel, attrsLabel);
+    
+    // Dumping string to lua
+    xmlChar *outputBuff;
+    int outputLength;
+    xmlDocDumpMemoryEnc(doc, &outputBuff, &outputLength, "UTF-8");
+
+    lua_pushlstring(L, (char *)outputBuff, outputLength);
     
     xmlFreeDoc(doc);
     
