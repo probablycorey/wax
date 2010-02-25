@@ -149,6 +149,37 @@ static NSMethodSignature *methodSignatureForSelector(id self, SEL _cmd, SEL sele
     return signature;
 }
 
+static void setValueForUndefinedKey(id self, SEL cmd, id value, NSString *key) {
+    lua_State *L = wax_currentLuaState();
+    
+    BEGIN_STACK_MODIFY(L);
+    
+    wax_instance_pushUserdata(L, self);
+    wax_fromObjc(L, "@", &value);
+    lua_setfield(L, -2, [key UTF8String]);
+    
+    END_STACK_MODIFY(L, 0);
+}
+
+static id valueForUndefinedKey(id self, SEL cmd, NSString *key) {
+    lua_State *L = wax_currentLuaState();
+    
+    id result = nil;
+    
+    BEGIN_STACK_MODIFY(L);
+    
+    wax_instance_pushUserdata(L, self);
+    lua_getfield(L, -1, [key UTF8String]);
+    
+    id *keyValue = wax_copyToObjc(L, "@", -1, nil);
+    result = *keyValue;
+    free(keyValue);
+    
+    END_STACK_MODIFY(L, 0);
+    
+    return result;
+}
+
 // Finds an obj-c class
 static int __index(lua_State *L) {
     const char *className = luaL_checkstring(L, 2);
@@ -204,6 +235,10 @@ static int __call(lua_State *L) {
         class_addMethod(metaclass, @selector(forwardInvocation:), (IMP)forwardInvocation, "v@:@");        
         
         class_addMethod(metaclass, @selector(alloc), (IMP)alloc, "@@:");
+        
+        // Make Key-Value complient
+        class_addMethod(class, @selector(setValue:forUndefinedKey:), (IMP)setValueForUndefinedKey, "v@:@@");
+        class_addMethod(class, @selector(valueForUndefinedKey:), (IMP)valueForUndefinedKey, "@@:@");
     }
         
     wax_instance_create(L, class, YES);
