@@ -282,3 +282,11 @@ static int generate(lua_State *L) {
     
     return 1;
 }
+
+void wax_xml_parseString(lua_State *L, const char *xml) {
+    lua_State *parseL = lua_newthread(L);
+    lua_pushstring(parseL, xml);
+    parse(parseL);
+    lua_xmove(parseL, L, 1); // move the result to the current state
+    lua_remove(L, -2); // remove the parsing thread
+}
