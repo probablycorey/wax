@@ -7,6 +7,11 @@ Object = {
 
     instance.__index = function(self, key) return self.super[key] end
     setmetatable(instance, instance)
+    
+    -- add all class meta functions to instance (I don't like how this is implemented!)
+    for name, func in pairs(self) do
+      if name:find("^__") then instance[name] = func end
+    end
 
     -- If an init method is specified, then call it (It was renamed to __instanceInit in luaClass)
     if instance.__instanceInit then instance:__instanceInit(...) end
