@@ -54,6 +54,8 @@ void wax_startWithExtensions(lua_CFunction func, ...) {
     
     [wax_GarbageCollection start];
 
+    NSLog(@"%@", [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]);
+    
     // Load all the wax lua scripts
     if (luaL_dofile(L, WAX_DATA_DIR "scripts/wax/init.lua") != 0) {
         fprintf(stderr,"Fatal error opening wax scripts: %s\n", lua_tostring(L,-1));
