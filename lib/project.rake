@@ -62,8 +62,19 @@ task :update do
   mkdir_p tmp_dir
   sh "curl -L http://github.com/probablycorey/wax/tarball/master | tar -C #{tmp_dir} -x -z"  
   rm_rf WAX_PATH
-  sh "mv #{tmp_dir}/*/lib \"#{WAX_PATH}\""
+  sh "mv #{tmp_dir}/* \"#{WAX_PATH}\""
   rm_rf tmp_dir
+end
+
+desc "Git specific tasks"
+namespace :git do
+  
+  desc "make the wax folder a submodule"
+  task :sub do
+    rm_rf WAX_PATH
+    sh "git init"
+    sh "git submodule add git://github.com/probablycorey/wax.git wax"
+  end
 end
 
 desc "Build and run tests on the app"
