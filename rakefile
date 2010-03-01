@@ -26,7 +26,7 @@ namespace :template do
 
   desc "Prepare xcode template for editing"
   task :edit => :clean do
-    cp_r "lib", "xcode-template/wax"
+    ln_s WAX_ROOT, "xcode-template/wax"
   
     `open xcode-template/___PROJECTNAME___.xcodeproj`
   end

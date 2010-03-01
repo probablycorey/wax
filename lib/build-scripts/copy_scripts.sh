@@ -10,7 +10,7 @@
 rsync -r --delete "$PROJECT_DIR/data" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH" > /dev/null
 
 # copies the wax scripts over
-rsync -r --delete "$PROJECT_DIR/wax/wax-scripts/" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/data/scripts/wax" > /dev/null
+rsync -r --delete "$PROJECT_DIR/wax/lib/wax-scripts/" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/data/scripts/wax" > /dev/null
 
 # luac.lua doesn't work for 64 bit lua
 # if [[ $CONFIGURATION = "Distribution" ]]; then
