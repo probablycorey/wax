@@ -14,3 +14,7 @@ cocoaNamespace("UI")
 cocoaNamespace("NS")
 cocoaNamespace("MK")
 cocoaNamespace("MF")
+
+function wax.guid()
+  return NS.ProcessInfo:processInfo():globallyUniqueString()
+end

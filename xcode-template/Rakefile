@@ -1,1 +1,1 @@
-wax/Rakefile
+import "wax/project.rake"

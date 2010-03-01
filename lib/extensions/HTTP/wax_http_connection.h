@@ -13,7 +13,8 @@ enum {
     WAX_HTTP_UNKNOWN,
     WAX_HTTP_TEXT,
     WAX_HTTP_BINARY, // Like an image or something
-    WAX_HTTP_JSON
+    WAX_HTTP_JSON,
+    WAX_HTTP_XML
 };
 
 #define WAX_HTTP_CALLBACK_FUNCTION_NAME "callback"

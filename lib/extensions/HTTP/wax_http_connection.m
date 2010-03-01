@@ -12,6 +12,7 @@
 #import "wax_instance.h"
 #import "wax_helpers.h"
 #import "wax_json.h"
+#import "wax_xml.h"
 
 @implementation wax_http_connection
 
@@ -118,10 +119,15 @@
     // Try and guess the format type
     if (_format == WAX_HTTP_UNKNOWN) {
         NSString *contentType = [[_response allHeaderFields] objectForKey:@"Content-Type"];
-        if ([contentType hasPrefix:@"application/json"] ||
-            [contentType hasPrefix:@"text/json"] ||
-            [contentType hasPrefix:@"application/javascript"] ||
-            [contentType hasPrefix:@"text/javascript"]) {
+
+        if ([contentType hasPrefix:@"application/xml"] ||
+            [contentType hasPrefix:@"text/xml"]) {
+            _format = WAX_HTTP_XML;
+        }
+        else if ([contentType hasPrefix:@"application/json"] ||
+                 [contentType hasPrefix:@"text/json"] ||
+                 [contentType hasPrefix:@"application/javascript"] ||
+                 [contentType hasPrefix:@"text/javascript"]) {
             _format = WAX_HTTP_JSON;
         }
         else if ([contentType hasPrefix:@"image/"] ||
@@ -137,15 +143,19 @@
     if (_error) {
         lua_pushnil(L);
     }
-    else if (_format == WAX_HTTP_TEXT || _format == WAX_HTTP_JSON) {
+    else if (_format == WAX_HTTP_TEXT || _format == WAX_HTTP_JSON || _format == WAX_HTTP_XML) {
         NSString *string = [[NSString alloc] initWithData:_data encoding:NSUTF8StringEncoding];
         
-        if (_format == WAX_HTTP_TEXT) {
-            wax_fromObjc(L, "@", &string);
+        if (_format == WAX_HTTP_JSON) {
+            json_parseString(L, [string UTF8String]);            
+        }
+        else if (_format == WAX_HTTP_XML){
+            wax_xml_parseString(L, [string UTF8String]);
         }
         else {
-            json_parseString(L, [string UTF8String]);
+            wax_fromObjc(L, "@", &string);
         }
+
         
         [string release];
     }
