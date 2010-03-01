@@ -233,7 +233,7 @@
 				043E614B113C3DA5007A6104 /* wax_GarbageCollection.m */,
 			);
 			name = wax;
-			path = ../lib;
+			path = wax/lib;
 			sourceTree = SOURCE_ROOT;
 		};
 		043E60CA113C3DA5007A6104 /* build-scripts */ = {

@@ -1,1 +1,1 @@
-import "wax/project.rake"
+import "wax/lib/project.rake"
