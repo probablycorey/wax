@@ -64,7 +64,8 @@ void wax_log(int flag, NSString *format, ...) {
     if (flag & LOG_FLAGS) {
         va_list args;
         va_start(args, format);
-        NSLogv(format, args);
+        NSString *output = [[[NSString alloc] initWithFormat:format arguments:args] autorelease];
+        printf("%s", [output UTF8String]);
         va_end(args);
     }
 }
@@ -792,10 +793,9 @@ int wax_errorFunction(lua_State *L) {
     }    
     lua_remove(L, -2); // Remove debug
     
-    lua_pushnumber(L, 2); // Thread #
-    lua_pushvalue(L, -3); // Grab the error string and place it on the stack
+    lua_pushvalue(L, -2); // Grab the error string and place it on the stack
     
-    lua_call(L, 2, 1);
+    lua_call(L, 1, 1);
     lua_remove(L, -2); // Remove original error string
     
     return 1;

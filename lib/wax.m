@@ -25,7 +25,7 @@ lua_State *wax_currentLuaState() {
 }
 
 void uncaughtExceptionHandler(NSException *e) {
-    NSLog(@"WAX! Uncaught exception %@", e);
+    printf("ERROR: Uncaught exception %s", [e description]);
 }
 
 void wax_startWithExtensions(lua_CFunction func, ...) {  
@@ -54,16 +54,15 @@ void wax_startWithExtensions(lua_CFunction func, ...) {
     
     [wax_GarbageCollection start];
 
-    NSLog(@"%@", [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0]);
-    
     // Load all the wax lua scripts
     if (luaL_dofile(L, WAX_DATA_DIR "scripts/wax/init.lua") != 0) {
         fprintf(stderr,"Fatal error opening wax scripts: %s\n", lua_tostring(L,-1));
-        exit(1);
     }
     
     // Start the user's init script!
-    if (luaL_dofile(L, WAX_DATA_DIR "scripts/AppDelegate.lua") != 0) fprintf(stderr,"Fatal error: %s\n", lua_tostring(L,-1));
+    if (luaL_dofile(L, WAX_DATA_DIR "scripts/AppDelegate.lua") != 0) {
+        fprintf(stderr,"Fatal error: %s\n", lua_tostring(L,-1));
+    }
     
     // Should we run the tests?
     NSDictionary *env = [[NSProcessInfo processInfo] environment];
