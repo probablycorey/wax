@@ -1,6 +1,21 @@
 Object = {
   super = nil,
   
+  subclass = function(self, ...)
+    local subclass = {}
+    subclass.super = self
+
+    subclass.__index = function(self, key) return self.super[key] end
+    setmetatable(subclass, subclass)
+    
+    -- add all class meta functions to instance (I don't like how this is implemented!)
+    for name, func in pairs(self) do
+      if name:find("^__") then subclass[name] = func end
+    end
+    
+    return subclass
+  end,
+  
   init = function(self, ...)
     local instance = {}
     instance.super = self
@@ -26,7 +41,7 @@ function luaClass(options)
   
   if type(superclass) == "string" then superclass = _G[superclass] end -- allow strings for superclass
     
-  local class = superclass:init()
+  local class = superclass:subclass()
   class.className = className
   
   -- setup the files environment to look in the class heirarchy and then the global scope
