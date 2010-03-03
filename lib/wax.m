@@ -17,6 +17,13 @@
 #import "lobject.h"
 #import "lualib.h"
 
+static void addGlobals(lua_State *L);
+static int tolua(lua_State *L);
+static int toobjc(lua_State *L);
+static int exitApp(lua_State *L);
+static int objcDebug(lua_State *L);
+static int panic(lua_State *L);
+
 lua_State *wax_currentLuaState() {
     static lua_State *L;    
     if (!L) L = lua_open();
@@ -25,7 +32,7 @@ lua_State *wax_currentLuaState() {
 }
 
 void uncaughtExceptionHandler(NSException *e) {
-    printf("ERROR: Uncaught exception %s", [e description]);
+    printf("ERROR: Uncaught exception %s", [[e description] UTF8String]);
 }
 
 void wax_startWithExtensions(lua_CFunction func, ...) {  
@@ -35,7 +42,6 @@ void wax_startWithExtensions(lua_CFunction func, ...) {
     [fileManager changeCurrentDirectoryPath:[[NSBundle mainBundle] bundlePath]];
     
     lua_State *L = wax_currentLuaState();
-           
     
     luaL_openlibs(L); 
     luaopen_wax(L);

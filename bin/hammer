@@ -125,7 +125,7 @@ class Hammer
   
   def self.run
     return if not @should_run
-    
+    `/usr/bin/killall "iPhone Simulator" 2> /dev/null` #make sure the simulator is killed
     system "wax/bin/waxsim #{self.app_path} #{File.expand_path('.')}"
   end
   
