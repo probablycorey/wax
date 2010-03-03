@@ -1,8 +1,8 @@
 //
 //  main.m
-//  WaxTests
+//  Tests
 //
-//  Created by Corey Johnson on 2/16/10.
+//  Created by Corey Johnson on 3/3/10.
 //  Copyright Probably Interactive 2010. All rights reserved.
 //
 // This where the magic happens!

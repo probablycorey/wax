@@ -1,5 +1,5 @@
 //
-// Prefix header for all source files of the 'WaxTests' target in the 'WaxTests' project
+// Prefix header for all source files of the 'Tests' target in the 'Tests' project
 //
 
 #ifdef __OBJC__
