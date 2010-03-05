@@ -250,3 +250,18 @@ UIRemoteNotificationTypeAlert = math.pow(2, 2)
 NSURLCredentialPersistenceNone = 0
 NSURLCredentialPersistenceForSession = 1
 NSURLCredentialPersistencePermanent = 2
+
+-- UIDeviceOrientation
+UIDeviceOrientationUnknown = 0
+UIDeviceOrientationPortrait = 1
+UIDeviceOrientationPortraitUpsideDown = 2
+UIDeviceOrientationLandscapeLeft = 3
+UIDeviceOrientationLandscapeRight = 4
+UIDeviceOrientationFaceUp = 5
+UIDeviceOrientationFaceDown = 6
+
+-- UIInterfaceOrientation
+UIInterfaceOrientationPortrait = UIDeviceOrientationPortrait
+UIInterfaceOrientationPortraitUpsideDown = UIDeviceOrientationPortraitUpsideDown
+UIInterfaceOrientationLandscapeLeft = UIDeviceOrientationLandscapeRight
+UIInterfaceOrientationLandscapeRight = UIDeviceOrientationLandscapeLeft
