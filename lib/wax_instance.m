@@ -502,7 +502,9 @@ static int customInitMethodClosure(lua_State *L) {
         
         
         // Clear out the userdata
-        instanceUserdata->instance = nil;        
+        instanceUserdata->instance = nil;
+        
+        luaL_error(L, "Error: Init methods must return self. This returned nil.");
     }
   
     return 1;

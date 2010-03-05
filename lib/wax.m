@@ -95,6 +95,12 @@ void luaopen_wax(lua_State *L) {
 }
 
 static void addGlobals(lua_State *L) {
+    lua_pushnumber(L, WAX_VERSION);
+    lua_setglobal(L, "waxVersion");
+    
+    lua_pushstring(L, WAX_DATA_DIR);
+    lua_setglobal(L, "waxRoot");
+    
     // Functions
     lua_pushcfunction(L, tolua);
     lua_setglobal(L, "tolua");
@@ -107,12 +113,6 @@ static void addGlobals(lua_State *L) {
 
     lua_pushcfunction(L, objcDebug);
     lua_setglobal(L, "debugger");
-    
-    lua_pushnumber(L, WAX_VERSION);
-    lua_setglobal(L, "waxVersion");
-    
-    lua_pushstring(L, WAX_DATA_DIR);
-    lua_setglobal(L, "waxRoot");
     
     lua_pushstring(L, [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] UTF8String]);
     lua_setglobal(L, "NSDocumentDirectory");
