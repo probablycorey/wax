@@ -9,6 +9,8 @@ require "wax.waxCallback"
 
 require "wax.bit"
 
+require "wax.helpers.frame"
+
 function wax.guid()
   return NS.ProcessInfo:processInfo():globallyUniqueString()
 end
