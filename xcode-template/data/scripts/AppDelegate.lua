@@ -16,14 +16,14 @@ waxClass{"AppDelegate", protocols = {"UIApplicationDelegate"}}
 -- 3. Let us know if you need any help at http://groups.google.com/group/iphonewax
 
 function applicationDidFinishLaunching(self, application)
-  local frame = UI.Screen:mainScreen():bounds()
-  self.window = UI.Window:initWithFrame(frame)
-  self.window:setBackgroundColor(UI.Color:orangeColor())
+  local frame = UIScreen:mainScreen():bounds()
+  self.window = UIWindow:initWithFrame(frame)
+  self.window:setBackgroundColor(UIColor:orangeColor())
 
 
-  local label = UI.Label:initWithFrame(CGRect(0, 100, 320, 40))
-  label:setFont(UI.Font:boldSystemFontOfSize(30))
-  label:setColor(UI.Color:orangeColor())
+  local label = UILabel:initWithFrame(CGRect(0, 100, 320, 40))
+  label:setFont(UIFont:boldSystemFontOfSize(30))
+  label:setColor(UIColor:orangeColor())
   label:setText("Hello Lua!")
   label:setTextAlignment(UITextAlignmentCenter)    
   self.window:addSubview(label)
