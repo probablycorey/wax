@@ -95,11 +95,21 @@ void luaopen_wax(lua_State *L) {
 }
 
 static void addGlobals(lua_State *L) {
+    lua_getglobal(L, "wax");
+    if (lua_isnil(L, -1)) {
+        lua_pop(L, 1); // Get rid of the nil
+        lua_newtable(L);
+        lua_pushvalue(L, -1);
+        lua_setglobal(L, "wax");
+    }
+    
     lua_pushnumber(L, WAX_VERSION);
-    lua_setglobal(L, "waxVersion");
+    lua_setfield(L, -2, "version");
     
     lua_pushstring(L, WAX_DATA_DIR);
-    lua_setglobal(L, "waxRoot");
+    lua_setfield(L, -2, "root");
+        
+    lua_pop(L, 1); // pop the wax global off
     
     // Functions
     lua_pushcfunction(L, tolua);
