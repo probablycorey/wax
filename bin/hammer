@@ -16,7 +16,7 @@ class Hammer
   @args = {"-configuration" => "Debug"}
   @settings = {}
 
-  @should_run_tests = false
+  @should_run_headless = false
   @should_run = false
   @verbose = false
   
@@ -39,8 +39,8 @@ class Hammer
         @settings["PRODUCT_NAME"] = v
       end
   
-      opts.on("-t", "--test", "Run all tests") do
-        @should_run_tests = true
+      opts.on("-h", "--headless", "Just runs the app from the command line, no simulator") do
+        @should_run_headless = true
       end
       
       opts.on("-r", "--run", "Run the app in the simulator") do
@@ -79,6 +79,7 @@ class Hammer
     extra_args = ARGV
     extra_args += ["build"] if extra_args.empty?
     arg_string = @args.collect {|k, v| v ? "#{k} #{v}" : k}.join(" ")
+    arg_string << " GCC_PREPROCESSOR_DEFINITIONS=\'USE_READLINE=YES\'" if @should_run_headless
     setting_string = @settings.collect {|k, v| v ? "#{k}=#{v}" : k}.join(" ")
     cmd = "xcodebuild #{arg_string} #{setting_string} #{extra_args.join(' ')}"
     puts cmd if @verbose
@@ -98,8 +99,8 @@ class Hammer
     return output
   end
 
-  def self.test  
-    return if not @should_run_tests
+  def self.headless  
+    return if not @should_run_headless
     if ENV["PLATFORM_NAME"] !~ /simulator/
       puts "Can only run tests on the simulator not #{ENV["PLATFORM_NAME"]}"
       exit 1
@@ -115,9 +116,7 @@ class Hammer
 
     FileUtils.rm_rf(ENV["CFFIXED_USER_HOME"]) if File.exists?(ENV["CFFIXED_USER_HOME"])
     FileUtils.mkdir_p(ENV["CFFIXED_USER_HOME"] + "/Documents")
-  
-    ENV["WAX_TEST"] = "YES"
-    
+      
     system("#{self.app_path}/#{ENV['EXECUTABLE_NAME']} -RegisterForSystemEvents")
     
     exit 0
@@ -138,6 +137,6 @@ Hammer.setup
 
 Hammer.build
 
-Hammer.test
+Hammer.headless
 
 Hammer.run

@@ -69,16 +69,22 @@ void wax_startWithExtensions(lua_CFunction func, ...) {
     if (luaL_dofile(L, WAX_DATA_DIR "scripts/AppDelegate.lua") != 0) {
         fprintf(stderr,"Fatal error: %s\n", lua_tostring(L,-1));
     }
-    
-    // Should we run the tests?
+	
     NSDictionary *env = [[NSProcessInfo processInfo] environment];
-    if ([[env objectForKey:@"WAX_TEST"] isEqual:@"YES"]) {
+    if ([[env objectForKey:@"WAX_TEST"] isEqual:@"YES"]) { // Should we run the tests?
         if (luaL_dofile(L, WAX_DATA_DIR "scripts/tests/init.lua") != 0) {
             fprintf(stderr,"Fatal error running tests: %s\n", lua_tostring(L,-1));
         }
         exit(1);
     }
+	else if ([[env objectForKey:@"WAX_REPL"] isEqual:@"YES"]) { // Should we run the repl?
+		if (luaL_dofile(L, WAX_DATA_DIR "scripts/wax/repl.lua") != 0) {
+			fprintf(stderr,"Fatal error running tests: %s\n", lua_tostring(L,-1));
+		}
+		exit(1);
+	}
 }
+
 
 void wax_start() {
     wax_startWithExtensions(nil);

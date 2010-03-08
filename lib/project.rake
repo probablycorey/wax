@@ -79,7 +79,12 @@ end
 
 desc "Build and run tests on the app"
 task :test do
-  sh "#{WAX_PATH}/bin/hammer --test"
+  sh "#{WAX_PATH}/bin/hammer --headless WAX_TEST=YES"
+end
+
+desc "Runs a REPL on the current app"
+task :repl do
+  sh "#{WAX_PATH}/bin/hammer --headless WAX_REPL=YES"
 end
 
 desc "Build"
