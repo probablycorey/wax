@@ -61,6 +61,9 @@
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
 		91373B241066B2B30089FEE3 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91373B231066B2B30089FEE3 /* Entitlements.plist */; };
 		91373BF01066C8930089FEE3 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91373BEF1066C8930089FEE3 /* Icon.png */; };
+		D55E27AA1145B68900D7EFCE /* CapitalsTable.lua in Resources */ = {isa = PBXBuildFile; fileRef = D55E27A81145B68900D7EFCE /* CapitalsTable.lua */; };
+		D55E27AB1145B68900D7EFCE /* StatesTable.lua in Resources */ = {isa = PBXBuildFile; fileRef = D55E27A91145B68900D7EFCE /* StatesTable.lua */; };
+		D55E27AD1145B6B100D7EFCE /* states.plist in Resources */ = {isa = PBXBuildFile; fileRef = D55E27AC1145B6B100D7EFCE /* states.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -189,6 +192,9 @@
 		8D1107310486CEB800E47090 /* States-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "States-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		91373B231066B2B30089FEE3 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		91373BEF1066C8930089FEE3 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
+		D55E27A81145B68900D7EFCE /* CapitalsTable.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CapitalsTable.lua; sourceTree = "<group>"; };
+		D55E27A91145B68900D7EFCE /* StatesTable.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = StatesTable.lua; sourceTree = "<group>"; };
+		D55E27AC1145B6B100D7EFCE /* states.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = states.plist; path = data/states.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -381,6 +387,8 @@
 			isa = PBXGroup;
 			children = (
 				0482731611260912003DFACB /* AppDelegate.lua */,
+				D55E27A81145B68900D7EFCE /* CapitalsTable.lua */,
+				D55E27A91145B68900D7EFCE /* StatesTable.lua */,
 				0482731711260912003DFACB /* tests */,
 			);
 			name = scripts;
@@ -438,6 +446,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				D55E27AC1145B6B100D7EFCE /* states.plist */,
 				91373B231066B2B30089FEE3 /* Entitlements.plist */,
 				8D1107310486CEB800E47090 /* States-Info.plist */,
 				91373BEF1066C8930089FEE3 /* Icon.png */,
@@ -502,6 +511,9 @@
 			files = (
 				91373B241066B2B30089FEE3 /* Entitlements.plist in Resources */,
 				91373BF01066C8930089FEE3 /* Icon.png in Resources */,
+				D55E27AA1145B68900D7EFCE /* CapitalsTable.lua in Resources */,
+				D55E27AB1145B68900D7EFCE /* StatesTable.lua in Resources */,
+				D55E27AD1145B6B100D7EFCE /* states.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
