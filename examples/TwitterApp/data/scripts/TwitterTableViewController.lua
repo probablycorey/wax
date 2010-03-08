@@ -1,4 +1,4 @@
-waxClass{"TwitterTableViewController", UI.TableViewController}
+waxClass{"TwitterTableViewController", UITableViewController}
 
 function init(self)
   self.super:initWithStyle(UITableViewStylePlain)
@@ -8,14 +8,12 @@ function init(self)
 end
 
 function viewDidLoad(self)
-  local trendsDownloaded = function(json, response)
+  wax.http.request{"http://search.twitter.com/trends.json", callback = function(json, response)
     if response:statusCode() == 200 then
       self.trends = json["trends"]
     end
     self:tableView():reloadData()
-  end
-
-  HTTPotluck.request{"http://search.twitter.com/trends.json", callback = trendsDownloaded}
+  end}
 end
 
 -- DataSource
@@ -31,7 +29,7 @@ end
 function tableView_cellForRowAtIndexPath(self, tableView, indexPath)  
   local identifier = "TwitterTableViewControllerCell"
   local cell = tableView:dequeueReusableCellWithIdentifier(identifier) or
-               UI.TableViewCell:initWithStyle_reuseIdentifier(UITableViewCellStyleDefault, identifier)  
+               UITableViewCell:initWithStyle_reuseIdentifier(UITableViewCellStyleDefault, identifier)  
 
   local object = self.trends[indexPath:row() + 1] -- Must +1 because lua arrays are 1 based
   cell:textLabel():setText(object["name"])
