@@ -39,6 +39,8 @@ You get all of this with Lua, with no downside!
 Examples
 --------
 
+For some simple Wax apps, check out the [examples folder](http://github.com/probablycorey/wax/tree/master/examples/).
+
 How would I create a UIView and color it red?
     
     -- forget about using alloc! Memory is automatically managed by Wax
