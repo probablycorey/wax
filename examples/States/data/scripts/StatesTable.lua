@@ -1,10 +1,10 @@
-require "CapitalsTable"
 
-waxClass{"StatesTable", "UITableViewController", protocols = {"UITableViewDataSource", "UITableViewDelegate"}}
+
+waxClass{"StatesTable", UITableViewController, protocols = {"UITableViewDataSource", "UITableViewDelegate"}}
 
 function init(self)
   self.super:init()
-  self.states = NS.Array:arrayWithContentsOfFile("./states.plist")
+  self.states = NSArray:arrayWithContentsOfFile(wax.root .. "/states.plist")
   self:setTitle("States")
   return self
 end
@@ -27,7 +27,7 @@ end
 function tableView_cellForRowAtIndexPath(self, tableView, indexPath)  
   local identifier = "StateCell"
   local cell = tableView:dequeueReusableCellWithIdentifier(identifier) or
-               UI.TableViewCell:initWithStyle_reuseIdentifier(UITableViewCellStyleDefault, identifier)  
+               UITableViewCell:initWithStyle_reuseIdentifier(UITableViewCellStyleDefault, identifier)  
 
   local state = self.states[indexPath:row() + 1]
   cell:textLabel():setText(state["name"]) -- Must +1 because lua arrays are 1 based

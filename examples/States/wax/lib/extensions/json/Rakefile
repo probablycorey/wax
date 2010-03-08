@@ -1,0 +1,10 @@
+task :default do
+  sh 'tar zxvf yajl-1.0.9.tar.gz -- yajl-1.0.9/src/*.{c,h}'
+  rm_rf 'yajl'
+  mv 'yajl-1.0.9/src', 'yajl'
+  sh %[sed -i '' -e 's,include <yajl/yajl_common.h>,include "yajl_common.h",g' yajl/api/yajl_{parse,gen}.h]
+  ln_sf 'api/yajl_parse.h',  'yajl/'
+  ln_sf 'api/yajl_gen.h',    'yajl/'
+  ln_sf 'api/yajl_common.h', 'yajl/'
+  rm_rf 'yajl-1.0.9'
+end

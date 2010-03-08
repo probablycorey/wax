@@ -1,4 +1,4 @@
-waxClass{"CapitalsTable", UI.TableViewController, protocols = {"UITableViewDataSource"}}
+waxClass{"CapitalsTable", UITableViewController, protocols = {"UITableViewDataSource"}}
 
 function init(self, state)
   self.super:initWithStyle(UITableViewStyleGrouped)
@@ -25,7 +25,7 @@ end
 function tableView_cellForRowAtIndexPath(self, tableView, indexPath)  
   local identifier = "CapitalsTableCell"
   local cell = tableView:dequeueReusableCellWithIdentifier(identifier) or
-               UI.TableViewCell:initWithStyle_reuseIdentifier(UITableViewCellStyleValue1, identifier)  
+               UITableViewCell:initWithStyle_reuseIdentifier(UITableViewCellStyleValue1, identifier)  
 
   local key = table.keys(self.state)[indexPath:row() + 1]
   cell:detailTextLabel():setText(tostring(self.state[key]))
