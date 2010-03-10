@@ -149,6 +149,42 @@ static NSMethodSignature *methodSignatureForSelector(id self, SEL _cmd, SEL sele
     return signature;
 }
 
+static BOOL respondsToSelector(id self, SEL cmd, SEL selector) {
+    lua_State *L = wax_currentLuaState();
+    
+    BOOL responds = NO;
+    
+    BEGIN_STACK_MODIFY(L);
+    
+    wax_instance_pushUserdata(L, [self class]);
+    lua_getfenv(L, -1);
+    lua_pushstring(L, WAX_CLASS_FORCED_SELECTORS);
+    lua_rawget(L, -2); // raw get because we don't want it to run into the __index method
+    if (!lua_isnil(L, -1)) {
+        lua_getfield(L, -1, sel_getName(selector));
+        responds = !lua_isnil(L, -1);
+        lua_pop(L, 1);
+    }
+    lua_pop(L, 2); // pop value and fenv    
+    
+    if (!responds) {
+        struct objc_super super;
+        super.receiver = self;
+    #if TARGET_IPHONE_SIMULATOR
+        super.class = [self superclass];
+    #else
+        super.super_class = [self superclass];
+    #endif
+        
+        id result = objc_msgSendSuper(&super, cmd, selector);
+        responds = result ? YES : NO; // Get around the casting problems
+    }
+    
+    END_STACK_MODIFY(L, 0);
+    
+    return responds;
+}
+
 static void setValueForUndefinedKey(id self, SEL cmd, id value, NSString *key) {
     lua_State *L = wax_currentLuaState();
     
@@ -229,10 +265,11 @@ static int __call(lua_State *L) {
 
         class_addMethod(class, @selector(methodSignatureForSelector:), (IMP)methodSignatureForSelector, "@@::");
         class_addMethod(class, @selector(forwardInvocation:), (IMP)forwardInvocation, "v@:@");
+        class_addMethod(class, @selector(respondsToSelector:), (IMP)respondsToSelector, "B@::");
         
         id metaclass = object_getClass(class);
         class_addMethod(metaclass, @selector(methodSignatureForSelector:), (IMP)methodSignatureForSelector, "@@::");
-        class_addMethod(metaclass, @selector(forwardInvocation:), (IMP)forwardInvocation, "v@:@");        
+        class_addMethod(metaclass, @selector(forwardInvocation:), (IMP)forwardInvocation, "v@:@");
         
         class_addMethod(metaclass, @selector(alloc), (IMP)alloc, "@@:");
         
