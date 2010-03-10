@@ -12,14 +12,17 @@ function waxClass(options)
     wax.class.addProtocols(class, protocol)
   end 
 
-  local _M = setmetatable({}, {
-    __newindex = function(self, key, value) 
-      class[key] = value
-    end,
+  local _M = setmetatable({
+      self = class,
+    },
+    {
+      __newindex = function(self, key, value) 
+        class[key] = value
+      end,
     
-    __index = function(self, key) 
-      return class[key] or _G[key]
-    end,
+      __index = function(self, key) 
+        return class[key] or _G[key]
+      end,
     
     }
   )
