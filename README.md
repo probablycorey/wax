@@ -98,6 +98,15 @@ You said HTTP calls were easy, I don't believe you...
       puts(body)       
     end}
     
+Tutorials
+---------
+
+[Setting up iPhone wax](http://probablyinteractive.com/2009/10/18/Setting-up-iPhone-Wax.html)
+
+[How does iPhone Wax work?](http://probablyinteractive.com/2009/10/19/How-does-iPhone-Wax-work.html)
+
+[Twitter client in Wax](http://probablyinteractive.com/2009/10/20/Wax-talks-to-twitter.html)
+    
 Which API's are included?
 -------------------------
 
