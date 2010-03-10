@@ -265,3 +265,9 @@ UIInterfaceOrientationPortrait = UIDeviceOrientationPortrait
 UIInterfaceOrientationPortraitUpsideDown = UIDeviceOrientationPortraitUpsideDown
 UIInterfaceOrientationLandscapeLeft = UIDeviceOrientationLandscapeRight
 UIInterfaceOrientationLandscapeRight = UIDeviceOrientationLandscapeLeft
+
+-- UIViewAnimationCurve
+UIViewAnimationCurveEaseInOut = 0
+UIViewAnimationCurveEaseIn = 1
+UIViewAnimationCurveEaseOut = 2
+UIViewAnimationCurveLinear = 3
