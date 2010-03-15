@@ -8,7 +8,8 @@
 #include "lua.h"
 #include "lauxlib.h"
 
-
+static int parse(lua_State *L);
+static int generate(lua_State *L);
 
 static const struct luaL_Reg metaFunctions[] = {
     {NULL, NULL}

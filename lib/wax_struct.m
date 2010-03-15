@@ -270,7 +270,7 @@ static int unpack(lua_State *L) {
     int index = 0;
     int position = 0;
     char type[2] = {'\0', '\0'};    
-    while(type[0] = simplifiedTypeDescription[index]) {         
+    while((type[0] = simplifiedTypeDescription[index])) {         
         wax_fromObjc(L, type, structUserdata->data + position);
         lua_rawseti(L, -2, index + 1);
         position += wax_sizeOfTypeDescription(type);

@@ -22,7 +22,6 @@ static int tolua(lua_State *L);
 static int toobjc(lua_State *L);
 static int exitApp(lua_State *L);
 static int objcDebug(lua_State *L);
-static int panic(lua_State *L);
 
 lua_State *wax_currentLuaState() {
     static lua_State *L;    
@@ -51,7 +50,7 @@ void wax_startWithExtensions(lua_CFunction func, ...) {
 
         va_list ap;
         va_start(ap, func);
-        while(func = va_arg(ap, lua_CFunction)) func(L);
+        while((func = va_arg(ap, lua_CFunction))) func(L);
             
         va_end(ap);
     }
