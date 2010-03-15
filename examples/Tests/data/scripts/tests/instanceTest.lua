@@ -1,6 +1,6 @@
 describe["Objlua Instance"] = function()
   before = function()
-    testString = toobjc(NS.String:initWithString("12345"))
+    testString = toobjc(NSString:initWithString("12345"))
   end
 
   it["exists!"] = function()
@@ -8,7 +8,7 @@ describe["Objlua Instance"] = function()
   end
   
   it["knows about it's class"] = function()
-    expect(testString).should_be_kind_of(NS.String)
+    expect(testString).should_be_kind_of(NSString)
   end
 
   it["responds to method with no args"] = function()

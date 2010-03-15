@@ -16,13 +16,13 @@ waxClass{"AppDelegate", protocols = {"UIApplicationDelegate"}}
 -- 3. Let us know if you need any help at http://groups.google.com/group/iphonewax
 
 function applicationDidFinishLaunching(self, application)
-  local frame = UI.Screen:mainScreen():bounds()
-  self.window = UI.Window:initWithFrame(frame)
-  self.window:setBackgroundColor(UI.Color:orangeColor())
+  local frame = UIScreen:mainScreen():bounds()
+  self.window = UIWindow:initWithFrame(frame)
+  self.window:setBackgroundColor(UIColor:orangeColor())
 
-  local view = UI.View:init()
+  local view = UIView:init()
   
-  local button = UI.Button:buttonWithType(UIButtonTypeRoundedRect)
+  local button = UIButton:buttonWithType(UIButtonTypeRoundedRect)
   button:setTitle_forState("Test GC", UIControlStateNormal)
   button:setFrame(CGRect(100, 100, 120, 100))
   button:addTarget_action_forControlEvents(self, "gcTouched:", UIControlEventTouchUpInside)
