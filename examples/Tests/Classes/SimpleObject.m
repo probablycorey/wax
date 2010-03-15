@@ -35,6 +35,10 @@
     return _value;
 }
 
++ (NSString *)helloMommy {
+    return @"Hi Corey!";
+}
+
 + (id)stored:(id)obj {
     static id stored;
     if (obj) {

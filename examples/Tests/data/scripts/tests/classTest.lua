@@ -2,7 +2,7 @@ require "tests.fixtures.ExtendedSimpleObject"
 
 -- TEST wax.class's forwardInvocation stuff (return values)
 
-describe["An 'Lua created' ObjClass"] = function()
+describe["A 'Lua created' ObjClass instance"] = function()
   before = function()
   end
   
@@ -31,5 +31,15 @@ describe["An 'Lua created' ObjClass"] = function()
     local o = ExtendedSimpleObject:initWithValue("obj")
     result = o:performSelector_withObject("stringForTestingWithArg:", "we all!")
     expect(tolua(result)).should_be("So say we all!")
+  end
+end
+
+describe["A 'Lua created' ObjClass"] = function()
+  before = function()
+  end
+  
+  it["can call a class method on it's super"] = function()
+    local o = ExtendedSimpleObject:helloMommy()
+    expect(o).should_be("Hi Corey!")  
   end
 end

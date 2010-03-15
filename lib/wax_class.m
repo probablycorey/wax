@@ -263,19 +263,21 @@ static int __call(lua_State *L) {
         class_addIvar(class, WAX_CLASS_INSTANCE_USERDATA_IVAR_NAME, size, alignment, "*"); // Holds a reference to the lua userdata
         objc_registerClassPair(class);        
 
+        // These methods need to be added because of delegates
         class_addMethod(class, @selector(methodSignatureForSelector:), (IMP)methodSignatureForSelector, "@@::");
         class_addMethod(class, @selector(forwardInvocation:), (IMP)forwardInvocation, "v@:@");
         class_addMethod(class, @selector(respondsToSelector:), (IMP)respondsToSelector, "B@::");
-        
-        id metaclass = object_getClass(class);
-        class_addMethod(metaclass, @selector(methodSignatureForSelector:), (IMP)methodSignatureForSelector, "@@::");
-        class_addMethod(metaclass, @selector(forwardInvocation:), (IMP)forwardInvocation, "v@:@");
-        
-        class_addMethod(metaclass, @selector(alloc), (IMP)alloc, "@@:");
-        
+
         // Make Key-Value complient
         class_addMethod(class, @selector(setValue:forUndefinedKey:), (IMP)setValueForUndefinedKey, "v@:@@");
-        class_addMethod(class, @selector(valueForUndefinedKey:), (IMP)valueForUndefinedKey, "@@:@");
+        class_addMethod(class, @selector(valueForUndefinedKey:), (IMP)valueForUndefinedKey, "@@:@");        
+        
+        id metaclass = object_getClass(class);        
+        class_addMethod(metaclass, @selector(alloc), (IMP)alloc, "@@:");
+        
+// I forgot why these needed to be added... if you figure it out. You will also need to alter the methodSignatureForSelector to handle classes correctly
+//        class_addMethod(metaclass, @selector(methodSignatureForSelector:), (IMP)methodSignatureForSelector, "@@::");
+//        class_addMethod(metaclass, @selector(forwardInvocation:), (IMP)forwardInvocation, "v@:@");
     }
         
     wax_instance_create(L, class, YES);
