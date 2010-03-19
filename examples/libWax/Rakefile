@@ -1,0 +1,11 @@
+task :default => :package
+
+desc "Build the simulator and device libs for the phone"
+task :build do
+  sh "Scripts/build"
+end
+
+desc "Package the lib into a framework"
+task :package => :build do
+  sh "Scripts/package"
+end

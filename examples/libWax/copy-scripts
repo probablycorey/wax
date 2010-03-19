@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# Created by Corey Johnson on 3/19/10.
+# Copyright 2010 Probably Interactive. All rights reserved.
+
+mkdir -p "$PROJECT_DIR/data/scripts"
+
+[ ! -d "$PROJECT_DIR/data/scripts/AppDelegate.lua" ] && 
+    cat "puts 'Look inside PROJECT_DIR/data/scripts/AppDelegate.lua'" > "$PROJECT_DIR/data/scripts/AppDelegate.lua"
+
+rsync -r --delete "$PROJECT_DIR/data" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH" > /dev/null
+rsync -r --delete "$PROJECT_DIR/Wax.framework/resources/wax-scripts/" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/data/scripts/wax" > /dev/null
+
+
