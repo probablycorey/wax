@@ -124,7 +124,7 @@ static int setFillColor(lua_State *L) {
 static int setStrokeColor(lua_State *L) {
     CGContextRef c = (CGContextRef)lua_topointer(L, 1);
     
-    if (lua_gettop(L) > 4) {
+    if (lua_gettop(L) >= 4) {
         double r = luaL_checknumber(L, 2);
         double g = luaL_checknumber(L, 3);
         double b = luaL_checknumber(L, 4);    
