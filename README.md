@@ -98,6 +98,13 @@ You said HTTP calls were easy, I don't believe you...
       puts(body)       
     end}
     
+Since Wax converts NSString, NSArray, NSDictionary and NSNumber to native Lua values, you have to force objects back to Objective-C sometimes. Here is an example.
+    
+    local testString = "Hello lua!"
+    local bigFont = UIFont:boldSystemFontOfSize(30)
+    local size = toobjc(testString):sizeWithFont(bigFont)
+    puts(size)
+    
 Tutorials
 ---------
 
