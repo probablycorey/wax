@@ -611,29 +611,35 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
         returnType = method_copyReturnType(method);
     }
     else { // Does this object implement a protocol with this method?
-        uint count;
-        Protocol **protocols = class_copyProtocolList(class, &count);
+        Class currentClass = class;
         
-        SEL *posibleSelectors = &wax_selectorsForName(methodName).selectors[0];
-        
-        for (int i = 0; !returnType && i < count; i++) {
-            Protocol *protocol = protocols[i];
-            struct objc_method_description m_description;
+        while ([currentClass superclass] != [currentClass class]) { // Walk up the object heirarchy
+            uint count;
+            Protocol **protocols = class_copyProtocolList(currentClass, &count);
+                        
+            SEL *posibleSelectors = &wax_selectorsForName(methodName).selectors[0];
             
-            for (int j = 0; !returnType && j < 2; j++) {
-                selector = posibleSelectors[j];
+            for (int i = 0; !returnType && i < count; i++) {
+                Protocol *protocol = protocols[i];
+                struct objc_method_description m_description;
                 
-                m_description = protocol_getMethodDescription(protocol, selector, YES, YES);
-                if (!m_description.name) m_description = protocol_getMethodDescription(protocol, selector, NO, YES); // Check if it is not a "required" method
-                
-                if (m_description.name) {
-                    typeDescription = m_description.types;
-                    returnType = method_copyReturnType((Method)&m_description);
+                for (int j = 0; !returnType && j < 2; j++) {
+                    selector = posibleSelectors[j];
+                    
+                    m_description = protocol_getMethodDescription(protocol, selector, YES, YES);
+                    if (!m_description.name) m_description = protocol_getMethodDescription(protocol, selector, NO, YES); // Check if it is not a "required" method
+                    
+                    if (m_description.name) {
+                        typeDescription = m_description.types;
+                        returnType = method_copyReturnType((Method)&m_description);
+                    }
                 }
             }
+            
+            free(protocols);
+            
+            currentClass = [currentClass superclass];
         }
-        
-        free(protocols);
     }
     
     if (returnType) { // Matching method found! Create an Obj-C method on the 
@@ -689,7 +695,7 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
                 luaL_error(L, "Can't override method with return type %s", simplifiedReturnType);
                 break;
         }
-        
+                
         success = class_addMethod(class, selector, imp, typeDescription);
         free(returnType);                
     }
