@@ -218,7 +218,7 @@ end
 --------------------
 -- bit lib interface
 
-bit = {
+wax.bit = {
  -- bit operations
  bnot = bit_not,
  band = bit_and,

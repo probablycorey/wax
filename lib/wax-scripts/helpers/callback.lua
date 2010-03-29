@@ -1,6 +1,6 @@
 -- Let's us cancel a callback
 
-waxCallback = function(callback)
+wax.callback = function(callback)
   local object = {callback = callback}
 
   function object.cancel(self)

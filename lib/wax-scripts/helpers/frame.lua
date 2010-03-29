@@ -1,5 +1,5 @@
 -- This is weird code... I'm just playing with an idea
-function frame(object)
+function wax.frame(object)
   return setmetatable({}, {
     __index = function(self, key)
       if key == "y" then key = "top"

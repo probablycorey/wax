@@ -5,11 +5,11 @@ require "wax.structs"
 
 require "wax.luaClass"
 require "wax.waxClass"
-require "wax.waxCallback"
 
-require "wax.bit"
-
+require "wax.helpers.bit"
+require "wax.helpers.callback"
 require "wax.helpers.frame"
+require "wax.helpers.storage"
 
 function wax.guid()
   return NSProcessInfo:processInfo():globallyUniqueString()
