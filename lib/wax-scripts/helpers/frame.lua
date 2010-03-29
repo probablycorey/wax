@@ -1,6 +1,14 @@
 -- This is weird code... I'm just playing with an idea
 function wax.frame(object)
-  return setmetatable({}, {
+  return setmetatable({
+    object = object,
+    center = function(self)
+      local offset = (wax.frame(self.object:superview()).width - self.width) / 2
+      self.x = offset
+      return self
+    end,
+  },
+  {
     __index = function(self, key)
       if key == "y" then key = "top"
       elseif key == "x" then key = "left"
