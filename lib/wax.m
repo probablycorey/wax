@@ -31,7 +31,7 @@ lua_State *wax_currentLuaState() {
 }
 
 void uncaughtExceptionHandler(NSException *e) {
-    printf("ERROR: Uncaught exception %s", [[e description] UTF8String]);
+    printf("ERROR: Uncaught exception %s\n", [[e description] UTF8String]);
 }
 
 void wax_startWithExtensions(lua_CFunction func, ...) {  
