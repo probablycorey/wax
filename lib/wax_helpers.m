@@ -65,7 +65,7 @@ void wax_log(int flag, NSString *format, ...) {
         va_list args;
         va_start(args, format);
         NSString *output = [[[NSString alloc] initWithFormat:format arguments:args] autorelease];
-        printf("%s", [output UTF8String]);
+        printf("%s\n", [output UTF8String]);
         va_end(args);
     }
 }
