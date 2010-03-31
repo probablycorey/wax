@@ -610,7 +610,7 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
         typeDescription = method_getTypeEncoding(method);        
         returnType = method_copyReturnType(method);
     }
-    else { // Does this object implement a protocol with this method?
+    else { // Is this method implementing a protocol?
         Class currentClass = class;
         
         while ([currentClass superclass] != [currentClass class]) { // Walk up the object heirarchy
