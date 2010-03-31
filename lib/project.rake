@@ -83,7 +83,7 @@ task :test do
 end
 
 desc "Runs a REPL on the current app"
-task :repl do
+task :console do
   sh "#{WAX_PATH}/bin/hammer --headless WAX_REPL=YES"
 end
 
