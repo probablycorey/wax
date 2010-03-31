@@ -271,13 +271,13 @@ static int __call(lua_State *L) {
         // Make Key-Value complient
         class_addMethod(class, @selector(setValue:forUndefinedKey:), (IMP)setValueForUndefinedKey, "v@:@@");
         class_addMethod(class, @selector(valueForUndefinedKey:), (IMP)valueForUndefinedKey, "@@:@");        
-        
+
         id metaclass = object_getClass(class);        
         class_addMethod(metaclass, @selector(alloc), (IMP)alloc, "@@:");
-        
-// I forgot why these needed to be added... if you figure it out. You will also need to alter the methodSignatureForSelector to handle classes correctly
-//        class_addMethod(metaclass, @selector(methodSignatureForSelector:), (IMP)methodSignatureForSelector, "@@::");
-//        class_addMethod(metaclass, @selector(forwardInvocation:), (IMP)forwardInvocation, "v@:@");
+
+        // Allow obj-c to talk to a waxClass' class methods
+        class_addMethod(metaclass, @selector(methodSignatureForSelector:), (IMP)methodSignatureForSelector, "@@::");
+        class_addMethod(metaclass, @selector(forwardInvocation:), (IMP)forwardInvocation, "v@:@");
     }
         
     wax_instance_create(L, class, YES);
