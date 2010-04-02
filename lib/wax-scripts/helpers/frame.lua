@@ -39,6 +39,9 @@ function wax.frame(object)
       elseif key == "height" then frame.height = value
       elseif key == "width" then frame.width = value
       
+      
+      elseif key == "stretchBottom" then frame.height = math.max(0, frame.value - frame.y)
+      
       else
         return nil
       end
