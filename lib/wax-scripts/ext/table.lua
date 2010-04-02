@@ -91,7 +91,7 @@ end
 function table.map(t, func)
   local mapped = {}
   for k, v in pairs(t) do
-    table.insert(mapped, func(v))
+    table.insert(mapped, func(v, k))
   end
   
   return mapped
