@@ -96,3 +96,8 @@ desc "Build and run the app"
 task :run do
   sh "#{WAX_PATH}/bin/hammer --run"
 end
+
+desc "Goes through your lua scripts and updates all the xibs to use lua iboutlets"
+task :xibs do
+  sh "#{WAX_PATH}/bin/update-xibs"
+end

@@ -3,6 +3,10 @@ require "wax.ext.string"
 require "wax.ext.number"
 require "wax.ext.http"
 
+function IBOutlet(...)
+  -- does nothing... just used so we can parse it
+end
+
 function printf(string, ...)
 end
 
