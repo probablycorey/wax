@@ -160,7 +160,7 @@ matchers = {
   
   should_exist = function(value)
     if not value then
-      return false, value .. " evaluates to false."
+      return false, tostring(value) .. " evaluates to false."
     else
       return true
     end
