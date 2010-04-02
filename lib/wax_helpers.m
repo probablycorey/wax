@@ -492,7 +492,11 @@ wax_selectors wax_selectorsForName(const char *methodName) {
 SEL wax_selectorForInstance(wax_instance_userdata *instanceUserdata, const char *methodName, BOOL forceInstanceCheck) {    
     SEL *posibleSelectors = &wax_selectorsForName(methodName).selectors[0];
         
-    if (instanceUserdata->isClass && (forceInstanceCheck || wax_isInitMethod(methodName))) {
+    if (instanceUserdata->isSuper) { // We don't want to get into the methodSignature code for wax classes
+        if ([instanceUserdata->instance respondsToSelector:posibleSelectors[0]]) return posibleSelectors[0];
+        if ([instanceUserdata->instance respondsToSelector:posibleSelectors[1]]) return posibleSelectors[1];            
+    }
+    else if (instanceUserdata->isClass && (forceInstanceCheck || wax_isInitMethod(methodName))) {
         if ([instanceUserdata->instance instanceMethodSignatureForSelector:posibleSelectors[0]]) return posibleSelectors[0];
         if ([instanceUserdata->instance instanceMethodSignatureForSelector:posibleSelectors[1]]) return posibleSelectors[1];
     }

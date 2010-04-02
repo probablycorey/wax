@@ -104,24 +104,30 @@ static void forwardInvocation(id self, SEL _cmd, NSInvocation *invocation) {
     return;
 }
 
+// Used for both methodSignatureForSelector and instnanceMethodSignatureForSelector
 static NSMethodSignature *methodSignatureForSelector(id self, SEL _cmd, SEL selector) {
     lua_State *L = wax_currentLuaState();
     BEGIN_STACK_MODIFY(L)    
-
-    struct objc_super super;
-    super.receiver = self;
-#if TARGET_IPHONE_SIMULATOR
-    super.class = [self superclass];
-#else
-    super.super_class = [self superclass];
-#endif
     
-    NSMethodSignature *signature = objc_msgSendSuper(&super, _cmd, selector);
+    NSMethodSignature *signature = nil;
     
-    if (signature) {
-        return signature;
+    if (self == [self class]) { // it's a class, not an instance
+        signature = objc_msgSend([self superclass], _cmd, selector);
     }
-
+    else {
+        struct objc_super super;
+        super.receiver = self;
+#if TARGET_IPHONE_SIMULATOR
+        super.class = [self superclass];
+#else
+        super.super_class = [self superclass];
+#endif
+        
+        signature = objc_msgSendSuper(&super, _cmd, selector);
+    }
+    
+    if (signature) return signature;
+    
     wax_instance_pushFunction(L, self, selector);
     
     if (lua_isnil(L, -1)) {
@@ -143,46 +149,10 @@ static NSMethodSignature *methodSignatureForSelector(id self, SEL _cmd, SEL sele
     typeString[2] = ':';
     typeString[typeStringSize - 1] = '\0';
     signature = [NSMethodSignature signatureWithObjCTypes:typeString];
-
+    
     END_STACK_MODIFY(L, 0)
     
     return signature;
-}
-
-static BOOL respondsToSelector(id self, SEL cmd, SEL selector) {
-    lua_State *L = wax_currentLuaState();
-    
-    BOOL responds = NO;
-    
-    BEGIN_STACK_MODIFY(L);
-    
-    wax_instance_pushUserdata(L, [self class]);
-    lua_getfenv(L, -1);
-    lua_pushstring(L, WAX_CLASS_FORCED_SELECTORS);
-    lua_rawget(L, -2); // raw get because we don't want it to run into the __index method
-    if (!lua_isnil(L, -1)) {
-        lua_getfield(L, -1, sel_getName(selector));
-        responds = !lua_isnil(L, -1);
-        lua_pop(L, 1);
-    }
-    lua_pop(L, 2); // pop value and fenv    
-    
-    if (!responds) {
-        struct objc_super super;
-        super.receiver = self;
-    #if TARGET_IPHONE_SIMULATOR
-        super.class = [self superclass];
-    #else
-        super.super_class = [self superclass];
-    #endif
-        
-        id result = objc_msgSendSuper(&super, cmd, selector);
-        responds = result ? YES : NO; // Get around the casting problems
-    }
-    
-    END_STACK_MODIFY(L, 0);
-    
-    return responds;
 }
 
 static void setValueForUndefinedKey(id self, SEL cmd, id value, NSString *key) {
@@ -263,18 +233,22 @@ static int __call(lua_State *L) {
         class_addIvar(class, WAX_CLASS_INSTANCE_USERDATA_IVAR_NAME, size, alignment, "*"); // Holds a reference to the lua userdata
         objc_registerClassPair(class);        
 
+//        IMP origMethodSignatureForSelector = class_getMethodImplementation(class, @selector(methodSignatureForSelector));
+//        class_addMethod(class, @selector(origMethodSignatureForSelector:), origMethodSignatureForSelector, "@@::");
+        
         // These methods need to be added because of delegates
         class_addMethod(class, @selector(methodSignatureForSelector:), (IMP)methodSignatureForSelector, "@@::");
         class_addMethod(class, @selector(forwardInvocation:), (IMP)forwardInvocation, "v@:@");
-        class_addMethod(class, @selector(respondsToSelector:), (IMP)respondsToSelector, "B@::");
 
         // Make Key-Value complient
         class_addMethod(class, @selector(setValue:forUndefinedKey:), (IMP)setValueForUndefinedKey, "v@:@@");
         class_addMethod(class, @selector(valueForUndefinedKey:), (IMP)valueForUndefinedKey, "@@:@");        
 
         id metaclass = object_getClass(class);        
-        class_addMethod(metaclass, @selector(alloc), (IMP)alloc, "@@:");
 
+        class_addMethod(metaclass, @selector(alloc), (IMP)alloc, "@@:");
+        class_addMethod(metaclass, @selector(instanceMethodSignatureForSelector:), (IMP)methodSignatureForSelector, "@@::");
+        
         // Allow obj-c to talk to a waxClass' class methods
         class_addMethod(metaclass, @selector(methodSignatureForSelector:), (IMP)methodSignatureForSelector, "@@::");
         class_addMethod(metaclass, @selector(forwardInvocation:), (IMP)forwardInvocation, "v@:@");
