@@ -17,14 +17,18 @@
 const NSTimeInterval WAX_HTTP_TIMEOUT = 30;
 
 static int request(lua_State *L);
+
 static BOOL pushAuthCallback(lua_State *L, int tableIndex);
 static BOOL pushCallback(lua_State *L, int table_index);
+
 static int getFormat(lua_State *L, int tableIndex);
+static double getCachePeriod(lua_State *L, int tableIndex);
 static NSDictionary *getHeaders(lua_State *L, int tableIndex);
 static NSString *getMethod(lua_State *L, int tableIndex);
-static NSURLRequestCachePolicy getCachePolicy(lua_State *L, int tableIndex);
 static NSTimeInterval getTimeout(lua_State *L, int tableIndex);
 static NSString *getBody(lua_State *L, int tableIndex);
+
+static NSString* md5HexDigest(NSString* input);
 
 static const struct luaL_Reg metaFunctions[] = {
     {NULL, NULL}
@@ -56,6 +60,8 @@ int luaopen_wax_http(lua_State *L) {
 //   method = "get" | "post" | "put" | "delete"
 //   format = "text" | "binary" | "json"
 //   timout = number
+//   body = string
+//   cache = number # seconds to keep cache valid
 //   callback = function(body, response) # No callback? Then treat as syncronous
 static int request(lua_State *L) {
     lua_rawgeti(L, 1, 1);
@@ -67,34 +73,35 @@ static int request(lua_State *L) {
     lua_pop(L, 1); // Pop the url off the stack
     
     if (!url) luaL_error(L, "wax_http: Could not create URL from string '%s'", [urlString UTF8String]);
+          
     
-    NSURLRequestCachePolicy cachePolicy = getCachePolicy(L, 1);
+    NSURLRequestCachePolicy cachePolicy = NSURLRequestUseProtocolCachePolicy; // Just use the default
     NSDictionary *headerFields = getHeaders(L, 1);
     NSData *body = [getBody(L, 1) dataUsingEncoding:NSUTF8StringEncoding];
-    
-    NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:cachePolicy timeoutInterval:WAX_HTTP_TIMEOUT];
     
     // Get the format
     int format = getFormat(L, 1);    
     NSTimeInterval timeout = getTimeout(L, 1);
     NSString *method = getMethod(L, 1);
-
-    wax_log(LOG_DEBUG, @"%@ %@", method, url);
+    double cachePeriod = getCachePeriod(L, 1);
     
+    NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:cachePolicy timeoutInterval:WAX_HTTP_TIMEOUT];
+        
     [urlRequest setAllHTTPHeaderFields:headerFields];
     [urlRequest setHTTPMethod:method];
     [urlRequest setHTTPBody:body];    
     [urlRequest setTimeoutInterval:timeout];
 
-    wax_http_connection *connection = [[wax_http_connection alloc] initWithRequest:urlRequest luaState:L];
+    wax_http_connection *connection;
+
+    connection = [[wax_http_connection alloc] initWithRequest:urlRequest cachePeriod:cachePeriod luaState:L];
+
     [connection autorelease];
     connection.format = format;
 
+    //[urlRequest release];
+
     wax_instance_create(L, connection, NO);
-    
-    if (pushAuthCallback(L, 1)) {
-        lua_setfield(L, -2, WAX_HTTP_AUTH_CALLBACK_FUNCTION_NAME);
-    }
     
     // Asyncronous or Syncronous
     if (pushCallback(L, 1)) { 
@@ -109,28 +116,13 @@ static int request(lua_State *L) {
 
         NSRunLoop* runLoop = [NSRunLoop currentRunLoop];        
         while (!connection.finished) {
-            [runLoop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.01]];
-//            [runLoop runMode:[NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]]]; // Does this work?
+            [runLoop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
         }
         
         [connection release];
 
         return 3;
     }
-}
-
-
-static NSURLRequestCachePolicy getCachePolicy(lua_State *L, int tableIndex) {
-    NSURLRequestCachePolicy cachePolicy = NSURLRequestUseProtocolCachePolicy;
-    if (lua_isnoneornil(L, tableIndex)) return cachePolicy;
-    
-    lua_getfield(L, tableIndex, "cache");
-    if (!lua_isnil(L, -1)) {
-        cachePolicy = luaL_checknumber(L, -1);
-    }
-    lua_pop(L, 1);
-    
-    return cachePolicy;
 }
 
 static NSTimeInterval getTimeout(lua_State *L, int tableIndex) {
@@ -174,6 +166,19 @@ static NSString *getMethod(lua_State *L, int tableIndex) {
     lua_pop(L, 1);
     
     return method;
+}
+
+static double getCachePeriod(lua_State *L, int tableIndex) {
+    double cachePeriod = 0;
+    if (lua_isnoneornil(L, tableIndex)) return cachePeriod;
+    
+    lua_getfield(L, tableIndex, "cache");
+    if (!lua_isnil(L, -1)) {
+        cachePeriod = luaL_checknumber(L, -1);
+    }
+    lua_pop(L, 1);
+    
+    return cachePeriod;
 }
 
 static int getFormat(lua_State *L, int tableIndex) {
