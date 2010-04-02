@@ -6,10 +6,7 @@ require "wax.structs"
 require "wax.luaClass"
 require "wax.waxClass"
 
-require "wax.helpers.bit"
-require "wax.helpers.callback"
-require "wax.helpers.frame"
-require "wax.helpers.storage"
+require "wax.helpers"
 
 function wax.guid()
   return NSProcessInfo:processInfo():globallyUniqueString()
