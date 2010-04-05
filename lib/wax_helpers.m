@@ -435,6 +435,10 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
                     instance = instanceUserdata->instance;
                     break;                                  
                 }
+                case LUA_TLIGHTUSERDATA: {
+                    instance = lua_touserdata(L, -1);
+                    break;
+                }
                 default:
                     luaL_error(L, "Can't convert %s to obj-c.", luaL_typename(L, stackIndex));
                     break;
