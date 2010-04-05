@@ -35,7 +35,7 @@
     L = luaState;
 
     _data = [[NSMutableData alloc] init];
-    _request = urlRequest;
+    _request = [urlRequest retain];
 
     _cachePeriod = cachePeriod;
     _format = WAX_HTTP_UNKNOWN;

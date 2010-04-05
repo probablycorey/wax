@@ -99,7 +99,7 @@ static int request(lua_State *L) {
     [connection autorelease];
     connection.format = format;
 
-    //[urlRequest release];
+    [urlRequest release];
 
     wax_instance_create(L, connection, NO);
     
@@ -119,8 +119,6 @@ static int request(lua_State *L) {
             [runLoop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
         }
         
-        [connection release];
-
         return 3;
     }
 }
