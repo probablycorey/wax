@@ -52,8 +52,14 @@ int luaopen_wax_CGContext(lua_State *L) {
 
 static int currentContext(lua_State *L) {
     CGContextRef context = UIGraphicsGetCurrentContext();
-    wax_fromObjc(L, @encode(CGContextRef), &context);
     
+    wax_fromObjc(L, @encode(CGContextRef), &context);
+    if (lua_gettop(L) > 1 && lua_isfunction(L, 1)) { // Function! 
+        CGContextSaveGState(context);
+        lua_call(L, 1, 1);
+        CGContextRestoreGState(context);
+    }
+
     return 1;
 }
 
