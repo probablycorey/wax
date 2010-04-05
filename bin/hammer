@@ -77,6 +77,7 @@ class Hammer
 
   def self.build # Build the app
     extra_args = ARGV
+
     extra_args += ["build"] if extra_args.empty?
     arg_string = @args.collect {|k, v| v ? "#{k} #{v}" : k}.join(" ")
     arg_string << " GCC_PREPROCESSOR_DEFINITIONS=\'USE_READLINE=YES\'" if @should_run_headless
@@ -89,8 +90,10 @@ class Hammer
 
     if @verbose or not successful
       puts output
-      puts("** BUILD FAILED **") if not successful
-      exit 1
+      if not successful
+        puts("** BUILD FAILED **") 
+        exit 1
+      end
     end
 
     # Take on the builds ENV

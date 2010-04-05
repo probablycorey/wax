@@ -92,6 +92,41 @@ task :build do
   sh "#{WAX_PATH}/bin/hammer"
 end
 
+desc "Package an adhoc build"
+task :adhoc do
+  if not ENV["sdk"]
+    raise "\nYou need to specify an sdk!\nUsage: rake adhoc sdk=iphoneos3.0\n"
+  end
+    
+  
+  sh "#{WAX_PATH}/bin/hammer clean"
+  rm_rf "build"
+
+  output = `#{WAX_PATH}/bin/hammer --sdk #{ENV["sdk"]} -c 'Ad\\ Hoc' -v`
+  success = ($? == 0)
+  if not success 
+    puts output
+  else
+    provisioning_id = output[/PROVISIONING_PROFILE\s+([\w\-]+)/, 1]
+    provisioning_profile = `grep -rl '#{provisioning_id}' '#{ENV['HOME']}/Library/MobileDevice/Provisioning\ Profiles/'`.strip
+    app_file = Dir["build/Ad Hoc-iphoneos/*.app"]
+  
+    raise "Could not find the Ad Hoc provisioning profile matching #{provisioning_id}" if not provisioning_profile
+      
+    timestamp = Time.now.strftime("%m-%d-%y")
+    dir = "adhoc-builds/#{timestamp}"
+    rm_rf dir
+    mkdir_p dir
+    
+    puts "---#{app_file}"
+    
+    sh "cp '#{provisioning_profile}' '#{dir}'"
+    sh "mv '#{app_file}' '#{dir}'"
+    sh "cd '#{dir}'; zip -ws adhoc-#{timestamp}.zip ./*"
+    sh "open #{dir}"
+  end
+end
+
 desc "Build and run the app"
 task :run do
   sh "#{WAX_PATH}/bin/hammer --run"
