@@ -159,7 +159,7 @@ static NSString *getMethod(lua_State *L, int tableIndex) {
     lua_getfield(L, tableIndex, "method");
     if (!lua_isnil(L, -1)) {
         const char *string = luaL_checkstring(L, -1);
-        method = [NSString stringWithUTF8String:string];
+        method = [[NSString stringWithUTF8String:string] uppercaseString];
     }
     lua_pop(L, 1);
     
