@@ -16,6 +16,16 @@ function string.split(s, sep)
   return t
 end
 
+function string.camelCase(s)
+  local splitTable = s:split("_")
+  local result = table.remove(splitTable, 1)
+  for i, chunk in ipairs(splitTable) do
+    result = result .. chunk:sub(1,1):upper() .. chunk:sub(2)
+  end
+    
+  return result
+end
+
 function string.escape(s)
   s = string.gsub(s, "([&=+%c])", function (c)
     return string.format("%%%02X", string.byte(c))
