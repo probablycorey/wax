@@ -174,7 +174,6 @@
 		043E6150113C3DA5007A6104 /* wax_struct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_struct.h; sourceTree = "<group>"; };
 		043E6151113C3DA5007A6104 /* wax_struct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_struct.m; sourceTree = "<group>"; };
 		0482723B1125E152003DFACB /* ProtocolLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProtocolLoader.h; sourceTree = "<group>"; };
-		0482723C1125E152003DFACB /* WaxTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxTextField.h; sourceTree = "<group>"; };
 		0482731611260912003DFACB /* AppDelegate.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AppDelegate.lua; sourceTree = "<group>"; };
 		0482731811260912003DFACB /* init.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = init.lua; sourceTree = "<group>"; };
 		04AFB8B6116C2C80007EB02E /* linenoise.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = linenoise.c; sourceTree = "<group>"; };
@@ -396,9 +395,8 @@
 			children = (
 				04AFB8B5116C2C80007EB02E /* linenoise */,
 			);
-			name = vendor;
-			path = ../lib/vendor;
-			sourceTree = SOURCE_ROOT;
+			path = vendor;
+			sourceTree = "<group>";
 		};
 		04AFB8B5116C2C80007EB02E /* linenoise */ = {
 			isa = PBXGroup;
@@ -413,7 +411,6 @@
 			isa = PBXGroup;
 			children = (
 				0482723B1125E152003DFACB /* ProtocolLoader.h */,
-				0482723C1125E152003DFACB /* WaxTextField.h */,
 			);
 			path = Classes;
 			sourceTree = "<group>";

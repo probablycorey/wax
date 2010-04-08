@@ -12,7 +12,6 @@
 #import <UIKit/UIKit.h>
 
 #import "ProtocolLoader.h"
-#import "WaxTextField.h"
 
 #import "wax.h"
 #import "wax_http.h"
