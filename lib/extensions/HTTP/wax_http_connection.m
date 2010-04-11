@@ -29,7 +29,7 @@
     [super dealloc];
 }
 
-- (id)initWithRequest:(NSURLRequest *)urlRequest cachePeriod:(double)cachePeriod luaState:(lua_State *)luaState {
+- (id)initWithRequest:(NSURLRequest *)urlRequest luaState:(lua_State *)luaState {
     [super initWithRequest:urlRequest delegate:self startImmediately:NO];
     [self scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     L = luaState;
@@ -37,7 +37,6 @@
     _data = [[NSMutableData alloc] init];
     _request = [urlRequest retain];
 
-    _cachePeriod = cachePeriod;
     _format = WAX_HTTP_UNKNOWN;
     _error = NO;
     _canceled = NO;
@@ -45,14 +44,8 @@
 }
 
 - (void)start {
-    if ([self cacheFound]) { // check in cache
-        wax_log(LOG_DEBUG, @"HTTP(CACHE) %@", [_request URL]);
-        [self callLuaCallback];
-    }
-    else {
-        wax_log(LOG_DEBUG, @"HTTP(%@) %@", [_request HTTPMethod], [_request URL]);
-        [super start];
-    }
+    wax_log(LOG_DEBUG, @"HTTP(%@) %@", [_request HTTPMethod], [_request URL]);
+    [super start];
 }
 
 - (void)cancel {
@@ -185,8 +178,6 @@
         luaL_error(L, "wax_http: Unknown wax_http format '%d'", _format);
     }
     
-    [self cacheData];
-    
     wax_fromObjc(L, "@", &_response);
     wax_fromObjc(L, "@", &_data); // Send the raw data too (since oddly, the response doesn't contain it)
     
@@ -198,72 +189,6 @@
     _finished = YES;
     
     END_STACK_MODIFY(L, 3)
-}
-
-- (NSString *)cacheFilePath {
-    NSString *cacheDir = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    NSString *encodedURL = [self md5HexDigest:[[_request URL] absoluteString]];
-    NSString *fileName = [NSString stringWithFormat:@"%@-%@", [_request HTTPMethod], encodedURL];    
-    NSString *filePath = [cacheDir stringByAppendingPathComponent:fileName];
-    
-    return filePath;
-}
-
-- (NSString *)cacheResponsePath {
-    return [NSString stringWithFormat:@"%@-response", [self cacheFilePath]];
-}
-
-- (BOOL)cacheFound {
-    if (_cachePeriod <= 0) return NO;
-    
-    NSString *filePath = [self cacheFilePath];
-    NSString *responsePath = [self cacheResponsePath];
-    NSError *error = nil;
-    NSFileManager *fm = [NSFileManager defaultManager];    
-    NSDictionary *attributes = [fm attributesOfItemAtPath:filePath error:&error];
-    
-    if (error) {
-        return NO;
-    }
-    
-    double lastTouched = fabs([[attributes objectForKey:NSFileModificationDate] timeIntervalSinceNow]);
-    _response = [[NSKeyedUnarchiver unarchiveObjectWithFile:responsePath] retain];
-    
-    if (lastTouched > _cachePeriod || !_response) {
-        [fm removeItemAtPath:filePath error:nil];        
-        [fm removeItemAtPath:responsePath error:nil];
-        [_response release];
-        _response = nil;
-    }
-    else {
-        [_data appendData:[fm contentsAtPath:filePath]];
-        return YES;
-    }
-    
-    return NO;
-}
-
-- (void)cacheData {
-    if (_cachePeriod <= 0) return;
-    
-    NSString *filePath = [self cacheFilePath];
-    NSString *responsePath = [self cacheResponsePath];    
-    NSFileManager *fm = [NSFileManager defaultManager];    
-    
-    [fm createFileAtPath:filePath contents:_data attributes:nil];
-    [NSKeyedArchiver archiveRootObject:_response toFile:responsePath];
-}
-
-- (NSString *)md5HexDigest:(NSString *)input {
-    const char* str = [input UTF8String];
-    unsigned char result[CC_MD5_DIGEST_LENGTH];
-    CC_MD5(str, strlen(str), result);
-    
-    return [NSString stringWithFormat:
-            @"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
-            result[0], result[1], result[2], result[3], result[4], result[5], result[6], result[7],
-            result[8], result[9], result[10], result[11], result[12], result[13], result[14], result[15]
-            ];
 }
 
 @end

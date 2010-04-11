@@ -22,13 +22,11 @@ static BOOL pushAuthCallback(lua_State *L, int tableIndex);
 static BOOL pushCallback(lua_State *L, int table_index);
 
 static int getFormat(lua_State *L, int tableIndex);
-static double getCachePeriod(lua_State *L, int tableIndex);
+static NSURLRequestCachePolicy getCachePolicy(lua_State *L, int tableIndex);
 static NSDictionary *getHeaders(lua_State *L, int tableIndex);
 static NSString *getMethod(lua_State *L, int tableIndex);
 static NSTimeInterval getTimeout(lua_State *L, int tableIndex);
 static NSString *getBody(lua_State *L, int tableIndex);
-
-static NSString* md5HexDigest(NSString* input);
 
 static const struct luaL_Reg metaFunctions[] = {
     {NULL, NULL}
@@ -54,15 +52,16 @@ int luaopen_wax_http(lua_State *L) {
     return 0;
 }
 
-// wax.request(table) => returns connection object or (body, response) if syncronous
-// wax.request{url, options} => returns  connection object or (body, response) if syncronous
+// wax.request({url, options}) => returns connection object or (body, response) if syncronous
+// wax.request{url, options}   => same as above, but with syntax sugar
 // options:
 //   method = "get" | "post" | "put" | "delete"
-//   format = "text" | "binary" | "json"
+//   format = "text" | "binary" | "json" | "xml" # if none given, uses value from response Content-Type Header
+//   headers = table # Table of header values
 //   timout = number
 //   body = string
-//   cache = number # seconds to keep cache valid
-//   callback = function(body, response) # No callback? Then treat as syncronous
+//   cache = NSURLRequestCachePolicy # one of those enums, defaults to NSURLRequestUseProtocolCachePolicy
+//   callback = function(body, response) # No callback? Then treat request is treated as syncronous
 static int request(lua_State *L) {
     lua_rawgeti(L, 1, 1);
     
@@ -75,7 +74,7 @@ static int request(lua_State *L) {
     if (!url) luaL_error(L, "wax_http: Could not create URL from string '%s'", [urlString UTF8String]);
           
     
-    NSURLRequestCachePolicy cachePolicy = NSURLRequestUseProtocolCachePolicy; // Just use the default
+    NSURLRequestCachePolicy cachePolicy = getCachePolicy(L, 1);
     NSDictionary *headerFields = getHeaders(L, 1);
     NSData *body = [getBody(L, 1) dataUsingEncoding:NSUTF8StringEncoding];
     
@@ -83,10 +82,10 @@ static int request(lua_State *L) {
     int format = getFormat(L, 1);    
     NSTimeInterval timeout = getTimeout(L, 1);
     NSString *method = getMethod(L, 1);
-    double cachePeriod = getCachePeriod(L, 1);
     
-    NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:url cachePolicy:cachePolicy timeoutInterval:WAX_HTTP_TIMEOUT];
+    NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:url];
         
+    [urlRequest setCachePolicy:cachePolicy];
     [urlRequest setAllHTTPHeaderFields:headerFields];
     [urlRequest setHTTPMethod:method];
     [urlRequest setHTTPBody:body];    
@@ -94,7 +93,7 @@ static int request(lua_State *L) {
 
     wax_http_connection *connection;
 
-    connection = [[wax_http_connection alloc] initWithRequest:urlRequest cachePeriod:cachePeriod luaState:L];
+    connection = [[wax_http_connection alloc] initWithRequest:urlRequest luaState:L];
 
     [connection autorelease];
     connection.format = format;
@@ -166,17 +165,17 @@ static NSString *getMethod(lua_State *L, int tableIndex) {
     return method;
 }
 
-static double getCachePeriod(lua_State *L, int tableIndex) {
-    double cachePeriod = 0;
-    if (lua_isnoneornil(L, tableIndex)) return cachePeriod;
+static NSURLRequestCachePolicy getCachePolicy(lua_State *L, int tableIndex) {
+    NSURLRequestCachePolicy cachePolicy = NSURLRequestUseProtocolCachePolicy;
+    if (lua_isnoneornil(L, tableIndex)) return cachePolicy;
     
     lua_getfield(L, tableIndex, "cache");
     if (!lua_isnil(L, -1)) {
-        cachePeriod = luaL_checknumber(L, -1);
+        cachePolicy = luaL_checknumber(L, -1);
     }
     lua_pop(L, 1);
     
-    return cachePeriod;
+    return cachePolicy;
 }
 
 static int getFormat(lua_State *L, int tableIndex) {

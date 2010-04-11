@@ -30,7 +30,6 @@ enum {
     bool _finished;
     bool _error;
     bool _canceled;
-    double _cachePeriod;
 }
 
 @property (nonatomic, assign) NSHTTPURLResponse *response;
@@ -38,14 +37,9 @@ enum {
 @property (nonatomic, assign) int format;
 @property (nonatomic, readonly) bool finished;
 
-- (id)initWithRequest:(NSURLRequest *)urlRequest cachePeriod:(double)cachePeriod luaState:(lua_State *)luaState;
+- (id)initWithRequest:(NSURLRequest *)urlRequest luaState:(lua_State *)luaState;
 - (BOOL)callLuaAuthCallback:(NSURLAuthenticationChallenge *)challenge;
 - (void)callLuaCallback;
-
-- (NSString *)cacheFilePath;
-- (BOOL)cacheFound;
-- (void)cacheData;
-- (NSString *)md5HexDigest:(NSString *)input;
 
 @end
 
