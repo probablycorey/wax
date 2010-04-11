@@ -40,7 +40,7 @@ function wax.frame(object)
       elseif key == "width" then frame.width = value
       
       
-      elseif key == "stretchBottom" then frame.height = math.max(0, frame.value - frame.y)
+      elseif key == "stretchBottom" then frame.height = math.max(0, frame.height - frame.y)
       
       else
         return nil

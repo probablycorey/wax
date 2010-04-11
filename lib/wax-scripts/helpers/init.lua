@@ -3,6 +3,8 @@ require "wax.helpers.callback"
 require "wax.helpers.frame"
 require "wax.helpers.storage"
 require "wax.helpers.base64"
+require "wax.helpers.time"
+require "wax.helpers.cache"
 
 function wax.alert(title, message, ...)
   local alert = UIAlertView:init()

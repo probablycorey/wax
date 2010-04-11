@@ -2,29 +2,29 @@
 -- compatible with lua 5.1
 -- http://www.it-rfc.de
 
-luaClass{"Base64"}
+module("wax.base64", package.seeall)
 
 -- bitshift functions (<<, >> equivalent)
 -- shift left
 function lsh(value,shift)
-	return (value*(2^shift)) % 256
+  return (value*(2^shift)) % 256
 end
 
 -- shift right
 function rsh(value,shift)
-	return math.floor(value/2^shift) % 256
+  return math.floor(value/2^shift) % 256
 end
 
 -- return single bit (for OR)
 function bit(x,b)
-	return (x % 2^b - x % 2^(b-1) > 0)
+  return (x % 2^b - x % 2^(b-1) > 0)
 end
 
 -- logic OR for number values
 function lor(x,y)
-	result = 0
-	for p=1,8 do result = result + (((bit(x,p) or bit(y,p)) == true) and 2^(p-1) or 0) end
-	return result
+  result = 0
+  for p=1,8 do result = result + (((bit(x,p) or bit(y,p)) == true) and 2^(p-1) or 0) end
+  return result
 end
 
 -- encryption table
@@ -33,13 +33,13 @@ local base64chars = {[0]='A',[1]='B',[2]='C',[3]='D',[4]='E',[5]='F',[6]='G',[7]
 -- function encode
 -- encodes input string to base64.
 function encode(data)
-	local bytes = {}
-	local result = ""
-	for spos=0,string.len(data)-1,3 do
-		for byte=1,3 do bytes[byte] = string.byte(string.sub(data,(spos+byte))) or 0 end
-		result = string.format('%s%s%s%s%s',result,base64chars[rsh(bytes[1],2)],base64chars[lor(lsh((bytes[1] % 4),4), rsh(bytes[2],4))] or "=",((#data-spos) > 1) and base64chars[lor(lsh(bytes[2] % 16,2), rsh(bytes[3],6))] or "=",((#data-spos) > 2) and base64chars[(bytes[3] % 64)] or "=")
-	end
-	return result
+  local bytes = {}
+  local result = ""
+  for spos=0,string.len(data)-1,3 do
+    for byte=1,3 do bytes[byte] = string.byte(string.sub(data,(spos+byte))) or 0 end
+    result = string.format('%s%s%s%s%s',result,base64chars[rsh(bytes[1],2)],base64chars[lor(lsh((bytes[1] % 4),4), rsh(bytes[2],4))] or "=",((#data-spos) > 1) and base64chars[lor(lsh(bytes[2] % 16,2), rsh(bytes[3],6))] or "=",((#data-spos) > 2) and base64chars[(bytes[3] % 64)] or "=")
+  end
+  return result
 end
 
 -- decryption table
@@ -48,11 +48,11 @@ local base64bytes = {['A']=0,['B']=1,['C']=2,['D']=3,['E']=4,['F']=5,['G']=6,['H
 -- function decode
 -- decode base64 input to string
 function decode(data)
-	local chars = {}
-	local result=""
-	for dpos=0,string.len(data)-1,4 do
-		for char=1,4 do chars[char] = base64bytes[(string.sub(data,(dpos+char),(dpos+char)) or "=")] end
-		result = string.format('%s%s%s%s',result,string.char(lor(lsh(chars[1],2), rsh(chars[2],4))),(chars[3] ~= nil) and string.char(lor(lsh(chars[2],4), rsh(chars[3],2))) or "",(chars[4] ~= nil) and string.char(lor(lsh(chars[3],6) % 192, (chars[4]))) or "")
-	end
-	return result
+  local chars = {}
+  local result=""
+  for dpos=0,string.len(data)-1,4 do
+    for char=1,4 do chars[char] = base64bytes[(string.sub(data,(dpos+char),(dpos+char)) or "=")] end
+    result = string.format('%s%s%s%s',result,string.char(lor(lsh(chars[1],2), rsh(chars[2],4))),(chars[3] ~= nil) and string.char(lor(lsh(chars[2],4), rsh(chars[3],2))) or "",(chars[4] ~= nil) and string.char(lor(lsh(chars[3],6) % 192, (chars[4]))) or "")
+  end
+  return result
 end
