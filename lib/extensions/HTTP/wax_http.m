@@ -62,6 +62,7 @@ int luaopen_wax_http(lua_State *L) {
 //   body = string
 //   cache = NSURLRequestCachePolicy # one of those enums, defaults to NSURLRequestUseProtocolCachePolicy
 //   callback = function(body, response) # No callback? Then treat request is treated as syncronous
+//   authCallback = function(NSURLAuthenticationChallenge) # Handle just like you would with NSURLConnection
 static int request(lua_State *L) {
     lua_rawgeti(L, 1, 1);
     
@@ -101,6 +102,9 @@ static int request(lua_State *L) {
     [urlRequest release];
 
     wax_instance_create(L, connection, NO);
+	if (pushAuthCallback(L, 1)) {
+		lua_setfield(L, -2, WAX_HTTP_AUTH_CALLBACK_FUNCTION_NAME); // Set the authCallback function for the userdata         
+	}
     
     // Asyncronous or Syncronous
     if (pushCallback(L, 1)) { 
