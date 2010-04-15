@@ -122,7 +122,7 @@ task :adhoc do
     
     sh "cp '#{provisioning_profile}' '#{dir}'"
     sh "mv '#{app_file}' '#{dir}'"
-    sh "cd '#{dir}'; zip -wrs adhoc-#{timestamp}.zip ./*"
+    sh "cd '#{dir}'; zip -r adhoc-#{timestamp}.zip ./*"
     sh "open #{dir}"
   end
 end
