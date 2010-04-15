@@ -601,13 +601,13 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
     SEL selector = wax_selectorForInstance(instanceUserdata, methodName, YES);
     Class class = [instanceUserdata->instance class];
     
-    const char *typeDescription = nil;
+    char *typeDescription = nil;
     char *returnType = nil;
     
     Method method = class_getInstanceMethod(class, selector);
         
     if (method) { // Is method defined in the superclass?
-        typeDescription = method_getTypeEncoding(method);        
+        typeDescription = (char *)method_getTypeEncoding(method);        
         returnType = method_copyReturnType(method);
     }
     else { // Is this method implementing a protocol?
@@ -700,7 +700,33 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
         free(returnType);                
     }
     else {
-        //NSLog(@"No method name '%s' found in superclass or protocols", methodName);
+		SEL *posibleSelectors = &wax_selectorsForName(methodName).selectors[0];		
+		
+		success = YES;
+		
+		for (int i = 0; i < 2; i++) {
+			selector = posibleSelectors[i];
+			int argCount = 0;
+			char *match = (char *)sel_getName(selector);
+			while(match = strchr(match, ':')) {
+				match += 1; // Skip past the matched char
+				argCount++;
+			}
+
+			size_t typeDescriptionSize = 3 + argCount;
+			typeDescription = calloc(typeDescriptionSize + 1, sizeof(char));
+			memset(typeDescription, '@', typeDescriptionSize);
+			typeDescription[2] = ':'; // Never forget _cmd!
+			
+			IMP imp = (IMP)WAX_METHOD_NAME(id);
+			id metaclass = objc_getMetaClass(object_getClassName(class));
+
+			success = success &&
+				class_addMethod(class, posibleSelectors[i], imp, typeDescription) &&
+				class_addMethod(metaclass, posibleSelectors[i], imp, typeDescription);
+			
+			free(typeDescription);
+		}
     }
     
     END_STACK_MODIFY(L, 1)

@@ -237,8 +237,8 @@ static int __call(lua_State *L) {
 //        class_addMethod(class, @selector(origMethodSignatureForSelector:), origMethodSignatureForSelector, "@@::");
         
         // These methods need to be added because of delegates
-        class_addMethod(class, @selector(methodSignatureForSelector:), (IMP)methodSignatureForSelector, "@@::");
-        class_addMethod(class, @selector(forwardInvocation:), (IMP)forwardInvocation, "v@:@");
+//        class_addMethod(class, @selector(methodSignatureForSelector:), (IMP)methodSignatureForSelector, "@@::");
+//        class_addMethod(class, @selector(forwardInvocation:), (IMP)forwardInvocation, "v@:@");
 
         // Make Key-Value complient
         class_addMethod(class, @selector(setValue:forUndefinedKey:), (IMP)setValueForUndefinedKey, "v@:@@");
@@ -247,11 +247,11 @@ static int __call(lua_State *L) {
         id metaclass = object_getClass(class);        
 
         class_addMethod(metaclass, @selector(alloc), (IMP)alloc, "@@:");
-        class_addMethod(metaclass, @selector(instanceMethodSignatureForSelector:), (IMP)methodSignatureForSelector, "@@::");
+//        class_addMethod(metaclass, @selector(instanceMethodSignatureForSelector:), (IMP)methodSignatureForSelector, "@@::");
         
         // Allow obj-c to talk to a waxClass' class methods
-        class_addMethod(metaclass, @selector(methodSignatureForSelector:), (IMP)methodSignatureForSelector, "@@::");
-        class_addMethod(metaclass, @selector(forwardInvocation:), (IMP)forwardInvocation, "v@:@");
+//        class_addMethod(metaclass, @selector(methodSignatureForSelector:), (IMP)methodSignatureForSelector, "@@::");
+//        class_addMethod(metaclass, @selector(forwardInvocation:), (IMP)forwardInvocation, "v@:@");
     }
         
     wax_instance_create(L, class, YES);

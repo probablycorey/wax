@@ -2,18 +2,23 @@ require "tests.fixtures.ExtendedSimpleObject"
 
 -- TEST wax.class's forwardInvocation stuff (return values)
 
-describe["A 'Lua created' ObjClass instance"] = function()
+describe["A 'Lua created' WaxClass instance"] = function()
   before = function()
   end
   
-  it["is created via super call of different name"] = function()
+  it["is created via method"] = function()
     local o = ExtendedSimpleObject:initWithAnimal("elephant")
-    expect(tolua(o:value())).should_be("elephant")  
+    expect(tolua(o:value())).should_be("elephant")
   end
   
-  it["is created via super call of same name"] = function()
+  it["is created via a overwritten super init method"] = function()
     local o = ExtendedSimpleObject:initWithValue("a value")
     expect(tolua(o:value())).should_be("a value")
+  end
+  
+  it["is created via a super init method"] = function()
+    local o = ExtendedSimpleObject:initWithWord("a word")
+    expect(tolua(o:value())).should_be("a word")
   end
   
   it["can override a method"] = function()

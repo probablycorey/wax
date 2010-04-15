@@ -27,6 +27,13 @@
     return self;
 }
 
+- (id)initWithWord:(NSString *)word {
+    self = [super init];    
+    _value = [word retain];
+    
+    return self;
+}
+
 - (NSString *)value {
     return _value;
 }
