@@ -376,7 +376,11 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
                     instance = nil;
                     break;
                     
-                case LUA_TBOOLEAN:
+                case LUA_TBOOLEAN: {
+                    BOOL value = lua_toboolean(L, stackIndex);
+                    instance = [NSValue valueWithBytes:&value objCType:@encode(bool)];
+                    break;
+                }
                 case LUA_TNUMBER:
                     instance = [NSNumber numberWithDouble:lua_tonumber(L, stackIndex)];                    
                     break;
