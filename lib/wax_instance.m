@@ -348,8 +348,8 @@ static int methodClosure(lua_State *L) {
         id instance = [instanceUserdata->instance alloc];
         object_getInstanceVariable(instance, WAX_CLASS_INSTANCE_USERDATA_IVAR_NAME, (void **)&instanceUserdata);
         
-        // If a waxClass is alloc'd it will automatically create a wax_instance_userdata, if it's not a wax class
-        // then we need to create it ourselves
+        // If a waxClass is alloc'd from ObjC it will automatically create a wax_instance_userdata
+        // if it's not a wax class we need to create it ourselves
         if (!instanceUserdata) {
             instanceUserdata = wax_instance_create(L, instance, NO);
         }
@@ -420,7 +420,7 @@ static int methodClosure(lua_State *L) {
             // strcmp(selectorName, "retain") == 0 || // explicit retaining should not autorelease
             
             wax_instance_userdata *returnedObjLuaInstance = (wax_instance_userdata *)lua_topointer(L, -1);
-            //wax_log(LOG_GC, @"Releasing %@(%p) autoAlloc=%d", [returnedObjLuaInstance->instance class], instanceUserdata->instance, autoAlloc);            
+            wax_log(LOG_GC, @"Releasing %@(%p) autoAlloc=%d", [returnedObjLuaInstance->instance class], instanceUserdata->instance, autoAlloc);            
             [returnedObjLuaInstance->instance release];
         }
         else if (autoAlloc && lua_isnil(L, -1)) {
@@ -465,7 +465,6 @@ static int superMethodClosure(lua_State *L) {
     else {
         methodClosure(L);
     }
-    
     
     return 1;
 }
