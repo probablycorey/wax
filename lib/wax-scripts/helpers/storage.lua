@@ -1,8 +1,8 @@
 wax.storage = {
-  PATH = NSDocumentDirectory .. "/__storage__.plist",  
- 
+  PATH = "__storage__",
   storage = function(self)
-    return NSDictionary:initWithContentsOfFile(self.PATH) or {}
+    local data = wax.cache.get(self.PATH)
+    return data and NSKeyedUnarchiver:unarchiveObjectWithData(data) or {}
   end
 }
 
@@ -15,6 +15,6 @@ setmetatable(wax.storage, {
     local storage = self:storage()
     storage[key] = value
     
-    return toobjc(storage):writeToFile_atomically(self.PATH, true)
+    wax.cache.set(self.PATH, NSKeyedArchiver:archivedDataWithRootObject(storage))
   end
 })
