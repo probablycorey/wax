@@ -271,7 +271,7 @@ static int __newindex(lua_State *L) {
     wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);
     
     // If this already exists in a protocol, or superclass make sure it will call the lua functions
-    if (lua_type(L, 3) == LUA_TFUNCTION) {
+    if (instanceUserdata->isClass && lua_type(L, 3) == LUA_TFUNCTION) {
         overrideMethod(L, instanceUserdata);
     }
     
