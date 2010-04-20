@@ -19,6 +19,7 @@ class Hammer
   @should_run_headless = false
   @should_run = false
   @verbose = false
+  @device = "iphone"
   
   def self.setup
     opts = OptionParser.new do |opts|
@@ -48,6 +49,10 @@ class Hammer
 
       end
 
+      opts.on("-d", "--device ARG", "Choose what device to run on (iphone/ipad)") do |v|  
+        @device = device
+      end
+
       opts.on("-s", "--sdk ARG", "Choose he SDK. Use --showsdks to see options.") do |v|  
         v = "iphonesimulator#{v}" if v =~ /^[\d\.]+/ # if only the version is given... assume user wants a simulator build
         @args["-sdk"] = v    
@@ -71,7 +76,12 @@ class Hammer
     if !@args["-sdk"]
       output = `xcodebuild -showsdks`
       sdks = output.scan(/-sdk (.*?$)/m).map {|a| a.join}
-      @args["-sdk"] = sdks.find_all {|sdk| sdk =~ /iphonesimulator/}.sort.first
+
+      if @device !~ /pad/i # remove sdk version 3.2, it is ipad only
+        sdks.reject! {|a| a =~ /3.2$/}
+      end
+      
+      @args["-sdk"] = sdks.find_all {|sdk| sdk =~ /iphonesimulator/}.sort.last
     end
   end
 
@@ -128,7 +138,10 @@ class Hammer
   def self.run
     return if not @should_run
     `/usr/bin/killall "iPhone Simulator" 2> /dev/null` #make sure the simulator is killed
-    system "wax/bin/waxsim #{self.app_path} #{File.expand_path('.')}"
+    sdk_version = @args["-sdk"][/([\d\.]+)/, 1]
+    cmd = "wax/bin/waxsim -d #{@device} -s #{sdk_version} #{self.app_path} #{File.expand_path('.')}"
+    puts cmd
+    system cmd
   end
   
   def self.app_path
