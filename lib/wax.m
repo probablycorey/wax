@@ -20,6 +20,7 @@
 #import "linenoise.h" // For the REPL
 
 static void addGlobals(lua_State *L);
+static int waxRoot(lua_State *L);
 static int tolua(lua_State *L);
 static int toobjc(lua_State *L);
 static int exitApp(lua_State *L);
@@ -62,18 +63,18 @@ void wax_startWithExtensions(lua_CFunction func, ...) {
     [wax_GarbageCollection start];
 
     // Load all the wax lua scripts
-    if (luaL_dofile(L, WAX_DATA_DIR "scripts/wax/init.lua") != 0) {
+    if (luaL_dofile(L, WAX_DATA_DIR "/scripts/wax/init.lua") != 0) {
         fprintf(stderr,"Fatal error opening wax scripts: %s\n", lua_tostring(L,-1));
     }
     
     // Start the user's init script!
-    if (luaL_dofile(L, WAX_DATA_DIR "scripts/AppDelegate.lua") != 0) {
+    if (luaL_dofile(L, WAX_DATA_DIR "/scripts/AppDelegate.lua") != 0) {
         fprintf(stderr,"Fatal error: %s\n", lua_tostring(L,-1));
     }
 	
     NSDictionary *env = [[NSProcessInfo processInfo] environment];
     if ([[env objectForKey:@"WAX_TEST"] isEqual:@"YES"]) { // Should we run the tests?
-        if (luaL_dofile(L, WAX_DATA_DIR "scripts/tests/init.lua") != 0) {
+        if (luaL_dofile(L, WAX_DATA_DIR "/scripts/tests/init.lua") != 0) {
             fprintf(stderr,"Fatal error running tests: %s\n", lua_tostring(L,-1));
         }
         exit(1);
@@ -123,7 +124,7 @@ static void addGlobals(lua_State *L) {
     lua_pushnumber(L, WAX_VERSION);
     lua_setfield(L, -2, "version");
     
-    lua_pushstring(L, WAX_DATA_DIR);
+    lua_pushcfunction(L, waxRoot);
     lua_setfield(L, -2, "root");
         
     lua_pop(L, 1); // pop the wax global off
@@ -151,6 +152,22 @@ static void addGlobals(lua_State *L) {
     lua_setglobal(L, "NSCacheDirectory");
 
 }
+
+static int waxRoot(lua_State *L) {
+    luaL_Buffer b;
+    luaL_buffinit(L, &b);
+    luaL_addstring(&b, WAX_DATA_DIR);
+    
+    for (int i = 1; i <= lua_gettop(L); i++) {
+        luaL_addstring(&b, "/");
+        luaL_addstring(&b, luaL_checkstring(L, i));
+    }
+
+    luaL_pushresult(&b);
+                       
+    return 1;
+}
+
 
 static int tolua(lua_State *L) {
     if (lua_isuserdata(L, 1)) { // If it's not userdata... it's already lua!
