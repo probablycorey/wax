@@ -1,5 +1,14 @@
 waxClass{"Deer"}
 
+-- class methods
+----------------
+
+function aClassMethod()
+  return "yes"
+end
+
+-- instance methods
+-------------------
 function initWithName(self, name)
   self.super:init()
   self.name = name

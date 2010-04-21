@@ -1,8 +1,8 @@
 require "wax.luaspec"
 
+require "tests.classTest"
 require "tests.objcToLuaTest"
 require "tests.instanceTest"
-require "tests.classTest"
 require "tests.protocolTest"
 require "tests.structTest"
 require "tests.gcTest"

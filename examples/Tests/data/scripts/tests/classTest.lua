@@ -68,3 +68,13 @@ describe["A WaxClass instance with an WaxClass Super"] = function()
     expect(o:tripleAge()).should_be(3)
   end
 end
+
+describe["A WaxClass with an WaxClass Super"] = function()
+  before = function()
+  end
+  
+  it["can call a super method on a class"] = function()
+    local result = Bambi:aClassMethod()
+    expect(result).should_be("yes")
+  end
+end
