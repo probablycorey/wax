@@ -200,8 +200,13 @@ BOOL wax_instance_pushFunction(lua_State *L, id self, SEL selector) {
     BOOL result = YES;
     
     if (!lua_isfunction(L, -1)) { // function not found in userdata
-        if ([self class] == self) result = NO; // End of the line bub, can't go any further up
-        else result = wax_instance_pushFunction(L, [self class], selector);
+        lua_pop(L, 3); // Remove userdata, env and non-function
+        if ([self class] == self) { // This is a class, not an instance
+            result = wax_instance_pushFunction(L, [self superclass], selector); // Check to see if the super classes know about this function
+        }
+        else {
+            result = wax_instance_pushFunction(L, [self class], selector);
+        }
     }
     
     END_STACK_MODIFY(L, 1)
@@ -354,6 +359,7 @@ static int methodClosure(lua_State *L) {
             instanceUserdata = wax_instance_create(L, instance, NO);
         }
         else {
+            object_setInstanceVariable(instance, WAX_CLASS_INSTANCE_USERDATA_IVAR_NAME, instanceUserdata);
             // Push the new instance data onto the stack
             lua_pushlightuserdata(L, &instanceUserdata);
         }
@@ -378,7 +384,8 @@ static int methodClosure(lua_State *L) {
     int objcArgumentCount = [signature numberOfArguments] - 2; // skip the hidden self and _cmd argument
     int luaArgumentCount = lua_gettop(L) - 1;
     
-    if (objcArgumentCount > luaArgumentCount) {
+    Ivar v = object_getInstanceVariable(instanceUserdata->instance, WAX_CLASS_INSTANCE_USERDATA_IVAR_NAME, nil);
+    if (objcArgumentCount > luaArgumentCount && !v) { // ignore this if it is a waxClass, It can take whatever
         luaL_error(L, "Not Enough arguments given! Method named '%s' requires %d argument(s), you gave %d. (Make sure you used ':' to call the method)", selectorName, objcArgumentCount + 1, lua_gettop(L));
     }
     
@@ -514,11 +521,11 @@ static int customInitMethodClosure(lua_State *L) {
 static int pcallUserdata(lua_State *L, id self, SEL selector, va_list args) {
     BEGIN_STACK_MODIFY(L)    
     
-    if (![[NSThread currentThread] isEqual:[NSThread mainThread]]) NSLog(@"PACALLUSERDATA: OH NO SEPERATE THREAD");
+    if (![[NSThread currentThread] isEqual:[NSThread mainThread]]) NSLog(@"PCALLUSERDATA: OH NO SEPERATE THREAD");
     
     // Find the function... could be in the object or in the class
     if (!wax_instance_pushFunction(L, self, selector)) {
-        lua_pushfstring(L, "Could not find userdata associated with object %s(%p) It was probably released by the GC.", class_getName([self class]), self);
+        lua_pushfstring(L, "Could not find function named \"%s\" associated with object %s(%p).(It may have been released by the GC)", selector, class_getName([self class]), self);
         goto error; // function not found in userdata...
     }
     
@@ -616,14 +623,16 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
             uint count;
             Protocol **protocols = class_copyProtocolList(currentClass, &count);
                         
-            SEL *posibleSelectors = &wax_selectorsForName(methodName).selectors[0];
+            SEL possibleSelectors[2];
+            wax_selectorsForName(methodName, possibleSelectors);
             
             for (int i = 0; !returnType && i < count; i++) {
                 Protocol *protocol = protocols[i];
                 struct objc_method_description m_description;
                 
                 for (int j = 0; !returnType && j < 2; j++) {
-                    selector = posibleSelectors[j];
+                    selector = possibleSelectors[j];
+                    if (!selector) continue; // There may be only one acceptable selector sent back
                     
                     m_description = protocol_getMethodDescription(protocol, selector, YES, YES);
                     if (!m_description.name) m_description = protocol_getMethodDescription(protocol, selector, NO, YES); // Check if it is not a "required" method
@@ -699,18 +708,22 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
         free(returnType);                
     }
     else {
-		SEL *posibleSelectors = &wax_selectorsForName(methodName).selectors[0];		
+		SEL possibleSelectors[2];
+        wax_selectorsForName(methodName, possibleSelectors);
 		
 		success = YES;
-		
 		for (int i = 0; i < 2; i++) {
-			selector = posibleSelectors[i];
+			selector = possibleSelectors[i];
+            if (!selector) continue; // There may be only one acceptable selector sent back
+            
 			int argCount = 0;
 			char *match = (char *)sel_getName(selector);
 			while(match = strchr(match, ':')) {
 				match += 1; // Skip past the matched char
 				argCount++;
 			}
+            
+            //if (argCount == 0) continue; // When we are creating our own methods, just always assume there will be at least one argument
 
 			size_t typeDescriptionSize = 3 + argCount;
 			typeDescription = calloc(typeDescriptionSize + 1, sizeof(char));
@@ -721,8 +734,8 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
 			id metaclass = objc_getMetaClass(object_getClassName(class));
 
 			success = success &&
-				class_addMethod(class, posibleSelectors[i], imp, typeDescription) &&
-				class_addMethod(metaclass, posibleSelectors[i], imp, typeDescription);
+				class_addMethod(class, possibleSelectors[i], imp, typeDescription) &&
+				class_addMethod(metaclass, possibleSelectors[i], imp, typeDescription);
 			
 			free(typeDescription);
 		}

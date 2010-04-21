@@ -83,12 +83,12 @@ static int __call(lua_State *L) {
             superClass = [NSObject class];
         }
         else {
-            const char *superClassName = luaL_checkstring(L, 3);    
+            const char *superClassName = luaL_checkstring(L, 3);
             superClass = objc_getClass(superClassName);
         }
         
         if (!superClass) {
-            luaL_error(L, "Failed to create '%s'. Unknown superclass received.", className);
+            luaL_error(L, "Failed to create '%s'. Unknown superclass \"%s\" received.", className, luaL_checkstring(L, 3));
         }
         
         class = objc_allocateClassPair(superClass, className, 0);
@@ -107,7 +107,7 @@ static int __call(lua_State *L) {
         class_addMethod(metaclass, @selector(alloc), (IMP)alloc, "@@:");
     }
         
-    wax_instance_create(L, class, YES);
+    wax_instance_userdata *waxInstance = wax_instance_create(L, class, YES);
     
     return 1;
 }
