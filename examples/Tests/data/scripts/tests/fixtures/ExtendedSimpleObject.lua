@@ -1,4 +1,4 @@
-waxClass{"ExtendedSimpleObject", "SimpleObject"}
+waxClass{"ExtendedSimpleObject", SimpleObject}
 
 function initWithAnimal(self, animal)
   self.super:initWithValue(animal)

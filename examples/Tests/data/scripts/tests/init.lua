@@ -8,6 +8,6 @@ require "tests.structTest"
 require "tests.gcTest"
 require "tests.jsonTest"
 require "tests.xmlTest"
--- 
+
 puts("\nResults\n-------")
 spec:report()

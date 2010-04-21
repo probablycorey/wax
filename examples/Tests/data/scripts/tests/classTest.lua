@@ -1,8 +1,8 @@
 require "tests.fixtures.ExtendedSimpleObject"
+require "tests.fixtures.Deer"
+require "tests.fixtures.Bambi"
 
--- TEST wax.class's forwardInvocation stuff (return values)
-
-describe["A 'Lua created' WaxClass instance"] = function()
+describe["A WaxClass instance with an ObjC Super"] = function()
   before = function()
   end
   
@@ -39,12 +39,32 @@ describe["A 'Lua created' WaxClass instance"] = function()
   end
 end
 
-describe["A 'Lua created' ObjClass"] = function()
+describe["A WaxClass instance with an WaxClass Super"] = function()
   before = function()
   end
   
-  it["can call a class method on it's super"] = function()
-    local o = ExtendedSimpleObject:helloMommy()
-    expect(o).should_be("Hi Corey!")  
+  it["is created via method"] = function()
+    local o = Bambi:initWithAge(12)
+    expect(tolua(o:getAge())).should_be(12)
+  end
+  
+  it["is created via an init method"] = function()
+    local o = Bambi:initWithName("Bammmmbi")
+    expect(tolua(o:getName())).should_be("Bammmmbi")
+  end
+
+  it["is created via an overwritten init method"] = function()
+    local o = Bambi:initWithFood("Beef")
+    expect(tolua(o:getFood())).should_be("Beef")
+  end
+  
+  it["can call a super method"] = function()
+    local o = Bambi:initWithAge(10)
+    expect(o:doubleAge()).should_be(20)
+  end
+  
+  it["can call an overwritten method"] = function()
+    local o = Bambi:initWithAge(1)
+    expect(o:tripleAge()).should_be(3)
   end
 end
