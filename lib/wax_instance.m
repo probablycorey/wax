@@ -384,7 +384,7 @@ static int methodClosure(lua_State *L) {
     int objcArgumentCount = [signature numberOfArguments] - 2; // skip the hidden self and _cmd argument
     int luaArgumentCount = lua_gettop(L) - 1;
     
-    Ivar v = object_getInstanceVariable(instanceUserdata->instance, WAX_CLASS_INSTANCE_USERDATA_IVAR_NAME, nil);
+    Ivar v = class_getInstanceVariable([instanceUserdata->instance class], WAX_CLASS_INSTANCE_USERDATA_IVAR_NAME);
     if (objcArgumentCount > luaArgumentCount && !v) { // ignore this if it is a waxClass, It can take whatever
         luaL_error(L, "Not Enough arguments given! Method named '%s' requires %d argument(s), you gave %d. (Make sure you used ':' to call the method)", selectorName, objcArgumentCount + 1, lua_gettop(L));
     }
