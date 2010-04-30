@@ -157,6 +157,10 @@
     }
     else if (_format == WAX_HTTP_TEXT || _format == WAX_HTTP_JSON || _format == WAX_HTTP_XML) {
         NSString *string = [[NSString alloc] initWithData:_data encoding:NSUTF8StringEncoding];
+        if (!string) string = [[NSString alloc] initWithData:_data encoding:NSISOLatin1StringEncoding];
+        if (!string) string = [[NSString alloc] initWithData:_data encoding:NSNonLossyASCIIStringEncoding];
+        if (!string) string = [[NSString alloc] initWithData:_data encoding:NSNonLossyASCIIStringEncoding];        
+        
         
         if (_format == WAX_HTTP_JSON) {
             json_parseString(L, [string UTF8String]);            
