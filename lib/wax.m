@@ -148,8 +148,16 @@ static void addGlobals(lua_State *L) {
     lua_pushstring(L, [[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0] UTF8String]);
     lua_setglobal(L, "NSLibraryDirectory");
     
-    lua_pushstring(L, [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] UTF8String]);
+    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    lua_pushstring(L, [cachePath UTF8String]);
     lua_setglobal(L, "NSCacheDirectory");
+
+    NSError *error = nil;
+    [[NSFileManager defaultManager] createDirectoryAtPath:cachePath withIntermediateDirectories:YES attributes: nil error:&error];
+    if (error) {
+        wax_log(LOG_DEBUG, @"Error creating cache path. %@", [error localizedDescription]);
+    }
+
 
 }
 
