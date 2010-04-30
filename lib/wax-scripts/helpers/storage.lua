@@ -1,8 +1,10 @@
 wax.storage = {
   PATH = "__storage__",
-  storage = function(self)
-    local data = wax.cache.get(self.PATH)
-    return data and NSKeyedUnarchiver:unarchiveObjectWithData(data) or {}
+  storage = function()
+    return wax.cache.get(wax.storage.PATH) or {}
+  end,
+  clear = function()
+    wax.cache.clear(wax.storage.PATH)
   end
 }
 
@@ -15,6 +17,6 @@ setmetatable(wax.storage, {
     local storage = self:storage()
     storage[key] = value
     
-    wax.cache.set(self.PATH, NSKeyedArchiver:archivedDataWithRootObject(storage))
+    wax.cache.set(self.PATH, storage)
   end
 })
