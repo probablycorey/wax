@@ -5,9 +5,9 @@ function wax.time.minutes(number)
 end
 
 function wax.time.hours(number)
-  return number * time.minutes(60)
+  return number * wax.time.minutes(60)
 end
 
 function wax.time.days(number)
-  return number * time.hours(24)
+  return number * wax.time.hours(24)
 end
