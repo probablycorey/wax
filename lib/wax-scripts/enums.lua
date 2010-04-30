@@ -271,3 +271,11 @@ UIViewAnimationCurveEaseInOut = 0
 UIViewAnimationCurveEaseIn = 1
 UIViewAnimationCurveEaseOut = 2
 UIViewAnimationCurveLinear = 3
+
+-- UITableViewRowAnimation
+UITableViewRowAnimationFade = 0
+UITableViewRowAnimationRight = 1 -- slide in from right (or out to right)
+UITableViewRowAnimationLeft = 2
+UITableViewRowAnimationTop = 3
+UITableViewRowAnimationBottom = 4
+UITableViewRowAnimationNone = 5 -- available in iPhone 3.0
