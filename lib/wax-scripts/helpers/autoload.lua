@@ -11,8 +11,6 @@ function wax.autoload(...)
         local path = wax.root("scripts", folder, key .. ".lua")
         
         if wax.filesystem.exists(path) then 
-          puts("found %s:%s", key, path)
-          
           require(folder .. "." .. key)
           class = wax.class[key] or rawget(_G, key) -- try it again now
         end
