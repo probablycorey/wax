@@ -94,8 +94,5 @@ const char *wax_removeProtocolEncodings(const char *type_descriptions);
 int wax_sizeOfTypeDescription(const char *full_type_description);
 int wax_simplifyTypeDescription(const char *in, char *out);
 
-void wax_copyTable(lua_State *from, lua_State *to, int index);
-void wax_copyObject(lua_State *from, lua_State *to, int index);
-
 int wax_errorFunction(lua_State *L);
 int wax_pcall(lua_State *L, int argumentCount, int returnCount);

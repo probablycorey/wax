@@ -227,7 +227,7 @@ void wax_fromInstance(lua_State *L, id instance) {
 #define WAX_TO_NUMBER(_type_) *outsize = sizeof(_type_); value = calloc(sizeof(_type_), 1); *((_type_ *)value) = (_type_)lua_tonumber(L, stackIndex);
 #define WAX_TO_BOOL_OR_CHAR(_type_) *outsize = sizeof(_type_); value = calloc(sizeof(_type_), 1); *((_type_ *)value) = (_type_)(lua_isstring(L, stackIndex) ? lua_tostring(L, stackIndex)[0] : lua_toboolean(L, stackIndex));
 
-// MAKE SURE YOU RELEASE THIS!
+// MAKE SURE YOU RELEASE THE RETURN VALUE!
 void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, int *outsize) {
     void *value = nil;
 
@@ -565,7 +565,7 @@ BOOL wax_isInitMethod(const char *methodName) {
     return NO;
 }
 
-// I could get rid of this
+// I could get rid of this <- Then why don't you?
 const char *wax_removeProtocolEncodings(const char *type_descriptions) {
     switch (type_descriptions[0]) {
         case WAX_PROTOCOL_TYPE_CONST:
@@ -605,8 +605,8 @@ int wax_sizeOfTypeDescription(const char *full_type_description) {
                 break;
                 
             case WAX_TYPE_ARRAY:
-                //WAX_TYPE_ARRAY_END:
-                assert(false); // Not implemented yet
+            case WAX_TYPE_ARRAY_END:
+                [NSException raise:@"Wax Error" format:@"C array's are not implemented yet."];
                 break;
             
             case WAX_TYPE_SHORT:
@@ -662,7 +662,7 @@ int wax_sizeOfTypeDescription(const char *full_type_description) {
                 break;
                 
             case WAX_TYPE_BITFIELD:
-                assert(false); // I was to lazy to implement bitfields
+                [NSException raise:@"Wax Error" format:@"Bitfields are not implemented yet"];
                 break;
                 
             case WAX_TYPE_ID:
@@ -689,10 +689,10 @@ int wax_sizeOfTypeDescription(const char *full_type_description) {
             case WAX_PROTOCOL_TYPE_BYCOPY:
             case WAX_PROTOCOL_TYPE_BYREF:
             case WAX_PROTOCOL_TYPE_ONEWAY:                    
-                // Weeeee!
+                // Weeeee! Just ignore this stuff I guess?
                 break;
             default:
-                assert(false); // "UNKNOWN TYPE ENCODING"
+                [NSException raise:@"Wax Error" format:@"Unknown type encoding %c", type_description[index]];
                 break;
         }
         
@@ -720,8 +720,7 @@ int wax_simplifyTypeDescription(const char *in, char *out) {
                 } while(in[in_index] != WAX_TYPE_ARRAY_END);
                 break;
                 
-            case WAX_TYPE_POINTER: {
-                //get rid of enternal stucture parts
+            case WAX_TYPE_POINTER: { //get rid of internal stucture parts
                 out[out_index++] = in[in_index++]; 
                 for (; in[in_index] == '^'; in_index++); // Eat all the pointers
                 
@@ -764,47 +763,6 @@ int wax_simplifyTypeDescription(const char *in, char *out) {
     out[out_index] = '\0';
     
     return out_index;
-}
-
-void wax_copyTable(lua_State *from, lua_State *to, int index) {
-    lua_newtable(to);
-    
-    lua_pushnil(from); // first key
-    
-    while (lua_next(from, index) != 0) {
-        wax_copyObject(from, to, -2); // copy the key
-        wax_copyObject(from, to, -1); // copy the value
-
-        lua_rawset(to, -3);
-        
-        lua_pop(from, 1); // remove 'value'; keeps 'key' for next iteration            
-    }
-}
-
-void wax_copyObject(lua_State *from, lua_State *to, int index) {
-    // make index positive
-    if (index < 0) index = lua_gettop(from) + 1 + index;
-    
-    switch (lua_type(from, index)) {
-        case LUA_TNIL:
-            lua_pushnil(to);
-            break;
-        case LUA_TNUMBER:
-            lua_pushnumber(to, lua_tonumber(from, index));
-            break;
-        case LUA_TBOOLEAN:
-            lua_pushboolean(to, lua_toboolean(from, index));
-            break;
-        case LUA_TSTRING:
-            lua_pushstring(to, lua_tostring(from, index));
-            break;
-        case LUA_TTABLE:
-            wax_copyTable(from, to, index);
-            break;
-        default:
-            luaL_error(from, "Can not copy object of type '%s'", lua_typename(from, index));
-            break;
-    }            
 }
 
 int wax_errorFunction(lua_State *L) {
