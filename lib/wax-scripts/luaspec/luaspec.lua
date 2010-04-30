@@ -151,8 +151,12 @@ matchers = {
   end;
   
   should_be_kind_of = function(value, class)
-    if not value:isKindOfClass(class) then
-      return false, tostring(value) .. " is not a " .. tostring(class)
+    if type(value) == "userdata" then
+      if not value:isKindOfClass(class) then
+        return false, tostring(value) .. " is not a " .. tostring(class)
+      end
+    elseif type(value) ~= class then
+      return false, type(value) .. " is not a " .. class
     else
       return true
     end
