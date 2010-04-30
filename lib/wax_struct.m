@@ -156,9 +156,16 @@ int wax_struct_getOffsetForName(lua_State *L, wax_struct_userdata *structUserdat
 
 static int __index(lua_State *L) {
     wax_struct_userdata *structUserdata = (wax_struct_userdata *)luaL_checkudata(L, 1, WAX_STRUCT_METATABLE_NAME);
-    const char *name = lua_tostring(L, 2);
-        
-    int offset = wax_struct_getOffsetForName(L, structUserdata, name);
+    
+    int offset;
+    if (lua_isnumber(L, 2)) {
+        offset = lua_tonumber(L, 2);
+    }
+    else {
+        const char *name = lua_tostring(L, 2);        
+        offset = wax_struct_getOffsetForName(L, structUserdata, name);
+    }
+    
     wax_struct_pushValueAt(L, structUserdata, offset);
     
     return 1;
