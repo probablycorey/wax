@@ -107,7 +107,7 @@ static int __call(lua_State *L) {
         class_addMethod(metaclass, @selector(alloc), (IMP)alloc, "@@:");
     }
         
-    wax_instance_userdata *waxInstance = wax_instance_create(L, class, YES);
+    wax_instance_create(L, class, YES);
     
     return 1;
 }

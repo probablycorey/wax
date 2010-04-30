@@ -225,6 +225,12 @@ void wax_instance_pushUserdata(lua_State *L, id object) {
     END_STACK_MODIFY(L, 1)
 }
 
+BOOL wax_instance_isWaxClass(id instance) {
+     // If this is a wax class, or an instance of a wax class, it has the userdata ivar set
+    return class_getInstanceVariable([instance class], WAX_CLASS_INSTANCE_USERDATA_IVAR_NAME) != nil;
+}
+
+
 #pragma mark Override Metatable Functions
 #pragma ---------------------------------
 
@@ -242,19 +248,25 @@ static int __index(lua_State *L) {
     lua_rawget(L, 3);
 
     // Check instance's class userdata
-    if (lua_isnil(L, -1) && !instanceUserdata->isClass && !instanceUserdata->isSuper) {
-        lua_pop(L, 1);
-        
-        wax_instance_pushUserdata(L, [instanceUserdata->instance class]);
-        
-        // If there is no userdata for this instance's class, then leave the nil on the stack and don't anything else
-        if (!lua_isnil(L, -1)) {
-            lua_getfenv(L, -1);
-            lua_pushvalue(L, 2);
-            lua_rawget(L, -2);
-            lua_remove(L, -2); // Get rid of the userdata env
-            lua_remove(L, -2); // Get rid of the userdata
-        }        
+    if (lua_isnil(L, -1) && !instanceUserdata->isClass && !instanceUserdata->isSuper) {        
+        Class classToCheck = [instanceUserdata->instance class];
+
+        // Keep checking superclasses if they are waxclasses, we want to treat those like they are lua
+        do {
+            lua_pop(L, 1);
+            wax_instance_pushUserdata(L, classToCheck);
+            
+            // If there is no userdata for this instance's class, then leave the nil on the stack and don't anything else
+            if (!lua_isnil(L, -1)) {
+                lua_getfenv(L, -1);
+                lua_pushvalue(L, 2);
+                lua_rawget(L, -2);
+                lua_remove(L, -2); // Get rid of the userdata env
+                lua_remove(L, -2); // Get rid of the userdata
+            }
+            
+            classToCheck = class_getSuperclass(classToCheck);
+        } while (lua_isnil(L, -1) && wax_instance_isWaxClass(classToCheck));
     }
             
     if (instanceUserdata->isSuper || lua_isnil(L, -1) ) { // Couldn't find that in the userdata environment table, assume it is defined in obj-c classes
@@ -359,7 +371,6 @@ static int methodClosure(lua_State *L) {
             instanceUserdata = wax_instance_create(L, instance, NO);
         }
         else {
-            object_setInstanceVariable(instance, WAX_CLASS_INSTANCE_USERDATA_IVAR_NAME, instanceUserdata);
             // Push the new instance data onto the stack
             lua_pushlightuserdata(L, &instanceUserdata);
         }
@@ -384,8 +395,8 @@ static int methodClosure(lua_State *L) {
     int objcArgumentCount = [signature numberOfArguments] - 2; // skip the hidden self and _cmd argument
     int luaArgumentCount = lua_gettop(L) - 1;
     
-    Ivar v = class_getInstanceVariable([instanceUserdata->instance class], WAX_CLASS_INSTANCE_USERDATA_IVAR_NAME);
-    if (objcArgumentCount > luaArgumentCount && !v) { // ignore this if it is a waxClass, It can take whatever
+    
+    if (objcArgumentCount > luaArgumentCount && !wax_instance_isWaxClass(instanceUserdata->instance)) { 
         luaL_error(L, "Not Enough arguments given! Method named '%s' requires %d argument(s), you gave %d. (Make sure you used ':' to call the method)", selectorName, objcArgumentCount + 1, lua_gettop(L));
     }
     
