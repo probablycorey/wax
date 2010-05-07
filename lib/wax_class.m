@@ -20,6 +20,7 @@ static int __call(lua_State *L);
 
 static int addProtocols(lua_State *L);
 static id alloc(id self, SEL _cmd);
+static id allocWithZone(id self, SEL _cmd, NSZone *);
 static id valueForUndefinedKey(id self, SEL cmd, NSString *key);
 static void setValueForUndefinedKey(id self, SEL cmd, id value, NSString *key);
 
@@ -105,6 +106,7 @@ static int __call(lua_State *L) {
         id metaclass = object_getClass(class);
         // So objects created in ObjC will get an associated lua object
         class_addMethod(metaclass, @selector(alloc), (IMP)alloc, "@@:");
+        class_addMethod(metaclass, @selector(allocWithZone:), (IMP)allocWithZone, "@@:^{_NSZone=}");
     }
         
     wax_instance_create(L, class, YES);
@@ -134,6 +136,24 @@ static id alloc(id self, SEL _cmd) {
     lua_State *L = wax_currentLuaState(); 
     
     BEGIN_STACK_MODIFY(L);
+    
+    id instance = class_createInstance(self, 0);
+    wax_instance_userdata *waxInstance = wax_instance_create(L, instance, NO);
+    object_setInstanceVariable(instance, WAX_CLASS_INSTANCE_USERDATA_IVAR_NAME, waxInstance);
+    
+    END_STACK_MODIFY(L, 0);
+    
+    return instance;
+}
+
+static id allocWithZone(id self, SEL _cmd, NSZone *zone) {
+    lua_State *L = wax_currentLuaState(); 
+    
+    BEGIN_STACK_MODIFY(L);
+
+    if (zone && zone != NSDefaultMallocZone()) {
+        [NSException raise:@"Wax Error" format:@"Wax doesn't handle allocing in zones other than the default! (It could, we just haven't gotten around to it yet)"];
+    }    
     
     id instance = class_createInstance(self, 0);
     wax_instance_userdata *waxInstance = wax_instance_create(L, instance, NO);
