@@ -15,7 +15,17 @@ function wax.cache.get(key, maxAge)
     return nil
   end
 
-  return NSKeyedUnarchiver:unarchiveObjectWithFile(path), fileAge
+  local success, result = pcall(function()
+    return NSKeyedUnarchiver:unarchiveObjectWithFile(path)
+  end)
+  
+  if not success then -- Bad cache
+    puts("Error: Couldn't read cache with key %s", key)
+    wax.cache.clear(key)
+    return nil
+  else
+    return result, fileAge
+  end
 end
 
 -- Creates a cache for the key with contents
@@ -28,7 +38,7 @@ function wax.cache.set(key, contents)
     wax.cache.clear(key)
   else
     local success = NSKeyedArchiver:archiveRootObject_toFile(contents, path)
-    if not success then puts("Couldn't archive cache '%s' to '%s'", key, path) end
+    if not success then puts("Couldn't archive cache '%s' to '%s'", key, path) end    
   end
 end
 
