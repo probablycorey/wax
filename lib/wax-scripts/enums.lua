@@ -279,3 +279,27 @@ UITableViewRowAnimationLeft = 2
 UITableViewRowAnimationTop = 3
 UITableViewRowAnimationBottom = 4
 UITableViewRowAnimationNone = 5 -- available in iPhone 3.0
+
+-- UIViewAnimationTransition
+UIViewAnimationTransitionNone = 0
+UIViewAnimationTransitionFlipFromLeft = 1
+UIViewAnimationTransitionFlipFromRight = 2
+UIViewAnimationTransitionCurlUp = 3
+UIViewAnimationTransitionCurlDown = 4
+
+-- UIViewAutoresizing
+UIViewAutoresizingNone                 = 0
+UIViewAutoresizingFlexibleLeftMargin   = math.pow(2, 0)
+UIViewAutoresizingFlexibleWidth        = math.pow(2, 1)
+UIViewAutoresizingFlexibleRightMargin  = math.pow(2, 2)
+UIViewAutoresizingFlexibleTopMargin    = math.pow(2, 3)
+UIViewAutoresizingFlexibleHeight       = math.pow(2, 4)
+UIViewAutoresizingFlexibleBottomMargin = math.pow(2, 5)
+
+-- UIWebViewNavigationType
+UIWebViewNavigationTypeLinkClicked = 0
+UIWebViewNavigationTypeFormSubmitted = 1
+UIWebViewNavigationTypeBackForward = 2
+UIWebViewNavigationTypeReload = 3
+UIWebViewNavigationTypeFormResubmitted = 4
+UIWebViewNavigationTypeOther = 5
