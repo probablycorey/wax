@@ -137,7 +137,7 @@ wax_instance_userdata *wax_instance_createSuper(lua_State *L, wax_instance_userd
     wax_instance_pushUserdata(L, [instanceUserdata->instance superclass]);
 
     if (lua_isnil(L, -1)) { // Superclass has no lua object, push empty env table
-        lua_pop(L, 2); // Remove nil and superclass userdata
+        lua_pop(L, 1); // Remove nil and superclass userdata
         lua_newtable(L); 
     }
     else {
