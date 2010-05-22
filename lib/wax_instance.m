@@ -133,6 +133,20 @@ wax_instance_userdata *wax_instance_createSuper(lua_State *L, wax_instance_userd
     luaL_getmetatable(L, WAX_INSTANCE_METATABLE_NAME);
     lua_setmetatable(L, -2);
         
+    // give it the super classes metatable
+    wax_instance_pushUserdata(L, [instanceUserdata->instance superclass]);
+
+    if (lua_isnil(L, -1)) { // Superclass has no lua object, push empty env table
+        lua_pop(L, 2); // Remove nil and superclass userdata
+        lua_newtable(L); 
+    }
+    else {
+        lua_getfenv(L, -1);
+        lua_remove(L, -2); // Remove nil and superclass userdata
+    }
+
+    lua_setfenv(L, -2);
+    
     END_STACK_MODIFY(L, 1)
     
     return superInstanceUserdata;
@@ -269,7 +283,7 @@ static int __index(lua_State *L) {
         } while (lua_isnil(L, -1) && wax_instance_isWaxClass(classToCheck));
     }
             
-    if (instanceUserdata->isSuper || lua_isnil(L, -1) ) { // Couldn't find that in the userdata environment table, assume it is defined in obj-c classes
+    if (lua_isnil(L, -1) ) { // Couldn't find that in the userdata environment table, assume it is defined in obj-c classes
         SEL selector = wax_selectorForInstance(instanceUserdata, lua_tostring(L, 2), NO);
 
         if (selector) { // If the class has a method with this name, push as a closure
@@ -277,7 +291,7 @@ static int __index(lua_State *L) {
             lua_pushcclosure(L, instanceUserdata->isSuper ? superMethodClosure : methodClosure, 1);
         }
     }
-    else if (instanceUserdata->isClass && wax_isInitMethod(lua_tostring(L, 2))) { // Is this an init method create in lua?
+    else if (!instanceUserdata->isSuper && instanceUserdata->isClass && wax_isInitMethod(lua_tostring(L, 2))) { // Is this an init method create in lua?
         lua_pushcclosure(L, customInitMethodClosure, 1);
     }
     
