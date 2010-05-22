@@ -16,7 +16,8 @@ function initWithName(self, name)
 end
 
 function initWithFood(self, food)
-  return nil
+  self.deerFood = "Deer" .. food
+  return self.super:init()
 end
 
 function getName(self)

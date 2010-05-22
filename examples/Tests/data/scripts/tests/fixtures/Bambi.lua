@@ -7,7 +7,8 @@ function initWithAge(self, age)
 end
 
 function initWithFood(self, food)
-  self.super:init()
+  self.super:initWithFood(food)
+  self.bambiFood = "Bambi" .. food
   self.food = food
   return self
 end

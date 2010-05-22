@@ -46,7 +46,7 @@ function spec:report(verbose)
         print(("%-70s [ %s ]"):format(" - " .. description, outcome))
 
         table.foreach(r.errors, function(index, error)
-          print("   ".. index..". Failed expectation : ".. error.message.."\n   "..error.trace)
+          print("   " .. index ..". Failed expectation : " .. error.message .. "\n   "..error.trace)
         end)
       end
     end
@@ -145,21 +145,22 @@ matchers = {
     end
 
     if not string.match(value, pattern) then
-      return false, value .. "doesn't match pattern "..pattern
+      return false, value .. "doesn't match pattern ".. pattern
     end
     return true
   end;
   
   should_be_kind_of = function(value, class)
     if type(value) == "userdata" then
-      if not value:isKindOfClass(class) then
+
+      if not value:isKindOfClass(NSString) then
         return false, tostring(value) .. " is not a " .. tostring(class)
       end
     elseif type(value) ~= class then
-      return false, type(value) .. " is not a " .. class
-    else
-      return true
+      return false, type(value) .. " is not a " .. tostring(class)
     end
+    
+    return true
   end;
   
   should_exist = function(value)

@@ -11,7 +11,7 @@ describe["A WaxClass instance with an ObjC Super"] = function()
     expect(tolua(o:value())).should_be("elephant")
   end
   
-  it["is created via a overwritten super init method"] = function()
+  it["is created via a overridden super init method"] = function()
     local o = ExtendedSimpleObject:initWithValue("a value")
     expect(tolua(o:value())).should_be("a value")
   end
@@ -45,17 +45,19 @@ describe["A WaxClass instance with an WaxClass Super"] = function()
   
   it["is created via method"] = function()
     local o = Bambi:initWithAge(12)
-    expect(tolua(o:getAge())).should_be(12)
+    expect(o:getAge()).should_be(12)
   end
   
   it["is created via an init method"] = function()
     local o = Bambi:initWithName("Bammmmbi")
-    expect(tolua(o:getName())).should_be("Bammmmbi")
+    expect(o:getName()).should_be("Bammmmbi")
   end
 
-  it["is created via an overwritten init method"] = function()
+  it["is created via an overridden init method"] = function()
     local o = Bambi:initWithFood("Beef")
-    expect(tolua(o:getFood())).should_be("Beef")
+    expect(o:getFood()).should_be("Beef")
+    expect(o.bambiFood).should_be("BambiBeef")
+    expect(o.deerFood).should_be("DeerBeef")
   end
   
   it["can call a super method"] = function()
@@ -63,7 +65,7 @@ describe["A WaxClass instance with an WaxClass Super"] = function()
     expect(o:doubleAge()).should_be(20)
   end
   
-  it["can call an overwritten method"] = function()
+  it["can call an overridden method"] = function()
     local o = Bambi:initWithAge(1)
     expect(o:tripleAge()).should_be(3)
   end
