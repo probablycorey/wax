@@ -16,6 +16,13 @@ function string.split(s, sep)
   return t
 end
 
+function string.strip(s, pattern)
+  pattern = pattern or "%s"
+  s = s:gsub("^" .. pattern, "")
+  s = s:gsub(pattern .. "$", "")
+  return s
+end
+
 function string.camelCase(s)
   local splitTable = s:split("_-")
   local result = table.remove(splitTable, 1)
