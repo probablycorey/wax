@@ -125,11 +125,18 @@ static void addGlobals(lua_State *L) {
     lua_pushnumber(L, WAX_VERSION);
     lua_setfield(L, -2, "version");
     
+    lua_pushstring(L, [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"] UTF8String]);
+    lua_setfield(L, -2, "appVersion");
+    
     lua_pushcfunction(L, waxRoot);
     lua_setfield(L, -2, "root");
 
     lua_pushcfunction(L, waxPrint);
     lua_setfield(L, -2, "print");    
+    
+    
+    lua_pushcfunction(L, objcDebug);
+    lua_setfield(L, -2, "debug");    
     
     lua_pop(L, 1); // pop the wax global off
     
@@ -142,9 +149,6 @@ static void addGlobals(lua_State *L) {
     
     lua_pushcfunction(L, exitApp);
     lua_setglobal(L, "exitApp");
-
-    lua_pushcfunction(L, objcDebug);
-    lua_setglobal(L, "debugger");
     
     lua_pushstring(L, [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] UTF8String]);
     lua_setglobal(L, "NSDocumentDirectory");
