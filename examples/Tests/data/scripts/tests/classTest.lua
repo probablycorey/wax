@@ -8,34 +8,39 @@ describe["A WaxClass instance with an ObjC Super"] = function()
   
   it["is created via method"] = function()
     local o = ExtendedSimpleObject:initWithAnimal("elephant")
-    expect(tolua(o:value())).should_be("elephant")
+    expect(o:value()).should_be("elephant")
   end
   
   it["is created via a overridden super init method"] = function()
     local o = ExtendedSimpleObject:initWithValue("a value")
-    expect(tolua(o:value())).should_be("a value")
+    expect(o:value()).should_be("a value")
   end
   
   it["is created via a super init method"] = function()
     local o = ExtendedSimpleObject:initWithWord("a word")
-    expect(tolua(o:value())).should_be("a word")
+    expect(o:value()).should_be("a word")
+  end
+  
+  it["is created via a plain init method"] = function()
+    local o = ExtendedSimpleObject:init()
+    expect(o).should_exist()
   end
   
   it["can override a method"] = function()
     local o = ExtendedSimpleObject:initWithValue("original")
-    expect(tolua(o:valueOverride())).should_be("NOT THE ORIGINAL")
+    expect(o:valueOverride()).should_be("NOT THE ORIGINAL")
   end
   
   it["can be called via obj-c"] = function()
     local o = ExtendedSimpleObject:initWithValue("obj")
     result = o:performSelector("stringForTesting")
-    expect(tolua(result)).should_be("Look at me!")
+    expect(result).should_be("Look at me!")
   end
   
   it["can be called via obj-c with args"] = function()
     local o = ExtendedSimpleObject:initWithValue("obj")
     result = o:performSelector_withObject("stringForTestingWithArg:", "we all!")
-    expect(tolua(result)).should_be("So say we all!")
+    expect(result).should_be("So say we all!")
   end
 end
 
@@ -52,7 +57,7 @@ describe["A WaxClass instance with an WaxClass Super"] = function()
     local o = Bambi:initWithName("Bammmmbi")
     expect(o:getName()).should_be("Bammmmbi")
   end
-
+  
   it["is created via an overridden init method"] = function()
     local o = Bambi:initWithFood("Beef")
     expect(o:getFood()).should_be("Beef")
@@ -68,6 +73,12 @@ describe["A WaxClass instance with an WaxClass Super"] = function()
   it["can call an overridden method"] = function()
     local o = Bambi:initWithAge(1)
     expect(o:tripleAge()).should_be(3)
+  end
+  
+  it["can call a super method that takes a function as a arg"] = function()
+    local o = Bambi:initWithAge(10)
+    o:doSomethingToAge(function(a) return a * 5 end)
+    expect(o:getAge()).should_be(50)
   end
 end
 

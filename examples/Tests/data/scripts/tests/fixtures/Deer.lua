@@ -24,6 +24,10 @@ function getName(self)
   return self.name
 end
 
+function doSomethingToAge(self, func)
+  self.age = func(self.age)
+end
+
 function doubleAge(self)
   return self.age * 2
 end

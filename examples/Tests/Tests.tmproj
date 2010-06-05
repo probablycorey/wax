@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>currentDocument</key>
-	<string>data/scripts/tests/fixtures/Deer.lua</string>
+	<string>data/scripts/tests/fixtures/ExtendedSimpleObject.lua</string>
 	<key>documents</key>
 	<array>
 		<dict>
@@ -43,28 +43,28 @@
 			<key>firstVisibleLine</key>
 			<integer>128</integer>
 		</dict>
-		<key>data/scripts/tests/fixtures/Deer.lua</key>
+		<key>data/scripts/tests/classTest.lua</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>27</integer>
 				<key>line</key>
-				<integer>18</integer>
+				<integer>25</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
 			<key>firstVisibleLine</key>
 			<integer>0</integer>
 		</dict>
-		<key>data/scripts/tests/objcToLuaTest.lua</key>
+		<key>data/scripts/tests/fixtures/ExtendedSimpleObject.lua</key>
 		<dict>
 			<key>caret</key>
 			<dict>
 				<key>column</key>
-				<integer>0</integer>
+				<integer>3</integer>
 				<key>line</key>
-				<integer>0</integer>
+				<integer>5</integer>
 			</dict>
 			<key>firstVisibleColumn</key>
 			<integer>0</integer>
@@ -74,8 +74,8 @@
 	</dict>
 	<key>openDocuments</key>
 	<array>
-		<string>data/scripts/tests/fixtures/Deer.lua</string>
-		<string>data/scripts/tests/objcToLuaTest.lua</string>
+		<string>data/scripts/tests/classTest.lua</string>
+		<string>data/scripts/tests/fixtures/ExtendedSimpleObject.lua</string>
 	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
