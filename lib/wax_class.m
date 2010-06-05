@@ -19,6 +19,7 @@ static int __index(lua_State *L);
 static int __call(lua_State *L);
 
 static int addProtocols(lua_State *L);
+static int name(lua_State *L);
 static id alloc(id self, SEL _cmd);
 static id allocWithZone(id self, SEL _cmd, NSZone *);
 static id valueForUndefinedKey(id self, SEL cmd, NSString *key);
@@ -32,6 +33,7 @@ static const struct luaL_Reg MetaMethods[] = {
 
 static const struct luaL_Reg Methods[] = {
     {"addProtocols", addProtocols},
+    {"name", name},
     {NULL, NULL}
 };
 
@@ -130,6 +132,12 @@ static int addProtocols(lua_State *L) {
     }
     
     return 0;
+}
+
+static int name(lua_State *L) {
+    wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);
+    lua_pushstring(L, [NSStringFromClass([instanceUserdata->instance class]) UTF8String]);
+    return 1;
 }
 
 static id alloc(id self, SEL _cmd) {    
