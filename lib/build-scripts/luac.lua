@@ -64,5 +64,10 @@ assert(f:write(b))
 for i = executableIndex + 2, argCount do
   assert(f:write(arg[i]))
 end
-
-  
+-- 
+-- for i = 1,executableIndex do
+--   assert(f:write(arg[i]))
+-- end
+-- 
+-- assert(f:write(string.rep("\0",12)))
+-- assert(f:close())

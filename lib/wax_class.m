@@ -19,7 +19,9 @@ static int __index(lua_State *L);
 static int __call(lua_State *L);
 
 static int addProtocols(lua_State *L);
+static int name(lua_State *L);
 static id alloc(id self, SEL _cmd);
+static id allocWithZone(id self, SEL _cmd, NSZone *);
 static id valueForUndefinedKey(id self, SEL cmd, NSString *key);
 static void setValueForUndefinedKey(id self, SEL cmd, id value, NSString *key);
 
@@ -31,6 +33,7 @@ static const struct luaL_Reg MetaMethods[] = {
 
 static const struct luaL_Reg Methods[] = {
     {"addProtocols", addProtocols},
+    {"name", name},
     {NULL, NULL}
 };
 
@@ -83,12 +86,12 @@ static int __call(lua_State *L) {
             superClass = [NSObject class];
         }
         else {
-            const char *superClassName = luaL_checkstring(L, 3);    
+            const char *superClassName = luaL_checkstring(L, 3);
             superClass = objc_getClass(superClassName);
         }
         
         if (!superClass) {
-            luaL_error(L, "Failed to create '%s'. Unknown superclass received.", className);
+            luaL_error(L, "Failed to create '%s'. Unknown superclass \"%s\" received.", className, luaL_checkstring(L, 3));
         }
         
         class = objc_allocateClassPair(superClass, className, 0);
@@ -105,6 +108,7 @@ static int __call(lua_State *L) {
         id metaclass = object_getClass(class);
         // So objects created in ObjC will get an associated lua object
         class_addMethod(metaclass, @selector(alloc), (IMP)alloc, "@@:");
+        class_addMethod(metaclass, @selector(allocWithZone:), (IMP)allocWithZone, "@@:^{_NSZone=}");
     }
         
     wax_instance_create(L, class, YES);
@@ -130,10 +134,34 @@ static int addProtocols(lua_State *L) {
     return 0;
 }
 
+static int name(lua_State *L) {
+    wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);
+    lua_pushstring(L, [NSStringFromClass([instanceUserdata->instance class]) UTF8String]);
+    return 1;
+}
+
 static id alloc(id self, SEL _cmd) {    
     lua_State *L = wax_currentLuaState(); 
     
     BEGIN_STACK_MODIFY(L);
+    
+    id instance = class_createInstance(self, 0);
+    wax_instance_userdata *waxInstance = wax_instance_create(L, instance, NO);
+    object_setInstanceVariable(instance, WAX_CLASS_INSTANCE_USERDATA_IVAR_NAME, waxInstance);
+    
+    END_STACK_MODIFY(L, 0);
+    
+    return instance;
+}
+
+static id allocWithZone(id self, SEL _cmd, NSZone *zone) {
+    lua_State *L = wax_currentLuaState(); 
+    
+    BEGIN_STACK_MODIFY(L);
+
+    if (zone && zone != NSDefaultMallocZone()) {
+        [NSException raise:@"Wax Error" format:@"Wax doesn't handle allocing in zones other than the default! (It could, we just haven't gotten around to it yet)"];
+    }    
     
     id instance = class_createInstance(self, 0);
     wax_instance_userdata *waxInstance = wax_instance_create(L, instance, NO);

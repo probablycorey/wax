@@ -20,6 +20,8 @@
 #import "linenoise.h" // For the REPL
 
 static void addGlobals(lua_State *L);
+static int waxRoot(lua_State *L);
+static int waxPrint(lua_State *L);
 static int tolua(lua_State *L);
 static int toobjc(lua_State *L);
 static int exitApp(lua_State *L);
@@ -62,18 +64,18 @@ void wax_startWithExtensions(lua_CFunction func, ...) {
     [wax_GarbageCollection start];
 
     // Load all the wax lua scripts
-    if (luaL_dofile(L, WAX_DATA_DIR "scripts/wax/init.lua") != 0) {
+    if (luaL_dofile(L, WAX_DATA_DIR "/scripts/wax/init.lua") != 0) {
         fprintf(stderr,"Fatal error opening wax scripts: %s\n", lua_tostring(L,-1));
     }
     
     // Start the user's init script!
-    if (luaL_dofile(L, WAX_DATA_DIR "scripts/AppDelegate.lua") != 0) {
+    if (luaL_dofile(L, WAX_DATA_DIR "/scripts/AppDelegate.lua") != 0) {
         fprintf(stderr,"Fatal error: %s\n", lua_tostring(L,-1));
     }
 	
     NSDictionary *env = [[NSProcessInfo processInfo] environment];
     if ([[env objectForKey:@"WAX_TEST"] isEqual:@"YES"]) { // Should we run the tests?
-        if (luaL_dofile(L, WAX_DATA_DIR "scripts/tests/init.lua") != 0) {
+        if (luaL_dofile(L, WAX_DATA_DIR "/scripts/tests/init.lua") != 0) {
             fprintf(stderr,"Fatal error running tests: %s\n", lua_tostring(L,-1));
         }
         exit(1);
@@ -123,12 +125,22 @@ static void addGlobals(lua_State *L) {
     lua_pushnumber(L, WAX_VERSION);
     lua_setfield(L, -2, "version");
     
-    lua_pushstring(L, WAX_DATA_DIR);
+    lua_pushstring(L, [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"] UTF8String]);
+    lua_setfield(L, -2, "appVersion");
+    
+    lua_pushcfunction(L, waxRoot);
     lua_setfield(L, -2, "root");
-        
+
+    lua_pushcfunction(L, waxPrint);
+    lua_setfield(L, -2, "print");    
+    
+    
+    lua_pushcfunction(L, objcDebug);
+    lua_setfield(L, -2, "debug");    
+    
     lua_pop(L, 1); // pop the wax global off
     
-    // Functions
+
     lua_pushcfunction(L, tolua);
     lua_setglobal(L, "tolua");
     
@@ -137,9 +149,6 @@ static void addGlobals(lua_State *L) {
     
     lua_pushcfunction(L, exitApp);
     lua_setglobal(L, "exitApp");
-
-    lua_pushcfunction(L, objcDebug);
-    lua_setglobal(L, "debugger");
     
     lua_pushstring(L, [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0] UTF8String]);
     lua_setglobal(L, "NSDocumentDirectory");
@@ -147,9 +156,37 @@ static void addGlobals(lua_State *L) {
     lua_pushstring(L, [[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) objectAtIndex:0] UTF8String]);
     lua_setglobal(L, "NSLibraryDirectory");
     
-    lua_pushstring(L, [[NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0] UTF8String]);
+    NSString *cachePath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    lua_pushstring(L, [cachePath UTF8String]);
     lua_setglobal(L, "NSCacheDirectory");
 
+    NSError *error = nil;
+    [[NSFileManager defaultManager] createDirectoryAtPath:cachePath withIntermediateDirectories:YES attributes: nil error:&error];
+    if (error) {
+        wax_log(LOG_DEBUG, @"Error creating cache path. %@", [error localizedDescription]);
+    }
+
+
+}
+
+static int waxPrint(lua_State *L) {
+    NSLog(@"%s", luaL_checkstring(L, 1));
+    return 0;
+}
+
+static int waxRoot(lua_State *L) {
+    luaL_Buffer b;
+    luaL_buffinit(L, &b);
+    luaL_addstring(&b, WAX_DATA_DIR);
+    
+    for (int i = 1; i <= lua_gettop(L); i++) {
+        luaL_addstring(&b, "/");
+        luaL_addstring(&b, luaL_checkstring(L, i));
+    }
+
+    luaL_pushresult(&b);
+                       
+    return 1;
 }
 
 static int tolua(lua_State *L) {

@@ -133,6 +133,20 @@ wax_instance_userdata *wax_instance_createSuper(lua_State *L, wax_instance_userd
     luaL_getmetatable(L, WAX_INSTANCE_METATABLE_NAME);
     lua_setmetatable(L, -2);
         
+    // give it the super classes metatable
+    wax_instance_pushUserdata(L, [instanceUserdata->instance superclass]);
+
+    if (lua_isnil(L, -1)) { // Superclass has no lua object, push empty env table
+        lua_pop(L, 1); // Remove nil and superclass userdata
+        lua_newtable(L); 
+    }
+    else {
+        lua_getfenv(L, -1);
+        lua_remove(L, -2); // Remove nil and superclass userdata
+    }
+
+    lua_setfenv(L, -2);
+    
     END_STACK_MODIFY(L, 1)
     
     return superInstanceUserdata;
@@ -200,8 +214,13 @@ BOOL wax_instance_pushFunction(lua_State *L, id self, SEL selector) {
     BOOL result = YES;
     
     if (!lua_isfunction(L, -1)) { // function not found in userdata
-        if ([self class] == self) result = NO; // End of the line bub, can't go any further up
-        else result = wax_instance_pushFunction(L, [self class], selector);
+        lua_pop(L, 3); // Remove userdata, env and non-function
+        if ([self class] == self) { // This is a class, not an instance
+            result = wax_instance_pushFunction(L, [self superclass], selector); // Check to see if the super classes know about this function
+        }
+        else {
+            result = wax_instance_pushFunction(L, [self class], selector);
+        }
     }
     
     END_STACK_MODIFY(L, 1)
@@ -220,6 +239,12 @@ void wax_instance_pushUserdata(lua_State *L, id object) {
     END_STACK_MODIFY(L, 1)
 }
 
+BOOL wax_instance_isWaxClass(id instance) {
+     // If this is a wax class, or an instance of a wax class, it has the userdata ivar set
+    return class_getInstanceVariable([instance class], WAX_CLASS_INSTANCE_USERDATA_IVAR_NAME) != nil;
+}
+
+
 #pragma mark Override Metatable Functions
 #pragma ---------------------------------
 
@@ -237,22 +262,28 @@ static int __index(lua_State *L) {
     lua_rawget(L, 3);
 
     // Check instance's class userdata
-    if (lua_isnil(L, -1) && !instanceUserdata->isClass && !instanceUserdata->isSuper) {
-        lua_pop(L, 1);
-        
-        wax_instance_pushUserdata(L, [instanceUserdata->instance class]);
-        
-        // If there is no userdata for this instance's class, then leave the nil on the stack and don't anything else
-        if (!lua_isnil(L, -1)) {
-            lua_getfenv(L, -1);
-            lua_pushvalue(L, 2);
-            lua_rawget(L, -2);
-            lua_remove(L, -2); // Get rid of the userdata env
-            lua_remove(L, -2); // Get rid of the userdata
-        }        
+    if (lua_isnil(L, -1) && !instanceUserdata->isClass && !instanceUserdata->isSuper) {        
+        Class classToCheck = [instanceUserdata->instance class];
+
+        // Keep checking superclasses if they are waxclasses, we want to treat those like they are lua
+        do {
+            lua_pop(L, 1);
+            wax_instance_pushUserdata(L, classToCheck);
+            
+            // If there is no userdata for this instance's class, then leave the nil on the stack and don't anything else
+            if (!lua_isnil(L, -1)) {
+                lua_getfenv(L, -1);
+                lua_pushvalue(L, 2);
+                lua_rawget(L, -2);
+                lua_remove(L, -2); // Get rid of the userdata env
+                lua_remove(L, -2); // Get rid of the userdata
+            }
+            
+            classToCheck = class_getSuperclass(classToCheck);
+        } while (lua_isnil(L, -1) && wax_instance_isWaxClass(classToCheck));
     }
             
-    if (instanceUserdata->isSuper || lua_isnil(L, -1) ) { // Couldn't find that in the userdata environment table, assume it is defined in obj-c classes
+    if (lua_isnil(L, -1) ) { // Couldn't find that in the userdata environment table, assume it is defined in obj-c classes
         SEL selector = wax_selectorForInstance(instanceUserdata, lua_tostring(L, 2), NO);
 
         if (selector) { // If the class has a method with this name, push as a closure
@@ -260,7 +291,7 @@ static int __index(lua_State *L) {
             lua_pushcclosure(L, instanceUserdata->isSuper ? superMethodClosure : methodClosure, 1);
         }
     }
-    else if (instanceUserdata->isClass && wax_isInitMethod(lua_tostring(L, 2))) { // Is this an init method create in lua?
+    else if (!instanceUserdata->isSuper && instanceUserdata->isClass && wax_isInitMethod(lua_tostring(L, 2))) { // Is this an init method create in lua?
         lua_pushcclosure(L, customInitMethodClosure, 1);
     }
     
@@ -378,7 +409,8 @@ static int methodClosure(lua_State *L) {
     int objcArgumentCount = [signature numberOfArguments] - 2; // skip the hidden self and _cmd argument
     int luaArgumentCount = lua_gettop(L) - 1;
     
-    if (objcArgumentCount > luaArgumentCount) {
+    
+    if (objcArgumentCount > luaArgumentCount && !wax_instance_isWaxClass(instanceUserdata->instance)) { 
         luaL_error(L, "Not Enough arguments given! Method named '%s' requires %d argument(s), you gave %d. (Make sure you used ':' to call the method)", selectorName, objcArgumentCount + 1, lua_gettop(L));
     }
     
@@ -514,11 +546,11 @@ static int customInitMethodClosure(lua_State *L) {
 static int pcallUserdata(lua_State *L, id self, SEL selector, va_list args) {
     BEGIN_STACK_MODIFY(L)    
     
-    if (![[NSThread currentThread] isEqual:[NSThread mainThread]]) NSLog(@"PACALLUSERDATA: OH NO SEPERATE THREAD");
+    if (![[NSThread currentThread] isEqual:[NSThread mainThread]]) NSLog(@"PCALLUSERDATA: OH NO SEPERATE THREAD");
     
     // Find the function... could be in the object or in the class
     if (!wax_instance_pushFunction(L, self, selector)) {
-        lua_pushfstring(L, "Could not find userdata associated with object %s(%p) It was probably released by the GC.", class_getName([self class]), self);
+        lua_pushfstring(L, "Could not find function named \"%s\" associated with object %s(%p).(It may have been released by the GC)", selector, class_getName([self class]), self);
         goto error; // function not found in userdata...
     }
     
@@ -566,7 +598,7 @@ int result = pcallUserdata(L, self, _cmd, args_copy); \
 va_end(args_copy); \
 va_end(args); \
 if (result == -1) { \
-    luaL_error(L, "Error calling '%s' on lua object '%s'\n%s", _cmd, [[self description] UTF8String], lua_tostring(L, -1)); \
+    luaL_error(L, "\n\nError\n-----\nError calling '%s' on lua object '%s'\n%s", _cmd, [[self description] UTF8String], lua_tostring(L, -1)); \
 } \
 else if (result == 0) { \
     _type_ returnValue; \
@@ -616,14 +648,16 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
             uint count;
             Protocol **protocols = class_copyProtocolList(currentClass, &count);
                         
-            SEL *posibleSelectors = &wax_selectorsForName(methodName).selectors[0];
+            SEL possibleSelectors[2];
+            wax_selectorsForName(methodName, possibleSelectors);
             
             for (int i = 0; !returnType && i < count; i++) {
                 Protocol *protocol = protocols[i];
                 struct objc_method_description m_description;
                 
                 for (int j = 0; !returnType && j < 2; j++) {
-                    selector = posibleSelectors[j];
+                    selector = possibleSelectors[j];
+                    if (!selector) continue; // There may be only one acceptable selector sent back
                     
                     m_description = protocol_getMethodDescription(protocol, selector, YES, YES);
                     if (!m_description.name) m_description = protocol_getMethodDescription(protocol, selector, NO, YES); // Check if it is not a "required" method
@@ -699,18 +733,22 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
         free(returnType);                
     }
     else {
-		SEL *posibleSelectors = &wax_selectorsForName(methodName).selectors[0];		
+		SEL possibleSelectors[2];
+        wax_selectorsForName(methodName, possibleSelectors);
 		
 		success = YES;
-		
 		for (int i = 0; i < 2; i++) {
-			selector = posibleSelectors[i];
+			selector = possibleSelectors[i];
+            if (!selector) continue; // There may be only one acceptable selector sent back
+            
 			int argCount = 0;
 			char *match = (char *)sel_getName(selector);
 			while(match = strchr(match, ':')) {
 				match += 1; // Skip past the matched char
 				argCount++;
 			}
+            
+            //if (argCount == 0) continue; // When we are creating our own methods, just always assume there will be at least one argument
 
 			size_t typeDescriptionSize = 3 + argCount;
 			typeDescription = calloc(typeDescriptionSize + 1, sizeof(char));
@@ -721,8 +759,8 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
 			id metaclass = objc_getMetaClass(object_getClassName(class));
 
 			success = success &&
-				class_addMethod(class, posibleSelectors[i], imp, typeDescription) &&
-				class_addMethod(metaclass, posibleSelectors[i], imp, typeDescription);
+				class_addMethod(class, possibleSelectors[i], imp, typeDescription) &&
+				class_addMethod(metaclass, possibleSelectors[i], imp, typeDescription);
 			
 			free(typeDescription);
 		}

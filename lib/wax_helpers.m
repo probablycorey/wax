@@ -481,37 +481,53 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
     return value;
 }
 
-wax_selectors wax_selectorsForName(const char *methodName) {
-    wax_selectors posibleSelectors;
+// You can't tell if there are 0 or 1 arguments based on selector alone, so pass in an SEL[2] for possibleSelectors
+void wax_selectorsForName(const char *methodName, SEL possibleSelectors[2]) {
     int strlength = strlen(methodName) + 2; // Add 2. One for trailing : and one for \0
     char *objcMethodName = calloc(strlength, 1); 
     
+    int argCount = 0;
     strcpy(objcMethodName, methodName);
-    for(int i = 0; objcMethodName[i]; i++) if (objcMethodName[i] == '_') objcMethodName[i] = ':';
+    for(int i = 0; objcMethodName[i]; i++) {
+        if (objcMethodName[i] == '_') {
+            argCount++;
+            objcMethodName[i] = ':';
+        }
+    }
     
-    posibleSelectors.selectors[0] = sel_getUid(objcMethodName);
-    objcMethodName[strlength - 2] = ':';
-    posibleSelectors.selectors[1] = sel_getUid(objcMethodName);
+    objcMethodName[strlength - 2] = ':'; // Add final arg portion
+    possibleSelectors[0] = sel_getUid(objcMethodName);
+    
+    if (argCount == 0) {
+        objcMethodName[strlength - 2] = '\0';
+        possibleSelectors[1] = sel_getUid(objcMethodName);        
+    }
+    else {
+        possibleSelectors[1] = nil;
+    }
+
+
     free(objcMethodName);
-    
-    return posibleSelectors;
 }
 
 SEL wax_selectorForInstance(wax_instance_userdata *instanceUserdata, const char *methodName, BOOL forceInstanceCheck) {    
-    SEL *posibleSelectors = &wax_selectorsForName(methodName).selectors[0];
-        
-    if (instanceUserdata->isSuper) { // We don't want to get into the methodSignature code for wax classes
-        if ([instanceUserdata->instance respondsToSelector:posibleSelectors[0]]) return posibleSelectors[0];
-        if ([instanceUserdata->instance respondsToSelector:posibleSelectors[1]]) return posibleSelectors[1];            
+    SEL possibleSelectors[2];
+    wax_selectorsForName(methodName, possibleSelectors);
+    
+    for (int i = 0; i < 2; i++) {
+        SEL selector = possibleSelectors[i];
+        if (!selector) continue; // There may be only one acceptable selector sent back
+
+        if (instanceUserdata->isSuper) { // We don't want to get into the methodSignature code for wax classes
+            if ([instanceUserdata->instance respondsToSelector:selector]) return selector;
+        }
+        else if (instanceUserdata->isClass && (forceInstanceCheck || wax_isInitMethod(methodName))) {
+            if ([instanceUserdata->instance instanceMethodSignatureForSelector:selector]) return selector;
+        }
+        else {
+            if ([instanceUserdata->instance methodSignatureForSelector:selector]) return selector;
+        }    
     }
-    else if (instanceUserdata->isClass && (forceInstanceCheck || wax_isInitMethod(methodName))) {
-        if ([instanceUserdata->instance instanceMethodSignatureForSelector:posibleSelectors[0]]) return posibleSelectors[0];
-        if ([instanceUserdata->instance instanceMethodSignatureForSelector:posibleSelectors[1]]) return posibleSelectors[1];
-    }
-    else {
-        if ([instanceUserdata->instance methodSignatureForSelector:posibleSelectors[0]]) return posibleSelectors[0];
-        if ([instanceUserdata->instance methodSignatureForSelector:posibleSelectors[1]]) return posibleSelectors[1];            
-    }    
     
     return nil;
 }
@@ -590,7 +606,7 @@ int wax_sizeOfTypeDescription(const char *full_type_description) {
                 
             case WAX_TYPE_ARRAY:
             case WAX_TYPE_ARRAY_END:
-                luaL_error(L, "C array's are not implemented yet.");
+                [NSException raise:@"Wax Error" format:@"C array's are not implemented yet."];
                 break;
             
             case WAX_TYPE_SHORT:
@@ -646,7 +662,7 @@ int wax_sizeOfTypeDescription(const char *full_type_description) {
                 break;
                 
             case WAX_TYPE_BITFIELD:
-                luaL_error(L, "Bitfields are not implemented yet");
+                [NSException raise:@"Wax Error" format:@"Bitfields are not implemented yet"];
                 break;
                 
             case WAX_TYPE_ID:
@@ -676,7 +692,7 @@ int wax_sizeOfTypeDescription(const char *full_type_description) {
                 // Weeeee! Just ignore this stuff I guess?
                 break;
             default:
-                luaL_error(L, "Unknown type encoding %c", type_description[index]);
+                [NSException raise:@"Wax Error" format:@"Unknown type encoding %c", type_description[index]];
                 break;
         }
         

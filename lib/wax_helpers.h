@@ -70,11 +70,6 @@
 #define LOG_DEBUG 2
 #define LOG_FATAL 4
 
-// This struct seem unnessessary
-typedef struct _wax_selectors {
-    SEL selectors[2];
-} wax_selectors;
-
 // Debug Helpers
 void wax_printStack(lua_State *L);
 void wax_printStackAt(lua_State *L, int i);
@@ -89,7 +84,7 @@ void wax_fromStruct(lua_State *L, const char *typeDescription, void *buffer);
 void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, int *outsize);
 
 // Misc Helpers
-wax_selectors wax_selectorsForName(const char *methodName);
+void wax_selectorsForName(const char *methodName, SEL selectors[2]);
 SEL wax_selectorForInstance(wax_instance_userdata *instanceUserdata, const char *methodName, BOOL forceInstanceCheck);
 void wax_pushMethodNameFromSelector(lua_State *L, SEL selector);
 BOOL wax_isInitMethod(const char *methodName);

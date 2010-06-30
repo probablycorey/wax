@@ -7,13 +7,13 @@ http://luaforge.net/projects/bit/
 
 How to use:
 -------------------
- bit.bnot(n) -- bitwise not (~n)
- bit.band(m, n) -- bitwise and (m & n)
- bit.bor(m, n) -- bitwise or (m | n)
- bit.bxor(m, n) -- bitwise xor (m ^ n)
- bit.brshift(n, bits) -- right shift (n >> bits)
- bit.blshift(n, bits) -- left shift (n << bits)
- bit.blogic_rshift(n, bits) -- logic right shift(zero fill >>>)
+ wax.bit.bnot(n) -- bitwise not (~n)
+ wax.bit.band(m, n) -- bitwise and (m & n)
+ wax.bit.bor(m, n) -- bitwise or (m | n)
+ wax.bit.bxor(m, n) -- bitwise xor (m ^ n)
+ wax.bit.brshift(n, bits) -- right shift (n >> bits)
+ wax.bit.blshift(n, bits) -- left shift (n << bits)
+ wax.bit.blogic_rshift(n, bits) -- logic right shift(zero fill >>>)
  
 Please note that bit.brshift and bit.blshift only support number within
 32 bits.

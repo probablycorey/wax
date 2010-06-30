@@ -2,6 +2,7 @@ function waxClass(options)
   local className = options[1]
   local superclassName = options[2]
   local class = wax.class(className, superclassName)
+  class.name = className
   
   if options.protocols then
     if type(options.protocols) ~= "table" then options.protocols = {options.protocols} end

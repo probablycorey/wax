@@ -16,8 +16,15 @@ function string.split(s, sep)
   return t
 end
 
+function string.strip(s, pattern)
+  pattern = pattern or "%s"
+  s = s:gsub("^" .. pattern, "")
+  s = s:gsub(pattern .. "$", "")
+  return s
+end
+
 function string.camelCase(s)
-  local splitTable = s:split("_")
+  local splitTable = s:split("_-")
   local result = table.remove(splitTable, 1)
   for i, chunk in ipairs(splitTable) do
     result = result .. chunk:sub(1,1):upper() .. chunk:sub(2)
