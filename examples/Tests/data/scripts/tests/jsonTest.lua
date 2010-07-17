@@ -21,6 +21,11 @@ describe["JSON parsing"] = function()
     expect(wax.json.parse([["hello\nworld"]])).should_be("hello\nworld")
   end
 
+  it["can parse an empty string"] = function()
+    local result = wax.json.parse("")
+    expect(result).should_be(nil)
+  end
+
   it["can parse empty arrays"] = function()
     local ary = wax.json.parse("[]")
     expect(type(ary)).should_be('table')

@@ -91,8 +91,6 @@
 		043E60DA113C3DA5007A6104 /* Rakefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Rakefile; sourceTree = "<group>"; };
 		043E60DB113C3DA5007A6104 /* wax_json.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = wax_json.c; sourceTree = "<group>"; };
 		043E60DC113C3DA5007A6104 /* wax_json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_json.h; sourceTree = "<group>"; };
-		043E60DD113C3DA5007A6104 /* wax_json.peg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = wax_json.peg; sourceTree = "<group>"; };
-		043E60DE113C3DA5007A6104 /* wax_json.peg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_json.peg.h; sourceTree = "<group>"; };
 		043E60E1113C3DA5007A6104 /* yajl_common.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = yajl_common.h; sourceTree = "<group>"; };
 		043E60E2113C3DA5007A6104 /* yajl_gen.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = yajl_gen.h; sourceTree = "<group>"; };
 		043E60E3113C3DA5007A6104 /* yajl_parse.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = yajl_parse.h; sourceTree = "<group>"; };
@@ -279,8 +277,6 @@
 				043E60DA113C3DA5007A6104 /* Rakefile */,
 				043E60DB113C3DA5007A6104 /* wax_json.c */,
 				043E60DC113C3DA5007A6104 /* wax_json.h */,
-				043E60DD113C3DA5007A6104 /* wax_json.peg */,
-				043E60DE113C3DA5007A6104 /* wax_json.peg.h */,
 				043E60DF113C3DA5007A6104 /* yajl */,
 				043E60F4113C3DA5007A6104 /* yajl-1.0.9.tar.gz */,
 			);
@@ -620,6 +616,7 @@
 				HEADER_SEARCH_PATHS = "$(SDK_ROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "Tests-Info.plist";
 				PRODUCT_NAME = Tests;
+				SDKROOT = iphoneos4.0;
 			};
 			name = Debug;
 		};
@@ -633,6 +630,7 @@
 				HEADER_SEARCH_PATHS = "$(SDK_ROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "Tests-Info.plist";
 				PRODUCT_NAME = Tests;
+				SDKROOT = iphoneos4.0;
 			};
 			name = Release;
 		};
@@ -659,6 +657,7 @@
 				HEADER_SEARCH_PATHS = "$(SDK_ROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "Tests-Info.plist";
 				PRODUCT_NAME = Tests;
+				SDKROOT = iphoneos4.0;
 			};
 			name = "Ad Hoc";
 		};
@@ -684,6 +683,7 @@
 				HEADER_SEARCH_PATHS = "$(SDK_ROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "Tests-Info.plist";
 				PRODUCT_NAME = Tests;
+				SDKROOT = iphoneos4.0;
 			};
 			name = Distribution;
 		};

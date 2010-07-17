@@ -175,8 +175,15 @@ static int parse(lua_State *L) {
     size_t len;
     const char *input = lua_tolstring(L, -1, &len);
 
-    if (!input)
-        return luaL_error(L, "invalid string to parse");
+    if (!input) {
+		return luaL_error(L, "invalid string to parse");
+	}
+	
+	// Nothing to parse!
+	if (len == 0) {
+		lua_pushnil(L);
+		return 1;
+	}
 
     return parse_string(L, (const unsigned char *)input, len);
 }
