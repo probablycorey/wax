@@ -20,8 +20,7 @@ typedef enum {
 
 @end
 
-
-@interface DebugServer : NSObject <NSNetServiceDelegate, NSStreamDelegate> {
+@interface DebugServer : NSObject {
     uint16_t _port;
 	CFSocketRef _ipv4socket;
 
@@ -37,8 +36,8 @@ typedef enum {
 
 - (BOOL)start:(NSError **)error;
 - (BOOL)stop;
-- (BOOL) enableBonjour;
-- (void) disableBonjour;
+- (BOOL)enableBonjour;
+- (void)disableBonjour;
 
 - (BOOL)output:(NSString *)output;
 
