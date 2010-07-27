@@ -2,11 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>currentDocument</key>
-	<string>data/scripts/tests/fixtures/ExtendedSimpleObject.lua</string>
 	<key>documents</key>
 	<array>
 		<dict>
+			<key>expanded</key>
+			<true/>
 			<key>name</key>
 			<string>wax-scripts</string>
 			<key>regexFolderFilter</key>
@@ -43,43 +43,10 @@
 			<key>firstVisibleLine</key>
 			<integer>128</integer>
 		</dict>
-		<key>data/scripts/tests/classTest.lua</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>27</integer>
-				<key>line</key>
-				<integer>25</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
-		<key>data/scripts/tests/fixtures/ExtendedSimpleObject.lua</key>
-		<dict>
-			<key>caret</key>
-			<dict>
-				<key>column</key>
-				<integer>3</integer>
-				<key>line</key>
-				<integer>5</integer>
-			</dict>
-			<key>firstVisibleColumn</key>
-			<integer>0</integer>
-			<key>firstVisibleLine</key>
-			<integer>0</integer>
-		</dict>
 	</dict>
-	<key>openDocuments</key>
-	<array>
-		<string>data/scripts/tests/classTest.lua</string>
-		<string>data/scripts/tests/fixtures/ExtendedSimpleObject.lua</string>
-	</array>
 	<key>showFileHierarchyDrawer</key>
 	<true/>
 	<key>windowFrame</key>
-	<string>{{958, 0}, {958, 1178}}</string>
+	<string>{{318, 0}, {958, 778}}</string>
 </dict>
 </plist>
