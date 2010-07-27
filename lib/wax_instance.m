@@ -644,7 +644,7 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
     else { // Is this method implementing a protocol?
         Class currentClass = class;
         
-        while ([currentClass superclass] != [currentClass class]) { // Walk up the object heirarchy
+        while (!returnType && [currentClass superclass] != [currentClass class]) { // Walk up the object heirarchy
             uint count;
             Protocol **protocols = class_copyProtocolList(currentClass, &count);
                         
@@ -728,8 +728,10 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
                 luaL_error(L, "Can't override method with return type %s", simplifiedReturnType);
                 break;
         }
-                
-        success = class_addMethod(class, selector, imp, typeDescription);
+		
+		id metaclass = objc_getMetaClass(object_getClassName(class));		
+		success = class_addMethod(class, selector, imp, typeDescription) && class_addMethod(metaclass, selector, imp, typeDescription);
+		
         free(returnType);                
     }
     else {
