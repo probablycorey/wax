@@ -98,9 +98,13 @@ void wax_startWithExtensions(lua_CFunction func, ...) {
 	}
 }
 
-
 void wax_start() {
     wax_startWithExtensions(nil);
+}
+
+void wax_startDebugServer() {		
+	Class WaxDebugServer = objc_getClass("WaxDebugServer"); // WaxDebugServer is located in wax's lua script dirt
+	[WaxDebugServer start];
 }
 
 void wax_end() {

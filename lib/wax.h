@@ -13,6 +13,7 @@
 
 void wax_start();
 void wax_startWithExtensions(lua_CFunction func, ...);
+void wax_startWithDebugServer();
 void wax_end();
 
 lua_State *wax_currentLuaState();
