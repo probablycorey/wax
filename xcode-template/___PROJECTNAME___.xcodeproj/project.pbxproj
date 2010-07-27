@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0422EC721135DFE6007F6343 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0422EC711135DFE6007F6343 /* libxml2.dylib */; };
+		04255A4A11FF598A00569C47 /* DebugServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 04255A4911FF598A00569C47 /* DebugServer.m */; };
 		043E6158113C3DA5007A6104 /* wax_http.m in Sources */ = {isa = PBXBuildFile; fileRef = 043E60D6113C3DA5007A6104 /* wax_http.m */; };
 		043E6159113C3DA5007A6104 /* wax_http_connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 043E60D8113C3DA5007A6104 /* wax_http_connection.m */; };
 		043E615B113C3DA5007A6104 /* wax_json.c in Sources */ = {isa = PBXBuildFile; fileRef = 043E60DB113C3DA5007A6104 /* wax_json.c */; };
@@ -79,6 +80,8 @@
 
 /* Begin PBXFileReference section */
 		0422EC711135DFE6007F6343 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
+		04255A4811FF598A00569C47 /* DebugServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugServer.h; sourceTree = "<group>"; };
+		04255A4911FF598A00569C47 /* DebugServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebugServer.m; sourceTree = "<group>"; };
 		043E60CB113C3DA5007A6104 /* copy_scripts.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = copy_scripts.sh; sourceTree = "<group>"; };
 		043E60CC113C3DA5007A6104 /* luac.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = luac.lua; sourceTree = "<group>"; };
 		043E60D5113C3DA5007A6104 /* wax_http.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_http.h; sourceTree = "<group>"; };
@@ -204,6 +207,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04255A4711FF598A00569C47 /* debugserver */ = {
+			isa = PBXGroup;
+			children = (
+				04255A4811FF598A00569C47 /* DebugServer.h */,
+				04255A4911FF598A00569C47 /* DebugServer.m */,
+			);
+			name = debugserver;
+			path = ../lib/vendor/DebugServer;
+			sourceTree = SOURCE_ROOT;
+		};
 		043E60C6113C3DA5007A6104 /* wax */ = {
 			isa = PBXGroup;
 			children = (
@@ -393,6 +406,7 @@
 		04AFB8B4116C2C80007EB02E /* vendor */ = {
 			isa = PBXGroup;
 			children = (
+				04255A4711FF598A00569C47 /* debugserver */,
 				04AFB8B5116C2C80007EB02E /* linenoise */,
 			);
 			path = vendor;
@@ -589,6 +603,7 @@
 				043E619A113C3DA5007A6104 /* wax_instance.m in Sources */,
 				043E619B113C3DA5007A6104 /* wax_struct.m in Sources */,
 				04AFB8B8116C2C80007EB02E /* linenoise.c in Sources */,
+				04255A4A11FF598A00569C47 /* DebugServer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
