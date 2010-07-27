@@ -69,7 +69,7 @@ void wax_startWithExtensions(lua_CFunction func, ...) {
     }
     
     // Start the user's init script!
-    if (luaL_dofile(L, WAX_DATA_DIR "/scripts/AppDelegate.lua") != 0) {
+    if (luaL_dofile(L, WAX_DATA_DIR "/scripts/" WAX_LUA_INIT_SCRIPT ".lua") != 0) {
         fprintf(stderr,"Fatal error: %s\n", lua_tostring(L,-1));
     }
 	
