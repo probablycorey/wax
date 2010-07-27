@@ -1,3 +1,5 @@
+if not wax.http then return end -- Only load if the wax.http extension has been loaded
+
 function wax.http.post(options)
   options["method"] = "POST"
   return wax.http.request(options)
