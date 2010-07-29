@@ -11,9 +11,10 @@
 
 #define WAX_VERSION 0.9
 
+void wax_setup();
 void wax_start();
 void wax_startWithExtensions(lua_CFunction func, ...);
-void wax_startWithDebugServer();
+void wax_startWithServer();
 void wax_end();
 
 lua_State *wax_currentLuaState();

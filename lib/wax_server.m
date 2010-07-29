@@ -3,26 +3,45 @@
 #include <unistd.h>
 #include <CFNetwork/CFSocketStream.h>
 
-#import "DebugServer.h"
+#import "wax_server.h"
+#import "wax.h"
+#import "lauxlib.h"
 
-NSString * const TCPServerErrorDomain = @"TCPServerErrorDomain";
+static id gInstance;
+
 static void TCPServerAcceptCallBack(CFSocketRef socket, CFSocketCallBackType type, CFDataRef address, const void *data, void *info);
 
-@implementation DebugServer
+@implementation wax_server
 
-@synthesize port=_port, delegate=_delegate;
+@synthesize delegate=_delegate;
+
++ (id)instance {
+	return gInstance;
+}
 
 - (void)dealloc { 
-    [self stop]; // releases _netService	
+    [self stop]; // releases _netService and in/out streams
+	gInstance = nil;
     [super dealloc];
 }
 
-- (BOOL)start:(NSError **)error {
+- (id)init {
+	self = [super self];
+	if (gInstance) [NSException raise:@"Wax Error" format:@"Wax server has already been created"];
+	
+	gInstance = self;
+	
+	return self;
+}
+
+
+- (NSError *)startOnPort:(NSUInteger)port {
+	NSError *error = nil;
     CFSocketContext socketCtxt = {0, self, NULL, NULL, NULL};
     _ipv4socket = CFSocketCreate(kCFAllocatorDefault, PF_INET, SOCK_STREAM, IPPROTO_TCP, kCFSocketAcceptCallBack, (CFSocketCallBack)&TCPServerAcceptCallBack, &socketCtxt);
-	
+
     if (_ipv4socket == NULL) {
-        if (error) *error = [[NSError alloc] initWithDomain:TCPServerErrorDomain code:kTCPServerNoSocketsAvailable userInfo:nil];
+        error = [[NSError alloc] initWithDomain:@"Wax Error" code:kTCPServerNoSocketsAvailable userInfo:nil];
         _ipv4socket = NULL;
         return NO;
     }	
@@ -36,12 +55,12 @@ static void TCPServerAcceptCallBack(CFSocketRef socket, CFSocketCallBackType typ
     addr4.sin_len = sizeof(addr4);
     addr4.sin_family = AF_INET;
     //addr4.sin_port = 0;
-	addr4.sin_port = htons(9000);
+	addr4.sin_port = htons(port);
     addr4.sin_addr.s_addr = htonl(INADDR_ANY);
     NSData *address4 = [NSData dataWithBytes:&addr4 length:sizeof(addr4)];
 	
     if (kCFSocketSuccess != CFSocketSetAddress(_ipv4socket, (CFDataRef)address4)) {
-        if (error) *error = [[NSError alloc] initWithDomain:TCPServerErrorDomain code:kTCPServerCouldNotBindToIPv4Address userInfo:nil];
+        error = [[NSError alloc] initWithDomain:@"Wax Error" code:kTCPServerCouldNotBindToIPv4Address userInfo:nil];
         if (_ipv4socket) CFRelease(_ipv4socket);
         _ipv4socket = NULL;
         return NO;
@@ -51,7 +70,6 @@ static void TCPServerAcceptCallBack(CFSocketRef socket, CFSocketCallBackType typ
 	// -- we will need it for the NSNetService
 	NSData *addr = [(NSData *)CFSocketCopyAddress(_ipv4socket) autorelease];
 	memcpy(&addr4, [addr bytes], [addr length]);
-	self.port = ntohs(addr4.sin_port);
 	
     // set up the run loop sources for the sockets
     CFRunLoopRef cfrl = CFRunLoopGetCurrent();
@@ -59,12 +77,12 @@ static void TCPServerAcceptCallBack(CFSocketRef socket, CFSocketCallBackType typ
     CFRunLoopAddSource(cfrl, source4, kCFRunLoopCommonModes);
     CFRelease(source4);
 	
-	[self enableBonjour];
-	
-    return YES;
+	[self enableBonjourOnPort:port];
+		
+    return error;
 }
 
-- (BOOL)stop {
+- (BOOL)stop {	
 	if (_delegate) [_delegate disconnected];
 	
     [self disableBonjour];
@@ -85,14 +103,29 @@ static void TCPServerAcceptCallBack(CFSocketRef socket, CFSocketCallBackType typ
     return YES;
 }
 
-- (BOOL)output:(NSString *)output {
+- (BOOL)send:(NSString *)output {
 	if (!_outStream) return NO;
 	
 	NSInteger length = [_outStream write:(uint8_t *)[output UTF8String] maxLength:[output lengthOfBytesUsingEncoding:NSUTF8StringEncoding]];
 	return length > 0;
 }
 
-- (BOOL)enableBonjour {	
+- (void)receive:(NSData *)data {
+	// CTRL-D? Then exit!
+	if (data.length == 1 && ((uint8_t *)[data bytes])[0] == 4) {
+		uint8_t outputString[] = "Connection Closed";
+		[_outStream write:outputString maxLength:NSUIntegerMax];
+		[self stop];
+		return;
+	}
+	else if (data.length == 0) { // Who cares!
+		return;
+	}
+
+	if (_delegate) [_delegate dataReceived:(NSData *)data];
+}
+
+- (BOOL)enableBonjourOnPort:(NSUInteger)port {
 	NSString *domain = @""; // Will use default Bonjour registration doamins, typically just ".local"
 	NSString *name = @""; // Will use default Bonjour name, e.g. the name assigned to the device in iTunes	
 	NSString *protocol = [NSString stringWithFormat:@"_%@._tcp.", @"luadebug"];
@@ -100,7 +133,7 @@ static void TCPServerAcceptCallBack(CFSocketRef socket, CFSocketCallBackType typ
 	// First stop existing services
 	[self disableBonjour];
 	
-	_netService = [[NSNetService alloc] initWithDomain:domain type:protocol name:name port:self.port];
+	_netService = [[NSNetService alloc] initWithDomain:domain type:protocol name:name port:port];
 	if (_netService == nil) return NO;
 	
 	[_netService scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
@@ -139,28 +172,29 @@ static void TCPServerAcceptCallBack(CFSocketRef socket, CFSocketCallBackType typ
 }
 
 - (void)netServiceDidPublish:(NSNetService *)sender {
-	//NSLog(@"Server started: (%@) %@", sender.name, self);
+	NSLog(@"Server started on host: %@.local port: %d", [sender name], [sender port]);
 }
 
 - (void)netService:(NSNetService *)sender didNotPublish:(NSDictionary *)errorDict {	
-	//NSLog(@"Bonjour error");
+	NSLog(@"Bonjour error: %@", errorDict);
 }
 
-- (NSString*) description {
-	return [NSString stringWithFormat:@"<%@ = 0x%08X | port %d | netService = %@>", [self class], (long)self, self.port, _netService];
+- (void)netServiceDidStop:(NSNetService *)sender {
+	NSLog(@"Server Stopped");
+	[self send:@"Server Stopped"];
+}
+
+- (NSString*)description {
+	return [NSString stringWithFormat:@"<%@ = 0x%08X | port %d | netService = %@>", [self class], (long)self, [_netService port] , _netService];
 }
 
 // Stream Delegate
 // ---------------
 - (void)stream:(NSStream *)stream handleEvent:(NSStreamEvent)streamEvent {
-	//NSLog(@"Got stream event!");
-	
 	if (stream != _inStream) return;
 	
 	switch (streamEvent) {
 		case NSStreamEventHasBytesAvailable: {
-			//if ([stream streamStatus] == NSStreamStatusAtEnd) NSLog(@"STEAM END");
-			
 			uint8_t bytes[1024];
 			int length = 0;
 			NSMutableData *data = [NSMutableData data];
@@ -169,21 +203,13 @@ static void TCPServerAcceptCallBack(CFSocketRef socket, CFSocketCallBackType typ
 				[data appendBytes:bytes length:length];
 			}
 			
-			// CTRL-D? Then exit!
-			if (length == 1 && ((uint8_t *)[data bytes])[0] == 4) {
-				uint8_t outputString[] = "Connection Closed";
-				[_outStream write:outputString maxLength:NSUIntegerMax];
-				[self stop];
-				return;
-			}
-			
-			if (_delegate) [_delegate dataReceived:data];
+			[self receive:data];			
 			
 			break;
 		}
 			
 		case NSStreamEventErrorOccurred:
-			//NSLog(@"Error encountered on stream! %s", _cmd);
+			NSLog(@"Error: Stream error encountered!");
 			break;
 	}	
 }
@@ -192,7 +218,7 @@ static void TCPServerAcceptCallBack(CFSocketRef socket, CFSocketCallBackType typ
 
 // Called by CFSocket when a new connection comes in. Gathers data and calls method on TCPServer.
 static void TCPServerAcceptCallBack(CFSocketRef socket, CFSocketCallBackType type, CFDataRef address, const void *data, void *info) {
-    DebugServer *server = (DebugServer *)info;
+    wax_server *server = (wax_server *)info;
     if (kCFSocketAcceptCallBack == type) { 
         // For an AcceptCallBack, the data parameter is a pointer to a CFSocketNativeHandle
         CFSocketNativeHandle nativeSocketHandle = *(CFSocketNativeHandle *)data;
@@ -218,3 +244,6 @@ static void TCPServerAcceptCallBack(CFSocketRef socket, CFSocketCallBackType typ
         if (writeStream) CFRelease(writeStream);
     }
 }
+
+@implementation HACK_WAX_DELEGATE_IMPLEMENTOR
+@end

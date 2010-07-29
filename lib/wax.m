@@ -11,7 +11,8 @@
 #import "wax_instance.h"
 #import "wax_struct.h"
 #import "wax_helpers.h"
-#import "wax_GarbageCollection.h"
+#import "wax_gc.h"
+#import "wax_server.h"
 
 #import "lauxlib.h"
 #import "lobject.h"
@@ -38,9 +39,9 @@ void uncaughtExceptionHandler(NSException *e) {
     printf("ERROR: Uncaught exception %s\n", [[e description] UTF8String]);
 }
 
-void wax_startWithExtensions(lua_CFunction func, ...) {  
-    NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler); 
-     
+void wax_setup() {
+	NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler); 
+	
     NSFileManager *fileManager = [NSFileManager defaultManager];
     [fileManager changeCurrentDirectoryPath:[[NSBundle mainBundle] bundlePath]];
     
@@ -48,26 +49,31 @@ void wax_startWithExtensions(lua_CFunction func, ...) {
     
     luaL_openlibs(L); 
     luaopen_wax(L);
-    
-    if (func) { // Load extentions
-        func(L);
+    addGlobals(L);
+	
+	[wax_gc start];
+}
 
+void wax_startWithExtensions(lua_CFunction func, ...) {  	
+	wax_setup();
+	
+	lua_State *L = wax_currentLuaState();
+	
+	if (func) { // Load extentions
+        func(L);
+		
         va_list ap;
         va_start(ap, func);
         while((func = va_arg(ap, lua_CFunction))) func(L);
-            
+		
         va_end(ap);
     }
-
-    addGlobals(L);
-    
-    [wax_GarbageCollection start];
-
+	
     // Load all the wax lua scripts
     if (luaL_dofile(L, WAX_DATA_DIR "/scripts/wax/init.lua") != 0) {
         fprintf(stderr,"Fatal error opening wax scripts: %s\n", lua_tostring(L,-1));
     }
-    
+	
     // Start the user's init script!
     if (luaL_dofile(L, WAX_DATA_DIR "/scripts/" WAX_LUA_INIT_SCRIPT ".lua") != 0) {
         fprintf(stderr,"Fatal error: %s\n", lua_tostring(L,-1));
@@ -102,9 +108,21 @@ void wax_start() {
     wax_startWithExtensions(nil);
 }
 
-void wax_startDebugServer() {		
-	Class WaxDebugServer = objc_getClass("WaxDebugServer"); // WaxDebugServer is located in wax's lua script dirt
-	[WaxDebugServer start];
+void wax_startWithServer() {		
+	wax_setup();
+	
+	lua_State *L = wax_currentLuaState();
+	
+	// Load all the wax lua scripts
+    if (luaL_dofile(L, WAX_DATA_DIR "/scripts/wax/init.lua") != 0) {
+        fprintf(stderr,"Fatal error opening wax scripts: %s\n", lua_tostring(L,-1));
+    }
+	
+	Class WaxServer = objc_getClass("WaxServer");
+	
+	if (!WaxServer) [NSException raise:@"Wax Server Error" format:@"Could load Wax Server"];
+	
+	[WaxServer start];
 }
 
 void wax_end() {
@@ -169,8 +187,6 @@ static void addGlobals(lua_State *L) {
     if (error) {
         wax_log(LOG_DEBUG, @"Error creating cache path. %@", [error localizedDescription]);
     }
-
-
 }
 
 static int waxPrint(lua_State *L) {

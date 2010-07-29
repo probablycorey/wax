@@ -1,14 +1,14 @@
-waxClass{"WaxDebugServer", protocols = {"DebugServerDelegate"}}
+waxClass{"WaxServer", protocols = {"WaxServerDelegate"}}
 
 -- Class Method
 ---------------
 function start(self)
-  self.server = DebugServer:init()
+  self.server = wax_server:init()
   
-  local err
-  if not self.server or not self.server:start(err) then
+  local err = self.server and self.server:startOnPort(9000)
+  if err then
     puts("Failed creating server: %s", err and err:description() or "Server Not Created")
-    return false
+    return err
   end
   
   self.server:setDelegate(self)
@@ -17,14 +17,14 @@ function start(self)
   local formerPrint = print
   _G.print = function(s)
     formerPrint(s)
-    self.server:output(tostring(s) .. "\n")
+    self.server:send(tostring(s) .. "\n")
   end
   
-  return true
+  return nil
 end
 
 function showPrompt(self)
-  self.server:output "> "
+  self.server:send "> "
 end
 
 -- DebugServerDelegate
@@ -34,21 +34,23 @@ function connected(self)
 end
 
 function disconnected(self)
-  self.server:output("GOODBYE!")
+  self.server:send("GOODBYE!")
 end
 
 function dataReceived(self, data)
   local success, err = pcall(function()
     local input = NSString:initWithData_encoding(data, NSASCIIStringEncoding)
-    local code = loadstring(input)
-
-    if not code then error("Error interpreting line.") 
-    else code()
-    end
+    input = input:gsub("^%s*([a-zA-Z][%w:%.%[%]\"']*)%s*$", "return %1") -- If the line is just a variable, return that
     
+    local code, err = loadstring(input, "Remote Console")
+    if err then 
+      error("Syntax Error: " .. err) 
+    else 
+      puts(code())
+    end    
   end)
   
-  if not success then self.server:output(("Error: %s\n").format(err)) end
+  if not success then self.server:send("Error: " .. err .. "\n") end
   
   self:showPrompt()
 end
