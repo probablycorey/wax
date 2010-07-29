@@ -1,0 +1,12 @@
+Some tips to make life easier
+
+1) Install the Lua and Wax TextMate Bundles.
+  a) Either type "rake tm:install_bundles"
+  
+     Or, you can manually install the bundles from 
+     http://github.com/textmate/lua.tmbundle and
+     http://github.com/probablycorey/Wax.tmbundle
+     into ~/Library/Application Support/TextMate/Bundles
+     
+  b) From TextMate click Bundles > Bundle Editor > Reload Bundles
+  
