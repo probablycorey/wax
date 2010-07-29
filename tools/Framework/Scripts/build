@@ -1,0 +1,6 @@
+#!/bin/bash  
+
+SDK_VERSION=4.0
+
+xcodebuild -configuration Release -target "Wax" -sdk iphoneos$SDK_VERSION
+xcodebuild -configuration Release -target "Wax" -sdk iphonesimulator$SDK_VERSION
