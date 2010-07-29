@@ -14,3 +14,4 @@ function applicationDidFinishLaunching(self, application)
 
   self.window:addSubview(self.navigationController:view())
 end
+

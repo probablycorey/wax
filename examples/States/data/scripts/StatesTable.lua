@@ -4,7 +4,7 @@ waxClass{"StatesTable", UITableViewController, protocols = {"UITableViewDataSour
 
 function init(self)
   self.super:init()
-  self.states = NSArray:arrayWithContentsOfFile(wax.root .. "/states.plist")
+  self.states = NSArray:arrayWithContentsOfFile(wax.root("/states.plist"))
   self:setTitle("States")
   return self
 end

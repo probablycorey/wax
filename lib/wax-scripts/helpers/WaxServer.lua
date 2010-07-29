@@ -1,4 +1,4 @@
-waxClass{"WaxServer", protocols = {"WaxServerDelegate"}}
+waxClass{"WaxServer"}
 
 -- Class Method
 ---------------

@@ -1,6 +1,6 @@
 #!/bin/bash  
 
-FRAMEWORK_NAME=Wax 
+FRAMEWORK_NAME=wax 
 FRAMEWORK_VERSION=A  
 FRAMEWORK_CURRENT_VERSION=0.9
 FRAMEWORK_COMPATIBILITY_VERSION=0.9
@@ -61,10 +61,10 @@ cp wax/lib/extensions/json/wax_json.h $FRAMEWORK_DIR/Headers/
 cp wax/lib/extensions/xml/wax_xml.h $FRAMEWORK_DIR/Headers/ 
 
 cp Framework.plist $FRAMEWORK_DIR/Resources/Info.plist
-cp copy-scripts $FRAMEWORK_DIR/Resources/
+cp wax/lib/build-scripts/copy-scripts $FRAMEWORK_DIR/Resources/
 cp -r wax/lib/wax-scripts $FRAMEWORK_DIR/Resources/
 
 # Copy into wax's framework dir
 WAX_FRAMEWORK_DIR="../../framework"
-rm -rf "$WAX_FRAMEWORK_DIR/Wax.framework"
-cp -r "Wax.framework" "$WAX_FRAMEWORK_DIR"
+rm -rf "$WAX_FRAMEWORK_DIR/wax.framework"
+cp -r "wax.framework" "$WAX_FRAMEWORK_DIR"

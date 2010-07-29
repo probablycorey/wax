@@ -11,6 +11,7 @@
 
 #define WAX_VERSION 0.9
 
+void wax_setup();
 void wax_start();
 void wax_startWithExtensions(lua_CFunction func, ...);
 void wax_startWithServer();

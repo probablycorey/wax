@@ -6,6 +6,7 @@ require "wax.helpers.base64"
 require "wax.helpers.time"
 require "wax.helpers.cache"
 require "wax.helpers.autoload"
+require "wax.helpers.WaxServer"
 
 function wax.alert(title, message, ...)
   local alert = UIAlertView:init()
