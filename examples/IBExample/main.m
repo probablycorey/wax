@@ -14,10 +14,10 @@
 #import "ProtocolLoader.h"
 #import "WaxTextField.h"
 
-#import "wax.h"
-#import "wax_http.h"
-#import "wax_json.h"
-#import "wax_xml.h"
+#import "wax/wax.h"
+#import "wax/wax_http.h"
+#import "wax/wax_json.h"
+#import "wax/wax_xml.h"
 
 int main(int argc, char *argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];

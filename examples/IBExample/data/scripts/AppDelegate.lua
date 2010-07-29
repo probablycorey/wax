@@ -12,7 +12,7 @@ function applicationDidFinishLaunching(self, application)
   self.window = UIWindow:initWithFrame(frame)
 
   
-  self.window:addSubview(orangeController:view())
+  self.window:addSubview(blueController:view())
   
   self.window:makeKeyAndVisible()
 end
