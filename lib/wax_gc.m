@@ -6,7 +6,7 @@
 //  Copyright 2010 Probably Interactive. All rights reserved.
 //
 
-#import "wax_GarbageCollection.h"
+#import "wax_gc.h"
 
 #import "lua.h"
 #import "lauxlib.h"
@@ -17,7 +17,7 @@
 
 #define WAX_GC_TIMEOUT 3
 
-@implementation wax_GarbageCollection
+@implementation wax_gc
 
 + (void)start {
     [NSTimer scheduledTimerWithTimeInterval:WAX_GC_TIMEOUT target:self selector:@selector(cleanupUnusedObject) userInfo:nil repeats:YES];

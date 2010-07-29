@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface wax_GarbageCollection : NSObject {
+@interface wax_gc : NSObject {
 
 }
 
