@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		0422EC721135DFE6007F6343 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0422EC711135DFE6007F6343 /* libxml2.dylib */; };
-		04255A4A11FF598A00569C47 /* DebugServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 04255A4911FF598A00569C47 /* DebugServer.m */; };
 		043E6158113C3DA5007A6104 /* wax_http.m in Sources */ = {isa = PBXBuildFile; fileRef = 043E60D6113C3DA5007A6104 /* wax_http.m */; };
 		043E6159113C3DA5007A6104 /* wax_http_connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 043E60D8113C3DA5007A6104 /* wax_http_connection.m */; };
 		043E615B113C3DA5007A6104 /* wax_json.c in Sources */ = {isa = PBXBuildFile; fileRef = 043E60DB113C3DA5007A6104 /* wax_json.c */; };
@@ -52,7 +51,6 @@
 		043E6185113C3DA5007A6104 /* print.c in Sources */ = {isa = PBXBuildFile; fileRef = 043E6132113C3DA5007A6104 /* print.c */; };
 		043E6196113C3DA5007A6104 /* wax.m in Sources */ = {isa = PBXBuildFile; fileRef = 043E6147113C3DA5007A6104 /* wax.m */; };
 		043E6197113C3DA5007A6104 /* wax_class.m in Sources */ = {isa = PBXBuildFile; fileRef = 043E6149113C3DA5007A6104 /* wax_class.m */; };
-		043E6198113C3DA5007A6104 /* wax_GarbageCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 043E614B113C3DA5007A6104 /* wax_GarbageCollection.m */; };
 		043E6199113C3DA5007A6104 /* wax_helpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 043E614D113C3DA5007A6104 /* wax_helpers.m */; };
 		043E619A113C3DA5007A6104 /* wax_instance.m in Sources */ = {isa = PBXBuildFile; fileRef = 043E614F113C3DA5007A6104 /* wax_instance.m */; };
 		043E619B113C3DA5007A6104 /* wax_struct.m in Sources */ = {isa = PBXBuildFile; fileRef = 043E6151113C3DA5007A6104 /* wax_struct.m */; };
@@ -61,6 +59,8 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
+		875F27BF120721D400D00A5D /* wax_gc.m in Sources */ = {isa = PBXBuildFile; fileRef = 875F27BC120721D400D00A5D /* wax_gc.m */; };
+		875F27C0120721D400D00A5D /* wax_server.m in Sources */ = {isa = PBXBuildFile; fileRef = 875F27BE120721D400D00A5D /* wax_server.m */; };
 		91373B241066B2B30089FEE3 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91373B231066B2B30089FEE3 /* Entitlements.plist */; };
 		91373BF01066C8930089FEE3 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91373BEF1066C8930089FEE3 /* Icon.png */; };
 /* End PBXBuildFile section */
@@ -80,8 +80,6 @@
 
 /* Begin PBXFileReference section */
 		0422EC711135DFE6007F6343 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
-		04255A4811FF598A00569C47 /* DebugServer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugServer.h; sourceTree = "<group>"; };
-		04255A4911FF598A00569C47 /* DebugServer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebugServer.m; sourceTree = "<group>"; };
 		043E60CB113C3DA5007A6104 /* copy_scripts.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = copy_scripts.sh; sourceTree = "<group>"; };
 		043E60CC113C3DA5007A6104 /* luac.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = luac.lua; sourceTree = "<group>"; };
 		043E60D5113C3DA5007A6104 /* wax_http.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_http.h; sourceTree = "<group>"; };
@@ -168,8 +166,6 @@
 		043E6147113C3DA5007A6104 /* wax.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax.m; sourceTree = "<group>"; };
 		043E6148113C3DA5007A6104 /* wax_class.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_class.h; sourceTree = "<group>"; };
 		043E6149113C3DA5007A6104 /* wax_class.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_class.m; sourceTree = "<group>"; };
-		043E614A113C3DA5007A6104 /* wax_GarbageCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_GarbageCollection.h; sourceTree = "<group>"; };
-		043E614B113C3DA5007A6104 /* wax_GarbageCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_GarbageCollection.m; sourceTree = "<group>"; };
 		043E614C113C3DA5007A6104 /* wax_helpers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_helpers.h; sourceTree = "<group>"; };
 		043E614D113C3DA5007A6104 /* wax_helpers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_helpers.m; sourceTree = "<group>"; };
 		043E614E113C3DA5007A6104 /* wax_instance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_instance.h; sourceTree = "<group>"; };
@@ -187,6 +183,10 @@
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* ___PROJECTNAMEASIDENTIFIER____Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "___PROJECTNAMEASIDENTIFIER____Prefix.pch"; sourceTree = "<group>"; };
+		875F27BB120721D400D00A5D /* wax_gc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wax_gc.h; path = ../lib/wax_gc.h; sourceTree = SOURCE_ROOT; };
+		875F27BC120721D400D00A5D /* wax_gc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = wax_gc.m; path = ../lib/wax_gc.m; sourceTree = SOURCE_ROOT; };
+		875F27BD120721D400D00A5D /* wax_server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wax_server.h; path = ../lib/wax_server.h; sourceTree = SOURCE_ROOT; };
+		875F27BE120721D400D00A5D /* wax_server.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = wax_server.m; path = ../lib/wax_server.m; sourceTree = SOURCE_ROOT; };
 		8D1107310486CEB800E47090 /* ___PROJECTNAMEASIDENTIFIER___-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "___PROJECTNAMEASIDENTIFIER___-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		91373B231066B2B30089FEE3 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		91373BEF1066C8930089FEE3 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
@@ -207,16 +207,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		04255A4711FF598A00569C47 /* debugserver */ = {
-			isa = PBXGroup;
-			children = (
-				04255A4811FF598A00569C47 /* DebugServer.h */,
-				04255A4911FF598A00569C47 /* DebugServer.m */,
-			);
-			name = debugserver;
-			path = ../lib/vendor/DebugServer;
-			sourceTree = SOURCE_ROOT;
-		};
 		043E60C6113C3DA5007A6104 /* wax */ = {
 			isa = PBXGroup;
 			children = (
@@ -228,14 +218,16 @@
 				043E6147113C3DA5007A6104 /* wax.m */,
 				043E6148113C3DA5007A6104 /* wax_class.h */,
 				043E6149113C3DA5007A6104 /* wax_class.m */,
+				875F27BB120721D400D00A5D /* wax_gc.h */,
+				875F27BC120721D400D00A5D /* wax_gc.m */,
 				043E614C113C3DA5007A6104 /* wax_helpers.h */,
 				043E614D113C3DA5007A6104 /* wax_helpers.m */,
 				043E614E113C3DA5007A6104 /* wax_instance.h */,
 				043E614F113C3DA5007A6104 /* wax_instance.m */,
+				875F27BD120721D400D00A5D /* wax_server.h */,
+				875F27BE120721D400D00A5D /* wax_server.m */,
 				043E6150113C3DA5007A6104 /* wax_struct.h */,
 				043E6151113C3DA5007A6104 /* wax_struct.m */,
-				043E614A113C3DA5007A6104 /* wax_GarbageCollection.h */,
-				043E614B113C3DA5007A6104 /* wax_GarbageCollection.m */,
 			);
 			name = wax;
 			path = wax/lib;
@@ -406,7 +398,6 @@
 		04AFB8B4116C2C80007EB02E /* vendor */ = {
 			isa = PBXGroup;
 			children = (
-				04255A4711FF598A00569C47 /* debugserver */,
 				04AFB8B5116C2C80007EB02E /* linenoise */,
 			);
 			path = vendor;
@@ -545,7 +536,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"$PROJECT_DIR/wax/lib/build-scripts/copy_scripts.sh\"";
+			shellScript = "\"$PROJECT_DIR/wax/lib/build-scripts/copy-scripts\"";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -598,12 +589,12 @@
 				043E6185113C3DA5007A6104 /* print.c in Sources */,
 				043E6196113C3DA5007A6104 /* wax.m in Sources */,
 				043E6197113C3DA5007A6104 /* wax_class.m in Sources */,
-				043E6198113C3DA5007A6104 /* wax_GarbageCollection.m in Sources */,
 				043E6199113C3DA5007A6104 /* wax_helpers.m in Sources */,
 				043E619A113C3DA5007A6104 /* wax_instance.m in Sources */,
 				043E619B113C3DA5007A6104 /* wax_struct.m in Sources */,
 				04AFB8B8116C2C80007EB02E /* linenoise.c in Sources */,
-				04255A4A11FF598A00569C47 /* DebugServer.m in Sources */,
+				875F27BF120721D400D00A5D /* wax_gc.m in Sources */,
+				875F27C0120721D400D00A5D /* wax_server.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -119,7 +119,6 @@ void wax_startWithServer() {
     }
 	
 	Class WaxServer = objc_getClass("WaxServer");
-	
 	if (!WaxServer) [NSException raise:@"Wax Server Error" format:@"Could load Wax Server"];
 	
 	[WaxServer start];
