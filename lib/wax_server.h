@@ -26,7 +26,6 @@ typedef enum {
 #else
 @interface wax_server : NSObject {	
 #endif
-    uint16_t _port;
 	CFSocketRef _ipv4socket;
 	id<WaxServerDelegate> _delegate;
 

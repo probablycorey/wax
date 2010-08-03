@@ -745,7 +745,7 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
             
 			int argCount = 0;
 			char *match = (char *)sel_getName(selector);
-			while(match = strchr(match, ':')) {
+			while (match = strchr(match, ':')) {
 				match += 1; // Skip past the matched char
 				argCount++;
 			}

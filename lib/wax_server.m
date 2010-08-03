@@ -115,7 +115,10 @@ static void TCPServerAcceptCallBack(CFSocketRef socket, CFSocketCallBackType typ
 	if (data.length == 1 && ((uint8_t *)[data bytes])[0] == 4) {
 		uint8_t outputString[] = "Connection Closed";
 		[_outStream write:outputString maxLength:NSUIntegerMax];
+        NSUInteger port = [_netService port];
 		[self stop];
+        [self startOnPort:port];
+        
 		return;
 	}
 	else if (data.length == 0) { // Who cares!

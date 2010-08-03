@@ -1,4 +1,4 @@
-WAX_FILES = FileList["*"].exclude(/^(examples|xcode-template)/)
+WAX_FILES = FileList["*"].exclude(/^(examples|xcode-template|framework|tools)/)
 TARGET_XCODE_TEMPLATE = "#{ENV['HOME']}/Library/Application Support/Developer/Shared/Xcode/Project Templates/Wax/Wax iPhone App"
 WAX_ROOT = File.expand_path("..", __FILE__)
 
