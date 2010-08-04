@@ -16,7 +16,8 @@ namespace :template do
     template_wax_path = "#{TARGET_XCODE_TEMPLATE}/wax"
     mkdir_p template_wax_path
     cp_r WAX_FILES, template_wax_path
-  
+    `chmod +x "#{TARGET_XCODE_TEMPLATE}/wax/lib/build-scripts/copy-scripts.sh"`
+
     # Create the default run script
     puts
     puts "Wax Xcode Template Installed!"
