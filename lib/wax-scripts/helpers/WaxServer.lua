@@ -3,7 +3,7 @@ waxClass{"WaxServer"}
 -- Class Method
 ---------------
 function start(self)
-  self.server = wax_server:init()
+  self.server = wax.class['wax_server']:init()
 
   local err = self.server and self.server:startOnPort(9000)
   if err then

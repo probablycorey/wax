@@ -110,7 +110,7 @@ void wax_start() {
 
 void wax_startWithServer() {		
 	wax_setup();
-	
+	[wax_server class]; // You need to load the class somehow via the wax.framework
 	lua_State *L = wax_currentLuaState();
 	
 	// Load all the wax lua scripts
