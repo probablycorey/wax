@@ -61,7 +61,7 @@ cp wax/lib/extensions/json/wax_json.h $FRAMEWORK_DIR/Headers/
 cp wax/lib/extensions/xml/wax_xml.h $FRAMEWORK_DIR/Headers/ 
 
 cp Framework.plist $FRAMEWORK_DIR/Resources/Info.plist
-cp wax/lib/build-scripts/copy-scripts $FRAMEWORK_DIR/Resources/
+cp wax/lib/build-scripts/copy-scripts.sh $FRAMEWORK_DIR/Resources/
 cp -r wax/lib/wax-scripts $FRAMEWORK_DIR/Resources/
 
 # Copy into wax's framework dir

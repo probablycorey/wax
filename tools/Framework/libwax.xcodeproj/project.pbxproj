@@ -11,6 +11,8 @@
 		04255AA811FF628700569C47 /* linenoise.h in Headers */ = {isa = PBXBuildFile; fileRef = 04255AA411FF628700569C47 /* linenoise.h */; };
 		04255AFB11FF69A900569C47 /* wax_server.h in Headers */ = {isa = PBXBuildFile; fileRef = 04255AF911FF69A900569C47 /* wax_server.h */; };
 		04255AFC11FF69A900569C47 /* wax_server.m in Sources */ = {isa = PBXBuildFile; fileRef = 04255AFA11FF69A900569C47 /* wax_server.m */; };
+		04C79C33122066840015245F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C79C32122066840015245F /* UIKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		04C79C371220668D0015245F /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C79C361220668D0015245F /* libxml2.2.dylib */; settings = {ATTRIBUTES = (Weak, ); }; };
 		04EB3BF51153D8CE00FF5A12 /* ProtocolLoader.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EB3BF01153D8CE00FF5A12 /* ProtocolLoader.h */; };
 		04EB3BF61153D8CE00FF5A12 /* WaxTextField.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EB3BF11153D8CE00FF5A12 /* WaxTextField.h */; };
 		04EB3D721153D93900FF5A12 /* wax_CGTransform.h in Headers */ = {isa = PBXBuildFile; fileRef = 04EB3CED1153D93800FF5A12 /* wax_CGTransform.h */; };
@@ -112,13 +114,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0413C4521201D9180069C579 /* copy-scripts */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = "copy-scripts"; path = "../../lib/build-scripts/copy-scripts"; sourceTree = SOURCE_ROOT; };
-		0422EC711135DFE6007F6343 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 		04255AA311FF628700569C47 /* linenoise.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = linenoise.c; sourceTree = "<group>"; };
 		04255AA411FF628700569C47 /* linenoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = linenoise.h; sourceTree = "<group>"; };
 		04255AF911FF69A900569C47 /* wax_server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wax_server.h; path = ../../lib/wax_server.h; sourceTree = SOURCE_ROOT; };
 		04255AFA11FF69A900569C47 /* wax_server.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = wax_server.m; path = ../../lib/wax_server.m; sourceTree = SOURCE_ROOT; };
 		044737151153D19F00537429 /* libWax.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libWax.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		04C79C261220665B0015245F /* copy-scripts.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = "copy-scripts.sh"; path = "../../lib/build-scripts/copy-scripts.sh"; sourceTree = SOURCE_ROOT; };
+		04C79C32122066840015245F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		04C79C361220668D0015245F /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		04EB3BF01153D8CE00FF5A12 /* ProtocolLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProtocolLoader.h; sourceTree = "<group>"; };
 		04EB3BF11153D8CE00FF5A12 /* WaxTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxTextField.h; sourceTree = "<group>"; };
 		04EB3BF21153D8CE00FF5A12 /* Framework.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Framework.plist; sourceTree = "<group>"; };
@@ -221,10 +224,6 @@
 		04EB3D6F1153D93900FF5A12 /* wax_instance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_instance.m; sourceTree = "<group>"; };
 		04EB3D701153D93900FF5A12 /* wax_struct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_struct.h; sourceTree = "<group>"; };
 		04EB3D711153D93900FF5A12 /* wax_struct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_struct.m; sourceTree = "<group>"; };
-		04EB3EC91153E4D700FF5A12 /* copy-scripts */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "copy-scripts"; sourceTree = "<group>"; };
-		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		32CA4F630368D1EE00C91783 /* libwax_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libwax_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* libwax-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "libwax-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -234,6 +233,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04C79C33122066840015245F /* UIKit.framework in Frameworks */,
+				04C79C371220668D0015245F /* libxml2.2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,7 +297,7 @@
 		04EB3CE81153D93800FF5A12 /* build-scripts */ = {
 			isa = PBXGroup;
 			children = (
-				0413C4521201D9180069C579 /* copy-scripts */,
+				04C79C261220665B0015245F /* copy-scripts.sh */,
 				04EB3CEA1153D93800FF5A12 /* luac.lua */,
 			);
 			path = "build-scripts";
@@ -484,7 +485,6 @@
 			children = (
 				04EB3BF21153D8CE00FF5A12 /* Framework.plist */,
 				32CA4F630368D1EE00C91783 /* libwax_Prefix.pch */,
-				04EB3EC91153E4D700FF5A12 /* copy-scripts */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -500,10 +500,8 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0422EC711135DFE6007F6343 /* libxml2.dylib */,
-				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
-				1D30AB110D05D00D00671497 /* Foundation.framework */,
-				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
+				04C79C32122066840015245F /* UIKit.framework */,
+				04C79C361220668D0015245F /* libxml2.2.dylib */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -760,7 +758,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos4.0;
 			};
 			name = "Ad Hoc";
 		};
@@ -772,7 +770,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos4.0;
 			};
 			name = Distribution;
 		};
@@ -797,7 +795,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos3.0;
+				SDKROOT = iphoneos4.0;
 			};
 			name = Release;
 		};
