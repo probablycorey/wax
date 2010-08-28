@@ -22,7 +22,7 @@ rsync -r --delete "$PROJECT_DIR/data" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH
 
 # copies the wax scripts over
 if [ -d "$PROJECT_DIR/wax.framework" ]; then
-  rsync -r --delete "$PROJECT_DIR/Wax.framework/resources/wax-scripts/" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/data/scripts/wax" > /dev/null
+  rsync -r --delete "$PROJECT_DIR/wax.framework/resources/wax-scripts/" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/data/scripts/wax" > /dev/null
 else
   rsync -r --delete "$PROJECT_DIR/wax/lib/wax-scripts/" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/data/scripts/wax" > /dev/null
 fi

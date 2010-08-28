@@ -40,8 +40,10 @@ end
 function dataReceived(self, data)
   local success, err = pcall(function()
     local input = NSString:initWithData_encoding(data, NSASCIIStringEncoding)
-    input = "do return (" .. input .. ") end"
-
+    if not input:match("=") then 
+      input = "do return (" .. input .. ") end"
+    end
+    
     local code, err = loadstring(input, "Remote Console")
     if err then
       error("Syntax Error: " .. err)

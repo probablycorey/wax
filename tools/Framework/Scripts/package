@@ -67,4 +67,4 @@ cp -r wax/lib/wax-scripts $FRAMEWORK_DIR/Resources/
 # Copy into wax's framework dir
 WAX_FRAMEWORK_DIR="../../framework"
 rm -rf "$WAX_FRAMEWORK_DIR/wax.framework"
-cp -r "wax.framework" "$WAX_FRAMEWORK_DIR"
+mv "wax.framework" "$WAX_FRAMEWORK_DIR"
