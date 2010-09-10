@@ -6,11 +6,11 @@ Wax is a framework that lets you write iPhone apps in [Lua](http://www.lua.org/a
 Setup
 -----
 
-1. Download wax [http://github.com/probablycorey/wax/downloads](http://github.com/probablycorey/wax/downloads)
+1. Clone wax [http://github.com/probablycorey/wax/](http://github.com/probablycorey/wax/)
 
-2. From the command line, **cd** into wax folder and type **rake install**. This will install an xcode project template.
+2. From the command line, **cd** into wax folder created above and type **rake install**. This will install an xcode project template.
 
-3. Open up xcode and create a new **Wax** project, it should be located under the **User Tempates** section. 
+3. Open up xcode and create a new **Wax** project, it should be located under the **User Tempates** section.
 
 4. Build and Run! You've got lua running on the iPhone!
 
@@ -42,10 +42,10 @@ Examples
 For some simple Wax apps, check out the [examples folder](http://github.com/probablycorey/wax/tree/master/examples/).
 
 How would I create a UIView and color it red?
-    
+
     -- forget about using alloc! Memory is automatically managed by Wax
     view = UIView:initWithFrame(CGRect(0, 0, 320, 100))
-    
+
     -- use a colon when sending a message to an Objective-C Object
     -- all methods available to a UIView object can be accessed this way
     view:setBackgroundColor(UIColor:redColor())
@@ -69,7 +69,7 @@ What if I want to create a custom UIViewController?
     -- Created in "MyController.lua"
     --
     -- Creates an Objective-C class called MyController with UIViewController
-    -- as the parent. This is a real Objective-C object, you could even 
+    -- as the parent. This is a real Objective-C object, you could even
     -- reference it from Objective-C code if you wanted to.
     waxClass{"MyController", UIViewController}
 
@@ -82,29 +82,29 @@ What if I want to create a custom UIViewController?
     function viewDidLoad()
       -- Do all your other stuff here
     end
-    
+
 You said HTTP calls were easy, I don't believe you...
 
     url = "http://search.twitter.com/trends/current.json"
-    
-    -- Makes an asyncronous call, the callback function is called when a 
+
+    -- Makes an asyncronous call, the callback function is called when a
     -- response is received
     wax.http.request{url, callback = function(body, response)
       -- request is just a NSHTTPURLResponse
       puts(response:statusCode())
-      
+
       -- Since the content-type is json, Wax automatically parses it and places
       -- it into a Lua table
-      puts(body)       
+      puts(body)
     end}
-    
+
 Since Wax converts NSString, NSArray, NSDictionary and NSNumber to native Lua values, you have to force objects back to Objective-C sometimes. Here is an example.
-    
+
     local testString = "Hello lua!"
     local bigFont = UIFont:boldSystemFontOfSize(30)
     local size = toobjc(testString):sizeWithFont(bigFont)
     puts(size)
-    
+
 Tutorials
 ---------
 
@@ -113,7 +113,7 @@ Tutorials
 [How does iPhone Wax work?](http://probablyinteractive.com/2009/10/19/How-does-iPhone-Wax-work.html)
 
 [Twitter client in Wax](http://probablyinteractive.com/2009/10/20/Wax-talks-to-twitter.html)
-    
+
 Which API's are included?
 -------------------------
 
