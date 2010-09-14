@@ -17,11 +17,12 @@
 #import "wax_http.h"
 #import "wax_json.h"
 #import "wax_xml.h"
+#import "wax_ziploader.h"
 
 int main(int argc, char *argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     
-    wax_startWithExtensions(luaopen_wax_http, luaopen_wax_json, luaopen_wax_xml, nil);
+    wax_startWithExtensions(luaopen_wax_http, luaopen_wax_json, luaopen_wax_xml, luaopen_wax_ziploader, nil);
     
     int retVal = UIApplicationMain(argc, argv, nil, @"AppDelegate");
     [pool release];

@@ -69,14 +69,9 @@ void wax_startWithExtensions(lua_CFunction func, ...) {
         va_end(ap);
     }
 	
-    // Load all the wax lua scripts
-    if (luaL_dofile(L, WAX_DATA_DIR "/scripts/wax/init.lua") != 0) {
+    // Load all the wax lua scripts and app delegate.
+    if (luaL_dostring(L, "require 'wax'; require 'AppDelegate';") != 0) {
         fprintf(stderr,"Fatal error opening wax scripts: %s\n", lua_tostring(L,-1));
-    }
-	
-    // Start the user's init script!
-    if (luaL_dofile(L, WAX_DATA_DIR "/scripts/" WAX_LUA_INIT_SCRIPT ".lua") != 0) {
-        fprintf(stderr,"Fatal error: %s\n", lua_tostring(L,-1));
     }
 	
     NSDictionary *env = [[NSProcessInfo processInfo] environment];

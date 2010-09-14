@@ -59,9 +59,14 @@
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
-		871830A61208AC72002006FF /* copy-scripts.sh in Resources */ = {isa = PBXBuildFile; fileRef = 871830A51208AC72002006FF /* copy-scripts.sh */; };
+		8748EB76123F019E00EF1787 /* wax_ziploader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8748EB75123F019E00EF1787 /* wax_ziploader.m */; };
 		875F27BF120721D400D00A5D /* wax_gc.m in Sources */ = {isa = PBXBuildFile; fileRef = 875F27BC120721D400D00A5D /* wax_gc.m */; };
 		875F27C0120721D400D00A5D /* wax_server.m in Sources */ = {isa = PBXBuildFile; fileRef = 875F27BE120721D400D00A5D /* wax_server.m */; };
+		87BD94C7123EF43800D3CE67 /* ioapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 87BD94BF123EF43800D3CE67 /* ioapi.c */; };
+		87BD94C8123EF43800D3CE67 /* mztools.c in Sources */ = {isa = PBXBuildFile; fileRef = 87BD94C1123EF43800D3CE67 /* mztools.c */; };
+		87BD94C9123EF43800D3CE67 /* unzip.c in Sources */ = {isa = PBXBuildFile; fileRef = 87BD94C3123EF43800D3CE67 /* unzip.c */; };
+		87BD94CA123EF43800D3CE67 /* zip.c in Sources */ = {isa = PBXBuildFile; fileRef = 87BD94C5123EF43800D3CE67 /* zip.c */; };
+		87BD94D0123EF4AC00D3CE67 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 87BD94CF123EF4AC00D3CE67 /* libz.dylib */; };
 		91373B241066B2B30089FEE3 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91373B231066B2B30089FEE3 /* Entitlements.plist */; };
 		91373BF01066C8930089FEE3 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91373BEF1066C8930089FEE3 /* Icon.png */; };
 /* End PBXBuildFile section */
@@ -183,11 +188,23 @@
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* ___PROJECTNAMEASIDENTIFIER____Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "___PROJECTNAMEASIDENTIFIER____Prefix.pch"; sourceTree = "<group>"; };
-		871830A51208AC72002006FF /* copy-scripts.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; name = "copy-scripts.sh"; path = "copy-scripts.sh"; sourceTree = "<group>"; };
+		871830A51208AC72002006FF /* copy-scripts.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "copy-scripts.sh"; sourceTree = "<group>"; };
+		8748EB74123F019E00EF1787 /* wax_ziploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wax_ziploader.h; path = ../ziploader/wax_ziploader.h; sourceTree = "<group>"; };
+		8748EB75123F019E00EF1787 /* wax_ziploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = wax_ziploader.m; path = ../ziploader/wax_ziploader.m; sourceTree = "<group>"; };
 		875F27BB120721D400D00A5D /* wax_gc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_gc.h; sourceTree = "<group>"; };
 		875F27BC120721D400D00A5D /* wax_gc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_gc.m; sourceTree = "<group>"; };
 		875F27BD120721D400D00A5D /* wax_server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_server.h; sourceTree = "<group>"; };
 		875F27BE120721D400D00A5D /* wax_server.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_server.m; sourceTree = "<group>"; };
+		87BD94BE123EF43800D3CE67 /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
+		87BD94BF123EF43800D3CE67 /* ioapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ioapi.c; sourceTree = "<group>"; };
+		87BD94C0123EF43800D3CE67 /* ioapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ioapi.h; sourceTree = "<group>"; };
+		87BD94C1123EF43800D3CE67 /* mztools.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = mztools.c; sourceTree = "<group>"; };
+		87BD94C2123EF43800D3CE67 /* mztools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mztools.h; sourceTree = "<group>"; };
+		87BD94C3123EF43800D3CE67 /* unzip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = unzip.c; sourceTree = "<group>"; };
+		87BD94C4123EF43800D3CE67 /* unzip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = unzip.h; sourceTree = "<group>"; };
+		87BD94C5123EF43800D3CE67 /* zip.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = zip.c; sourceTree = "<group>"; };
+		87BD94C6123EF43800D3CE67 /* zip.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
+		87BD94CF123EF4AC00D3CE67 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* ___PROJECTNAMEASIDENTIFIER___-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "___PROJECTNAMEASIDENTIFIER___-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		91373B231066B2B30089FEE3 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
 		91373BEF1066C8930089FEE3 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
@@ -202,6 +219,7 @@
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 				0422EC721135DFE6007F6343 /* libxml2.dylib in Frameworks */,
+				87BD94D0123EF4AC00D3CE67 /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,6 +267,7 @@
 				043E60D4113C3DA5007A6104 /* http */,
 				043E60D9113C3DA5007A6104 /* json */,
 				043E60FA113C3DA5007A6104 /* xml */,
+				8748EB73123F019E00EF1787 /* ziploader */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -399,6 +418,7 @@
 		04AFB8B4116C2C80007EB02E /* vendor */ = {
 			isa = PBXGroup;
 			children = (
+				87BD94BD123EF43800D3CE67 /* minizip */,
 				04AFB8B5116C2C80007EB02E /* linenoise */,
 			);
 			path = vendor;
@@ -466,12 +486,40 @@
 			isa = PBXGroup;
 			children = (
 				0422EC711135DFE6007F6343 /* libxml2.dylib */,
+				87BD94CF123EF4AC00D3CE67 /* libz.dylib */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
+		};
+		8748EB73123F019E00EF1787 /* ziploader */ = {
+			isa = PBXGroup;
+			children = (
+				8748EB74123F019E00EF1787 /* wax_ziploader.h */,
+				8748EB75123F019E00EF1787 /* wax_ziploader.m */,
+			);
+			name = ziploader;
+			path = ../lib/extensions/ZIPLoader;
+			sourceTree = SOURCE_ROOT;
+		};
+		87BD94BD123EF43800D3CE67 /* minizip */ = {
+			isa = PBXGroup;
+			children = (
+				87BD94BE123EF43800D3CE67 /* crypt.h */,
+				87BD94BF123EF43800D3CE67 /* ioapi.c */,
+				87BD94C0123EF43800D3CE67 /* ioapi.h */,
+				87BD94C1123EF43800D3CE67 /* mztools.c */,
+				87BD94C2123EF43800D3CE67 /* mztools.h */,
+				87BD94C3123EF43800D3CE67 /* unzip.c */,
+				87BD94C4123EF43800D3CE67 /* unzip.h */,
+				87BD94C5123EF43800D3CE67 /* zip.c */,
+				87BD94C6123EF43800D3CE67 /* zip.h */,
+			);
+			name = minizip;
+			path = ../lib/minizip;
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -502,7 +550,14 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "___PROJECTNAME___" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -519,7 +574,6 @@
 			files = (
 				91373B241066B2B30089FEE3 /* Entitlements.plist in Resources */,
 				91373BF01066C8930089FEE3 /* Icon.png in Resources */,
-				871830A61208AC72002006FF /* copy-scripts.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -597,6 +651,11 @@
 				04AFB8B8116C2C80007EB02E /* linenoise.c in Sources */,
 				875F27BF120721D400D00A5D /* wax_gc.m in Sources */,
 				875F27C0120721D400D00A5D /* wax_server.m in Sources */,
+				87BD94C7123EF43800D3CE67 /* ioapi.c in Sources */,
+				87BD94C8123EF43800D3CE67 /* mztools.c in Sources */,
+				87BD94C9123EF43800D3CE67 /* unzip.c in Sources */,
+				87BD94CA123EF43800D3CE67 /* zip.c in Sources */,
+				8748EB76123F019E00EF1787 /* wax_ziploader.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -607,6 +666,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -615,8 +675,10 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				HEADER_SEARCH_PATHS = "$(SDK_ROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "___PROJECTNAMEASIDENTIFIER___-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = "___PROJECTNAME___";
-				SDKROOT = iphoneos3.2;
+				PROVISIONING_PROFILE = "";
+				SDKROOT = iphoneos4.1;
 			};
 			name = Debug;
 		};
@@ -629,7 +691,9 @@
 				GCC_PREFIX_HEADER = "___PROJECTNAMEASIDENTIFIER____Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(SDK_ROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "___PROJECTNAMEASIDENTIFIER___-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = "___PROJECTNAME___";
+				SDKROOT = iphoneos4.1;
 			};
 			name = Release;
 		};
@@ -655,7 +719,9 @@
 				GCC_PREFIX_HEADER = "___PROJECTNAMEASIDENTIFIER____Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(SDK_ROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "___PROJECTNAMEASIDENTIFIER___-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = "___PROJECTNAME___";
+				SDKROOT = iphoneos4.1;
 			};
 			name = "Ad Hoc";
 		};
@@ -680,7 +746,9 @@
 				GCC_PREFIX_HEADER = "___PROJECTNAMEASIDENTIFIER____Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(SDK_ROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "___PROJECTNAMEASIDENTIFIER___-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				PRODUCT_NAME = "___PROJECTNAME___";
+				SDKROOT = iphoneos4.1;
 			};
 			name = Distribution;
 		};

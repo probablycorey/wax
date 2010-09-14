@@ -25,13 +25,16 @@ typedef struct {
  ZIO* Z;
  Mbuffer* b;
  const char* name;
+ int swap;
+ int numsize;
+ int toflt;
 } LoadState;
 
 #ifdef LUAC_TRUST_BINARIES
 #define IF(c,s)
 #define error(S,s)
 #else
-#define IF(c,s)        if (c) error(S,s)
+#define IF(c,s)		if (c) error(S,s)
 
 static void error(LoadState* S, const char* why)
 {
@@ -40,15 +43,57 @@ static void error(LoadState* S, const char* why)
 }
 #endif
 
-#define LoadMem(S,b,n,size)    LoadBlock(S,b,(n)*(size))
-#define    LoadByte(S)        (lu_byte)LoadChar(S)
-#define LoadVar(S,x)        LoadMem(S,&x,1,sizeof(x))
-#define LoadVector(S,b,n,size)    LoadMem(S,b,n,size)
+#define	LoadByte(S)		(lu_byte)LoadChar(S)
+#define LoadVar(S,x)		LoadMem(S,&x,1,sizeof(x))
+#define LoadVector(S,b,n,size)	LoadMem(S,b,n,size)
 
 static void LoadBlock(LoadState* S, void* b, size_t size)
 {
  size_t r=luaZ_read(S->Z,b,size);
  IF (r!=0, "unexpected end");
+}
+
+static void LoadMem (LoadState* S, void* b, int n, size_t size)
+{
+  LoadBlock(S,b,n*size);
+  if (S->swap)
+  {
+    char* p=(char*) b;
+    char c;
+    switch (size)
+    {
+      case 1:
+        break;
+      case 2:
+	      while (n--)
+	      {
+	        c=p[0]; p[0]=p[1]; p[1]=c;
+	        p+=2;
+	      }
+  	    break;
+      case 4:
+	      while (n--)
+	      {
+	        c=p[0]; p[0]=p[3]; p[3]=c;
+	        c=p[1]; p[1]=p[2]; p[2]=c;
+	        p+=4;
+	      }
+  	    break;
+      case 8:
+	      while (n--)
+	      {
+          c=p[0]; p[0]=p[7]; p[7]=c;
+          c=p[1]; p[1]=p[6]; p[6]=c;
+          c=p[2]; p[2]=p[5]; p[5]=c;
+          c=p[3]; p[3]=p[4]; p[4]=c;
+          p+=8;
+        }
+  	    break;
+      default:
+   	    IF(1, "bad size");
+  	    break;
+    }
+  }
 }
 
 static int LoadChar(LoadState* S)
@@ -69,13 +114,43 @@ static int LoadInt(LoadState* S)
 static lua_Number LoadNumber(LoadState* S)
 {
  lua_Number x;
- LoadVar(S,x);
+ if(S->toflt)
+ {
+  switch(S->numsize)
+  {
+   case 1: {
+    int8_t y;
+    LoadVar(S,y);
+    x = (lua_Number)y;
+   } break;
+   case 2: {
+    int16_t y;
+    LoadVar(S,y);
+    x = (lua_Number)y;
+   } break;
+   case 4: {
+    int32_t y;
+    LoadVar(S,y);
+    x = (lua_Number)y;
+   } break;
+   case 8: {
+    int64_t y;
+    LoadVar(S,y);
+    x = (lua_Number)y;
+   } break;
+   default: lua_assert(0);
+  }
+ }
+ else
+ {
+  LoadVar(S,x); /* should probably handle more cases for float here... */
+ }
  return x;
 }
 
 static TString* LoadString(LoadState* S)
 {
- size_t size;
+ int32_t size;
  LoadVar(S,size);
  if (size==0)
   return NULL;
@@ -83,7 +158,7 @@ static TString* LoadString(LoadState* S)
  {
   char* s=luaZ_openspace(S->L,S->b,size);
   LoadBlock(S,s,size);
-  return luaS_newlstr(S->L,s,size-1);        /* remove trailing '\0' */
+  return luaS_newlstr(S->L,s,size-1);		/* remove trailing '\0' */
  }
 }
 
@@ -111,20 +186,20 @@ static void LoadConstants(LoadState* S, Proto* f)
   switch (t)
   {
    case LUA_TNIL:
-       setnilvalue(o);
-    break;
+   	setnilvalue(o);
+	break;
    case LUA_TBOOLEAN:
-       setbvalue(o,LoadChar(S)!=0);
-    break;
+   	setbvalue(o,LoadChar(S)!=0);
+	break;
    case LUA_TNUMBER:
-    setnvalue(o,LoadNumber(S));
-    break;
+	setnvalue(o,LoadNumber(S));
+	break;
    case LUA_TSTRING:
-    setsvalue2n(S->L,o,LoadString(S));
-    break;
+	setsvalue2n(S->L,o,LoadString(S));
+	break;
    default:
-    error(S,"bad constant");
-    break;
+	error(S,"bad constant");
+	break;
   }
  }
  n=LoadInt(S);
@@ -184,8 +259,13 @@ static void LoadHeader(LoadState* S)
 {
  char h[LUAC_HEADERSIZE];
  char s[LUAC_HEADERSIZE];
+ int intck = (((lua_Number)0.5)==0); /* 0=float, 1=int */
  luaU_header(h);
  LoadBlock(S,s,LUAC_HEADERSIZE);
+ S->swap=(s[6]!=h[6]); s[6]=h[6]; /* Check if byte-swapping is needed  */
+ S->numsize=h[10]=s[10]; /* length of lua_Number */
+ S->toflt=(s[11]>intck); /* check if conversion from int lua_Number to flt is needed */
+ if(S->toflt) s[11]=h[11];
  IF (memcmp(h,s,LUAC_HEADERSIZE)!=0, "bad header");
 }
 
@@ -218,10 +298,10 @@ void luaU_header (char* h)
  h+=sizeof(LUA_SIGNATURE)-1;
  *h++=(char)LUAC_VERSION;
  *h++=(char)LUAC_FORMAT;
- *h++=(char)*(char*)&x;                /* endianness */
+ *h++=(char)*(char*)&x;				/* endianness */
  *h++=(char)sizeof(int);
- *h++=(char)sizeof(size_t);
+ *h++=(char)sizeof(int32_t);
  *h++=(char)sizeof(Instruction);
  *h++=(char)sizeof(lua_Number);
- *h++=(char)(((lua_Number)0.5)==0);        /* is lua_Number integral? */
+ *h++=(char)(((lua_Number)0.5)==0);		/* is lua_Number integral? */
 }

@@ -366,6 +366,7 @@ static int db_errorfb (lua_State *L) {
     }
     lua_concat(L, lua_gettop(L) - arg);
   }
+  lua_pushliteral(L, "\n");
   lua_concat(L, lua_gettop(L) - arg);
   return 1;
 }
