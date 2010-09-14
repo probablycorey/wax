@@ -12,7 +12,7 @@ rsync -C -exclude .svn -r --delete "$PROJECT_DIR/data" "$BUILT_PRODUCTS_DIR/$CON
 # copies the wax scripts over
 rsync -C -exclude .svn -r --delete "$PROJECT_DIR/wax/lib/wax-scripts/" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/data/scripts/wax" > /dev/null
 
-if [[ $CONFIGURATION = "Debug" ]]; then
+if [[ $CONFIGURATION = "Release" ]]; then
     LUAC=$PROJECT_DIR/wax/bin/luac
     for f in `find $BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/data/scripts | grep lua$`
     do
