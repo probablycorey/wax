@@ -189,8 +189,8 @@
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* ___PROJECTNAMEASIDENTIFIER____Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "___PROJECTNAMEASIDENTIFIER____Prefix.pch"; sourceTree = "<group>"; };
 		871830A51208AC72002006FF /* copy-scripts.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "copy-scripts.sh"; sourceTree = "<group>"; };
-		8748EB74123F019E00EF1787 /* wax_ziploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wax_ziploader.h; path = ../ziploader/wax_ziploader.h; sourceTree = "<group>"; };
-		8748EB75123F019E00EF1787 /* wax_ziploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = wax_ziploader.m; path = ../ziploader/wax_ziploader.m; sourceTree = "<group>"; };
+		8748EB74123F019E00EF1787 /* wax_ziploader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_ziploader.h; sourceTree = "<group>"; };
+		8748EB75123F019E00EF1787 /* wax_ziploader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_ziploader.m; sourceTree = "<group>"; };
 		875F27BB120721D400D00A5D /* wax_gc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_gc.h; sourceTree = "<group>"; };
 		875F27BC120721D400D00A5D /* wax_gc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_gc.m; sourceTree = "<group>"; };
 		875F27BD120721D400D00A5D /* wax_server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_server.h; sourceTree = "<group>"; };
@@ -500,9 +500,8 @@
 				8748EB74123F019E00EF1787 /* wax_ziploader.h */,
 				8748EB75123F019E00EF1787 /* wax_ziploader.m */,
 			);
-			name = ziploader;
-			path = ../lib/extensions/ZIPLoader;
-			sourceTree = SOURCE_ROOT;
+			path = ziploader;
+			sourceTree = "<group>";
 		};
 		87BD94BD123EF43800D3CE67 /* minizip */ = {
 			isa = PBXGroup;
@@ -517,9 +516,8 @@
 				87BD94C5123EF43800D3CE67 /* zip.c */,
 				87BD94C6123EF43800D3CE67 /* zip.h */,
 			);
-			name = minizip;
-			path = ../lib/minizip;
-			sourceTree = SOURCE_ROOT;
+			path = minizip;
+			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
