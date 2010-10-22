@@ -200,15 +200,17 @@ static int createFile(lua_State *L) {
     return 1;
 }
 
-// wax.filesystem.createDir(path) => boolean
+// wax.filesystem.createDir(path, createParentDirs) => boolean
 //     path: string # dir path
+//     createParentDirs: boolean # (optional) should intermediate parent dirs be created÷
 static int createDir(lua_State *L) {
     NSString *path = [NSString stringWithUTF8String:luaL_checkstring(L, 1)];
-
+    BOOL createParentDirs = NO;
+    if (lua_gettop(L) > 1) lua_toboolean(L, 2);
     
-    NSFileManager *fm = [NSFileManager defaultManager];    
     NSError *error = nil;
-    BOOL success = [fm createDirectoryAtPath:path attributes:nil];
+    NSFileManager *fm = [NSFileManager defaultManager];    
+    BOOL success = [fm createDirectoryAtPath:path withIntermediateDirectories:createParentDirs attributes:nil error:&error];
     
     if (!success) {
         wax_log(LOG_DEBUG, @"Could not create dir at '%@'\n%@", path, [error localizedDescription]);
