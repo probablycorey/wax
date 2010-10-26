@@ -162,7 +162,7 @@ static int parse_string(lua_State *L, const unsigned char* input, unsigned int l
         yajl_free_error(hand, error);
         yajl_bs_free(state);
         yajl_free(hand);
-        return luaL_error(L, "%s", buffer);
+        lua_pushstring(L, "ERROR: Could not parse JSON string");
     } else {
         yajl_bs_free(state);
         yajl_free(hand);
@@ -176,7 +176,8 @@ static int parse(lua_State *L) {
     const char *input = lua_tolstring(L, -1, &len);
 
     if (!input) {
-		return luaL_error(L, "invalid string to parse");
+		lua_pushstring(L, "ERROR: Could not parse JSON string");
+		return 1;
 	}
 	
 	// Nothing to parse!
