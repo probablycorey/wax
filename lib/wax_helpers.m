@@ -11,6 +11,12 @@
 #import "wax_struct.h"
 #import "lauxlib.h"
 
+@interface WaxFunction : NSObject {}
+@end
+
+@implementation WaxFunction // Used to pass lua fuctions around
+@end
+
 void wax_printStack(lua_State *L) {
     int i;
     int top = lua_gettop(L);
@@ -212,6 +218,13 @@ void wax_fromInstance(lua_State *L, id instance) {
             wax_fromObjc(L, [instance objCType], buffer);
             free(buffer);
         }    
+		else if ([instance isKindOfClass:[WaxFunction class]]) {
+			wax_instance_pushUserdata(L, instance);
+			if (lua_isnil(L, -1)) {
+				luaL_error(L, "Could not get userdata associated with WaxFunction");
+			}
+			lua_getfield(L, -1, "function");
+		}
         else {
             wax_instance_create(L, instance, NO);
         }
@@ -443,6 +456,15 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
                     instance = lua_touserdata(L, -1);
                     break;
                 }
+				case LUA_TFUNCTION: {
+				    instance = [[[WaxFunction alloc] init] autorelease];
+				    wax_instance_create(L, instance, NO);
+				    lua_pushvalue(L, -2);
+				    lua_setfield(L, -2, "function"); // Stores function inside of this instance
+					lua_pop(L, 1);
+					
+					break;
+				}
                 default:
                     luaL_error(L, "Can't convert %s to obj-c.", luaL_typename(L, stackIndex));
                     break;
