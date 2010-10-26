@@ -53,6 +53,10 @@
     [super cancel];
 }
 
+- (bool)isFinished {
+	return _canceled || _finished;
+}
+
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     if (response != _response) [_response release];
     _response = [response retain];

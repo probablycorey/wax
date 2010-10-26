@@ -35,7 +35,7 @@ enum {
 @property (nonatomic, assign) NSHTTPURLResponse *response;
 
 @property (nonatomic, assign) int format;
-@property (nonatomic, readonly) bool finished;
+@property (nonatomic, readonly, getter=isFinished) bool finished;
 
 - (id)initWithRequest:(NSURLRequest *)urlRequest luaState:(lua_State *)luaState;
 - (BOOL)callLuaAuthCallback:(NSURLAuthenticationChallenge *)challenge;
