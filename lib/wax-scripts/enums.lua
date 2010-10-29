@@ -303,3 +303,22 @@ UIWebViewNavigationTypeBackForward = 2
 UIWebViewNavigationTypeReload = 3
 UIWebViewNavigationTypeFormResubmitted = 4
 UIWebViewNavigationTypeOther = 5
+
+-- NSHTTPCookieAcceptPolicy
+NSHTTPCookieAcceptPolicyAlways = 0
+NSHTTPCookieAcceptPolicyNever = 1
+NSHTTPCookieAcceptPolicyOnlyFromMainDocumentDomain = 2
+
+
+-- SKPaymentTransactionState
+SKPaymentTransactionStatePurchasing = 0
+SKPaymentTransactionStatePurchased = 1
+SKPaymentTransactionStateFailed = 2
+SKPaymentTransactionStateRestored = 3
+
+-- SKError
+SKErrorUnknown = 0
+SKErrorClientInvalid = 1
+SKErrorPaymentCancelled = 2
+SKErrorPaymentInvalid = 3
+SKErrorPaymentNotAllowed = 4
