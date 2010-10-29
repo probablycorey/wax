@@ -71,6 +71,18 @@ function table.includes(t, value)
   return table.indexOf(t, value)
 end
 
+function table.removeValue(t, value)
+  local index = table.indexOf(t, value)
+  table.remove(t, index)
+  return t
+end
+
+function table.each(t, func)
+  for k, v in pairs(t) do
+    func(v)
+  end  
+end
+
 function table.find(t, func)
   for k, v in pairs(t) do
     if func(v) then return v end
