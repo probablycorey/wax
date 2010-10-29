@@ -25,10 +25,16 @@ function wax.http.escapeParams(params, prefix)
   if type(params) == "string" then return params end
 
   local params = table.map(params, function(value, key)
-    if type(value) == "table" then 
+    if type(value) == "table" then
       return wax.http.escapeParams(value, key) 
-    else value = string.escape(value) 
-      if prefix then key = ("%s[%s]"):format(prefix, key) end    
+    else value = string.escape(tostring(value)) 
+      if prefix then 
+        if type(key) == "number" then 
+          key = ("%s[]"):format(prefix) -- If it is a number, treat it as an array
+        else
+          key = ("%s[%s]"):format(prefix, key) 
+        end
+      end    
       return key .. "=" .. value
     end
   end)
