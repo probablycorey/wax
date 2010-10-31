@@ -196,7 +196,7 @@ void wax_fromInstance(lua_State *L, id instance) {
         else if ([instance isKindOfClass:[NSNumber class]]) {
             lua_pushnumber(L, [instance doubleValue]);
         }
-        else if ([instance isKindOfClass:[NSArray class]] || [instance isKindOfClass:[NSSet class]]) {
+        else if ([instance isKindOfClass:[NSArray class]]) {
             lua_newtable(L);
             for (id obj in instance) {
                 int i = lua_objlen(L, -1);
