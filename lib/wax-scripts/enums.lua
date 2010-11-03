@@ -322,3 +322,8 @@ SKErrorClientInvalid = 1
 SKErrorPaymentCancelled = 2
 SKErrorPaymentInvalid = 3
 SKErrorPaymentNotAllowed = 4
+
+-- UIStatusBarStyle
+UIStatusBarStyleDefault = 0
+UIStatusBarStyleBlackTranslucent = 1
+UIStatusBarStyleBlackOpaque = 2
