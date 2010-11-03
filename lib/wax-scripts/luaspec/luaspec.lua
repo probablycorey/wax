@@ -36,7 +36,7 @@ function spec:report(verbose)
     return
   end
   
-  for _, result in pairs(report.results) do
+  for i, result in pairs(report.results) do
     print(("%s\n================================"):format(result.name))
     
     for description, r in pairs(result.spec_results) do
@@ -206,7 +206,7 @@ Context = {}
 Context.__index = Context
 
 function Context:new(context)
-  for _, child in ipairs(context.children) do
+  for i, child in ipairs(context.children) do
     child.parent = context
   end
   return setmetatable(context, self)
@@ -277,7 +277,7 @@ function Context:run()
     end
   end
   
-  for _, child in pairs(self.children) do
+  for i, child in pairs(self.children) do
     child:run()
   end
 end
