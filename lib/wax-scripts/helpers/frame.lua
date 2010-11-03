@@ -20,6 +20,10 @@ function wax.frame(object)
       elseif key == "bottom" then return object:frame().y + object:frame().height
       elseif key == "height" then return object:frame().height
       elseif key == "width" then return object:frame().width
+        
+      elseif key == "size" then return CGSize(object:frame().width, object:frame().height)
+      elseif key == "origin" then return CGPoint(object:frame().x, object:frame().y)
+        
       else
         return nil
       end
@@ -39,6 +43,8 @@ function wax.frame(object)
       elseif key == "height" then frame.height = value
       elseif key == "width" then frame.width = value
       
+      elseif key == "size" then frame.width = value.width frame.height = value.height
+      elseif key == "origin" then frame.x = value.x frame.y = value.y        
       
       elseif key == "stretchBottom" then frame.height = math.max(0, frame.height - frame.y)
       
