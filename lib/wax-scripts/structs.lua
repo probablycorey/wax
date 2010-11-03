@@ -1,5 +1,6 @@
 wax.struct.create("CGSize", "ff", "width", "height")
 wax.struct.create("CGPoint", "ff", "x", "y")
+wax.struct.create("UIEdgeInsets", "ffff", "top", "left", "bottom", "right")
 wax.struct.create("CGRect", "ffff", "x", "y", "width", "height")
 
 wax.struct.create("NSRange", "II", "location", "length")
