@@ -9,12 +9,8 @@
 mkdir -p "$PROJECT_DIR/data/scripts"
 
 [ ! -f "$PROJECT_DIR/data/scripts/AppDelegate.lua" ] && cat << EOF > "$PROJECT_DIR/data/scripts/AppDelegate.lua"
-waxClass{"AppDelegate", protocols = {"UIApplicationDelegate"}}
-
-function applicationDidFinishLaunching(self, application)
-	puts 'You are setup to use wax!' 
-	puts 'Edit file at $PROJECT_DIR/data/scripts/AppDelegate.lua'
-end
+puts 'You are setup to use wax!' 
+puts 'Edit file at $PROJECT_DIR/data/scripts/AppDelegate.lua'
 EOF
 
 # copy everything in the data dir to the app (doesn't just have to be lua files, can be images, sounds, etc...)
