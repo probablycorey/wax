@@ -19,7 +19,9 @@ How to add Wax to an exisitng project
    method, add this line.
 
    wax_start()
+
    // To add wax with extensions, use this line instead
+
    // wax_startWithExtensions(luaopen_wax_http, luaopen_wax_json, luaopen_wax_xml, luaopen_wax_filesystem, nil);
 
 All done, build your app and you will see Lua printed out some code, it will tell you where to keep your scripts
