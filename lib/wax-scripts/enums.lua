@@ -327,3 +327,9 @@ SKErrorPaymentNotAllowed = 4
 UIStatusBarStyleDefault = 0
 UIStatusBarStyleBlackTranslucent = 1
 UIStatusBarStyleBlackOpaque = 2
+
+-- UIControlContentHorizontalAlignment
+UIControlContentHorizontalAlignmentCenter = 0
+UIControlContentHorizontalAlignmentLeft = 1
+UIControlContentHorizontalAlignmentRight = 2
+UIControlContentHorizontalAlignmentFill = 3
