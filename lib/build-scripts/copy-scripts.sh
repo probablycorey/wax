@@ -23,6 +23,9 @@ else
   rsync -r --delete "$PROJECT_DIR/wax/lib/wax-scripts/" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/data/scripts/wax" > /dev/null
 fi
 
+# This forces the data dir to be reloaded on the device
+touch "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH"/*
+
 # luac.lua doesn't work for 64 bit lua
 # if [[ $CONFIGURATION = "Distribution" ]]; then
 #     ${LUA:=/usr/bin/env lua}
