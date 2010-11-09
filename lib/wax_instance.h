@@ -20,7 +20,7 @@
 typedef struct _wax_instance_userdata {
     id instance;
     BOOL isClass;
-    BOOL isSuper;
+    Class isSuper;
 } wax_instance_userdata;
 
 int luaopen_wax_instance(lua_State *L);
