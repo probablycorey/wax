@@ -1,14 +1,14 @@
 waxClass{"Bambi", Deer}
 
 function initWithAge(self, age)
-  self.super:init()
+  self = self.super:init()
   self.age = age
   self.name = "Bambi"
   return self
 end
 
 function initWithFood(self, food)
-  self.super:initWithFood(food)
+  self = self.super:initWithFood(food)
   self.bambiFood = "Bambi" .. food
   self.food = food
   return self
@@ -30,6 +30,6 @@ function getInfo(self)
   return self.super:getInfo() .. ":BambiClass"
 end
 
-function description(self)
-  return self.super:getInfo() .. ":BambiClass"
+function hash(self)
+  return tostring(self.super:hash()) .. ":10"
 end

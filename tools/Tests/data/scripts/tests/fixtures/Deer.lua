@@ -10,7 +10,7 @@ end
 -- instance methods
 -------------------
 function initWithName(self, name)
-  self.super:init()
+  self = self.super:init()
   self.name = name
   return self
 end
@@ -36,6 +36,10 @@ function tripleAge(self)
   return nil
 end
 
-function description(self)
+function getInfo(self)
   return "DeerClass"
+end
+
+function hash(self)
+  return 100
 end

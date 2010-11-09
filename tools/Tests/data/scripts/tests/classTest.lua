@@ -89,8 +89,8 @@ describe["A WaxClass instance with an WaxClass Super"] = function()
   
   it["can call a super method that is also defined in the current class, and also an NSObject method"] = function()
     local o = Bambi:initWithAge(10)
-    local name = o:description()
-    expect(name).should_be("DeerClass:BambiClass")
+    local hash = o:hash()
+    expect(hash).should_be("100:10")
   end
 end
 

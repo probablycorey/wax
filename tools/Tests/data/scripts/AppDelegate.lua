@@ -1,8 +1,8 @@
 waxClass{"AppDelegate", protocols = {"UIApplicationDelegate"}}
 
 function applicationDidFinishLaunching(self, application)
-  local frame = UIScreen:mainScreen():bounds()
-  self.window = UIWindow:initWithFrame(frame)
+  -- local frame = UIScreen:mainScreen():bounds()
+  -- self.window = UIWindow:initWithFrame(frame)
   -- self.window:setBackgroundColor(UIColor:orangeColor())
   -- 
   -- local view = UIView:init()
@@ -13,7 +13,7 @@ function applicationDidFinishLaunching(self, application)
   -- button:addTarget_action_forControlEvents(self, "gcTouched:", UIControlEventTouchUpInside)
   -- self.window:addSubview(button)
   
-  self.window:makeKeyAndVisible()
+  -- self.window:makeKeyAndVisible()
 end
 
 -- function gcTouched(self, sender)
