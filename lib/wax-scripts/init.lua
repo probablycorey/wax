@@ -2,8 +2,6 @@ require "wax.ext"
 
 require "wax.enums"
 require "wax.structs"
-
-require "wax.luaClass"
 require "wax.waxClass"
 
 require "wax.helpers"
