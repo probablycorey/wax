@@ -80,6 +80,18 @@ describe["A WaxClass instance with an WaxClass Super"] = function()
     o:doSomethingToAge(function(a) return a * 5 end)
     expect(o:getAge()).should_be(50)
   end
+  
+  it["can call a super method that is also defined in the current class"] = function()
+    local o = Bambi:initWithAge(10)
+    local name = o:getInfo()
+    expect(name).should_be("DeerClass:BambiClass")
+  end
+  
+  it["can call a super method that is also defined in the current class, and also an NSObject method"] = function()
+    local o = Bambi:initWithAge(10)
+    local name = o:description()
+    expect(name).should_be("DeerClass:BambiClass")
+  end
 end
 
 describe["A WaxClass with an WaxClass Super"] = function()

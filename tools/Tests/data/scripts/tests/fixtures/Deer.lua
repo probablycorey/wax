@@ -35,3 +35,7 @@ end
 function tripleAge(self)
   return nil
 end
+
+function description(self)
+  return "DeerClass"
+end
