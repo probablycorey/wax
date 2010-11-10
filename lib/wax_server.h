@@ -21,7 +21,7 @@ typedef enum {
 @end
 
 
-#if __IPHONE_OS_VERSION_MIN_REQUIRED > __IPHONE_3_0
+#if __IPHONE_OS_VERSION_MIN_REQUIRED > __IPHONE_3_2
 @interface wax_server : NSObject <NSStreamDelegate, NSNetServiceDelegate> {	
 #else
 @interface wax_server : NSObject {	
