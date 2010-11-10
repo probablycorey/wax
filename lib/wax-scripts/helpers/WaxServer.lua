@@ -1,3 +1,4 @@
+-- I don't know where the proper place for this file is. It's not really a helper
 waxClass{"WaxServer"}
 
 -- Class Method
@@ -38,19 +39,8 @@ function disconnected(self)
 end
 
 function dataReceived(self, data)
-  local success, err = pcall(function()
-    local input = NSString:initWithData_encoding(data, NSASCIIStringEncoding)
-    if not input:match("=") then 
-      input = "do return (" .. input .. ") end"
-    end
-    
-    local code, err = loadstring(input, "Remote Console")
-    if err then
-      error("Syntax Error: " .. err)
-    else
-      puts(code())
-    end
-  end)
+  local input = NSString:initWithData_encoding(data, NSASCIIStringEncoding)
+  local success, err = wax.eval(input)
 
   if not success then self.server:send("Error: " .. err .. "\n") end
 

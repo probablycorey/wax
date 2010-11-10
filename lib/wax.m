@@ -18,8 +18,6 @@
 #import "lobject.h"
 #import "lualib.h"
 
-#import "linenoise.h" // For the REPL
-
 static void addGlobals(lua_State *L);
 static int waxRoot(lua_State *L);
 static int waxPrint(lua_State *L);
@@ -87,19 +85,9 @@ void wax_startWithExtensions(lua_CFunction func, ...) {
         exit(1);
     }
 	else if ([[env objectForKey:@"WAX_REPL"] isEqual:@"YES"]) { // Should we run the repl?
-        char *line;
-        while((line = linenoise("wax> ")) != NULL) {
-            if (line[0] != '\0') {
-                linenoiseHistoryAdd(line);
-                
-                if (luaL_dostring(L, line)) { // error
-                    printf("ERROR: %s\n", lua_tostring(L, -1));
-                    lua_pop(L, 1);
-                }
-            }
-            free(line);
-        }
-        
+        if (luaL_dofile(L, WAX_DATA_DIR "/scripts/wax/repl.lua") != 0) {
+            fprintf(stderr,"Fatal error starting the REPL: %s\n", lua_tostring(L,-1));
+        }		
 		exit(1);
 	}
 }

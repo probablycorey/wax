@@ -60,7 +60,6 @@
 		04D22AA3113EEB48000F7048 /* SimpleDelegateObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D22A9C113EEB48000F7048 /* SimpleDelegateObject.m */; };
 		04D22AA4113EEB48000F7048 /* SimpleObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D22A9E113EEB48000F7048 /* SimpleObject.m */; };
 		04D22AA5113EEB48000F7048 /* Structs.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D22AA2113EEB48000F7048 /* Structs.m */; };
-		04F163051163BBB7007C930C /* linenoise.c in Sources */ = {isa = PBXBuildFile; fileRef = 04F163031163BBB7007C930C /* linenoise.c */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -192,8 +191,6 @@
 		04D22AA0113EEB48000F7048 /* SimpleProtocolLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleProtocolLoader.h; sourceTree = "<group>"; };
 		04D22AA1113EEB48000F7048 /* Structs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Structs.h; sourceTree = "<group>"; };
 		04D22AA2113EEB48000F7048 /* Structs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Structs.m; sourceTree = "<group>"; };
-		04F163031163BBB7007C930C /* linenoise.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = linenoise.c; sourceTree = "<group>"; };
-		04F163041163BBB7007C930C /* linenoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = linenoise.h; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -226,7 +223,6 @@
 				043E60CA113C3DA5007A6104 /* build-scripts */,
 				043E60CD113C3DA5007A6104 /* extensions */,
 				043E60FD113C3DA5007A6104 /* lua */,
-				04F163011163BBB7007C930C /* vendor */,
 				043E6146113C3DA5007A6104 /* wax.h */,
 				043E6147113C3DA5007A6104 /* wax.m */,
 				043E6148113C3DA5007A6104 /* wax_class.h */,
@@ -390,24 +386,6 @@
 				043E6132113C3DA5007A6104 /* print.c */,
 			);
 			path = lua;
-			sourceTree = "<group>";
-		};
-		04F163011163BBB7007C930C /* vendor */ = {
-			isa = PBXGroup;
-			children = (
-				04F163021163BBB7007C930C /* linenoise */,
-			);
-			name = vendor;
-			path = ../../lib/vendor;
-			sourceTree = SOURCE_ROOT;
-		};
-		04F163021163BBB7007C930C /* linenoise */ = {
-			isa = PBXGroup;
-			children = (
-				04F163031163BBB7007C930C /* linenoise.c */,
-				04F163041163BBB7007C930C /* linenoise.h */,
-			);
-			path = linenoise;
 			sourceTree = "<group>";
 		};
 		080E96DDFE201D6D7F000001 /* Classes */ = {
@@ -609,7 +587,6 @@
 				04D22AA3113EEB48000F7048 /* SimpleDelegateObject.m in Sources */,
 				04D22AA4113EEB48000F7048 /* SimpleObject.m in Sources */,
 				04D22AA5113EEB48000F7048 /* Structs.m in Sources */,
-				04F163051163BBB7007C930C /* linenoise.c in Sources */,
 				0413C0701200C9960069C579 /* wax_gc.m in Sources */,
 				0413C0711200C9960069C579 /* wax_server.m in Sources */,
 			);

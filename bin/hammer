@@ -90,7 +90,6 @@ class Hammer
 
     extra_args += ["build"] if extra_args.empty?
     arg_string = @args.collect {|k, v| v ? "#{k} #{v}" : k}.join(" ")
-    arg_string << " GCC_PREPROCESSOR_DEFINITIONS=\'USE_READLINE=YES\'" if @should_run_headless
     setting_string = @settings.collect {|k, v| v ? "#{k}=#{v}" : k}.join(" ")
     cmd = "xcodebuild #{arg_string} #{setting_string} #{extra_args.join(' ')}"
     puts cmd if @verbose
