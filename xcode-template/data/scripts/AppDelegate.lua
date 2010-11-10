@@ -5,9 +5,8 @@ waxClass{"AppDelegate", protocols = {"UIApplicationDelegate"}}
 -- Just run the app (⌘↵) in the simulator or on a device! 
 -- You should see a dull, bland "hello world" app popup!
 --
--- I prefer using TextMate to edit the Lua code. If that is your editor of
--- choice just type 'rake tm' from the command line to setup a wax
--- TextMate project.
+-- If your prefer using TextMate to edit the Lua code just type 
+-- 'rake tm' from the command line to setup a wax TextMate project.
 --
 -- What's next?
 -- 1. Check out some of the example apps to learn how to do
