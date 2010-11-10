@@ -1,3 +1,4 @@
 build/
 *.pbxuser
 *.perspectivev3
+wax.framework
