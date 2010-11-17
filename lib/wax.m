@@ -34,8 +34,15 @@ lua_State *wax_currentLuaState() {
 }
 
 void uncaughtExceptionHandler(NSException *e) {
-    printf("ERROR: Uncaught exception %s\n", [[e description] UTF8String]);
+    NSLog(@"ERROR: Uncaught exception %@", [e description]);
 }
+
+int wax_panic(lua_State *L) {
+	NSLog(@"PANIC: %s", luaL_checkstring(L, -1));
+	exit(EXIT_FAILURE);
+}
+
+lua_CFunction lua_atpanic (lua_State *L, lua_CFunction panicf);
 
 void wax_setup() {
 	NSSetUncaughtExceptionHandler(&uncaughtExceptionHandler); 
@@ -44,6 +51,7 @@ void wax_setup() {
     [fileManager changeCurrentDirectoryPath:[[NSBundle mainBundle] bundlePath]];
     
     lua_State *L = wax_currentLuaState();
+	lua_atpanic(L, &wax_panic);
     
     luaL_openlibs(L); 
     luaopen_wax(L);

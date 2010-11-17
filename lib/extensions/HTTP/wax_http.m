@@ -66,7 +66,7 @@ int luaopen_wax_http(lua_State *L) {
 static int request(lua_State *L) {
     lua_rawgeti(L, 1, 1);
     
-    NSString *urlString = [[NSString stringWithUTF8String:luaL_checkstring(L, -1)] stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *urlString = [NSString stringWithUTF8String:luaL_checkstring(L, -1)];
     if (![urlString hasPrefix:@"http://"] && ![urlString hasPrefix:@"https://"]) urlString = [NSString stringWithFormat:@"http://%@", urlString];
     NSURL *url = [NSURL URLWithString:urlString];
     
@@ -85,12 +85,12 @@ static int request(lua_State *L) {
     NSString *method = getMethod(L, 1);
     
     NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:url];
-        
+
+	[urlRequest setHTTPMethod:method];
     [urlRequest setCachePolicy:cachePolicy];
     [urlRequest setAllHTTPHeaderFields:headerFields];
-    [urlRequest setHTTPMethod:method];
-    [urlRequest setHTTPBody:body];    
-    [urlRequest setTimeoutInterval:timeout];
+    [urlRequest setHTTPBody:body];
+    [urlRequest setTimeoutInterval:timeout]; // Apple makes has a mandatory 240 second timeout WTF? https://devforums.apple.com/thread/25282
 
     wax_http_connection *connection;
 
