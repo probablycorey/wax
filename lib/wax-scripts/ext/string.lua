@@ -34,7 +34,7 @@ function string.camelCase(s)
 end
 
 function string.escape(s)
-  s = string.gsub(s, "([!%*'%(%);:@&=%+%$,/%?#%[%]<>~%.\"{}|\\%-`_%^%%])",
+  s = string.gsub(s, "([!%*'%(%);:@&=%+%$,/%?#%[%]<>~%.\"{}|\\%-`_%^%%%c])",
                   function (c)
                     return string.format("%%%02X", string.byte(c))
                   end)
