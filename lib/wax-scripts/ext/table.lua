@@ -120,24 +120,41 @@ function table.groupBy(t, func)
   return grouped
 end
 
-function table.tostring(t, indent)
+function table.tostring(tbl, indent, limit, depth, jstack)
+  limit   = limit  or 20
+  depth   = depth  or 7
+  jstack  = jstack or {}
+  local i = 0
+
   local output = {}
-  if type(t) == "table" then
+  if type(tbl) == "table" then
+    -- very important to avoid disgracing ourselves with circular referencs...
+    for i,t in ipairs(jstack) do
+      if tbl == t then
+        return "<self>,\n"
+      end
+    end
+    table.insert(jstack, tbl)
+    
     table.insert(output, "{\n")
-    for k, v in pairs(t) do
+    for key, value in pairs(tbl) do
       local innerIndent = (indent or " ") .. (indent or " ")
-      table.insert(output, innerIndent .. tostring(k) .. " = ")
-      table.insert(output, table.tostring(v, innerIndent))
+      table.insert(output, innerIndent .. tostring(key) .. " = ")
+      table.insert(output, 
+        value == tbl and "<self>," or table.tostring(value, innerIndent, limit, depth, jstack)
+      )
+      
+      i = i + 1
+      if i > limit then
+        table.insert(output, (innerIndent or "") .. "...\n")
+        break
+      end
     end
     
-    if indent then
-      table.insert(output, (indent or "") .. "},\n")
-    else
-      table.insert(output, "}")
-    end
+    table.insert(output, indent and (indent or "") .. "},\n" or "}")
   else
-    if type(t) == "string" then t = string.format("%q", t) end -- quote strings      
-    table.insert(output, tostring(t) .. ",\n")
+    if type(tbl) == "string" then tbl = string.format("%q", tbl) end -- quote strings      
+    table.insert(output, tostring(tbl) .. ",\n")
   end
   
   return table.concat(output)
