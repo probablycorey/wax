@@ -50,7 +50,7 @@ class Hammer
       end
 
       opts.on("-d", "--device ARG", "Choose what device to run on (iphone/ipad)") do |v|  
-        @device = device
+        @device = v
       end
 
       opts.on("-s", "--sdk ARG", "Choose he SDK. Use --showsdks to see options.") do |v|  
