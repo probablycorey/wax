@@ -333,3 +333,8 @@ UIControlContentHorizontalAlignmentCenter = 0
 UIControlContentHorizontalAlignmentLeft = 1
 UIControlContentHorizontalAlignmentRight = 2
 UIControlContentHorizontalAlignmentFill = 3
+
+-- NSComparisonResult
+NSOrderedAscending = -1
+NSOrderedSame = 0
+NSOrderedDescending = 1
