@@ -18,6 +18,7 @@ const NSTimeInterval WAX_HTTP_TIMEOUT = 30;
 
 static int request(lua_State *L);
 
+static BOOL pushRedirectCallback(lua_State *L, int tableIndex);
 static BOOL pushAuthCallback(lua_State *L, int tableIndex);
 static BOOL pushCallback(lua_State *L, int table_index);
 
@@ -63,6 +64,7 @@ int luaopen_wax_http(lua_State *L) {
 //   cache = NSURLRequestCachePolicy # one of those enums, defaults to NSURLRequestUseProtocolCachePolicy
 //   callback = function(body, response) # No callback? Then treat request is treated as syncronous
 //   authCallback = function(NSURLAuthenticationChallenge) # Handle just like you would with NSURLConnection
+//   redirectCallback = function(response) # If there is a redirect, this callback will be called
 static int request(lua_State *L) {
     lua_rawgeti(L, 1, 1);
     
@@ -102,10 +104,14 @@ static int request(lua_State *L) {
     [urlRequest release];
 
     wax_instance_create(L, connection, NO);
+	if (pushRedirectCallback(L, 1)) {
+		lua_setfield(L, -2, WAX_HTTP_REDIRECT_CALLBACK_FUNCTION_NAME); // Set the redirectCallback function for the userdata         
+	}	
+	
 	if (pushAuthCallback(L, 1)) {
 		lua_setfield(L, -2, WAX_HTTP_AUTH_CALLBACK_FUNCTION_NAME); // Set the authCallback function for the userdata         
 	}
-    
+	    
     // Asyncronous or Syncronous
     if (pushCallback(L, 1)) { 
         lua_setfield(L, -2, WAX_HTTP_CALLBACK_FUNCTION_NAME); // Set the callback function for the userdata         
@@ -222,9 +228,9 @@ static NSString *getBody(lua_State *L, int tableIndex) {
 }
 
 // Assumes table is on top of the stack
-static BOOL pushCallback(lua_State *L, int tableIndex) {
-    lua_getfield(L, tableIndex, WAX_HTTP_CALLBACK_FUNCTION_NAME);
-
+static BOOL pushRedirectCallback(lua_State *L, int tableIndex) {
+    lua_getfield(L, tableIndex, WAX_HTTP_REDIRECT_CALLBACK_FUNCTION_NAME);
+    
     if (lua_isnil(L, -1)) {
         lua_pop(L, 1);
         return NO;
@@ -238,6 +244,19 @@ static BOOL pushCallback(lua_State *L, int tableIndex) {
 static BOOL pushAuthCallback(lua_State *L, int tableIndex) {
     lua_getfield(L, tableIndex, WAX_HTTP_AUTH_CALLBACK_FUNCTION_NAME);
     
+    if (lua_isnil(L, -1)) {
+        lua_pop(L, 1);
+        return NO;
+    }
+    else {
+        return YES;
+    }
+}
+
+// Assumes table is on top of the stack
+static BOOL pushCallback(lua_State *L, int tableIndex) {
+    lua_getfield(L, tableIndex, WAX_HTTP_CALLBACK_FUNCTION_NAME);
+	
     if (lua_isnil(L, -1)) {
         lua_pop(L, 1);
         return NO;
