@@ -112,12 +112,48 @@ static int setStrokeColor(lua_State *L) {
     return 0;
 }
 
-// fillRect(context, CGRect(0,0,10,10)
+// fillRect(context, CGRect(0,0,10,10))
 static int fillRect(lua_State *L) {
     CGContextRef c = (CGContextRef)lua_topointer(L, 1);
     CGRect *rect = wax_copyToObjc(L, @encode(CGRect), 2, nil);
     CGContextFillRect(c, *rect);
     free(rect);
+    
+    return 0;
+}
+
+// fillRoundedRect(context, CGRect(0,0,10,10), 10)
+static int fillRoundedRect(lua_State *L) {
+    CGContextRef c = (CGContextRef)lua_topointer(L, 1);
+    CGRect *rect = wax_copyToObjc(L, @encode(CGRect), 2, nil);
+	CGFloat radius = luaL_checknumber(L, 3);
+
+    CGFloat width = CGRectGetWidth(*rect);
+    CGFloat height = CGRectGetHeight(*rect);
+    
+    // Make sure corner radius isn't larger than half the shorter side
+    if (radius > width/2.0) {
+        radius = width/2.0;
+	}
+    if (radius > height/2.0) {
+        radius = height/2.0;  
+	}
+    
+    CGFloat minx = CGRectGetMinX(*rect);
+    CGFloat midx = CGRectGetMidX(*rect);
+    CGFloat maxx = CGRectGetMaxX(*rect);
+    CGFloat miny = CGRectGetMinY(*rect);
+    CGFloat midy = CGRectGetMidY(*rect);
+    CGFloat maxy = CGRectGetMaxY(*rect);
+    CGContextMoveToPoint(c, minx, midy);
+    CGContextAddArcToPoint(c, minx, miny, midx, miny, radius);
+    CGContextAddArcToPoint(c, maxx, miny, maxx, midy, radius);
+    CGContextAddArcToPoint(c, maxx, maxy, midx, maxy, radius);
+    CGContextAddArcToPoint(c, minx, maxy, minx, midy, radius);
+    CGContextClosePath(c);
+    CGContextDrawPath(c, kCGPathFill);
+	
+	free(rect);
     
     return 0;
 }
@@ -195,6 +231,7 @@ static const struct luaL_Reg functions[] = {
     {"setAlpha", setAlpha},
     
     {"fillRect", fillRect},
+	{"fillRoundedRect", fillRoundedRect},
     {"fillPath", fillPath},
     {"drawLinearGradient", drawLinearGradient},
     
