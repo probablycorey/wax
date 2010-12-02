@@ -338,3 +338,8 @@ UIControlContentHorizontalAlignmentFill = 3
 NSOrderedAscending = -1
 NSOrderedSame = 0
 NSOrderedDescending = 1
+
+-- UITableViewCellSeparatorStyle
+UITableViewCellSeparatorStyleNone = 0
+UITableViewCellSeparatorStyleSingleLine = 1
+UITableViewCellSeparatorStyleSingleLineEtched = 2
