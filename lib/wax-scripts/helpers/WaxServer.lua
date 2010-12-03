@@ -16,9 +16,9 @@ function start(self)
 
   -- redirect print
   local formerPrint = print
-  _G.print = function(s)
-    formerPrint(s)
-    self.server:send(tostring(s) .. "\n")
+  _G.print = function(...)
+    formerPrint(...) 
+    self.server:send(table.concat({...}, '\t') .. "\n")
   end
 
   return nil
