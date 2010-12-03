@@ -153,7 +153,7 @@ matchers = {
   should_be_kind_of = function(value, class)
     if type(value) == "userdata" then
 
-      if not value:isKindOfClass(NSString) then
+      if not value:isKindOfClass(class) then
         return false, tostring(value) .. " is not a " .. tostring(class)
       end
     elseif type(value) ~= class then
