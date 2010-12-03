@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		04255AA711FF628700569C47 /* linenoise.c in Sources */ = {isa = PBXBuildFile; fileRef = 04255AA311FF628700569C47 /* linenoise.c */; };
-		04255AA811FF628700569C47 /* linenoise.h in Headers */ = {isa = PBXBuildFile; fileRef = 04255AA411FF628700569C47 /* linenoise.h */; };
 		04255AFB11FF69A900569C47 /* wax_server.h in Headers */ = {isa = PBXBuildFile; fileRef = 04255AF911FF69A900569C47 /* wax_server.h */; };
 		04255AFC11FF69A900569C47 /* wax_server.m in Sources */ = {isa = PBXBuildFile; fileRef = 04255AFA11FF69A900569C47 /* wax_server.m */; };
 		04C79C33122066840015245F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04C79C32122066840015245F /* UIKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -114,8 +112,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		04255AA311FF628700569C47 /* linenoise.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = linenoise.c; sourceTree = "<group>"; };
-		04255AA411FF628700569C47 /* linenoise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = linenoise.h; sourceTree = "<group>"; };
 		04255AF911FF69A900569C47 /* wax_server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wax_server.h; path = ../../lib/wax_server.h; sourceTree = SOURCE_ROOT; };
 		04255AFA11FF69A900569C47 /* wax_server.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = wax_server.m; path = ../../lib/wax_server.m; sourceTree = SOURCE_ROOT; };
 		044737151153D19F00537429 /* libWax.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libWax.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -241,24 +237,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		04255A9E11FF628700569C47 /* vendor */ = {
-			isa = PBXGroup;
-			children = (
-				04255AA211FF628700569C47 /* linenoise */,
-			);
-			name = vendor;
-			path = ../../lib/vendor;
-			sourceTree = SOURCE_ROOT;
-		};
-		04255AA211FF628700569C47 /* linenoise */ = {
-			isa = PBXGroup;
-			children = (
-				04255AA311FF628700569C47 /* linenoise.c */,
-				04255AA411FF628700569C47 /* linenoise.h */,
-			);
-			path = linenoise;
-			sourceTree = "<group>";
-		};
 		04EB3BEF1153D8CE00FF5A12 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -271,7 +249,6 @@
 		04EB3CE71153D93800FF5A12 /* wax */ = {
 			isa = PBXGroup;
 			children = (
-				04255A9E11FF628700569C47 /* vendor */,
 				04EB3CE81153D93800FF5A12 /* build-scripts */,
 				04EB3CEB1153D93800FF5A12 /* extensions */,
 				04EB3D1B1153D93800FF5A12 /* lua */,
@@ -562,7 +539,6 @@
 				04EB3DD11153D93900FF5A12 /* wax_helpers.h in Headers */,
 				04EB3DD31153D93900FF5A12 /* wax_instance.h in Headers */,
 				04EB3DD51153D93900FF5A12 /* wax_struct.h in Headers */,
-				04255AA811FF628700569C47 /* linenoise.h in Headers */,
 				04255AFB11FF69A900569C47 /* wax_server.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -594,7 +570,14 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "libwax" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -658,7 +641,6 @@
 				04EB3DD21153D93900FF5A12 /* wax_helpers.m in Sources */,
 				04EB3DD41153D93900FF5A12 /* wax_instance.m in Sources */,
 				04EB3DD61153D93900FF5A12 /* wax_struct.m in Sources */,
-				04255AA711FF628700569C47 /* linenoise.c in Sources */,
 				04255AFC11FF69A900569C47 /* wax_server.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -684,7 +666,7 @@
 				MACH_O_TYPE = mh_object;
 				PREBINDING = NO;
 				PRODUCT_NAME = Wax;
-				SDKROOT = iphonesimulator4.0;
+				SDKROOT = iphonesimulator4.1;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -703,7 +685,7 @@
 				MACH_O_TYPE = mh_object;
 				PREBINDING = NO;
 				PRODUCT_NAME = Wax;
-				SDKROOT = iphonesimulator4.0;
+				SDKROOT = iphonesimulator4.1;
 				STRIP_STYLE = all;
 				WRAPPER_EXTENSION = framework;
 				ZERO_LINK = NO;
@@ -725,7 +707,7 @@
 				MACH_O_TYPE = mh_object;
 				PREBINDING = NO;
 				PRODUCT_NAME = Wax;
-				SDKROOT = iphonesimulator4.0;
+				SDKROOT = iphonesimulator4.1;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = "Ad Hoc";
@@ -745,7 +727,7 @@
 				MACH_O_TYPE = mh_object;
 				PREBINDING = NO;
 				PRODUCT_NAME = Wax;
-				SDKROOT = iphonesimulator4.0;
+				SDKROOT = iphonesimulator4.1;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Distribution;
