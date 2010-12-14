@@ -519,11 +519,12 @@ static int superMethodClosure(lua_State *L) {
 }
 
 static int customInitMethodClosure(lua_State *L) {
-    wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);
-    
-    if (instanceUserdata->isClass) {
-        instanceUserdata = wax_instance_create(L, [instanceUserdata->instance alloc], NO);
-        [instanceUserdata->instance release]; // The userdata is taking care of retaining this now
+    wax_instance_userdata *classInstanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);
+    wax_instance_userdata *instanceUserdata = nil;
+	
+    if (classInstanceUserdata->isClass) {
+        instanceUserdata = wax_instance_create(L, [classInstanceUserdata->instance alloc], NO);
+        [instanceUserdata->instance release]; // The userdata takes care of retaining this now
         lua_replace(L, 1); // replace the old userdata with the new one!
     }
     else {
@@ -538,20 +539,8 @@ static int customInitMethodClosure(lua_State *L) {
         luaL_error(L, "Custom init method on '%s' failed.\n%s", class_getName([instanceUserdata->instance class]), errorString);
     }
     
-    // Possibly check to make sure the custom init returns a userdata object or nil
-  
-    if (lua_isnil(L, -1)) { // The init method returned nil... means initializization failed! 
-        wax_instance_pushStrongUserdataTable(L);
-        lua_pushlightuserdata(L, instanceUserdata->instance);
-        lua_pushnil(L);
-        lua_rawset(L, -3);
-        lua_pop(L, 1); // Pop the strongUserdataTable
-        
-        
-        // Clear out the userdata
-        instanceUserdata->instance = nil;
-        
-        luaL_error(L, "Error: Init methods must return self. This returned nil.");
+    if (lua_isnil(L, -1)) { // The init method returned nil... return the instanceUserdata instead
+		wax_instance_pushUserdata(L, instanceUserdata->instance);
     }
   
     return 1;

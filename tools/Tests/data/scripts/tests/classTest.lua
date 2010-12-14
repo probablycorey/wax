@@ -2,47 +2,47 @@ require "tests.fixtures.ExtendedSimpleObject"
 require "tests.fixtures.Deer"
 require "tests.fixtures.Bambi"
 
--- describe["A WaxClass instance with an ObjC Super"] = function()
---   before = function()
---   end
---   
---   it["is created via method"] = function()
---     local o = ExtendedSimpleObject:initWithAnimal("elephant")
---     expect(o:value()).should_be("elephant")
---   end
---   
---   it["is created via a overridden super init method"] = function()
---     local o = ExtendedSimpleObject:initWithValue("a value")
---     expect(o:value()).should_be("a value")
---   end
---   
---   it["is created via a super init method"] = function()
---     local o = ExtendedSimpleObject:initWithWord("a word")
---     expect(o:value()).should_be("a word")
---   end
---   
---   it["is created via a plain init method"] = function()
---     local o = ExtendedSimpleObject:init()
---     expect(o).should_exist()
---   end
---   
---   it["can override a method"] = function()
---     local o = ExtendedSimpleObject:initWithValue("original")
---     expect(o:valueOverride()).should_be("NOT THE ORIGINAL")
---   end
---   
---   it["can be called via obj-c"] = function()
---     local o = ExtendedSimpleObject:initWithValue("obj")
---     result = o:performSelector("stringForTesting")
---     expect(result).should_be("Look at me!")
---   end
---   
---   it["can be called via obj-c with args"] = function()
---     local o = ExtendedSimpleObject:initWithValue("obj")
---     result = o:performSelector_withObject("stringForTestingWithArg:", "we all!")
---     expect(result).should_be("So say we all!")
---   end
--- end
+describe["A WaxClass instance with an ObjC Super"] = function()
+  before = function()
+  end
+  
+  it["is created via method"] = function()
+    local o = ExtendedSimpleObject:initWithAnimal("elephant")
+    expect(o:value()).should_be("elephant")
+  end
+  
+  it["is created via a overridden super init method"] = function()
+    local o = ExtendedSimpleObject:initWithValue("a value")
+    expect(o:value()).should_be("a value")
+  end
+  
+  it["is created via a super init method"] = function()
+    local o = ExtendedSimpleObject:initWithWord("a word")
+    expect(o:value()).should_be("a word")
+  end
+  
+  it["is created via a plain init method"] = function()
+    local o = ExtendedSimpleObject:init()
+    expect(o).should_exist()
+  end
+  
+  it["can override a method"] = function()
+    local o = ExtendedSimpleObject:initWithValue("original")
+    expect(o:valueOverride()).should_be("NOT THE ORIGINAL")
+  end
+  
+  it["can be called via obj-c"] = function()
+    local o = ExtendedSimpleObject:initWithValue("obj")
+    result = o:performSelector("stringForTesting")
+    expect(result).should_be("Look at me!")
+  end
+  
+  it["can be called via obj-c with args"] = function()
+    local o = ExtendedSimpleObject:initWithValue("obj")
+    result = o:performSelector_withObject("stringForTestingWithArg:", "we all!")
+    expect(result).should_be("So say we all!")
+  end
+end
 
 describe["A WaxClass instance with an WaxClass Super"] = function()
   before = function()
