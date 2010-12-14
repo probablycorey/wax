@@ -40,6 +40,18 @@ function getInfo(self)
   return "DeerClass"
 end
 
+function getClassName(self)
+  return "DeerClass"
+end
+
+function callgetClassNameFromSuper(self)
+  return self:getClassName()
+end
+
+function getAgeFromSuper(self)
+  return self.age
+end
+
 function hash(self)
   return 100
 end

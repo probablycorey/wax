@@ -2,12 +2,10 @@ waxClass{"ExtendedSimpleObject", SimpleObject}
 
 function init(self)
   self.super:init()
-  return self
 end
 
 function initWithAnimal(self, animal)
   self.super:initWithValue(animal)
-  return self
 end
 
 function initWithValue(self, value)

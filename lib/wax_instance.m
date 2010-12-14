@@ -80,6 +80,7 @@ wax_instance_userdata *wax_instance_create(lua_State *L, id instance, BOOL isCla
     instanceUserdata->instance = instance;
     instanceUserdata->isClass = isClass;
     instanceUserdata->isSuper = nil;
+	instanceUserdata->actAsSuper = NO;
      
     if (!isClass) {
         wax_log(LOG_GC, @"Retaining %@ for %@(%p -> %p)", isClass ? @"class" : @"instance", [instance class], instance, instanceUserdata);
@@ -127,13 +128,14 @@ wax_instance_userdata *wax_instance_createSuper(lua_State *L, wax_instance_userd
     wax_instance_userdata *superInstanceUserdata = (wax_instance_userdata *)lua_newuserdata(L, nbytes);
     superInstanceUserdata->instance = instanceUserdata->instance;
     superInstanceUserdata->isClass = instanceUserdata->isClass;
+	superInstanceUserdata->actAsSuper = YES;
 	
 	// isSuper not only stores whether the class is a super, but it also contains the value of the next superClass
 	if (instanceUserdata->isSuper) {
 		superInstanceUserdata->isSuper = [instanceUserdata->isSuper superclass];
 	}
 	else {
-		superInstanceUserdata->isSuper = [instanceUserdata->instance class];
+		superInstanceUserdata->isSuper = [instanceUserdata->instance superclass];
 	}
 
     
@@ -141,10 +143,8 @@ wax_instance_userdata *wax_instance_createSuper(lua_State *L, wax_instance_userd
     luaL_getmetatable(L, WAX_INSTANCE_METATABLE_NAME);
     lua_setmetatable(L, -2);
         
-    // give it the super classes metatable
-    wax_instance_pushUserdata(L, [superInstanceUserdata->isSuper superclass]);
-
-    if (lua_isnil(L, -1)) { // Superclass has no lua object, push empty env table
+    wax_instance_pushUserdata(L, instanceUserdata->instance);
+    if (lua_isnil(L, -1)) { // instance has no lua object, push empty env table (This shouldn't happen, tempted to remove it)
         lua_pop(L, 1); // Remove nil and superclass userdata
         lua_newtable(L); 
     }
@@ -153,6 +153,7 @@ wax_instance_userdata *wax_instance_createSuper(lua_State *L, wax_instance_userd
         lua_remove(L, -2); // Remove nil and superclass userdata
     }
 
+	// Give it the instance's metatable
     lua_setfenv(L, -2);
     
     END_STACK_MODIFY(L, 1)
@@ -160,6 +161,10 @@ wax_instance_userdata *wax_instance_createSuper(lua_State *L, wax_instance_userd
     return superInstanceUserdata;
 }
 
+// The userdata table holds weak references too all the instance userdata
+// created. This is used to manage all instances of Objective-C objects created
+// via Lua so we can release/gc them when both Lua and Objective-C are finished with
+// them.
 void wax_instance_pushUserdataTable(lua_State *L) {
     BEGIN_STACK_MODIFY(L)
     static const char* userdataTableName = "__wax_userdata";
@@ -236,6 +241,7 @@ BOOL wax_instance_pushFunction(lua_State *L, id self, SEL selector) {
     return result;
 }
 
+// Retrieves associated userdata for an object from the wax instance userdata table
 void wax_instance_pushUserdata(lua_State *L, id object) {
     BEGIN_STACK_MODIFY(L);
     
@@ -264,44 +270,49 @@ static int __index(lua_State *L) {
         return 1;
     }
     
-    // Check instance userdata
-    lua_getfenv(L, -2);
-    lua_pushvalue(L, -2);
-    lua_rawget(L, 3);
+    // Check instance userdata, unless we are acting like a super
+	if (!instanceUserdata->actAsSuper) {
+		lua_getfenv(L, -2);
+		lua_pushvalue(L, -2);
+		lua_rawget(L, 3);
+	}
+	else {
+		lua_pushnil(L);
+	}
 
-    // Check instance's class userdata
-    if (lua_isnil(L, -1) && !instanceUserdata->isClass && !instanceUserdata->isSuper) {        
-        Class classToCheck = [instanceUserdata->instance class];
-
-        // Keep checking superclasses if they are waxclasses, we want to treat those like they are lua
-        do {
-            lua_pop(L, 1);
-            wax_instance_pushUserdata(L, classToCheck);
-            
-            // If there is no userdata for this instance's class, then leave the nil on the stack and don't anything else
-            if (!lua_isnil(L, -1)) {
-                lua_getfenv(L, -1);
-                lua_pushvalue(L, 2);
-                lua_rawget(L, -2);
-                lua_remove(L, -2); // Get rid of the userdata env
-                lua_remove(L, -2); // Get rid of the userdata
-            }
-            
-            classToCheck = class_getSuperclass(classToCheck);
-        } while (lua_isnil(L, -1) && wax_instance_isWaxClass(classToCheck));
+    // Check instance's class userdata, or if it is a super, check the super's class data
+    Class classToCheck = instanceUserdata->actAsSuper ? instanceUserdata->isSuper : [instanceUserdata->instance class];	
+	while (lua_isnil(L, -1) && wax_instance_isWaxClass(classToCheck)) {
+		// Keep checking superclasses if they are waxclasses, we want to treat those like they are lua
+		lua_pop(L, 1);
+		wax_instance_pushUserdata(L, classToCheck);
+		
+		// If there is no userdata for this instance's class, then leave the nil on the stack and don't anything else
+		if (!lua_isnil(L, -1)) {
+			lua_getfenv(L, -1);
+			lua_pushvalue(L, 2);
+			lua_rawget(L, -2);
+			lua_remove(L, -2); // Get rid of the userdata env
+			lua_remove(L, -2); // Get rid of the userdata
+		}
+		
+		classToCheck = class_getSuperclass(classToCheck);
     }
             
-    if (lua_isnil(L, -1)) { // If we are calling a super class, or if we couldn't find that in the userdata environment table, assume it is defined in obj-c classes
+    if (lua_isnil(L, -1)) { // If we are calling a super class, or if we couldn't find the index in the userdata environment table, assume it is defined in obj-c classes
         SEL selector = wax_selectorForInstance(instanceUserdata, lua_tostring(L, 2), NO);
 
         if (selector) { // If the class has a method with this name, push as a closure
             lua_pushstring(L, sel_getName(selector));
-            lua_pushcclosure(L, instanceUserdata->isSuper ? superMethodClosure : methodClosure, 1);
+            lua_pushcclosure(L, instanceUserdata->actAsSuper ? superMethodClosure : methodClosure, 1);
         }
     }
     else if (!instanceUserdata->isSuper && instanceUserdata->isClass && wax_isInitMethod(lua_tostring(L, 2))) { // Is this an init method create in lua?
         lua_pushcclosure(L, customInitMethodClosure, 1);
     }
+	
+	// Always reset this, an object only acts like a super ONE TIME!
+	instanceUserdata->actAsSuper = NO;
     
     return 1;
 }
@@ -489,7 +500,7 @@ static int superMethodClosure(lua_State *L) {
     
     // Super Swizzle
     Method selfMethod = class_getInstanceMethod([instanceUserdata->instance class], selector);
-    Method superMethod = class_getInstanceMethod([instanceUserdata->isSuper superclass], selector);        
+    Method superMethod = class_getInstanceMethod(instanceUserdata->isSuper, selector);        
     
     if (superMethod && selfMethod != superMethod) { // Super's got what you're looking for
         IMP selfMethodImp = method_getImplementation(selfMethod);        

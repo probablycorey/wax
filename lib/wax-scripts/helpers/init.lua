@@ -31,6 +31,7 @@ function wax.alert(title, message, ...)
   return alert
 end
 
+-- -- Forces print to use NSLog
 -- function print(obj)
 --   -- if there is an error, ignore it
 --   pcall(function() wax.print(tostring(obj)) end)

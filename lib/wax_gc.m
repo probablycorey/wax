@@ -15,7 +15,7 @@
 #import "wax_instance.h"
 #import "wax_helpers.h"
 
-#define WAX_GC_TIMEOUT 3
+#define WAX_GC_TIMEOUT 1
 
 @implementation wax_gc
 

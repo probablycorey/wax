@@ -33,3 +33,15 @@ end
 function hash(self)
   return tostring(self.super:hash()) .. ":10"
 end
+
+function getClassName(self)
+  return "BambiClass"
+end
+
+function callgetClassNameFromSuper(self)
+  return self.super:callgetClassNameFromSuper()
+end
+
+function getAgeFromSuper(self)
+  return self.super:getAgeFromSuper()
+end

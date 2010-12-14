@@ -22,3 +22,17 @@ function wax.time.beginingOfDay(date)
   
   return calendar:dateFromComponents(newComponents)
 end
+
+function wax.time.endOfDay(date)
+  local calendar = NSCalendar:currentCalendar()
+  local dateComponents = calendar:components_fromDate(-1, date)
+  local newComponents = NSDateComponents:init()
+  newComponents:setYear(dateComponents:year())
+  newComponents:setMonth(dateComponents:month())
+  newComponents:setDay(dateComponents:day())
+  newComponents:setHour(24)
+  newComponents:setMinute(59)
+  newComponents:setSecond(59)
+  
+  return calendar:dateFromComponents(newComponents)
+end
