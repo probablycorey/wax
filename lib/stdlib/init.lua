@@ -16,3 +16,7 @@ require "wax.enums"
 require "wax.structs"
 require "wax.waxClass"
 require "wax.helpers"
+
+function go()
+  print "yeah"
+end
