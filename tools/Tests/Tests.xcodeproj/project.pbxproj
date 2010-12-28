@@ -60,8 +60,6 @@
 		04D22AA3113EEB48000F7048 /* SimpleDelegateObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D22A9C113EEB48000F7048 /* SimpleDelegateObject.m */; };
 		04D22AA4113EEB48000F7048 /* SimpleObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D22A9E113EEB48000F7048 /* SimpleObject.m */; };
 		04D22AA5113EEB48000F7048 /* Structs.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D22AA2113EEB48000F7048 /* Structs.m */; };
-		04FFDD7312A4789C004886D1 /* wax_sqlite.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FFDD7012A4789C004886D1 /* wax_sqlite.m */; };
-		04FFDD7412A4789C004886D1 /* wax_sqlite_operation.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FFDD7212A4789C004886D1 /* wax_sqlite_operation.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
@@ -193,10 +191,6 @@
 		04D22AA0113EEB48000F7048 /* SimpleProtocolLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleProtocolLoader.h; sourceTree = "<group>"; };
 		04D22AA1113EEB48000F7048 /* Structs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Structs.h; sourceTree = "<group>"; };
 		04D22AA2113EEB48000F7048 /* Structs.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Structs.m; sourceTree = "<group>"; };
-		04FFDD6F12A4789C004886D1 /* wax_sqlite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_sqlite.h; sourceTree = "<group>"; };
-		04FFDD7012A4789C004886D1 /* wax_sqlite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_sqlite.m; sourceTree = "<group>"; };
-		04FFDD7112A4789C004886D1 /* wax_sqlite_operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_sqlite_operation.h; sourceTree = "<group>"; };
-		04FFDD7212A4789C004886D1 /* wax_sqlite_operation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_sqlite_operation.m; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
@@ -260,7 +254,6 @@
 		043E60CD113C3DA5007A6104 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
-				04FFDD6E12A4789C004886D1 /* SQLite */,
 				043E60D4113C3DA5007A6104 /* http */,
 				043E60D9113C3DA5007A6104 /* json */,
 				043E60FA113C3DA5007A6104 /* xml */,
@@ -394,18 +387,6 @@
 			);
 			path = lua;
 			sourceTree = "<group>";
-		};
-		04FFDD6E12A4789C004886D1 /* SQLite */ = {
-			isa = PBXGroup;
-			children = (
-				04FFDD6F12A4789C004886D1 /* wax_sqlite.h */,
-				04FFDD7012A4789C004886D1 /* wax_sqlite.m */,
-				04FFDD7112A4789C004886D1 /* wax_sqlite_operation.h */,
-				04FFDD7212A4789C004886D1 /* wax_sqlite_operation.m */,
-			);
-			name = SQLite;
-			path = ../../lib/extensions/SQLite;
-			sourceTree = SOURCE_ROOT;
 		};
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
@@ -608,8 +589,6 @@
 				04D22AA5113EEB48000F7048 /* Structs.m in Sources */,
 				0413C0701200C9960069C579 /* wax_gc.m in Sources */,
 				0413C0711200C9960069C579 /* wax_server.m in Sources */,
-				04FFDD7312A4789C004886D1 /* wax_sqlite.m in Sources */,
-				04FFDD7412A4789C004886D1 /* wax_sqlite_operation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -634,7 +613,7 @@
 				INFOPLIST_FILE = "Tests-Info.plist";
 				PRODUCT_NAME = Tests;
 				PROVISIONING_PROFILE = "3194EE33-2FB1-49F7-9FED-02555090E736";
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -649,7 +628,7 @@
 				HEADER_SEARCH_PATHS = "$(SDK_ROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "Tests-Info.plist";
 				PRODUCT_NAME = Tests;
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphoneos;
 			};
 			name = Release;
 		};
@@ -677,7 +656,7 @@
 				HEADER_SEARCH_PATHS = "$(SDK_ROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "Tests-Info.plist";
 				PRODUCT_NAME = Tests;
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphoneos;
 			};
 			name = "Ad Hoc";
 		};
@@ -704,7 +683,7 @@
 				HEADER_SEARCH_PATHS = "$(SDK_ROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "Tests-Info.plist";
 				PRODUCT_NAME = Tests;
-				SDKROOT = iphoneos4.1;
+				SDKROOT = iphoneos;
 			};
 			name = Distribution;
 		};
