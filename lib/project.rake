@@ -1,5 +1,6 @@
 TEXTMATE_FILE="TEXTMATE"
 WAX_PATH = File.expand_path("wax")
+WAX_PATH = File.expand_path("wax.framework/Resources") if not File.exists?(WAX_PATH)
 
 desc "Create a Wax TextMate project"
 task :tm => "TEXTMATE" do

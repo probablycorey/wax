@@ -1,0 +1,157 @@
+#!/usr/bin/env ruby
+
+# ---------------------
+# Builds xcode projects
+# ---------------------
+
+require 'optparse'
+require 'ostruct'
+require 'fileutils'
+require 'open3'
+require 'stringio'
+
+$stdout.sync = true
+
+class Hammer
+  @args = {"-configuration" => "Debug"}
+  @settings = {}
+
+  @should_run_headless = false
+  @should_run = false
+  @verbose = false
+  @device = "iphone"
+  
+  def self.setup
+    opts = OptionParser.new do |opts|
+      opts.banner = "Description: Builds an iPhone app and optionaly will run it in the simulator"
+      opts.banner = "Usage: hammer [options]"
+      opts.on("-h", "--help", "Help stuff") do
+        puts opts
+        exit
+      end
+
+      opts.on("-c", "--configuration ARG", "Debug? Release?") do |v|
+        @args["-configuration"] = v
+      end
+  
+      opts.on("-o", "--outputname ARG", "Name of the executable") do |v|
+        v.gsub!(/\.app$/, "") # .app is automatically added by xcode
+        @settings["CONFIGURATION_BUILD_DIR"]= "."
+        @settings["PRODUCT_NAME"] = v
+      end
+  
+      opts.on("-h", "--headless", "Just runs the app from the command line, no simulator") do
+        @should_run_headless = true
+      end
+      
+      opts.on("-r", "--run", "Run the app in the simulator") do
+        @should_run = true
+
+      end
+
+      opts.on("-d", "--device ARG", "Choose what device to run on (iphone/ipad)") do |v|  
+        @device = v
+      end
+
+      opts.on("-s", "--sdk ARG", "Choose he SDK. Use --showsdks to see options.") do |v|  
+        v = "iphonesimulator#{v}" if v =~ /^[\d\.]+/ # if only the version is given... assume user wants a simulator build
+        @args["-sdk"] = v    
+      end
+  
+      opts.on("-v", "--verbose", "blah blah blah.") do |v|  
+        @verbose = v
+      end
+      
+      opts.on("--showsdks", "Lists available SDKS.") do
+        output = `xcodebuild -showsdks`
+        sdks = output.scan(/-sdk (.*?$)/m)
+        puts "Availible sdks:"
+        sdks.each {|sdk| puts "  #{sdk}"}
+    
+        exit
+      end
+    end.parse!
+  
+    # if no sdk given, default to the most recent simulator build
+    if !@args["-sdk"]
+      output = `xcodebuild -showsdks`
+      sdks = output.scan(/-sdk (.*?$)/m).map {|a| a.join}
+
+      if @device !~ /pad/i # remove sdk version 3.2, it is ipad only
+        sdks.reject! {|a| a =~ /3.2$/}
+      end
+      
+      @args["-sdk"] = sdks.find_all {|sdk| sdk =~ /iphonesimulator/}.sort.last
+    end
+  end
+
+  def self.build # Build the app
+    extra_args = ARGV
+
+    extra_args += ["build"] if extra_args.empty?
+    arg_string = @args.collect {|k, v| v ? "#{k} #{v}" : k}.join(" ")
+    setting_string = @settings.collect {|k, v| v ? "#{k}=#{v}" : k}.join(" ")
+    cmd = "xcodebuild #{arg_string} #{setting_string} #{extra_args.join(' ')}"
+    puts cmd if @verbose
+
+    output = `#{cmd}`
+    successful = ($? == 0)
+
+    if @verbose or not successful
+      puts output
+      if not successful
+        puts("** BUILD FAILED **") 
+        exit 1
+      end
+    end
+
+    # Take on the builds ENV
+    output.scan(/^\s*setenv\s+(\w+)\s+(.*?)$/).each {|k,v| ENV[k] = v}
+    
+    return output
+  end
+
+  def self.headless  
+    return if not @should_run_headless
+    if ENV["PLATFORM_NAME"] !~ /simulator/
+      puts "Can only run tests on the simulator not #{ENV["PLATFORM_NAME"]}"
+      exit 1
+    end
+  
+    `/usr/bin/killall "iPhone Simulator" 2> /dev/null` #make sure the simulator is killed
+
+    # See http://developer.apple.com/technotes/tn2004/tn2124.html for an explanation of these environment variables.
+    ENV["DYLD_ROOT_PATH"] = ENV["SDKROOT"]
+    ENV["DYLD_FRAMEWORK_PATH"] = ENV["CONFIGURATION_BUILD_DIR"]
+    ENV["IPHONE_SIMULATOR_ROOT"] = ENV["SDKROOT"]
+    ENV["CFFIXED_USER_HOME"] = ENV["TEMP_FILES_DIR"] + "/iPhone Simulator User Dir"
+
+    FileUtils.rm_rf(ENV["CFFIXED_USER_HOME"]) if File.exists?(ENV["CFFIXED_USER_HOME"])
+    FileUtils.mkdir_p(ENV["CFFIXED_USER_HOME"] + "/Documents")
+      
+    system("#{self.app_path}/#{ENV['EXECUTABLE_NAME']} -RegisterForSystemEvents")
+    
+    exit 0
+  end
+  
+  def self.run
+    return if not @should_run
+    `/usr/bin/killall "iPhone Simulator" 2> /dev/null` #make sure the simulator is killed
+    sdk_version = @args["-sdk"][/([\d\.]+)/, 1]
+    cmd = "wax/bin/waxsim -d #{@device} -s #{sdk_version} #{self.app_path} #{File.expand_path('.')}"
+    puts cmd
+    system cmd
+  end
+  
+  def self.app_path
+    return "#{ENV['TARGET_BUILD_DIR']}/#{ENV['EXECUTABLE_FOLDER_PATH']}"
+  end
+end
+
+Hammer.setup
+
+Hammer.build
+
+Hammer.headless
+
+Hammer.run

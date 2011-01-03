@@ -63,6 +63,9 @@ cp wax/lib/extensions/filesystem/wax_filesystem.h $FRAMEWORK_DIR/Headers/
 
 cp Framework.plist $FRAMEWORK_DIR/Resources/Info.plist
 cp wax/lib/build-scripts/copy-scripts.sh $FRAMEWORK_DIR/Resources/
+cp wax/lib/project.rake $FRAMEWORK_DIR/Resources/
+cp -RL wax/bin $FRAMEWORK_DIR/Resources/
+
 
 # Copy into wax's framework dir
 WAX_FRAMEWORK_DIR="../../framework"
