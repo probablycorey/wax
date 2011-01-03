@@ -11,6 +11,12 @@
 #import "wax_struct.h"
 #import "lauxlib.h"
 
+@interface WaxFunction : NSObject {}
+@end
+
+@implementation WaxFunction // Used to pass lua fuctions around
+@end
+
 void wax_printStack(lua_State *L) {
     int i;
     int top = lua_gettop(L);
@@ -65,7 +71,7 @@ void wax_log(int flag, NSString *format, ...) {
         va_list args;
         va_start(args, format);
         NSString *output = [[[NSString alloc] initWithFormat:format arguments:args] autorelease];
-        printf("%s", [output UTF8String]);
+        printf("%s\n", [output UTF8String]);
         va_end(args);
     }
 }
@@ -190,7 +196,7 @@ void wax_fromInstance(lua_State *L, id instance) {
         else if ([instance isKindOfClass:[NSNumber class]]) {
             lua_pushnumber(L, [instance doubleValue]);
         }
-        else if ([instance isKindOfClass:[NSArray class]] || [instance isKindOfClass:[NSSet class]]) {
+        else if ([instance isKindOfClass:[NSArray class]]) {
             lua_newtable(L);
             for (id obj in instance) {
                 int i = lua_objlen(L, -1);
@@ -212,6 +218,13 @@ void wax_fromInstance(lua_State *L, id instance) {
             wax_fromObjc(L, [instance objCType], buffer);
             free(buffer);
         }    
+		else if ([instance isKindOfClass:[WaxFunction class]]) {
+			wax_instance_pushUserdata(L, instance);
+			if (lua_isnil(L, -1)) {
+				luaL_error(L, "Could not get userdata associated with WaxFunction");
+			}
+			lua_getfield(L, -1, "function");
+		}
         else {
             wax_instance_create(L, instance, NO);
         }
@@ -227,7 +240,7 @@ void wax_fromInstance(lua_State *L, id instance) {
 #define WAX_TO_NUMBER(_type_) *outsize = sizeof(_type_); value = calloc(sizeof(_type_), 1); *((_type_ *)value) = (_type_)lua_tonumber(L, stackIndex);
 #define WAX_TO_BOOL_OR_CHAR(_type_) *outsize = sizeof(_type_); value = calloc(sizeof(_type_), 1); *((_type_ *)value) = (_type_)(lua_isstring(L, stackIndex) ? lua_tostring(L, stackIndex)[0] : lua_toboolean(L, stackIndex));
 
-// MAKE SURE YOU RELEASE THIS!
+// MAKE SURE YOU RELEASE THE RETURN VALUE!
 void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, int *outsize) {
     void *value = nil;
 
@@ -376,7 +389,11 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
                     instance = nil;
                     break;
                     
-                case LUA_TBOOLEAN:
+                case LUA_TBOOLEAN: {
+                    BOOL value = lua_toboolean(L, stackIndex);
+                    instance = [NSValue valueWithBytes:&value objCType:@encode(bool)];
+                    break;
+                }
                 case LUA_TNUMBER:
                     instance = [NSNumber numberWithDouble:lua_tonumber(L, stackIndex)];                    
                     break;
@@ -435,6 +452,19 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
                     instance = instanceUserdata->instance;
                     break;                                  
                 }
+                case LUA_TLIGHTUSERDATA: {
+                    instance = lua_touserdata(L, -1);
+                    break;
+                }
+				case LUA_TFUNCTION: {
+				    instance = [[[WaxFunction alloc] init] autorelease];
+				    wax_instance_create(L, instance, NO);
+				    lua_pushvalue(L, -2);
+				    lua_setfield(L, -2, "function"); // Stores function inside of this instance
+					lua_pop(L, 1);
+					
+					break;
+				}
                 default:
                     luaL_error(L, "Can't convert %s to obj-c.", luaL_typename(L, stackIndex));
                     break;
@@ -473,33 +503,53 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
     return value;
 }
 
-wax_selectors wax_selectorsForName(const char *methodName) {
-    wax_selectors posibleSelectors;
+// You can't tell if there are 0 or 1 arguments based on selector alone, so pass in an SEL[2] for possibleSelectors
+void wax_selectorsForName(const char *methodName, SEL possibleSelectors[2]) {
     int strlength = strlen(methodName) + 2; // Add 2. One for trailing : and one for \0
     char *objcMethodName = calloc(strlength, 1); 
     
+    int argCount = 0;
     strcpy(objcMethodName, methodName);
-    for(int i = 0; objcMethodName[i]; i++) if (objcMethodName[i] == '_') objcMethodName[i] = ':';
+    for(int i = 0; objcMethodName[i]; i++) {
+        if (objcMethodName[i] == '_') {
+            argCount++;
+            objcMethodName[i] = ':';
+        }
+    }
     
-    posibleSelectors.selectors[0] = sel_getUid(objcMethodName);
-    objcMethodName[strlength - 2] = ':';
-    posibleSelectors.selectors[1] = sel_getUid(objcMethodName);
+    objcMethodName[strlength - 2] = ':'; // Add final arg portion
+    possibleSelectors[0] = sel_getUid(objcMethodName);
+    
+    if (argCount == 0) {
+        objcMethodName[strlength - 2] = '\0';
+        possibleSelectors[1] = sel_getUid(objcMethodName);        
+    }
+    else {
+        possibleSelectors[1] = nil;
+    }
+
+
     free(objcMethodName);
-    
-    return posibleSelectors;
 }
 
 SEL wax_selectorForInstance(wax_instance_userdata *instanceUserdata, const char *methodName, BOOL forceInstanceCheck) {    
-    SEL *posibleSelectors = &wax_selectorsForName(methodName).selectors[0];
+    SEL possibleSelectors[2];
+    wax_selectorsForName(methodName, possibleSelectors);
     
-    if (instanceUserdata->isClass && (forceInstanceCheck || wax_isInitMethod(methodName))) {
-        if ([instanceUserdata->instance instancesRespondToSelector:posibleSelectors[0]]) return posibleSelectors[0];
-        if ([instanceUserdata->instance instancesRespondToSelector:posibleSelectors[1]]) return posibleSelectors[1];
+    for (int i = 0; i < 2; i++) {
+        SEL selector = possibleSelectors[i];
+        if (!selector) continue; // There may be only one acceptable selector sent back
+
+        if (instanceUserdata->isSuper) { // We don't want to get into the methodSignature code for wax classes
+            if ([instanceUserdata->instance respondsToSelector:selector]) return selector;
+        }
+        else if (instanceUserdata->isClass && (forceInstanceCheck || wax_isInitMethod(methodName))) {
+            if ([instanceUserdata->instance instanceMethodSignatureForSelector:selector]) return selector;
+        }
+        else {
+            if ([instanceUserdata->instance methodSignatureForSelector:selector]) return selector;
+        }    
     }
-    else {
-        if ([instanceUserdata->instance respondsToSelector:posibleSelectors[0]]) return posibleSelectors[0];
-        if ([instanceUserdata->instance respondsToSelector:posibleSelectors[1]]) return posibleSelectors[1];            
-    }    
     
     return nil;
 }
@@ -537,7 +587,7 @@ BOOL wax_isInitMethod(const char *methodName) {
     return NO;
 }
 
-// I could get rid of this
+// I could get rid of this <- Then why don't you?
 const char *wax_removeProtocolEncodings(const char *type_descriptions) {
     switch (type_descriptions[0]) {
         case WAX_PROTOCOL_TYPE_CONST:
@@ -577,8 +627,8 @@ int wax_sizeOfTypeDescription(const char *full_type_description) {
                 break;
                 
             case WAX_TYPE_ARRAY:
-                //WAX_TYPE_ARRAY_END:
-                assert(false); // Not implemented yet
+            case WAX_TYPE_ARRAY_END:
+                [NSException raise:@"Wax Error" format:@"C array's are not implemented yet."];
                 break;
             
             case WAX_TYPE_SHORT:
@@ -634,7 +684,7 @@ int wax_sizeOfTypeDescription(const char *full_type_description) {
                 break;
                 
             case WAX_TYPE_BITFIELD:
-                assert(false); // I was to lazy to implement bitfields
+                [NSException raise:@"Wax Error" format:@"Bitfields are not implemented yet"];
                 break;
                 
             case WAX_TYPE_ID:
@@ -661,10 +711,10 @@ int wax_sizeOfTypeDescription(const char *full_type_description) {
             case WAX_PROTOCOL_TYPE_BYCOPY:
             case WAX_PROTOCOL_TYPE_BYREF:
             case WAX_PROTOCOL_TYPE_ONEWAY:                    
-                // Weeeee!
+                // Weeeee! Just ignore this stuff I guess?
                 break;
             default:
-                assert(false); // "UNKNOWN TYPE ENCODING"
+                [NSException raise:@"Wax Error" format:@"Unknown type encoding %c", type_description[index]];
                 break;
         }
         
@@ -692,8 +742,7 @@ int wax_simplifyTypeDescription(const char *in, char *out) {
                 } while(in[in_index] != WAX_TYPE_ARRAY_END);
                 break;
                 
-            case WAX_TYPE_POINTER: {
-                //get rid of enternal stucture parts
+            case WAX_TYPE_POINTER: { //get rid of internal stucture parts
                 out[out_index++] = in[in_index++]; 
                 for (; in[in_index] == '^'; in_index++); // Eat all the pointers
                 
@@ -736,47 +785,6 @@ int wax_simplifyTypeDescription(const char *in, char *out) {
     out[out_index] = '\0';
     
     return out_index;
-}
-
-void wax_copyTable(lua_State *from, lua_State *to, int index) {
-    lua_newtable(to);
-    
-    lua_pushnil(from); // first key
-    
-    while (lua_next(from, index) != 0) {
-        wax_copyObject(from, to, -2); // copy the key
-        wax_copyObject(from, to, -1); // copy the value
-
-        lua_rawset(to, -3);
-        
-        lua_pop(from, 1); // remove 'value'; keeps 'key' for next iteration            
-    }
-}
-
-void wax_copyObject(lua_State *from, lua_State *to, int index) {
-    // make index positive
-    if (index < 0) index = lua_gettop(from) + 1 + index;
-    
-    switch (lua_type(from, index)) {
-        case LUA_TNIL:
-            lua_pushnil(to);
-            break;
-        case LUA_TNUMBER:
-            lua_pushnumber(to, lua_tonumber(from, index));
-            break;
-        case LUA_TBOOLEAN:
-            lua_pushboolean(to, lua_toboolean(from, index));
-            break;
-        case LUA_TSTRING:
-            lua_pushstring(to, lua_tostring(from, index));
-            break;
-        case LUA_TTABLE:
-            wax_copyTable(from, to, index);
-            break;
-        default:
-            luaL_error(from, "Can not copy object of type '%s'", lua_typename(from, index));
-            break;
-    }            
 }
 
 int wax_errorFunction(lua_State *L) {

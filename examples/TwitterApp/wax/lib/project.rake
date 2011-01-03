@@ -1,9 +1,10 @@
 TEXTMATE_FILE="TEXTMATE"
 WAX_PATH = File.expand_path("wax")
+WAX_PATH = File.expand_path("wax.framework/Resources") if not File.exists?(WAX_PATH)
 
 desc "Create a Wax TextMate project"
 task :tm => "TEXTMATE" do
-  sh "mate #{TEXTMATE_FILE} ./data ./wax/lib/wax-scripts"
+  sh "mate #{TEXTMATE_FILE} ./scripts ./wax/lib/stdlib"
   sh "mate #{TEXTMATE_FILE}"
 end
 
@@ -79,7 +80,12 @@ end
 
 desc "Build and run tests on the app"
 task :test do
-  sh "#{WAX_PATH}/bin/hammer --test"
+  sh "#{WAX_PATH}/bin/hammer --headless WAX_TEST=YES"
+end
+
+desc "Runs a REPL on the current app"
+task :console do
+  sh "#{WAX_PATH}/bin/hammer --headless WAX_REPL=YES"
 end
 
 desc "Build"
@@ -87,7 +93,73 @@ task :build do
   sh "#{WAX_PATH}/bin/hammer"
 end
 
+desc "Package an adhoc build"
+task :adhoc do
+  if not ENV["sdk"]
+    raise "\nYou need to specify an sdk!\nUsage: rake adhoc sdk=iphoneos3.0\n"
+  end
+    
+  
+  sh "#{WAX_PATH}/bin/hammer clean"
+  rm_rf "build"
+
+  output = `#{WAX_PATH}/bin/hammer --sdk #{ENV["sdk"]} -c 'Ad\\ Hoc' -v`
+  success = ($? == 0)
+  if not success 
+    puts output
+  else
+    provisioning_id = output[/PROVISIONING_PROFILE\s+([\w\-]+)/, 1]
+    provisioning_profile = `grep -rl '#{provisioning_id}' '#{ENV['HOME']}/Library/MobileDevice/Provisioning\ Profiles/'`.strip
+  
+    raise "Could not find the Ad Hoc provisioning profile matching #{provisioning_id}" if not provisioning_profile
+
+    timestamp = Time.now.strftime("%m-%d-%y")
+    dir = "adhoc-builds/#{timestamp}"
+    rm_rf dir
+    mkdir_p dir
+
+    app_file = Dir["build/Ad Hoc-iphoneos/*.app"]          
+    
+    sh "cp '#{provisioning_profile}' '#{dir}'"
+    sh "mv '#{app_file}' '#{dir}'"
+    sh "cd '#{dir}'; zip -r adhoc-#{timestamp}.zip ./*"
+    sh "open #{dir}"
+  end
+end
+
+desc "Package a distribution build"
+task :distribution do
+  if not ENV["sdk"]
+    raise "\nYou need to specify an sdk!\nUsage: rake adhoc sdk=iphoneos3.0\n"
+  end
+
+  sh "#{WAX_PATH}/bin/hammer clean"
+  rm_rf "build"
+
+  output = `#{WAX_PATH}/bin/hammer --sdk #{ENV["sdk"]} -c 'Distribution' -v`
+  success = ($? == 0)
+  if not success 
+    puts output
+  else
+    timestamp = Time.now.strftime("%m-%d-%y")
+    dir = "distribution-builds/#{timestamp}"
+    rm_rf dir
+    mkdir_p dir
+    
+    app_file = Dir["build/Distribution-iphoneos/*.app"]
+    
+    sh "mv '#{app_file}' '#{dir}'"
+    sh "cd '#{dir}'; zip -r distribution.zip ./*"
+    sh "open #{dir}"
+  end
+end
+
 desc "Build and run the app"
 task :run do
   sh "#{WAX_PATH}/bin/hammer --run"
+end
+
+desc "Goes through your lua scripts and updates all the xibs to know about waxClasses"
+task :ib do
+  sh "#{WAX_PATH}/bin/update-xibs"
 end

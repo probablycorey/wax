@@ -20,7 +20,7 @@
 typedef struct _wax_instance_userdata {
     id instance;
     BOOL isClass;
-    BOOL isSuper;
+    Class isSuper;
 } wax_instance_userdata;
 
 int luaopen_wax_instance(lua_State *L);
@@ -32,3 +32,4 @@ void wax_instance_pushStrongUserdataTable(lua_State *L);
 
 BOOL wax_instance_pushFunction(lua_State *L, id self, SEL selector);
 void wax_instance_pushUserdata(lua_State *L, id object);
+BOOL wax_instance_isWaxClass(id instance);

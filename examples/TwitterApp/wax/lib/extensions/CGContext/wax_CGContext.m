@@ -16,44 +16,16 @@
 
 #define METATABLE_NAME "wax.CGContext"
 
-static const struct luaL_Reg metaFunctions[] = {
-    {NULL, NULL}
-};
-
-static const struct luaL_Reg functions[] = {
-    {"currentContext", currentContext},
-    {"imageContext", imageContext},
-    {"imageFromContext", imageFromContext},
-    
-    {"translate", translate},
-    
-    {"setFillColor", setFillColor},
-    {"setStrokeColor", setStrokeColor},    
-    {"setAlpha", setAlpha},
-    
-    {"fillRect", fillRect},
-    {"fillPath", fillPath},
-
-    {NULL, NULL}
-};
-
-int luaopen_wax_CGContext(lua_State *L) {
-    BEGIN_STACK_MODIFY(L);
-    
-    luaL_newmetatable(L, METATABLE_NAME);        
-    luaL_register(L, NULL, metaFunctions);
-    luaL_register(L, METATABLE_NAME, functions);    
-    
-    END_STACK_MODIFY(L, 0)
-    
-    return 1;
-}
-
-
 static int currentContext(lua_State *L) {
     CGContextRef context = UIGraphicsGetCurrentContext();
-    wax_fromObjc(L, @encode(CGContextRef), &context);
     
+    wax_fromObjc(L, @encode(CGContextRef), &context);
+    if (lua_gettop(L) > 1 && lua_isfunction(L, 1)) { // Function! 
+        CGContextSaveGState(context);
+        lua_call(L, 1, 1);
+        CGContextRestoreGState(context);
+    }
+
     return 1;
 }
 
@@ -124,7 +96,7 @@ static int setFillColor(lua_State *L) {
 static int setStrokeColor(lua_State *L) {
     CGContextRef c = (CGContextRef)lua_topointer(L, 1);
     
-    if (lua_gettop(L) > 4) {
+    if (lua_gettop(L) >= 4) {
         double r = luaL_checknumber(L, 2);
         double g = luaL_checknumber(L, 3);
         double b = luaL_checknumber(L, 4);    
@@ -175,4 +147,68 @@ static int fillPath(lua_State *L) {
     free(points);
     
     return 0;
+}
+
+// drawLinearGradient(context, startPoint, endPoint, colors, locations)
+//    FOR SOME REASON THIS DOESN'T WORK WITH GRAY/BLACK COLORS... WTF!
+static int drawLinearGradient(lua_State *L) {
+    CGContextRef c = (CGContextRef)lua_topointer(L, 1);
+    CGPoint *start = wax_copyToObjc(L, @encode(CGPoint), 2, nil);
+    CGPoint *end = wax_copyToObjc(L, @encode(CGPoint), 3, nil);    
+    NSArray *colors = wax_copyToObjc(L, @encode(NSArray *), 4, nil);
+    
+    CGFloat *locations = malloc(lua_objlen(L, 5) * sizeof(CGFloat));
+
+    for (int i = 0; i < lua_objlen(L, 5); i++) {
+        lua_rawgeti(L, 5, i + 1);
+        locations[i] = luaL_checknumber(L, -1);
+        lua_pop(L, 1);
+    }
+    
+    
+    CGGradientRef gradient = CGGradientCreateWithColors(nil, *(CFArrayRef *)colors, nil);
+  
+    CGContextDrawLinearGradient(c, gradient, *start, *end, 0);
+    
+    free(start);
+    free(end);
+    free(colors);
+    free(locations);
+    CGGradientRelease(gradient);
+
+    return 0;
+}
+
+static const struct luaL_Reg metaFunctions[] = {
+    {NULL, NULL}
+};
+
+static const struct luaL_Reg functions[] = {
+    {"currentContext", currentContext},
+    {"imageContext", imageContext},
+    {"imageFromContext", imageFromContext},
+    
+    {"translate", translate},
+    
+    {"setFillColor", setFillColor},
+    {"setStrokeColor", setStrokeColor},    
+    {"setAlpha", setAlpha},
+    
+    {"fillRect", fillRect},
+    {"fillPath", fillPath},
+    {"drawLinearGradient", drawLinearGradient},
+    
+    {NULL, NULL}
+};
+
+int luaopen_wax_CGContext(lua_State *L) {
+    BEGIN_STACK_MODIFY(L);
+    
+    luaL_newmetatable(L, METATABLE_NAME);        
+    luaL_register(L, NULL, metaFunctions);
+    luaL_register(L, METATABLE_NAME, functions);    
+    
+    END_STACK_MODIFY(L, 0)
+    
+    return 1;
 }

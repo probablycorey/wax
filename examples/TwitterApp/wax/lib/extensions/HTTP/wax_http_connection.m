@@ -6,6 +6,8 @@
 //    Copyright 2009 ProbablyInteractive. All rights reserved.
 //
 
+#include <CommonCrypto/CommonDigest.h>
+
 #import "lauxlib.h"
 
 #import "wax_http_connection.h"
@@ -23,22 +25,36 @@
 - (void)dealloc {
     [_data release];
     [_response release];
+    [_request release];
     [super dealloc];
 }
 
 - (id)initWithRequest:(NSURLRequest *)urlRequest luaState:(lua_State *)luaState {
-    [super initWithRequest:urlRequest delegate:self];
+    [super initWithRequest:urlRequest delegate:self startImmediately:NO];
+    [self scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     L = luaState;
+
     _data = [[NSMutableData alloc] init];
+    _request = [urlRequest retain];
+
     _format = WAX_HTTP_UNKNOWN;
     _error = NO;
     _canceled = NO;
     return self;
 }
 
+- (void)start {
+    wax_log(LOG_DEBUG, @"HTTP(%@) %@", [_request HTTPMethod], [_request URL]);
+    [super start];
+}
+
 - (void)cancel {
     _canceled = YES;
     [super cancel];
+}
+
+- (bool)isFinished {
+	return _canceled || _finished;
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
@@ -61,13 +77,13 @@
         _error = YES;
         [_data release];
         _data = [[error localizedDescription] retain];
-        [self callLuaCallback:connection];
+        [self callLuaCallback];
     }
 }
 
 - (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     if (!_canceled) {
-        [self callLuaCallback:connection];
+        [self callLuaCallback];
     }
 }
 
@@ -100,7 +116,7 @@
 }
 
 
-- (void)callLuaCallback:(NSURLConnection *)connection { 
+- (void)callLuaCallback { 
     BEGIN_STACK_MODIFY(L)
     
     if (_canceled) {
@@ -145,6 +161,10 @@
     }
     else if (_format == WAX_HTTP_TEXT || _format == WAX_HTTP_JSON || _format == WAX_HTTP_XML) {
         NSString *string = [[NSString alloc] initWithData:_data encoding:NSUTF8StringEncoding];
+        if (!string) string = [[NSString alloc] initWithData:_data encoding:NSISOLatin1StringEncoding];
+        if (!string) string = [[NSString alloc] initWithData:_data encoding:NSNonLossyASCIIStringEncoding];
+        if (!string) string = [[NSString alloc] initWithData:_data encoding:NSNonLossyASCIIStringEncoding];        
+        
         
         if (_format == WAX_HTTP_JSON) {
             json_parseString(L, [string UTF8String]);            
@@ -168,7 +188,7 @@
     
     wax_fromObjc(L, "@", &_response);
     wax_fromObjc(L, "@", &_data); // Send the raw data too (since oddly, the response doesn't contain it)
-        
+    
     if (hasCallback && wax_pcall(L, 3, 0)) {
         const char* error_string = lua_tostring(L, -1);
         printf("Problem calling Lua function '%s' from wax_http.\n%s", WAX_HTTP_CALLBACK_FUNCTION_NAME, error_string);

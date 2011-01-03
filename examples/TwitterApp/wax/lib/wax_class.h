@@ -15,8 +15,4 @@
 #define WAX_CLASS_METATABLE_NAME "wax.class"
 #define WAX_CLASS_INSTANCE_USERDATA_IVAR_NAME "wax_instance_userdata"
 
-typedef struct _wax_class {
-    Class objcClass;
-} wax_class;
-
 int luaopen_wax_class(lua_State *L);

@@ -1,0 +1,131 @@
+#!/usr/bin/env ruby
+
+require 'rubygems'
+require 'xml'
+require 'erb'
+
+PROJECT_DIR = Dir.pwd 
+XML.indent_tree_output = true
+XML.default_tree_indent_string = "\t"
+
+class LuaClass
+  attr :class_name
+  attr :superclass_name
+  attr :outlets
+  attr :actions
+
+  def self.all
+    lua_files = Dir["#{PROJECT_DIR}/**/*.lua"]
+    lua_files.map {|f| parse(open(f).read)}.compact
+  end
+  
+  def self.parse(string)
+    if string =~ /waxClass[{(\s]+(.*?)[})\s]+$/
+      arguments = $1.split(/\s*,\s*/).map {|a| a.sub(/^['"]([^'"]+).*/, "\\1")}
+      
+      class_name = arguments[0]
+      superclass_name = arguments[1]
+      superclass_name = nil if arguments[1] and arguments[1] =~ /=/ # Don't want no protocols!
+
+      return new(class_name, superclass_name, string)
+    end
+    
+    return nil
+  end
+  
+  def initialize(class_name, superclass_name, contents)
+    @class_name = class_name
+    @superclass_name = superclass_name
+    @outlets = contents.scan(/IBOutlet\s+[\s"'(]+([^"']+)[\s)"']/).map {|o| o[0]}
+    @actions = contents.scan(/function\s+(\w+).*?--\s*IBA/i).map {|o| o[0]}
+  end
+  
+  def to_xml
+    @@template ||= DATA.read
+    
+    xml = ERB.new(@@template, 0, "-").result(binding)
+    doc = XML::Parser.string(xml, :encoding => XML::Encoding::UTF_8, :options => XML::Parser::Options::NOBLANKS).parse
+    doc.root
+  end
+end
+
+# A bunch of helper methods
+def xib_files
+  xibs = Dir["#{PROJECT_DIR}/**/*.xib"]
+  xibs.reject! {|f| f =~ /^#{Regexp.escape PROJECT_DIR}\/wax/} # Don't include any of the xibs in the wax folder
+  
+  xibs
+end
+
+classes_as_xml = LuaClass.all.map {|o| o.to_xml}
+
+for xib_file in xib_files
+  puts(xib_file)
+  doc = XML::Document.file(xib_file, :encoding => XML::Encoding::UTF_8, :options => XML::Parser::Options::NOBLANKS)
+  ib_classes = doc.find("//object[@key='IBDocument.Classes']").first  
+
+  doc.find("//object[@key='referencedPartialClassDescriptions']").each {|e| e.remove!}  
+  class_descriptions = XML::Node.new("object")
+  class_descriptions["class"] = "NSMutableArray"
+  class_descriptions["key"] = "referencedPartialClassDescriptions"
+  
+  encoding_node = XML::Node.new("bool")
+  encoding_node['key'] = "EncodedWithXMLCoder"
+  encoding_node.content = "YES"
+  class_descriptions << encoding_node
+  
+  ib_classes << class_descriptions
+  
+  class_descriptions.find("object[@class='IBPartialClassDescription']").each {|e| e.remove!}
+  classes_as_xml.each {|e| class_descriptions << e.copy(true)}
+  doc.save(xib_file)
+end
+
+
+__END__
+<object class="IBPartialClassDescription">
+    <string key="className"><%= @class_name %></string>
+    <string key="superclassName"><%= @superclass_name or "NSObject" %></string>
+    
+    <%- if @outlets.any? -%>
+    <object class="NSMutableDictionary" key="outlets">
+        <bool key="EncodedWithXMLCoder">YES</bool>
+        <object class="NSArray" key="dict.sortedKeys">
+            <bool key="EncodedWithXMLCoder">YES</bool>
+            <%- for outlet in @outlets -%>
+            <string><%= outlet %></string>
+            <%- end -%>
+        </object>
+        <object class="NSMutableArray" key="dict.values">
+            <bool key="EncodedWithXMLCoder">YES</bool>
+            <%- for outlet in @outlets -%>
+            <string>id</string>
+            <%- end -%>
+        </object>
+    </object>
+    <%- end -%>
+    
+    <%- if @actions.any? -%>
+    <object class="NSMutableDictionary" key="actions">
+        <bool key="EncodedWithXMLCoder">YES</bool>
+        <object class="NSArray" key="dict.sortedKeys">
+            <bool key="EncodedWithXMLCoder">YES</bool>
+            <%- for action in @actions -%>
+            <string><%= action %>:</string>
+            <%- end -%>
+        </object>
+        <object class="NSMutableArray" key="dict.values">
+            <bool key="EncodedWithXMLCoder">YES</bool>
+            <%- for action in actions -%>
+            <string>id</string>
+            <%- end -%>
+        </object>
+    </object>
+    <%- end -%>
+    
+    <object class="IBClassDescriptionSource" key="sourceIdentifier">
+        <string key="majorKey">IBUserSource</string>
+        <string key="minorKey"/>
+    </object>
+</object>
+

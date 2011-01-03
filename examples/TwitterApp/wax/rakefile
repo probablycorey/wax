@@ -1,4 +1,4 @@
-WAX_FILES = FileList["*"].exclude(/^(examples|xcode-template)/)
+WAX_FILES = FileList["*"].exclude(/^(examples|xcode-template|framework|tools)/)
 TARGET_XCODE_TEMPLATE = "#{ENV['HOME']}/Library/Application Support/Developer/Shared/Xcode/Project Templates/Wax/Wax iPhone App"
 WAX_ROOT = File.expand_path("..", __FILE__)
 
@@ -16,7 +16,8 @@ namespace :template do
     template_wax_path = "#{TARGET_XCODE_TEMPLATE}/wax"
     mkdir_p template_wax_path
     cp_r WAX_FILES, template_wax_path
-  
+    `chmod +x "#{TARGET_XCODE_TEMPLATE}/wax/lib/build-scripts/copy-scripts.sh"`
+
     # Create the default run script
     puts
     puts "Wax Xcode Template Installed!"

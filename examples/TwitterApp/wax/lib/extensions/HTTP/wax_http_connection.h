@@ -24,6 +24,7 @@ enum {
     lua_State *L;
     NSMutableData *_data;
     NSHTTPURLResponse *_response;
+    NSURLRequest *_request;
     
     int _format;
     bool _finished;
@@ -34,11 +35,11 @@ enum {
 @property (nonatomic, assign) NSHTTPURLResponse *response;
 
 @property (nonatomic, assign) int format;
-@property (nonatomic, readonly) bool finished;
+@property (nonatomic, readonly, getter=isFinished) bool finished;
 
 - (id)initWithRequest:(NSURLRequest *)urlRequest luaState:(lua_State *)luaState;
 - (BOOL)callLuaAuthCallback:(NSURLAuthenticationChallenge *)challenge;
-- (void)callLuaCallback:(NSURLConnection *)connection;
+- (void)callLuaCallback;
 
 @end
 
