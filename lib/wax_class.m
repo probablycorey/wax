@@ -127,7 +127,7 @@ static int addProtocols(lua_State *L) {
     for (int i = 2; i <= lua_gettop(L); i++) {
         const char *protocolName = luaL_checkstring(L, i);
         Protocol *protocol = objc_getProtocol(protocolName);
-        if (!protocol) luaL_error(L, "Could not find protocol named '%s'\nHint: Sometimes the runtime cannot automatically find a protocol. Try adding it (via xCode) to file ProtocolLoader.h", protocolName);
+        if (!protocol) luaL_error(L, "Could not find protocol named '%s'\nHint: Sometimes the runtime cannot automatically find a protocol. Try adding it (via xCode) to the file ProtocolLoader.h", protocolName);
         class_addProtocol(instanceUserdata->instance, protocol);
     }
     

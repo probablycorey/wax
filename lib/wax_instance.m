@@ -7,6 +7,8 @@
  *
  */
 
+#import "ProtocolLoader.h"
+
 #import "wax_instance.h"
 #import "wax_class.h"
 #import "wax.h"

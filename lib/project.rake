@@ -3,7 +3,7 @@ WAX_PATH = File.expand_path("wax")
 
 desc "Create a Wax TextMate project"
 task :tm => "TEXTMATE" do
-  sh "mate #{TEXTMATE_FILE} ./data ./wax/lib/wax-scripts"
+  sh "mate #{TEXTMATE_FILE} ./scripts ./wax/lib/stdlib"
   sh "mate #{TEXTMATE_FILE}"
 end
 

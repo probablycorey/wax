@@ -3,7 +3,7 @@
 //
 // This seems to be a bug, or there is a runtime method I'm unaware of
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface ProtocolLoader : NSObject <UIApplicationDelegate, UIWebViewDelegate, UIActionSheetDelegate, UIAlertViewDelegate, UISearchBarDelegate, UITextViewDelegate, UITabBarControllerDelegate> {}
 @end

@@ -1,35 +1,29 @@
 #!/bin/zsh
 
-# copy-scripts.sh
-# Lua
-#
-# Created by Corey Johnson on 5/27/10.
-# Copyright 2009 Probably Interactive. All rights reserved.
+# Created by Corey Johnson
 
-mkdir -p "$PROJECT_DIR/data/scripts"
+WAX_SCRIPTS_DIR="scripts"
+SOURCE_SCRIPTS_DIR="$PROJECT_DIR/$WAX_SCRIPTS_DIR"
+DESTINATION_SCRIPTS_DIR="$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/$WAX_SCRIPTS_DIR"
 
-[ ! -f "$PROJECT_DIR/data/scripts/AppDelegate.lua" ] && cat << EOF > "$PROJECT_DIR/data/scripts/AppDelegate.lua"
-puts 'You are setup to use wax!' 
-puts 'Edit file at $PROJECT_DIR/data/scripts/AppDelegate.lua'
-EOF
+mkdir -p "$SOURCE_SCRIPTS_DIR"
 
-# copy everything in the data dir to the app (doesn't just have to be lua files, can be images, sounds, etc...)
-rsync -r --delete "$PROJECT_DIR/data" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH" > /dev/null
+if [ $WAX_COMPILE_SCRIPTS ]; then
+  # This requires that you run a special build of lua. Since snow leopard is 64-bit 
+  # and iOS is 32-bit, luac files compiled on snow leopard won't work on iOS
+  
+  rm -rf "$DESTINATION_SCRIPTS_DIR"
+  mkdir -p "$DESTINATION_SCRIPTS_DIR"
 
-# copies the wax scripts over
-if [ -d "$PROJECT_DIR/wax.framework" ]; then
-  rsync -r --delete "$PROJECT_DIR/wax.framework/resources/wax-scripts/" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/data/scripts/wax" > /dev/null
+  lua "$PROJECT_DIR/wax/lib/build-scripts/luac.lua" wax wax.dat "$PROJECT_DIR/wax/lib/stdlib/" "$PROJECT_DIR/wax/lib/stdlib/init.lua" -L "$PROJECT_DIR/wax/lib/stdlib"/**/*.lua
+  lua "$PROJECT_DIR/wax/lib/build-scripts/luac.lua" "" AppDelegate.dat "$SOURCE_SCRIPTS_DIR/" "$SOURCE_SCRIPTS_DIR/AppDelegate.lua" -L "$SOURCE_SCRIPTS_DIR"/**/*.lua
+  mv AppDelegate.dat "$DESTINATION_SCRIPTS_DIR"
 else
-  rsync -r --delete "$PROJECT_DIR/wax/lib/wax-scripts/" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/data/scripts/wax" > /dev/null
+  # copy everything in the data dir to the app (doesn't just have to be lua files, can be images, sounds, etc...)
+  echo $DESTINATION_SCRIPTS_DIR
+  rsync -r --delete "$PROJECT_DIR/wax/lib/stdlib" "$DESTINATION_SCRIPTS_DIR/" > /dev/null
+  rsync -r --delete "$SOURCE_SCRIPTS_DIR/" "$DESTINATION_SCRIPTS_DIR" > /dev/null
 fi
 
 # This forces the data dir to be reloaded on the device
 touch "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH"/*
-
-# luac.lua doesn't work for 64 bit lua
-# if [[ $CONFIGURATION = "Distribution" ]]; then
-#     ${LUA:=/usr/bin/env lua}
-#     $LUA "$PROJECT_DIR/wax/build-scripts/luac.lua" init.dat "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/data/scripts/" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/data/scripts/init.lua" -L "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/data/scripts"/**/*.lua
-#     rm -rf "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/data/scripts/"*
-#     mv init.dat "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/data/scripts/"
-# fi
