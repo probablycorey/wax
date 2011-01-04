@@ -66,6 +66,9 @@
 /* Begin PBXFileReference section */
 		0444909612D2962800E8D955 /* AppDelegate.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AppDelegate.lua; sourceTree = "<group>"; };
 		0444909712D2962800E8D955 /* TwitterTableViewController.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TwitterTableViewController.lua; sourceTree = "<group>"; };
+		045B0B8212D3BB0B001697A0 /* compile-stdlib.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "compile-stdlib.sh"; sourceTree = "<group>"; };
+		045B0B8312D3BB0B001697A0 /* copy-scripts.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "copy-scripts.sh"; sourceTree = "<group>"; };
+		045B0B8412D3BB0B001697A0 /* luac.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = luac.lua; sourceTree = "<group>"; };
 		04A617DD12CA7AB6004ADB76 /* wax_filesystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_filesystem.h; sourceTree = "<group>"; };
 		04A617DE12CA7AB6004ADB76 /* wax_filesystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_filesystem.m; sourceTree = "<group>"; };
 		04A617E012CA7AB6004ADB76 /* wax_http.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_http.h; sourceTree = "<group>"; };
@@ -213,9 +216,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		045B0B8112D3BB0B001697A0 /* build-scripts */ = {
+			isa = PBXGroup;
+			children = (
+				045B0B8212D3BB0B001697A0 /* compile-stdlib.sh */,
+				045B0B8312D3BB0B001697A0 /* copy-scripts.sh */,
+				045B0B8412D3BB0B001697A0 /* luac.lua */,
+			);
+			path = "build-scripts";
+			sourceTree = "<group>";
+		};
 		04A617D012CA7AB6004ADB76 /* wax */ = {
 			isa = PBXGroup;
 			children = (
+				045B0B8112D3BB0B001697A0 /* build-scripts */,
 				04A617D512CA7AB6004ADB76 /* extensions */,
 				04A6180612CA7AB6004ADB76 /* lua */,
 				04A6183D12CA7AB6004ADB76 /* stdlib */,
@@ -514,7 +528,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "TwitterApp" */;
 			buildPhases = (
-				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
 				04A618B912CA7AF4004ADB76 /* Copy Lua scripts to bundle */,
@@ -551,16 +564,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXResourcesBuildPhase section */
-		1D60588D0D05DD3D006BFB54 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
 		04A618B912CA7AF4004ADB76 /* Copy Lua scripts to bundle */ = {

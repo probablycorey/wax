@@ -2,3 +2,4 @@ build/
 *.pbxuser
 *.perspectivev3
 wax.framework
+lib/wax_stdlib.h
