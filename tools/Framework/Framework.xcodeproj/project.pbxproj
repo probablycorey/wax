@@ -475,7 +475,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1DEB921E08733DC00010E9CD /* Build configuration list for PBXNativeTarget "Wax" */;
 			buildPhases = (
-				04A6160312C939BE004ADB76 /* Compile Wax Stdlib */,
+				0415600712D3DA2F00FA4BA9 /* Compile stdlib scripts */,
 				D2AAC07A0554694100DB518D /* Headers */,
 				D2AAC07B0554694100DB518D /* Sources */,
 			);
@@ -514,18 +514,18 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		04A6160312C939BE004ADB76 /* Compile Wax Stdlib */ = {
+		0415600712D3DA2F00FA4BA9 /* Compile stdlib scripts */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Compile Wax Stdlib";
+			name = "Compile stdlib scripts";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
+			shellPath = /bin/zsh;
 			shellScript = "\"$PROJECT_DIR/wax/lib/build-scripts/compile-stdlib.sh\"";
 			showEnvVarsInLog = 0;
 		};
