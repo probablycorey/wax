@@ -11,7 +11,7 @@ rm -rf "$DESTINATION_SCRIPTS_DIR"
 mkdir -p "$DESTINATION_SCRIPTS_DIR"
 
 if [ $WAX_COMPILE_SCRIPTS ]; then
-  echo "note: Wax is using compiled scripts!"
+  echo "note: Wax is using compiled Lua scripts."
   # This requires that you run a special build of lua. Since snow leopard is 64-bit 
   # and iOS is 32-bit, luac files compiled on snow leopard won't work on iOS
   
