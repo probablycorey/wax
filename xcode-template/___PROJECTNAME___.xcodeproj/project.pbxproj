@@ -663,6 +663,7 @@
 				HEADER_SEARCH_PATHS = "$(SDK_ROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "___PROJECTNAMEASIDENTIFIER___-Info.plist";
 				PRODUCT_NAME = "___PROJECTNAME___";
+				WAX_COMPILE_SCRIPTS = "";
 			};
 			name = Debug;
 		};
@@ -677,6 +678,7 @@
 				INFOPLIST_FILE = "___PROJECTNAMEASIDENTIFIER___-Info.plist";
 				PRODUCT_NAME = "___PROJECTNAME___";
 				VALIDATE_PRODUCT = YES;
+				WAX_COMPILE_SCRIPTS = "";
 			};
 			name = Release;
 		};
