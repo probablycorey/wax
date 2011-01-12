@@ -530,7 +530,7 @@
 			buildPhases = (
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
-				04A618B912CA7AF4004ADB76 /* Copy Lua scripts to bundle */,
+				044A7F3D12DE678C00F83D03 /* Copy Lua scripts to bundle */,
 			);
 			buildRules = (
 			);
@@ -566,9 +566,9 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		04A618B912CA7AF4004ADB76 /* Copy Lua scripts to bundle */ = {
+		044A7F3D12DE678C00F83D03 /* Copy Lua scripts to bundle */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputPaths = (
@@ -579,7 +579,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
 			shellScript = "\"$PROJECT_DIR/wax/lib/build-scripts/copy-scripts.sh\"";
-			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
