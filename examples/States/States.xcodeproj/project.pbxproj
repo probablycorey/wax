@@ -180,7 +180,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "# If the framework doesn't exist, build it\nif [ ! -d wax.framework ]; then\n\tcd ../../tools/framework\n\trake package\nfi";
+			shellScript = "# If the framework doesn't exist, build it\nif [ ! -d wax.framework ]; then\n\tcd ../../tools/framework\n\t# This will run rake but also remove the env variables (because those screws up the framework build)\n\tif ! env -i rake package; then \n\t\techo \"error: Failed to build & package wax.framework\"\n\t\techo \"warning: You can try building it yourself. Just shell to WAX_ROOT/tools/framework and type 'rake package'\"\n\tfi\nfi";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -208,6 +208,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = States_Prefix.pch;
 				INFOPLIST_FILE = "States-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = States;
 			};
@@ -222,6 +223,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = States_Prefix.pch;
 				INFOPLIST_FILE = "States-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = States;
 				VALIDATE_PRODUCT = YES;
