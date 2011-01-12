@@ -30,36 +30,29 @@ For some simple Wax apps, check out the [examples folder](http://github.com/prob
 
 How would I create a UIView and color it red?
 
-```lua
     -- forget about using alloc! Memory is automatically managed by Wax
     view = UIView:initWithFrame(CGRect(0, 0, 320, 100))
 
     -- use a colon when sending a message to an Objective-C Object
     -- all methods available to a UIView object can be accessed this way
     view:setBackgroundColor(UIColor:redColor())
-```
 
 What about methods with multiple arguments?
 
-```lua
     -- Just add underscores to the method name, then write the arguments like
     -- you would in a regular C function
     UIApplication:sharedApplication():setStatusBarHidden_animated(true, false)
-```
 
 How do I send an array/string/dictionary
 
-```lua
     -- Wax automatically converts array/string/dictionary objects to NSArray,
     -- NSString and NSDictionary objects (and vice-versa)
     images = {"myFace.png", "yourFace.png", "theirFace.png"}
     imageView = UIImageView:initWithFrame(CGRect(0, 0, 320, 460))
     imageView:setAnimationImages(images)
-```
 
 What if I want to create a custom UIViewController?
 
-```lua
     -- Created in "MyController.lua"
     --
     -- Creates an Objective-C class called MyController with UIViewController
@@ -76,11 +69,9 @@ What if I want to create a custom UIViewController?
     function viewDidLoad()
       -- Do all your other stuff here
     end
-```
 
 You said HTTP calls were easy, I don't believe you...
 
-```lua
     url = "http://search.twitter.com/trends/current.json"
 
     -- Makes an asyncronous call, the callback function is called when a
@@ -93,16 +84,13 @@ You said HTTP calls were easy, I don't believe you...
       -- it into a Lua table
       puts(body)
     end}
-```
 
 Since Wax converts NSString, NSArray, NSDictionary and NSNumber to native Lua values, you have to force objects back to Objective-C sometimes. Here is an example.
 
-```lua
     local testString = "Hello lua!"
     local bigFont = UIFont:boldSystemFontOfSize(30)
     local size = toobjc(testString):sizeWithFont(bigFont)
     puts(size)
-```
 
 Setup & Tutorials
 -----------------
