@@ -6,6 +6,14 @@ WAX_SCRIPTS_DIR="scripts"
 SOURCE_SCRIPTS_DIR="$PROJECT_DIR/$WAX_SCRIPTS_DIR"
 DESTINATION_SCRIPTS_DIR="$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/$WAX_SCRIPTS_DIR"
 
+# Verify that the user isn't using an old version of Wax
+if [ -d "$PROJECT_DIR/data/scripts" ]; then
+	echo "error: Wax 1.0 changes the Lua loadpath."
+	echo "error: Wax won't look for Lua scripts in '$PROJECT_DIR/data/scripts' instead, place all your scripts in '$SOURCE_SCRIPTS_DIR'"
+	exit 1
+fi
+
+
 mkdir -p "$SOURCE_SCRIPTS_DIR"
 rm -rf "$DESTINATION_SCRIPTS_DIR"
 mkdir -p "$DESTINATION_SCRIPTS_DIR"
