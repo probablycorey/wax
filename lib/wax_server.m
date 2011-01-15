@@ -141,7 +141,7 @@ static void TCPServerAcceptCallBack(CFSocketRef socket, CFSocketCallBackType typ
 	
 	[_netService scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
 	[_netService publish];
-	[_netService setDelegate:self];
+	[_netService setDelegate:(id<NSNetServiceDelegate>) self];
 	
 	return YES;
 }
@@ -162,12 +162,12 @@ static void TCPServerAcceptCallBack(CFSocketRef socket, CFSocketCallBackType typ
 	}
 	
 	_inStream = [inStream retain];
-	_inStream.delegate = self;
+	_inStream.delegate = (id<NSStreamDelegate>) self;
 	[_inStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
 	[_inStream open];
 	
 	_outStream = [outStream retain];
-	_outStream.delegate = self;
+	_outStream.delegate = (id<NSStreamDelegate>) self;
 	[_outStream scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
 	[_outStream open];
 	
