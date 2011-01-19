@@ -23,8 +23,12 @@ else
   rsync -r --delete "$PROJECT_DIR/wax/lib/wax-scripts/" "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/data/scripts/wax" > /dev/null
 fi
 
+next_year=$(date +%Y)
+next_year=$((next_year + 1))
+next_year=$(date -j "+$next_year%m%d%H%M")
+
 # This forces the data dir to be reloaded on the device
-touch "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH"/*
+touch -t $next_year "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH"/*
 
 # luac.lua doesn't work for 64 bit lua
 # if [[ $CONFIGURATION = "Distribution" ]]; then
