@@ -350,7 +350,13 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
                             
                         case LUA_TUSERDATA: {
                             wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, stackIndex, WAX_INSTANCE_METATABLE_NAME);
-                            pointer = &instanceUserdata->instance;
+							if (typeDescription[1] == WAX_TYPE_VOID) {
+								pointer = instanceUserdata->instance;
+							}
+							else {
+								pointer = &instanceUserdata->instance;
+							}
+
                             break;                                  
                         }
                         default:
