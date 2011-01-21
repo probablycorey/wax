@@ -18,6 +18,7 @@ if [ $WAX_COMPILE_SCRIPTS ]; then
   lua "$PROJECT_DIR/wax/lib/build-scripts/luac.lua" wax wax.dat "$PROJECT_DIR/wax/lib/stdlib/" "$PROJECT_DIR/wax/lib/stdlib/init.lua" -L "$PROJECT_DIR/wax/lib/stdlib"/**/*.lua
   lua "$PROJECT_DIR/wax/lib/build-scripts/luac.lua" "" AppDelegate.dat "$SOURCE_SCRIPTS_DIR/" "$SOURCE_SCRIPTS_DIR/AppDelegate.lua" -L "$SOURCE_SCRIPTS_DIR"/**/*.lua
   mv AppDelegate.dat "$DESTINATION_SCRIPTS_DIR"
+  mv wax.dat "$DESTINATION_SCRIPTS_DIR"
 else
   # copy everything in the data dir to the app (doesn't just have to be lua files, can be images, sounds, etc...)
   echo $DESTINATION_SCRIPTS_DIR
@@ -26,4 +27,6 @@ else
 fi
 
 # This forces the data dir to be reloaded on the device
+#THE_FUTURE=$(date -v +2M -j +"%m%d%H%M")
+#touch -t $THE_FUTURE "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH"/*
 touch "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH"/*
