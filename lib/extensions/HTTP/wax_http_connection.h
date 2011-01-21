@@ -18,6 +18,7 @@ enum {
 };
 
 #define WAX_HTTP_CALLBACK_FUNCTION_NAME "callback"
+#define WAX_HTTP_PROGRESS_CALLBACK_FUNCTION_NAME "progressCallback"
 #define WAX_HTTP_AUTH_CALLBACK_FUNCTION_NAME "authCallback"
 
 @interface wax_http_connection : NSURLConnection {
@@ -39,6 +40,7 @@ enum {
 
 - (id)initWithRequest:(NSURLRequest *)urlRequest luaState:(lua_State *)luaState;
 - (BOOL)callLuaAuthCallback:(NSURLAuthenticationChallenge *)challenge;
+- (void)callLuaProgressCallback;
 - (void)callLuaCallback;
 
 @end

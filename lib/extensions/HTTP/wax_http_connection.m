@@ -70,6 +70,7 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     [_data appendData:data];
+	[self callLuaProgressCallback];
 }
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
@@ -113,6 +114,42 @@
     END_STACK_MODIFY(L, 0)
     
     return hasCallback;
+}
+
+- (void)callLuaProgressCallback { 
+    BEGIN_STACK_MODIFY(L)
+    
+    if (_canceled) {
+        assert("OH NO, URL CONNECTION WAS CANCELED BUT NOT CAUGHT");
+    }
+    
+    wax_instance_pushUserdata(L, self);
+    lua_getfield(L, -1, WAX_HTTP_PROGRESS_CALLBACK_FUNCTION_NAME);
+    
+    if (lua_isnil(L, -1)) { 
+        lua_pop(L, 1);
+    }
+	else {
+		float percentComplete = 0;
+		
+		@try {
+			percentComplete = _data.length / [[[_response allHeaderFields] objectForKey:@"Content-Length"] floatValue];
+		}
+		@catch (NSException * e) {
+			NSLog(@"Error: Couldn't calculate percent Complete");
+		}
+		
+		
+		wax_fromObjc(L, "f", &percentComplete);
+		wax_fromObjc(L, "@", &_data);
+    
+		if (wax_pcall(L, 2, 0)) {
+			const char* error_string = lua_tostring(L, -1);
+			printf("Problem calling Lua function '%s' from wax_http.\n%s", WAX_HTTP_PROGRESS_CALLBACK_FUNCTION_NAME, error_string);
+		}
+	}
+    
+    END_STACK_MODIFY(L, 0)
 }
 
 
