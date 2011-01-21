@@ -333,3 +333,19 @@ UIControlContentHorizontalAlignmentCenter = 0
 UIControlContentHorizontalAlignmentLeft = 1
 UIControlContentHorizontalAlignmentRight = 2
 UIControlContentHorizontalAlignmentFill = 3
+
+-- GKPeerConnectionState
+GKPeerStateAvailable = 0
+GKPeerStateUnavailable = 1
+GKPeerStateConnected = 2
+GKPeerStateDisconnected = 3
+GKPeerStateConnecting = 4
+
+-- GKSessionMode
+GKSessionModeServer = 0
+GKSessionModeClient = 1
+GKSessionModePeer = 2
+
+-- GKSendDataMode
+GKSendDataReliable = 0 -- a.s.a.p. but requires fragmentation and reassembly for large messages, may stall if network congestion occurs
+GKSendDataUnreliable = 1 -- best effort and immediate, but no guarantees of delivery or order; will not stall.
