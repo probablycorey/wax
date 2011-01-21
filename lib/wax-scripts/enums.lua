@@ -343,3 +343,11 @@ NSOrderedDescending = 1
 UITableViewCellSeparatorStyleNone = 0
 UITableViewCellSeparatorStyleSingleLine = 1
 UITableViewCellSeparatorStyleSingleLineEtched = 2
+
+-- UIDataDetectorType
+UIDataDetectorTypePhoneNumber = 1
+UIDataDetectorTypeLink = 2
+UIDataDetectorTypeAddress = 4
+UIDataDetectorTypeCalendarEvent = 8
+UIDataDetectorTypeNone = 0
+UIDataDetectorTypeAll = 15
