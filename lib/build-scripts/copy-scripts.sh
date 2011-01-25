@@ -8,11 +8,23 @@ DESTINATION_SCRIPTS_DIR="$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH/$WAX_SCRIPTS_
 
 # Verify that the user isn't using an old version of Wax
 if [ -d "$PROJECT_DIR/data/scripts" ]; then
-	echo "error: Wax 1.0 changes the Lua loadpath."
-	echo "error: Wax won't look for Lua scripts in '$PROJECT_DIR/data/scripts' instead, place all your scripts in '$SOURCE_SCRIPTS_DIR'"
-	exit 1
+  echo "error: Wax 1.0 changes the Lua loadpath."
+  echo "error: Wax won't look for Lua scripts in '$PROJECT_DIR/data/scripts' instead, place all your scripts in '$SOURCE_SCRIPTS_DIR'"
+  exit 1
 fi
 
+# If the user has luac installed, preparse the lua files and make sure they are cool
+if type luac &> /dev/null; then; 
+  LUAC_OUTPUT=$(luac -p -- "$SOURCE_SCRIPTS_DIR"/**/*.lua 2>&1)
+  LUAC_EXIT_VALUE=$?
+  if [ $LUAC_EXIT_VALUE != 0 ] ; then
+    echo "\n\n--------------------ERROR--------------------"
+    echo "Lua Scripts were not compiled correctly!"
+    echo "error::: ${LUAC_OUTPUT}"
+    echo "--------------------ERROR--------------------\n\n"
+    exit 1
+  fi
+fi
 
 mkdir -p "$SOURCE_SCRIPTS_DIR"
 rm -rf "$DESTINATION_SCRIPTS_DIR"
