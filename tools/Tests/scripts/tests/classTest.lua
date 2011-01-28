@@ -98,8 +98,18 @@ describe["A WaxClass with an WaxClass Super"] = function()
   before = function()
   end
   
-  it["can call a super method on a class"] = function()
+  it["can call method defined in it's superclass"] = function()
     local result = Bambi:aClassMethod()
     expect(result).should_be("yes")
   end
+  
+  it["can call super via a class method"] = function()
+    local result = Bambi:isEqual(Bambi)
+    expect(result).should_be(true)
+    
+    result = Bambi:isEqual(NSString)
+    expect(result).should_be(false)
+    
+  end
+  
 end

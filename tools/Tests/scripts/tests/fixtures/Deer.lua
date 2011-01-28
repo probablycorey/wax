@@ -7,6 +7,10 @@ function aClassMethod()
   return "yes"
 end
 
+function isEqual(class, other)
+  return class.super:isEqual(other)
+end
+
 -- instance methods
 -------------------
 function initWithName(self, name)
