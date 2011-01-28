@@ -686,7 +686,7 @@ int wax_sizeOfTypeDescription(const char *full_type_description) {
                 break;
                 
             case WAX_TYPE_VOID:
-                size += sizeof(void);
+                size += sizeof(char);
                 break;
                 
             case WAX_TYPE_BITFIELD:
