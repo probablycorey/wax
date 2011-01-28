@@ -53,9 +53,17 @@ void wax_printStackAt(lua_State *L, int i) {
 void wax_printTable(lua_State *L, int t) {
     // table is in the stack at index 't'
     
-    lua_pushnil(L);  // first key
-    if (t < 0) t--; // if t is negative, we need to updated it
-    
+    if (t < 0) t = lua_gettop(L) + t + 1; // if t is negative, we need to normalize
+	if (t <= 0 || t > lua_gettop(L)) {
+		printf("%d is not within stack boundries.\n", t);
+		return;
+	}
+	else if (!lua_istable(L, t)) {
+		printf("Object at stack index %d is not a table.\n", t);
+		return;
+	}
+
+	lua_pushnil(L);  // first key
     while (lua_next(L, t) != 0) {
         wax_printStackAt(L, -2);
         printf(" : ");
@@ -584,10 +592,11 @@ void wax_pushMethodNameFromSelector(lua_State *L, SEL selector) {
     END_STACK_MODIFY(L, 1)
 }
 
+// Wax assumes anything that starts with init[A-Z0-9]? is an init method
 BOOL wax_isInitMethod(const char *methodName) {
     if (strncmp(methodName, "init", 4) == 0) {
         if (methodName[4] == '\0') return YES; // It's just an init
-        if (isupper(methodName[4]) || isdigit(methodName[4])) return YES; // It's init[A-Z1-9]
+        if (isupper(methodName[4]) || isdigit(methodName[4])) return YES; // It's init[A-Z0-9]
     }
     
     return NO;
