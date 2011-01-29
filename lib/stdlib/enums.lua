@@ -349,3 +349,8 @@ GKSessionModePeer = 2
 -- GKSendDataMode
 GKSendDataReliable = 0 -- a.s.a.p. but requires fragmentation and reassembly for large messages, may stall if network congestion occurs
 GKSendDataUnreliable = 1 -- best effort and immediate, but no guarantees of delivery or order; will not stall.
+
+-- UIImagePickerControllerSourceType
+UIImagePickerControllerSourceTypePhotoLibrary = 0
+UIImagePickerControllerSourceTypeCamera = 1
+UIImagePickerControllerSourceTypeSavedPhotosAlbum = 2
