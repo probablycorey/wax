@@ -44,7 +44,7 @@
 }
 
 - (void)start {
-    wax_log(LOG_DEBUG, @"HTTP(%@) %@", [_request HTTPMethod], [_request URL]);
+    wax_log(LOG_NETWORK, @"HTTP(%@) %@", [_request HTTPMethod], [_request URL]);
     [super start];
 }
 
