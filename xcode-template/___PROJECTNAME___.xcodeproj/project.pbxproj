@@ -524,10 +524,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "___PROJECTNAME___" */;
 			buildPhases = (
+				04A618B912CA7AF4004ADB76 /* Copy Lua scripts to bundle */,
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
-				04A618B912CA7AF4004ADB76 /* Copy Lua scripts to bundle */,
 			);
 			buildRules = (
 			);
@@ -585,8 +585,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "\"$PROJECT_DIR/wax/lib/build-scripts/copy-scripts.sh\"";
-			showEnvVarsInLog = 0;
+			shellScript = "\"$PROJECT_DIR/wax/lib/build-scripts/copy-scripts.sh\"\n\n# Note:\n# Make sure \"Show environment variables\" is turned on. It is used to grab then environment variables in the rake tasks.";
 		};
 /* End PBXShellScriptBuildPhase section */
 

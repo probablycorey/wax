@@ -74,7 +74,7 @@ namespace :git do
   task :sub do
     rm_rf WAX_PATH
     sh "git init"
-    sh "git submodule add git://github.com/probablycorey/wax.git wax"
+    sh "git submodule add git@github.com:probablycorey/wax.git wax"
   end
 end
 
