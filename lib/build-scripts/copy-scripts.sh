@@ -41,7 +41,6 @@ if [ $WAX_COMPILE_SCRIPTS ]; then
   mv wax.dat "$DESTINATION_SCRIPTS_DIR"
 else
   # copy everything in the data dir to the app (doesn't just have to be lua files, can be images, sounds, etc...)
-  echo $DESTINATION_SCRIPTS_DIR
   cp -r "$PROJECT_DIR/wax/lib/stdlib" "$DESTINATION_SCRIPTS_DIR/wax"
   cp -r "$SOURCE_SCRIPTS_DIR/" "$DESTINATION_SCRIPTS_DIR"
 fi
