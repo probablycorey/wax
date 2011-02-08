@@ -14,7 +14,10 @@
 #import "wax_instance.h"
 #import "wax_helpers.h"
 #import "wax_json.h"
+
+#ifdef WAX_XML_INCLUDED
 #import "wax_xml.h"
+#endif
 
 @implementation wax_http_connection
 
@@ -176,7 +179,11 @@
 
         if ([contentType hasPrefix:@"application/xml"] ||
             [contentType hasPrefix:@"text/xml"]) {
+#ifdef WAX_XML_INCLUDED
             _format = WAX_HTTP_XML;
+#else
+			_format = WAX_HTTP_TEXT;
+#endif
         }
         else if ([contentType hasPrefix:@"application/json"] ||
                  [contentType hasPrefix:@"text/json"] ||
@@ -208,7 +215,11 @@
             json_parseString(L, [string UTF8String]);            
         }
         else if (_format == WAX_HTTP_XML){
+#ifdef WAX_XML_INCLUDED
             wax_xml_parseString(L, [string UTF8String]);
+#else
+			luaL_error(L, "Trying to parse xml, but xml library not included.");
+#endif
         }
         else {
             wax_fromObjc(L, "@", &string);
