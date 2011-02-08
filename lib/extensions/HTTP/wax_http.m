@@ -108,8 +108,12 @@ static int request(lua_State *L) {
 	}
 
 	if (pushCallback(L, WAX_HTTP_PROGRESS_CALLBACK_FUNCTION_NAME, 1)) {
-		lua_setfield(L, -2, WAX_HTTP_PROGRESS_CALLBACK_FUNCTION_NAME); // Set the authCallback function for the userdata         
+		lua_setfield(L, -2, WAX_HTTP_PROGRESS_CALLBACK_FUNCTION_NAME); // Set the progressCallback function for the userdata         
 	}	
+
+	if (pushCallback(L, WAX_HTTP_REDIRECT_CALLBACK_FUNCTION_NAME, 1)) {
+		lua_setfield(L, -2, WAX_HTTP_REDIRECT_CALLBACK_FUNCTION_NAME); // Set the redirectCallback function for the userdata         
+	}		
 	
     // Asyncronous or Syncronous
     if (pushCallback(L, WAX_HTTP_CALLBACK_FUNCTION_NAME, 1)) { 
