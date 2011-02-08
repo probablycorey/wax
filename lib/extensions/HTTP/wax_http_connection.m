@@ -49,6 +49,7 @@
 }
 
 - (void)cancel {
+	wax_log(LOG_NETWORK, @"CANCELING (%@) %@", [_request HTTPMethod], [_request URL]);
     _canceled = YES;
     [super cancel];
 }
