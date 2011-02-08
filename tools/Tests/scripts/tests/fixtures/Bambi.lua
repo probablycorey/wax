@@ -14,6 +14,10 @@ function initWithFood(self, food)
   return self
 end
 
+function setDeath(self, death)
+  self.super:setDeath(death)
+end
+
 function getAge(self)
   return self.age
 end

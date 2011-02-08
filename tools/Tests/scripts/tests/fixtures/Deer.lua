@@ -24,6 +24,10 @@ function initWithFood(self, food)
   return self.super:init()
 end
 
+function setDeath(self, death)
+  self.death = death
+end
+
 function getName(self)
   return self.name
 end

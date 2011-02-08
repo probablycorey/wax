@@ -59,10 +59,15 @@ describe["A WaxClass instance with an WaxClass Super"] = function()
   end
   
   it["is created via an overridden init method"] = function()
-    local o = Bambi:initWithFood("Beef")
-    expect(o:getFood()).should_be("Beef")
-    expect(o.bambiFood).should_be("BambiBeef")
-    expect(o.deerFood).should_be("DeerBeef")
+    local one = Bambi:initWithFood("Beef")
+    local two = Bambi:initWithFood("Grass")
+    expect(one:getFood()).should_be("Beef")
+    expect(one.bambiFood).should_be("BambiBeef")
+    expect(one.deerFood).should_be("DeerBeef")
+    
+    expect(two:getFood()).should_be("Grass")
+    expect(two.bambiFood).should_be("BambiGrass")
+    expect(two.deerFood).should_be("DeerGrass")
   end
   
   it["can call a super method"] = function()
@@ -73,6 +78,15 @@ describe["A WaxClass instance with an WaxClass Super"] = function()
   it["can call an overridden method"] = function()
     local o = Bambi:initWithAge(1)
     expect(o:tripleAge()).should_be(3)
+  end
+  
+  it["can call an overridden method that sets a lua varible on instance"] = function()
+    local one = Bambi:initWithAge(1)
+    local two = Bambi:initWithAge(2)
+    one:setDeath("gun")
+    two:setDeath("fire")
+    expect(one.death).should_be("gun")
+    expect(two.death).should_be("fire")
   end
   
   it["can call a super method that takes a function as a arg"] = function()
