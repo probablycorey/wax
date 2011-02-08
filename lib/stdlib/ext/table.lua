@@ -121,7 +121,7 @@ function table.groupBy(t, func)
 end
 
 function table.tostring(tbl, indent, limit, depth, jstack)
-  limit   = limit  or 20
+  limit   = limit  or 1000
   depth   = depth  or 7
   jstack  = jstack or {}
   local i = 0
