@@ -99,29 +99,32 @@ void wax_start(char* initScript, lua_CFunction extensionFunciton, ...) {
 		fprintf(stderr,"Error opening wax scripts: %s\n", lua_tostring(L,-1));
 	}
 
-	// Load app
-	// --------
-	char appLoadString[512];
-	snprintf(appLoadString, sizeof(appLoadString), "local f = '%s' require(f:gsub('%%.[^.]*$', ''))", initScript); // Strip the extension off the file.
-	if (luaL_dostring(L, appLoadString) != 0) {
-		fprintf(stderr,"Error opening wax scripts: %s\n", lua_tostring(L,-1));
-	}
-
 	// Run Tests or the REPL?
 	// ----------------------
 	NSDictionary *env = [[NSProcessInfo processInfo] environment];
     if ([[env objectForKey:@"WAX_TEST"] isEqual:@"YES"]) {
+		NSLog(@"Running Tests");
 		if (luaL_dostring(L, "require 'tests'") != 0) {
 			fprintf(stderr,"Fatal error running tests: %s\n", lua_tostring(L,-1));
         }
         exit(1);
     }
 	else if ([[env objectForKey:@"WAX_REPL"] isEqual:@"YES"]) {
+		NSLog(@"Starting REPL");
 		if (luaL_dostring(L, "require 'wax.repl'") != 0) {
             fprintf(stderr,"Fatal error starting the REPL: %s\n", lua_tostring(L,-1));
         }		
 		exit(1);
 	}
+	else {
+		// Load app
+		char appLoadString[512];
+		snprintf(appLoadString, sizeof(appLoadString), "local f = '%s' require(f:gsub('%%.[^.]*$', ''))", initScript); // Strip the extension off the file.
+		if (luaL_dostring(L, appLoadString) != 0) {
+			fprintf(stderr,"Error opening wax scripts: %s\n", lua_tostring(L,-1));
+		}
+	}
+
 }
 
 void wax_startWithServer() {		
