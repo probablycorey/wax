@@ -106,6 +106,14 @@ describe["A WaxClass instance with an WaxClass Super"] = function()
     local hash = o:hash()
     expect(hash).should_be("100:10")
   end
+
+  it["can call super method with multiple args"] = function()
+    local o = Bambi:initWithAge(10)
+    local a,b,c = o:returnsWhatYouSendIn(1,2,3)
+    expect(a).should_be(1)
+    expect(b).should_be(2)
+    expect(c).should_be(3)
+  end
 end
 
 describe["A WaxClass with an WaxClass Super"] = function()
@@ -123,7 +131,12 @@ describe["A WaxClass with an WaxClass Super"] = function()
     
     result = Bambi:isEqual(NSString)
     expect(result).should_be(false)
-    
   end
   
+  it["can call super method with multiple args"] = function()
+    local a, b, c = Bambi:returnsWhatYouSendIn(1,2,3)
+    expect(a).should_be(1)
+    expect(b).should_be(2)
+    expect(c).should_be(3)
+  end
 end

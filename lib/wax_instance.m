@@ -270,7 +270,7 @@ static int __index(lua_State *L) {
     lua_rawget(L, 3);
 
     // Check instance's class userdata
-    if (lua_isnil(L, -1) && !instanceUserdata->isClass && !instanceUserdata->isSuper) {        
+    if (lua_isnil(L, -1) &&  !instanceUserdata->isSuper) {        
         Class classToCheck = [instanceUserdata->instance class];
 
         // Keep checking superclasses if they are waxclasses, we want to treat those like they are lua
@@ -756,8 +756,6 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
 				argCount++;
 			}
             
-            //if (argCount == 0) continue; // When we are creating our own methods, just always assume there will be at least one argument
-
 			size_t typeDescriptionSize = 3 + argCount;
 			typeDescription = calloc(typeDescriptionSize + 1, sizeof(char));
 			memset(typeDescription, '@', typeDescriptionSize);

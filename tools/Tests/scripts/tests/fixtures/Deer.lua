@@ -11,6 +11,10 @@ function isEqual(class, other)
   return class.super:isEqual(other)
 end
 
+function returnsWhatYouSendIn(class, a, b, c)
+  return a, b, c
+end
+
 -- instance methods
 -------------------
 function initWithName(self, name)
