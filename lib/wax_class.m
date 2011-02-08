@@ -57,9 +57,9 @@ int luaopen_wax_class(lua_State *L) {
 // Finds an ObjC class
 static int __index(lua_State *L) {
     const char *className = luaL_checkstring(L, 2);
-    Class class = objc_getClass(className);
-    if (class) {
-        wax_instance_create(L, class, YES);
+    Class klass = objc_getClass(className);
+    if (klass) {
+        wax_instance_create(L, klass, YES);
     }
     else {
         lua_pushnil(L);
@@ -71,9 +71,9 @@ static int __index(lua_State *L) {
 // Creates a new ObjC class
 static int __call(lua_State *L) {   
     const char *className = luaL_checkstring(L, 2);
-    Class class = objc_getClass(className);
+    Class klass = objc_getClass(className);
     
-    if (class) { // Class should not already exist!
+    if (klass) { // Class should not already exist!
         luaL_error(L, "Trying to create a class named '%s', but one already exists.", className);
     }
     else {
@@ -94,24 +94,24 @@ static int __call(lua_State *L) {
             luaL_error(L, "Failed to create '%s'. Unknown superclass \"%s\" received.", className, luaL_checkstring(L, 3));
         }
         
-        class = objc_allocateClassPair(superClass, className, 0);
+        klass = objc_allocateClassPair(superClass, className, 0);
         NSUInteger size;
         NSUInteger alignment;
         NSGetSizeAndAlignment("*", &size, &alignment);
-        class_addIvar(class, WAX_CLASS_INSTANCE_USERDATA_IVAR_NAME, size, alignment, "*"); // Holds a reference to the lua userdata
-        objc_registerClassPair(class);        
+        class_addIvar(klass, WAX_CLASS_INSTANCE_USERDATA_IVAR_NAME, size, alignment, "*"); // Holds a reference to the lua userdata
+        objc_registerClassPair(klass);        
 
         // Make Key-Value complient
-        class_addMethod(class, @selector(setValue:forUndefinedKey:), (IMP)setValueForUndefinedKey, "v@:@@");
-        class_addMethod(class, @selector(valueForUndefinedKey:), (IMP)valueForUndefinedKey, "@@:@");        
+        class_addMethod(klass, @selector(setValue:forUndefinedKey:), (IMP)setValueForUndefinedKey, "v@:@@");
+        class_addMethod(klass, @selector(valueForUndefinedKey:), (IMP)valueForUndefinedKey, "@@:@");        
 
-        id metaclass = object_getClass(class);
+        id metaclass = object_getClass(klass);
         // So objects created in ObjC will get an associated lua object
         class_addMethod(metaclass, @selector(alloc), (IMP)alloc, "@@:");
         class_addMethod(metaclass, @selector(allocWithZone:), (IMP)allocWithZone, "@@:^{_NSZone=}");
     }
         
-    wax_instance_create(L, class, YES);
+    wax_instance_create(L, klass, YES);
     
     return 1;
 }
@@ -127,7 +127,7 @@ static int addProtocols(lua_State *L) {
     for (int i = 2; i <= lua_gettop(L); i++) {
         const char *protocolName = luaL_checkstring(L, i);
         Protocol *protocol = objc_getProtocol(protocolName);
-        if (!protocol) luaL_error(L, "Could not find protocol named '%s'\nHint: Sometimes the runtime cannot automatically find a protocol. Try adding it (via xCode) to file ProtocolLoader.h", protocolName);
+        if (!protocol) luaL_error(L, "Could not find protocol named '%s'\nHint: Sometimes the runtime cannot automatically find a protocol. Try adding it (via xCode) to the file ProtocolLoader.h", protocolName);
         class_addProtocol(instanceUserdata->instance, protocol);
     }
     

@@ -4,7 +4,7 @@ require 'rubygems'
 require 'xml'
 require 'erb'
 
-PROJECT_DIR = File.expand_path("../../..", __FILE__)
+PROJECT_DIR = Dir.pwd 
 XML.indent_tree_output = true
 XML.default_tree_indent_string = "\t"
 
@@ -15,7 +15,7 @@ class LuaClass
   attr :actions
 
   def self.all
-    lua_files = Dir["#{PROJECT_DIR}/data/**/*.lua"]
+    lua_files = Dir["#{PROJECT_DIR}/**/*.lua"]
     lua_files.map {|f| parse(open(f).read)}.compact
   end
   

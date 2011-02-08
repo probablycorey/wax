@@ -7,49 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0413C4A41201DE830069C579 /* wax.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0413C4A31201DE830069C579 /* wax.framework */; };
-		0422EC721135DFE6007F6343 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0422EC711135DFE6007F6343 /* libxml2.dylib */; };
-		04DC160F114708B7009D71CC /* OrangeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04DC160E114708B7009D71CC /* OrangeView.xib */; };
-		04DC1611114708BF009D71CC /* BlueView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04DC1610114708BF009D71CC /* BlueView.xib */; };
+		0444900512D253C800E8D955 /* wax.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0444900412D253C800E8D955 /* wax.framework */; };
+		0444901F12D2543B00E8D955 /* BlueView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0444901D12D2543B00E8D955 /* BlueView.xib */; };
+		0444902012D2543B00E8D955 /* OrangeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0444901E12D2543B00E8D955 /* OrangeView.xib */; };
+		0444902712D255D000E8D955 /* init.lua in Resources */ = {isa = PBXBuildFile; fileRef = 0444902412D255D000E8D955 /* init.lua */; };
+		0444902812D255D000E8D955 /* BlueController.lua in Resources */ = {isa = PBXBuildFile; fileRef = 0444902512D255D000E8D955 /* BlueController.lua */; };
+		0444902912D255D000E8D955 /* OrangeController.lua in Resources */ = {isa = PBXBuildFile; fileRef = 0444902612D255D000E8D955 /* OrangeController.lua */; };
+		1D3623260D0F684500981E51 /* IBExampleAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* IBExampleAppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765FC0DF74451002DB57D /* CoreGraphics.framework */; };
-		91373B241066B2B30089FEE3 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 91373B231066B2B30089FEE3 /* Entitlements.plist */; };
-		91373BF01066C8930089FEE3 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 91373BEF1066C8930089FEE3 /* Icon.png */; };
+		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXBuildRule section */
-		91373AF61066AFD70089FEE3 /* PBXBuildRule */ = {
-			isa = PBXBuildRule;
-			compilerSpec = com.apple.compilers.proxy.script;
-			filePatterns = "*.lua";
-			fileType = pattern.proxy;
-			isEditable = 1;
-			outputFiles = (
-			);
-			script = "echo \"Ignoring ${INPUT_FILE}\"";
-		};
-/* End PBXBuildRule section */
-
 /* Begin PBXFileReference section */
-		0413C4A31201DE830069C579 /* wax.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = wax.framework; sourceTree = "<group>"; };
-		0422EC711135DFE6007F6343 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
-		0482723B1125E152003DFACB /* ProtocolLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProtocolLoader.h; sourceTree = "<group>"; };
-		0482723C1125E152003DFACB /* WaxTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaxTextField.h; sourceTree = "<group>"; };
-		0482731611260912003DFACB /* AppDelegate.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AppDelegate.lua; sourceTree = "<group>"; };
-		0482731811260912003DFACB /* init.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = init.lua; sourceTree = "<group>"; };
-		04DC160E114708B7009D71CC /* OrangeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrangeView.xib; sourceTree = "<group>"; };
-		04DC1610114708BF009D71CC /* BlueView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BlueView.xib; sourceTree = "<group>"; };
+		0444900412D253C800E8D955 /* wax.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = wax.framework; sourceTree = SOURCE_ROOT; };
+		0444901D12D2543B00E8D955 /* BlueView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BlueView.xib; sourceTree = "<group>"; };
+		0444901E12D2543B00E8D955 /* OrangeView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrangeView.xib; sourceTree = "<group>"; };
+		0444902412D255D000E8D955 /* init.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = init.lua; path = scripts/init.lua; sourceTree = "<group>"; };
+		0444902512D255D000E8D955 /* BlueController.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = BlueController.lua; path = scripts/BlueController.lua; sourceTree = "<group>"; };
+		0444902612D255D000E8D955 /* OrangeController.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = OrangeController.lua; path = scripts/OrangeController.lua; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		1D3623240D0F684500981E51 /* IBExampleAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBExampleAppDelegate.h; sourceTree = "<group>"; };
+		1D3623250D0F684500981E51 /* IBExampleAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IBExampleAppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* IBExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IBExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		28AD733E0D9D9553002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* IBExample_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IBExample_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* IBExample-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "IBExample-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
-		91373B231066B2B30089FEE3 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = "<group>"; };
-		91373BEF1066C8930089FEE3 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,37 +48,28 @@
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
-				0422EC721135DFE6007F6343 /* libxml2.dylib in Frameworks */,
-				0413C4A41201DE830069C579 /* wax.framework in Frameworks */,
+				0444900512D253C800E8D955 /* wax.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0482731511260912003DFACB /* scripts */ = {
+		0444901212D253ED00E8D955 /* Scripts */ = {
 			isa = PBXGroup;
 			children = (
-				0482731611260912003DFACB /* AppDelegate.lua */,
-				0482731711260912003DFACB /* tests */,
+				0444902412D255D000E8D955 /* init.lua */,
+				0444902512D255D000E8D955 /* BlueController.lua */,
+				0444902612D255D000E8D955 /* OrangeController.lua */,
 			);
-			name = scripts;
-			path = data/scripts;
-			sourceTree = "<group>";
-		};
-		0482731711260912003DFACB /* tests */ = {
-			isa = PBXGroup;
-			children = (
-				0482731811260912003DFACB /* init.lua */,
-			);
-			path = tests;
+			name = Scripts;
 			sourceTree = "<group>";
 		};
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				0482723B1125E152003DFACB /* ProtocolLoader.h */,
-				0482723C1125E152003DFACB /* WaxTextField.h */,
+				1D3623240D0F684500981E51 /* IBExampleAppDelegate.h */,
+				1D3623250D0F684500981E51 /* IBExampleAppDelegate.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -106,9 +85,8 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				29B97316FDCFA39411CA2CEA /* main.m */,
+				0444901212D253ED00E8D955 /* Scripts */,
 				080E96DDFE201D6D7F000001 /* Classes */,
-				0482731511260912003DFACB /* scripts */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -121,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				32CA4F630368D1EE00C91783 /* IBExample_Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -128,11 +107,10 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				91373B231066B2B30089FEE3 /* Entitlements.plist */,
+				28AD733E0D9D9553002E5188 /* MainWindow.xib */,
+				0444901D12D2543B00E8D955 /* BlueView.xib */,
+				0444901E12D2543B00E8D955 /* OrangeView.xib */,
 				8D1107310486CEB800E47090 /* IBExample-Info.plist */,
-				91373BEF1066C8930089FEE3 /* Icon.png */,
-				04DC160E114708B7009D71CC /* OrangeView.xib */,
-				04DC1610114708BF009D71CC /* BlueView.xib */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -140,8 +118,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				0413C4A31201DE830069C579 /* wax.framework */,
-				0422EC711135DFE6007F6343 /* libxml2.dylib */,
+				0444900412D253C800E8D955 /* wax.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
@@ -156,13 +133,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "IBExample" */;
 			buildPhases = (
+				04155FA112D3D32C00FA4BA9 /* Build Framework */,
 				1D60588D0D05DD3D006BFB54 /* Resources */,
 				1D60588E0D05DD3D006BFB54 /* Sources */,
 				1D60588F0D05DD3D006BFB54 /* Frameworks */,
-				91E31E0110644C62009BA4E9 /* Run Wax Scripts */,
 			);
 			buildRules = (
-				91373AF61066AFD70089FEE3 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -178,7 +154,14 @@
 			isa = PBXProject;
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "IBExample" */;
 			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
 			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -193,29 +176,32 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				91373B241066B2B30089FEE3 /* Entitlements.plist in Resources */,
-				91373BF01066C8930089FEE3 /* Icon.png in Resources */,
-				04DC160F114708B7009D71CC /* OrangeView.xib in Resources */,
-				04DC1611114708BF009D71CC /* BlueView.xib in Resources */,
+				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
+				0444901F12D2543B00E8D955 /* BlueView.xib in Resources */,
+				0444902012D2543B00E8D955 /* OrangeView.xib in Resources */,
+				0444902712D255D000E8D955 /* init.lua in Resources */,
+				0444902812D255D000E8D955 /* BlueController.lua in Resources */,
+				0444902912D255D000E8D955 /* OrangeController.lua in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		91E31E0110644C62009BA4E9 /* Run Wax Scripts */ = {
+		04155FA112D3D32C00FA4BA9 /* Build Framework */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Run Wax Scripts";
+			name = "Build Framework";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"$PROJECT_DIR/wax.framework/resources/copy-scripts\"";
+			shellPath = /bin/zsh;
+			shellScript = "# If the framework doesn't exist, build it\nif [ ! -d wax.framework ]; then\n\tcd ../../tools/framework\n\trake package\nfi";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -225,6 +211,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
+				1D3623260D0F684500981E51 /* IBExampleAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -244,8 +231,6 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = IBExample_Prefix.pch;
-				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
-				HEADER_SEARCH_PATHS = "$(SDK_ROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "IBExample-Info.plist";
 				PRODUCT_NAME = IBExample;
 			};
@@ -262,80 +247,22 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = IBExample_Prefix.pch;
-				HEADER_SEARCH_PATHS = "$(SDK_ROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "IBExample-Info.plist";
 				PRODUCT_NAME = IBExample;
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
-		};
-		91373B1B1066B28C0089FEE3 /* Ad Hoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
-				SDKROOT = iphoneos4.0;
-			};
-			name = "Ad Hoc";
-		};
-		91373B1C1066B28C0089FEE3 /* Ad Hoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
-				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)\"",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = IBExample_Prefix.pch;
-				HEADER_SEARCH_PATHS = "$(SDK_ROOT)/usr/include/libxml2";
-				INFOPLIST_FILE = "IBExample-Info.plist";
-				PRODUCT_NAME = IBExample;
-			};
-			name = "Ad Hoc";
-		};
-		91373B201066B2980089FEE3 /* Distribution */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				GCC_C_LANGUAGE_STANDARD = c99;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				PREBINDING = NO;
-				SDKROOT = iphoneos4.0;
-			};
-			name = Distribution;
-		};
-		91373B211066B2980089FEE3 /* Distribution */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)\"",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = IBExample_Prefix.pch;
-				HEADER_SEARCH_PATHS = "$(SDK_ROOT)/usr/include/libxml2";
-				INFOPLIST_FILE = "IBExample-Info.plist";
-				PRODUCT_NAME = IBExample;
-			};
-			name = Distribution;
 		};
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				PREBINDING = NO;
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -343,11 +270,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
-				SDKROOT = iphoneos4.0;
+				SDKROOT = iphoneos;
 			};
 			name = Release;
 		};
@@ -359,8 +288,6 @@
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
 				1D6058950D05DD3E006BFB54 /* Release */,
-				91373B1C1066B28C0089FEE3 /* Ad Hoc */,
-				91373B211066B2980089FEE3 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -370,8 +297,6 @@
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,
 				C01FCF5008A954540054247B /* Release */,
-				91373B1B1066B28C0089FEE3 /* Ad Hoc */,
-				91373B201066B2980089FEE3 /* Distribution */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

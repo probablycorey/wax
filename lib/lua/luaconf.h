@@ -82,12 +82,12 @@
 */
 
 // BEGIN WAX PATCH
-#ifndef WAX_DATA_DIR
-#define WAX_DATA_DIR "data"
+#ifndef WAX_SCRIPTS_DIR
+#define WAX_SCRIPTS_DIR "scripts"
 #endif
 
-#define LUA_ROOT "./"
-#define LUA_PATH_DEFAULT LUA_ROOT WAX_DATA_DIR "/scripts/?.dat;" LUA_ROOT WAX_DATA_DIR "/scripts/?.lua;" LUA_ROOT WAX_DATA_DIR "/scripts/?/init.lua;"
+#define LUA_PATH_DEFAULT WAX_SCRIPTS_DIR "/?.lua;" WAX_SCRIPTS_DIR "/?/init.lua;" WAX_SCRIPTS_DIR "/?.dat;"\
+						 "?.lua;" "?/init.lua;" "?.dat;"
 #define LUA_CPATH_DEFAULT ""
 
 #ifndef WAX_LUA_INIT_SCRIPT

@@ -3,6 +3,6 @@
 <plist version="1.0">
 <dict>
 	<key>Description</key>
-	<string>Wax iPhone application!</string>
+	<string>This template provides a starting point for any application. It provides just an application delegate and a window.</string>
 </dict>
 </plist>

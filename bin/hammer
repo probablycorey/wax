@@ -114,7 +114,7 @@ class Hammer
   def self.headless  
     return if not @should_run_headless
     if ENV["PLATFORM_NAME"] !~ /simulator/
-      puts "Can only run tests on the simulator not #{ENV["PLATFORM_NAME"]}"
+      puts "Can only be run on the simulator not #{ENV["PLATFORM_NAME"]}"
       exit 1
     end
   

@@ -636,19 +636,19 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
     BOOL success = NO;
     const char *methodName = lua_tostring(L, 2);
     SEL selector = wax_selectorForInstance(instanceUserdata, methodName, YES);
-    Class class = [instanceUserdata->instance class];
+    Class klass = [instanceUserdata->instance class];
     
     char *typeDescription = nil;
     char *returnType = nil;
     
-    Method method = class_getInstanceMethod(class, selector);
+    Method method = class_getInstanceMethod(klass, selector);
         
     if (method) { // Is method defined in the superclass?
         typeDescription = (char *)method_getTypeEncoding(method);        
         returnType = method_copyReturnType(method);
     }
     else { // Is this method implementing a protocol?
-        Class currentClass = class;
+        Class currentClass = klass;
         
         while (!returnType && [currentClass superclass] != [currentClass class]) { // Walk up the object heirarchy
             uint count;
@@ -735,8 +735,8 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
                 break;
         }
 		
-		id metaclass = objc_getMetaClass(object_getClassName(class));		
-		success = class_addMethod(class, selector, imp, typeDescription) && class_addMethod(metaclass, selector, imp, typeDescription);
+		id metaclass = objc_getMetaClass(object_getClassName(klass));		
+		success = class_addMethod(klass, selector, imp, typeDescription) && class_addMethod(metaclass, selector, imp, typeDescription);
 		
         free(returnType);                
     }
@@ -756,18 +756,16 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
 				argCount++;
 			}
             
-            //if (argCount == 0) continue; // When we are creating our own methods, just always assume there will be at least one argument
-
 			size_t typeDescriptionSize = 3 + argCount;
 			typeDescription = calloc(typeDescriptionSize + 1, sizeof(char));
 			memset(typeDescription, '@', typeDescriptionSize);
 			typeDescription[2] = ':'; // Never forget _cmd!
 			
 			IMP imp = (IMP)WAX_METHOD_NAME(id);
-			id metaclass = objc_getMetaClass(object_getClassName(class));
+			id metaclass = objc_getMetaClass(object_getClassName(klass));
 
 			success = success &&
-				class_addMethod(class, possibleSelectors[i], imp, typeDescription) &&
+				class_addMethod(klass, possibleSelectors[i], imp, typeDescription) &&
 				class_addMethod(metaclass, possibleSelectors[i], imp, typeDescription);
 			
 			free(typeDescription);

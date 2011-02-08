@@ -66,9 +66,11 @@
     #define LOG_FLAGS (LOG_FATAL | LOG_DEBUG)
 #endif
 
-#define LOG_GC 1
-#define LOG_DEBUG 2
-#define LOG_FATAL 4
+#define LOG_DEBUG	1 << 0
+#define LOG_FATAL	1 << 2
+
+#define LOG_GC		1 << 3
+#define LOG_NETWORK	1 << 4
 
 // Debug Helpers
 void wax_printStack(lua_State *L);

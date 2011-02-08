@@ -1,1 +1,1 @@
-import "wax/lib/project.rake"
+wax.framework/Resources/project.rake

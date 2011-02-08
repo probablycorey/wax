@@ -1,27 +1,5 @@
-If you don't want to include the wax source, you can just use Wax.Framework
+To build this framework, you first need to build a 32bit compatible version of Lua. Directions [found here](https://github.com/probablycorey/wax/wiki/Luac)
 
-How to add Wax to an exisitng project
----
+After the 32bit version is installed and accessible via `/usr/bin/env lua` from **WAX_ROOT/tools/framework** run `rake package`. wax.framework should now be in **WAX_ROOT/framework/wax.framework**
 
-1. Open your project in xcode and drag Wax.framework into the frameworks folder. Make sure you click the "Copy items into destination group's folder" box.
-2. In the Groups & Files Pane, expand the "Targets" section
-3. Right click on your project and select Add > New Build Phase > New Run Script Build Phase
-4. A weird little window will open up that lets you input a script, add this line...
-
-    "$PROJECT_DIR/wax.framework/Resources/copy-scripts.sh"
-
-5. Open up your AppDelegate file and import the wax header file by
-   adding this line...
-
-    #import "wax/wax.h"
-
-6. In your AppDelegate's *application:didFinishLaunchingWithOptions:*
-   method, add this line.
-
-   wax_start()
-
-   // To add wax with extensions, use this line instead
-
-   // wax_startWithExtensions(luaopen_wax_http, luaopen_wax_json, luaopen_wax_xml, luaopen_wax_filesystem, nil);
-
-All done, build your app and you will see Lua printed out some code, it will tell you where to keep your scripts
+Documentation on how to use the wax framework can be found here https://github.com/probablycorey/wax/wiki/Installation-framework

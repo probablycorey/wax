@@ -1,40 +1,27 @@
-Wax
-===
+Wax is a framework that lets you write native iPhone apps in 
+[Lua](http://www.lua.org/about.html). It bridges Objective-C and Lua using the 
+Objective-C runtime. With Wax, **anything** you can do in Objective-C is **automatically**
+available in Lua! What are you waiting for, give it a shot!
 
-Wax is a framework that lets you write iPhone apps in [Lua](http://www.lua.org/about.html). It bridges Objective-C and Lua using the Objective-C runtime. With Wax, anything you can do in Objective-C is **automatically** available in Lua! What are you waiting for, give it a shot!
+Why write iPhone apps in Lua?
+---------------------------------------
 
-Setup
------
+I love writing iPhone apps, but would rather write them in a dynamic language than in Objective-C. Here 
+are some reasons why many people prefer Lua + Wax over Objective-C...
 
-1. Clone wax [http://github.com/probablycorey/wax/](http://github.com/probablycorey/wax/)
+* Automatic Garbage Collection! Gone are the days of alloc, retain, and release.
 
-2. From the command line, **cd** into wax folder created above and type **rake install**. This will install an xcode project template.
+* Less Code! No more header files, no more static types, array and dictionary literals! 
+  Lua enables you to get more power out of less lines of code.
 
-3. Open up xcode and create a new **Wax** project, it should be located under the **User Tempates** section.
-
-4. Build and Run! You've got lua running on the iPhone!
-
-5. Start editing **wax/data/scripts/AppDelegate.lua** to make your app!
-
-Why?
-----
-
-I love writing iPhone apps, but would rather write them in a dynamic language than in Objective-C. Here are some reasons why many people prefer Lua + Wax over Objective-C...
-
-* Automatic Garbage Collection! Gone are the days of release and autorelease.
-
-* Less Code! No more header files, no more static types, array and dictionary literals! Lua enables you to get more power out of less lines of code.
-
-* Access to every Cocoa, UITouch, Foundation, etc.. framework, if it's written in Objective-C, Wax exposes it to Lua automatically. All the frameworks you love are all available to you!
+* Access to every Cocoa, UITouch, Foundation, etc.. framework, if it's written in Objective-C, 
+  Wax exposes it to Lua automatically. All the frameworks you love are all available to you!
 
 * Super easy HTTP requests. Interacting with a REST webservice has never been eaiser
 
 * Lua has closures, also known as blocks! Anyone who has used these before knows how powerful they can be.
 
 * Lua has a build in Regex-like pattern matching library.
-
-
-You get all of this with Lua, with no downside!
 
 Examples
 --------
@@ -105,14 +92,14 @@ Since Wax converts NSString, NSArray, NSDictionary and NSNumber to native Lua va
     local size = toobjc(testString):sizeWithFont(bigFont)
     puts(size)
 
-Tutorials
----------
+Setup & Tutorials
+-----------------
 
-[Setting up iPhone wax](http://probablyinteractive.com/2009/10/18/Setting-up-iPhone-Wax.html)
+[Setting up Wax](https://github.com/probablycorey/wax/wiki/Installation)
 
-[How does iPhone Wax work?](http://probablyinteractive.com/2009/10/19/How-does-iPhone-Wax-work.html)
+[How does Wax work?](https://github.com/probablycorey/wax/wiki/Overview)
 
-[Twitter client in Wax](http://probablyinteractive.com/2009/10/20/Wax-talks-to-twitter.html)
+[Simple Twitter client in Wax](https://github.com/probablycorey/wax/wiki/Twitter)
 
 Which API's are included?
 -------------------------
@@ -122,13 +109,6 @@ They all are! I can't stress this enough, anything that is written in Objective-
 Created By
 ----------
 Corey Johnson (probablycorey at gmail dot com)
-
-Acknowledgements
-----------------
-
-[Aman Gupta](http://github.com/tmm1): For adding YAJL JSON support.
-
-[Apple](http://www.apple.com/iphone/): For creating such an awesome development platform.
 
 More
 ----

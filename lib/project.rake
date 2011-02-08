@@ -1,9 +1,10 @@
 TEXTMATE_FILE="TEXTMATE"
 WAX_PATH = File.expand_path("wax")
+WAX_PATH = File.expand_path("wax.framework/Resources") if not File.exists?(WAX_PATH)
 
 desc "Create a Wax TextMate project"
 task :tm => "TEXTMATE" do
-  sh "mate #{TEXTMATE_FILE} ./data ./wax/lib/wax-scripts"
+  sh "mate #{TEXTMATE_FILE} ./scripts ./wax/lib/stdlib"
   sh "mate #{TEXTMATE_FILE}"
 end
 
@@ -73,7 +74,7 @@ namespace :git do
   task :sub do
     rm_rf WAX_PATH
     sh "git init"
-    sh "git submodule add git://github.com/probablycorey/wax.git wax"
+    sh "git submodule add git@github.com:probablycorey/wax.git wax"
   end
 end
 
