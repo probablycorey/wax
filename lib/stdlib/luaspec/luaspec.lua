@@ -132,6 +132,20 @@ matchers = {
     return true
   end;
   
+  should_be_greater_than = function(value, expected)
+    if expected >= value then
+      return false, "got " .. tostring(value) .. " expecting value > " .. tostring(expected)
+    end
+    return true
+  end;
+
+  should_be_less_than = function(value, expected)
+    if expected <= value then
+      return false, "got " .. tostring(value) .. " expecting value < " .. tostring(expected)
+    end
+    return true
+  end;
+  
   should_error = function(f)
     if pcall(f) then
       return false, "expecting an error but received none"
