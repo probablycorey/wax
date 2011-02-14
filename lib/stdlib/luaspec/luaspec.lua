@@ -31,38 +31,34 @@ end
 function spec:report(verbose)
   local report = Report:new(self)
 
-  if report.num_failed == 0 and not verbose then
-    print "all tests passed"
-    return
-  end
-  
-  for i, result in pairs(report.results) do
-    print(("%s\n================================"):format(result.name))
+  if report.num_failed ~= 0 or verbose then
+    for i, result in pairs(report.results) do
+      print(("\n%s\n================================"):format(result.name))
     
-    for description, r in pairs(result.spec_results) do
-      local outcome = r.passed and 'pass' or "FAILED"
+      for description, r in pairs(result.spec_results) do
+        local outcome = r.passed and 'pass' or "FAILED"
 
-      if verbose or not (verbose and r.passed) then
-        print(("%-70s [ %s ]"):format(" - " .. description, outcome))
+        if verbose or not (verbose and r.passed) then
+          print(("%-70s [ %s ]"):format(" - " .. description, outcome))
 
-        table.foreach(r.errors, function(index, error)
-          print("   " .. index ..". Failed expectation : " .. error.message .. "\n   "..error.trace)
-        end)
+          table.foreach(r.errors, function(index, error)
+            print("   " .. index ..". Failed expectation : " .. error.message .. "\n   "..error.trace)
+          end)
+        end
       end
     end
   end
 
   local summary = [[
-  
-  
-========== Summary =============
+
+========== %s =============
 %s Failed
 %s Passed
 --------------------------------
 %s Run, %.2f%% Success rate
 ]]
 
-  print(summary:format(report.num_failed, report.num_passed, report.total, report.percent))
+  print(summary:format(report.num_failed == 0 and "Success" or "Failure", report.num_failed, report.num_passed, report.total, report.percent))
 end
 
 function spec:add_results(success, message, trace)
@@ -206,7 +202,6 @@ local function expect(target)
     __index = function(_, matcher)
       return function(...)
         local success, message = matchers[matcher](target, ...)
-      
         spec:add_results(success, message, debug.traceback())
       end
     end
@@ -281,8 +276,12 @@ function Context:run()
       self:run_afters(env)
     
       if not success then
+        io.write("x")
         spec:add_results(false, message, debug.traceback())
-      end    
+      else
+        io.write(".")
+      end  
+      io.flush()  
     
       -- restore stored values for mocks
       for key, old_value in pairs(mocks) do

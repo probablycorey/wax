@@ -103,14 +103,14 @@ void wax_start(char* initScript, lua_CFunction extensionFunciton, ...) {
 	// ----------------------
 	NSDictionary *env = [[NSProcessInfo processInfo] environment];
     if ([[env objectForKey:@"WAX_TEST"] isEqual:@"YES"]) {
-		NSLog(@"Running Tests");
+		printf("Running Tests\n");
 		if (luaL_dostring(L, "require 'tests'") != 0) {
 			fprintf(stderr,"Fatal error running tests: %s\n", lua_tostring(L,-1));
         }
         exit(1);
     }
 	else if ([[env objectForKey:@"WAX_REPL"] isEqual:@"YES"]) {
-		NSLog(@"Starting REPL");
+		printf("Starting REPL\n");
 		if (luaL_dostring(L, "require 'wax.repl'") != 0) {
             fprintf(stderr,"Fatal error starting the REPL: %s\n", lua_tostring(L,-1));
         }		
