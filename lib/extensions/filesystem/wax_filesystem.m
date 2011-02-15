@@ -225,16 +225,22 @@ static int createDir(lua_State *L) {
 //     path: string # deletes the path or directory (EVEN IF DIRECTORY HAS CONTENTS)
 static int delete(lua_State *L) {
     NSString *path = [NSString stringWithUTF8String:luaL_checkstring(L, 1)];
-    
+	
+	BOOL success = YES;
     NSFileManager *fm = [NSFileManager defaultManager];    
-    NSError *error = nil;
-    BOOL success = [fm removeItemAtPath:path error:&error];
+	if ([fm fileExistsAtPath:path]) {	
+		NSError *error = nil;
+		success = [fm removeItemAtPath:path error:&error];
 
-    if (!success) {
-        wax_log(LOG_DEBUG, @"Could not delete file at '%@'\n%@", path, [error localizedDescription]);
-    }
-    
-    lua_pushboolean(L, success);
+		if (!success) {
+			wax_log(LOG_DEBUG, @"Could not delete file at '%@'\n%@", path, [error localizedDescription]);
+		}
+	}
+	else {
+		wax_log(LOG_DEBUG, @"Trying to delete path that does not exist '%@'", path);
+	}
+	
+	lua_pushboolean(L, success);
     
     return 1;
 }
