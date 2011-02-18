@@ -57,7 +57,7 @@ int luaopen_wax_instance(lua_State *L) {
 }
 
 #pragma mark Instance Utils
-#pragma -------------------
+#pragma mark -------------------
 
 // Creates userdata object for obj-c instance/class and pushes it onto the stack
 wax_instance_userdata *wax_instance_create(lua_State *L, id instance, BOOL isClass) {
@@ -260,7 +260,7 @@ BOOL wax_instance_isWaxClass(id instance) {
 
 
 #pragma mark Override Metatable Functions
-#pragma ---------------------------------
+#pragma mark ---------------------------------
 
 static int __index(lua_State *L) {
     wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);    
@@ -361,7 +361,7 @@ static int __eq(lua_State *L) {
 }
 
 #pragma mark Userdata Functions
-#pragma -----------------------
+#pragma mark -----------------------
 
 static int methods(lua_State *L) {
     wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);
@@ -381,7 +381,7 @@ static int methods(lua_State *L) {
 }
 
 #pragma mark Function Closures
-#pragma ----------------------
+#pragma mark ----------------------
 
 static int methodClosure(lua_State *L) {
     if (![[NSThread currentThread] isEqual:[NSThread mainThread]]) NSLog(@"METHODCLOSURE: OH NO SEPERATE THREAD");
@@ -547,7 +547,7 @@ static int customInitMethodClosure(lua_State *L) {
 }
 
 #pragma mark Override Methods
-#pragma ---------------------
+#pragma mark ---------------------
 
 static int pcallUserdata(lua_State *L, id self, SEL selector, va_list args) {
     BEGIN_STACK_MODIFY(L)    
@@ -751,7 +751,7 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
             
 			int argCount = 0;
 			char *match = (char *)sel_getName(selector);
-			while (match = strchr(match, ':')) {
+			while ((match = strchr(match, ':'))) {
 				match += 1; // Skip past the matched char
 				argCount++;
 			}
