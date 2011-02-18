@@ -271,13 +271,18 @@ function Context:run()
       self:run_befores(env)
   
       setfenv(spec_func, env)
-      local success, message = pcall(spec_func)
+      local message
+      local traceback
+      local success = xpcall(spec_func, function(err)
+        message = err
+        traceback = debug.traceback("", 2)
+      end)
 
       self:run_afters(env)
     
       if not success then
         io.write("x")
-        spec:add_results(false, message, debug.traceback())
+        spec:add_results(false, message, traceback)
       else
         io.write(".")
       end  
