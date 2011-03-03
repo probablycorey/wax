@@ -109,7 +109,7 @@ task :adhoc do
     puts output
   else
     provisioning_id = output[/PROVISIONING_PROFILE\s+([\w\-]+)/, 1]
-    provisioning_profile = `grep -rl '#{provisioning_id}' '#{ENV['HOME']}/Library/MobileDevice/Provisioning\ Profiles/'`.strip
+    provisioning_profile = `grep -rl '#{provisioning_id}' '#{ENV['HOME']}/Library/MobileDevice/Provisioning\ Profiles/'`.split("\n").first.strip
   
     raise "Could not find the Ad Hoc provisioning profile matching #{provisioning_id}" if not provisioning_profile
 

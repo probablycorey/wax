@@ -364,3 +364,9 @@ NSOrderedDescending = 1
 UITableViewCellSeparatorStyleNone = 0
 UITableViewCellSeparatorStyleSingleLine = 1
 UITableViewCellSeparatorStyleSingleLineEtched = 2
+
+-- CLAuthorizationStatus
+kCLAuthorizationStatusNotDetermined = 0
+kCLAuthorizationStatusRestricted = 1
+kCLAuthorizationStatusDenied = 2
+kCLAuthorizationStatusAuthorized = 3
