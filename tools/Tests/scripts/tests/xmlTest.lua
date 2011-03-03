@@ -97,15 +97,21 @@ describe["XML generating"] = function()
     expect(result:find("xmlns:my=\"http://wtf.org\"")).should_not_be(nil)
     expect(result:find("my:cool=\"yes\"")).should_not_be(nil)
   end
-  -- 
-  -- it["generates nested elements with the same name as an array"] = function()
-  --   local result = wax.xml.parse("<names><name>corey</name><name>bob</name><name>phill</name></names>")    
-  --   expect(type(result.names.name)).should_be("table")
-  --   expect(#result.names.name).should_be(3)
-  --   expect(result.names.name[1].text).should_be("corey")
-  --   expect(result.names.name[2].text).should_be("bob")
-  --   expect(result.names.name[3].text).should_be("phill")
-  -- end
+
+  it["generates multiple elements from an array"] = function()
+    local result = removeDeclaration(
+      {names = 
+        {name = {
+          { text = "corey" },
+          { text = "bob" },
+          { text = "phill" }
+          }}})
+    expect(result:find("<name>corey</name>")).should_not_be(nil)
+    expect(result:find("<name>bob</name>")).should_not_be(nil)
+    expect(result:find("<name>phill</name>")).should_not_be(nil)
+    expect(result:find("<names><name>")).should_not_be(nil)
+    expect(result:find("</name></names>")).should_not_be(nil)
+  end
   
   it["generates elements named text (with optional names specified)"] = function()
     local result = removeDeclaration(
