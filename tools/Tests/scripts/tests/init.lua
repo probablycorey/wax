@@ -8,6 +8,7 @@ require "tests.structTest"
 require "tests.gcTest"
 require "tests.jsonTest"
 require "tests.xmlTest"
+require "tests.base64Test"
 
 puts("\nResults\n-------")
 spec:report()

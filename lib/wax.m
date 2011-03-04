@@ -67,19 +67,19 @@ void wax_setup() {
 	[wax_gc start];
 }
 
-void wax_start(char* initScript, lua_CFunction extensionFunciton, ...) {
+void wax_start(char* initScript, lua_CFunction extensionFunction, ...) {
 	wax_setup();
 	
 	lua_State *L = wax_currentLuaState();
 	
 	// Load extentions
 	// ---------------
-	if (extensionFunciton) { 
-        extensionFunciton(L);
+	if (extensionFunction) {
+        extensionFunction(L);
 		
         va_list ap;
-        va_start(ap, extensionFunciton);
-        while((extensionFunciton = va_arg(ap, lua_CFunction))) extensionFunciton(L);
+        va_start(ap, extensionFunction);
+        while((extensionFunction = va_arg(ap, lua_CFunction))) extensionFunction(L);
 		
         va_end(ap);
     }
