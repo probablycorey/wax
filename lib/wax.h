@@ -7,7 +7,7 @@
 #define WAX_VERSION 0.93
 
 void wax_setup();
-void wax_start(char *initScript, lua_CFunction extensionFuncitons, ...);
+void wax_start(char *initScript, lua_CFunction extensionFunctions, ...);
 void wax_startWithServer();
 void wax_end();
 
