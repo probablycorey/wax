@@ -52,7 +52,9 @@ function decode(data)
   local result=""
   for dpos=0,string.len(data)-1,4 do
     for char=1,4 do chars[char] = base64bytes[(string.sub(data,(dpos+char),(dpos+char)) or "=")] end
-    result = string.format('%s%s%s%s',result,string.char(lor(lsh(chars[1],2), rsh(chars[2],4))),(chars[3] ~= nil) and string.char(lor(lsh(chars[2],4), rsh(chars[3],2))) or "",(chars[4] ~= nil) and string.char(lor(lsh(chars[3],6) % 192, (chars[4]))) or "")
+    result = result .. string.char(lor(lsh(chars[1],2), rsh(chars[2],4)))
+    result = result .. ((chars[3] ~= nil) and string.char(lor(lsh(chars[2],4), rsh(chars[3],2))) or "")
+    result = result .. ((chars[4] ~= nil) and string.char(lor(lsh(chars[3],6) % 192, (chars[4]))) or "")
   end
   return result
 end
