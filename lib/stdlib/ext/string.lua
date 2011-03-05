@@ -17,7 +17,7 @@ function string.split(s, sep)
 end
 
 function string.strip(s, pattern)
-  pattern = pattern or "%s"
+  pattern = pattern or "%s+"
   s = s:gsub("^" .. pattern, "")
   s = s:gsub(pattern .. "$", "")
   return s
