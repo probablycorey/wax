@@ -4,6 +4,9 @@ function initWithLatLong(self, lat, long)
   self.super:init()
   self.lat = lat
   self.long = long
+  
+  -- These variables have underscores because they would have conflicted with 
+  -- method names required by the MKAnnotation protocol.
   self._title = 'Untitled'
   self._subtitle = ''
 end

@@ -2,16 +2,14 @@
 //  main.m
 //  MapKitExample
 //
-//  Created by Daniel Lindsley on 1/30/11.
-//  Copyright __MyCompanyName__ 2010. All rights reserved.
+//  Created by Corey on 3/5/11.
+//  Copyright me 2011. All rights reserved.
 //
 // This where the magic happens!
 // Wax doesn't use nibs to load the main view, everything is done within the
 // AppDelegate.lua file
 
 #import <UIKit/UIKit.h>
-
-#import "ProtocolLoader.h"
 
 #import "wax.h"
 #import "wax_http.h"
@@ -21,7 +19,7 @@
 int main(int argc, char *argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     
-    wax_startWithExtensions(luaopen_wax_http, luaopen_wax_json, luaopen_wax_xml, nil);
+    wax_start("AppDelegate", luaopen_wax_http, luaopen_wax_json, luaopen_wax_xml, nil);
     
     int retVal = UIApplicationMain(argc, argv, nil, @"AppDelegate");
     [pool release];
