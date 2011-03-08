@@ -161,6 +161,13 @@ static void addGlobals(lua_State *L) {
     
     lua_pushstring(L, [[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"] UTF8String]);
     lua_setfield(L, -2, "appVersion");
+
+#if TARGET_IPHONE_SIMULATOR
+	lua_pushboolean(L, YES);
+#else
+	lua_pushboolean(L, NO);
+#endif
+	lua_setfield(L, -2, "isSimulator");
     
     lua_pushcfunction(L, waxRoot);
     lua_setfield(L, -2, "root");
