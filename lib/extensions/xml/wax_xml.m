@@ -129,6 +129,8 @@ static void createTable(lua_State *L, xmlNode *node, char *textLabel, char *attr
                 lua_rawset(L, -3);
                 
                 break;                
+            case XML_COMMENT_NODE: // do nothing if it's a comment
+                break;
             default:
                 // I have no idea what these things are... XML is for weirdos
                 luaL_error(L, "UNKNOWN NODE TYPE %d", node->type);
