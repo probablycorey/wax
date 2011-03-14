@@ -73,7 +73,7 @@ end
 
 function table.removeValue(t, value)
   local index = table.indexOf(t, value)
-  table.remove(t, index)
+  if index then table.remove(t, index) end
   return t
 end
 
