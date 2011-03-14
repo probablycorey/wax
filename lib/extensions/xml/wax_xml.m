@@ -202,6 +202,29 @@ static void createAttributes(lua_State *L, xmlNodePtr node) {
     }
 }
 
+static BOOL isNumericIndexedArray(lua_State *L, int idx) {
+    BOOL isArray = NO;
+    if (lua_istable(L, idx)) {
+        lua_pushnil(L);
+        if (lua_next(L, idx-1)) {
+            isArray = (lua_isnumber(L, -2) && lua_tointeger(L, -2) == 1);
+            lua_pop(L, 2);
+        }
+    }
+    return isArray;
+}
+
+static void createXML(lua_State *L, xmlDocPtr doc, xmlNodePtr node, char *textLabel, char *attrsLabel);
+
+static void createElement(lua_State *L, xmlDocPtr doc, xmlNodePtr node, const char *name, char *textLabel, char *attrsLabel) {
+    xmlNodePtr childNode = xmlNewNode(NULL, BAD_CAST name);
+    xmlAddChild(node, childNode);
+    createXML(L, doc, childNode, textLabel, attrsLabel);
+    
+    if (!node) // Root node.
+        xmlDocSetRootElement(doc, childNode);
+}
+
 static void createXML(lua_State *L, xmlDocPtr doc, xmlNodePtr node, char *textLabel, char *attrsLabel) {
     if (lua_isstring(L, -1)) { // Could just be a string. If so, just set the text of the node
         xmlNodePtr textNode = xmlNewText(BAD_CAST lua_tostring(L, -1));
@@ -221,12 +244,21 @@ static void createXML(lua_State *L, xmlDocPtr doc, xmlNodePtr node, char *textLa
             createAttributes(L, node);
         }
         else {
-            xmlNodePtr childNode = xmlNewNode(NULL, BAD_CAST name);
-            xmlAddChild(node, childNode);
-            createXML(L, doc, childNode, textLabel, attrsLabel);
-
+            if (isNumericIndexedArray(L, -1)) {
+                lua_pushnil(L);
+                while (lua_next(L, -2)) {
+                    createElement(L, doc, node, name, textLabel, attrsLabel); 
+                    if (!node) { // Ignore duplicate root nodes
+                        lua_pop(L, 2);
+                        break;
+                    }
+                    lua_pop(L, 1);
+                }
+            }
+            else {
+                createElement(L, doc, node, name, textLabel, attrsLabel);
+            }
             if (!node) { // Root node. Ignore other root nodes
-                xmlDocSetRootElement(doc, childNode);
                 lua_pop(L, 2); // remove the value and the key
                 break;
             }
@@ -235,7 +267,6 @@ static void createXML(lua_State *L, xmlDocPtr doc, xmlNodePtr node, char *textLa
         lua_pop(L, 1); // remove the value
     }
 }
-
 
 static int generate(lua_State *L) {
     BEGIN_STACK_MODIFY(L);
