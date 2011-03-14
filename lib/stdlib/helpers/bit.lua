@@ -94,7 +94,7 @@ local function expand(tbl_m, tbl_n)
 
 end
 
-local function bit_or(m, n)
+local function bit_or(m, n, ...)
  local tbl_m = to_bits(m)
  local tbl_n = to_bits(n)
  expand(tbl_m, tbl_n)
@@ -109,10 +109,17 @@ local function bit_or(m, n)
   end
  end
  
- return tbl_to_number(tbl)
+ local result = tbl_to_number(tbl)
+ if ... then
+   local args = {...}
+   local n = table.remove(args, 1)
+   return bit_or(result, n, #args > 0 and args or nil) 
+ else
+   return result
+ end
 end
 
-local function bit_and(m, n)
+local function bit_and(m, n, ...)
  local tbl_m = to_bits(m)
  local tbl_n = to_bits(n)
  expand(tbl_m, tbl_n) 
@@ -127,7 +134,14 @@ local function bit_and(m, n)
   end
  end
 
- return tbl_to_number(tbl)
+ local result = tbl_to_number(tbl)
+ if ... then
+   local args = {...}
+   local n = table.remove(args, 1)
+   return bit_and(result, n, #args > 0 and args or nil) 
+ else
+   return result
+ end
 end
 
 local function bit_not(n)
