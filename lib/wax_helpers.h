@@ -87,7 +87,7 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
 
 // Misc Helpers
 void wax_selectorsForName(const char *methodName, SEL selectors[2]);
-SEL wax_selectorForInstance(wax_instance_userdata *instanceUserdata, const char *methodName, BOOL forceInstanceCheck);
+BOOL wax_selectorForInstance(wax_instance_userdata *instanceUserdata, SEL* foundSelectors, const char *methodName, BOOL forceInstanceCheck);
 void wax_pushMethodNameFromSelector(lua_State *L, SEL selector);
 BOOL wax_isInitMethod(const char *methodName);
 

@@ -546,23 +546,30 @@ void wax_selectorsForName(const char *methodName, SEL possibleSelectors[2]) {
     free(objcMethodName);
 }
 
-SEL wax_selectorForInstance(wax_instance_userdata *instanceUserdata, const char *methodName, BOOL forceInstanceCheck) {    
+BOOL wax_selectorForInstance(wax_instance_userdata *instanceUserdata, SEL* foundSelectors, const char *methodName, BOOL forceInstanceCheck) {    
     SEL possibleSelectors[2];
     wax_selectorsForName(methodName, possibleSelectors);
     
     for (int i = 0; i < 2; i++) {
         SEL selector = possibleSelectors[i];
         if (!selector) continue; // There may be only one acceptable selector (i.e. methods with multiple keyword args)
-
+        
+        BOOL addSelector = NO;
         if (instanceUserdata->isClass && (forceInstanceCheck || wax_isInitMethod(methodName))) {
-            if ([instanceUserdata->instance instanceMethodSignatureForSelector:selector]) return selector;
+            if ([instanceUserdata->instance instanceMethodSignatureForSelector:selector]) addSelector = YES;
         }
         else {
-            if ([instanceUserdata->instance methodSignatureForSelector:selector]) return selector;
+            if ([instanceUserdata->instance methodSignatureForSelector:selector]) addSelector = YES;
         }    
+        
+        if (addSelector) {
+            if (!foundSelectors[0]) foundSelectors[0] = selector;
+            else foundSelectors[1] = selector;
+        }
     }
     
-    return nil;
+    // True if it found any selectors
+    return foundSelectors[0] || foundSelectors[1];
 }
 
 void wax_pushMethodNameFromSelector(lua_State *L, SEL selector) {

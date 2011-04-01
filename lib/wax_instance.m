@@ -300,11 +300,13 @@ static int __index(lua_State *L) {
     }
             
     if (lua_isnil(L, -1)) { // If we are calling a super class, or if we couldn't find the index in the userdata environment table, assume it is defined in obj-c classes
-        SEL selector = wax_selectorForInstance(instanceUserdata, lua_tostring(L, 2), NO);
+        SEL foundSelectors[2] = {nil, nil};
+        BOOL foundSelector = wax_selectorForInstance(instanceUserdata, foundSelectors, lua_tostring(L, 2), NO);
 
-        if (selector) { // If the class has a method with this name, push as a closure
-            lua_pushstring(L, sel_getName(selector));
-            lua_pushcclosure(L, instanceUserdata->actAsSuper ? superMethodClosure : methodClosure, 1);
+        if (foundSelector) { // If the class has a method with this name, push as a closure
+            lua_pushstring(L, sel_getName(foundSelectors[0]));
+            foundSelectors[1] ? lua_pushstring(L, sel_getName(foundSelectors[1])) : lua_pushnil(L);
+            lua_pushcclosure(L, instanceUserdata->actAsSuper ? superMethodClosure : methodClosure, 2);
         }
     }
     else if (!instanceUserdata->isSuper && instanceUserdata->isClass && wax_isInitMethod(lua_tostring(L, 2))) { // Is this an init method create in lua?
@@ -388,6 +390,12 @@ static int methodClosure(lua_State *L) {
 
     wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);    
     const char *selectorName = luaL_checkstring(L, lua_upvalueindex(1));
+
+    // If the only arg is 'self' and there is a selector with no args. USE IT!
+    if (lua_gettop(L) == 1 && lua_isstring(L, lua_upvalueindex(2))) {
+        selectorName = luaL_checkstring(L, lua_upvalueindex(2));
+    }
+    
     SEL selector = sel_getUid(selectorName);
     BOOL autoAlloc = NO;
         
@@ -495,7 +503,13 @@ static int methodClosure(lua_State *L) {
 
 static int superMethodClosure(lua_State *L) {
     wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);
-    const char *selectorName = luaL_checkstring(L, lua_upvalueindex(1));    
+    const char *selectorName = luaL_checkstring(L, lua_upvalueindex(1));
+
+    // If the only arg is 'self' and there is a selector with no args. USE IT!
+    if (lua_gettop(L) == 1 && lua_isstring(L, lua_upvalueindex(2))) {
+        selectorName = luaL_checkstring(L, lua_upvalueindex(2));
+    }
+    
     SEL selector = sel_getUid(selectorName);
     
     // Super Swizzle
@@ -635,7 +649,14 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
     BEGIN_STACK_MODIFY(L);
     BOOL success = NO;
     const char *methodName = lua_tostring(L, 2);
-    SEL selector = wax_selectorForInstance(instanceUserdata, methodName, YES);
+
+    SEL foundSelectors[2] = {nil, nil};
+    wax_selectorForInstance(instanceUserdata, foundSelectors, methodName, YES);
+    SEL selector = foundSelectors[0];
+    if (foundSelectors[1]) {
+        NSLog(@"Found two selectors that match %s. Defaulting to %s over %s", methodName, foundSelectors[0], foundSelectors[1]);
+    }
+    
     Class klass = [instanceUserdata->instance class];
     
     char *typeDescription = nil;
