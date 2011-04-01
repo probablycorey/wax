@@ -45,7 +45,7 @@ else
   cp -r "$SOURCE_SCRIPTS_DIR/" "$DESTINATION_SCRIPTS_DIR"
 fi
 
-# This forces the data dir to be reloaded on the device
-#THE_FUTURE=$(date -v +2M -j +"%m%d%H%M")
-#touch -t $THE_FUTURE "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH"/*
-touch "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH"/*
+# This forces xcode to load all the Lua scripts (without having to clean
+# the project first"
+THE_FUTURE=$(date -v +1M -j +"%m%d%H%M")
+touch -t $THE_FUTURE "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH"/*.plist
