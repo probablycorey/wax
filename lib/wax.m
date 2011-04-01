@@ -168,9 +168,10 @@ static void addGlobals(lua_State *L) {
     lua_pushcfunction(L, waxPrint);
     lua_setfield(L, -2, "print");    
     
-    
-    lua_pushcfunction(L, objcDebug);
-    lua_setfield(L, -2, "debug");    
+#ifdef DEBUG
+    lua_pushboolean(L, YES);
+    lua_setfield(L, -2, "isDebug");
+#endif
     
     lua_pop(L, 1); // pop the wax global off
     
@@ -243,10 +244,5 @@ static int toobjc(lua_State *L) {
 
 static int exitApp(lua_State *L) {
     exit(0);
-    return 0;
-}
-
-static int objcDebug(lua_State *L) {
-    NSLog(@"DEBUGGEG!");
     return 0;
 }
