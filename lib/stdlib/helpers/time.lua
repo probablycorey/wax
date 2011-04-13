@@ -12,6 +12,20 @@ function wax.time.days(number)
   return number * wax.time.hours(24)
 end
 
+-- Pattern match formats found here http://unicode.org/reports/tr35/tr35-6.html#Date_Format_Patterns
+function wax.time.formatDate(date, pattern)
+  if not wax.time._outputFormatter then wax.time._outputFormatter = NSDateFormatter:init() end
+  wax.time._outputFormatter:setDateFormat(pattern or "MMMM d")
+  return wax.time._outputFormatter:stringFromDate(date)
+end
+
+-- Pattern match formats found here http://unicode.org/reports/tr35/tr35-6.html#Date_Format_Patterns
+function wax.time.parseDate(date, pattern)
+  if not wax.time._inputFormatter then wax.time._inputFormatter = NSDateFormatter:init() end
+  wax.time._inputFormatter:setDateFormat(pattern or "yyyy-MM-dd'T'HH:mm:ss'Z'")
+  return wax.time._inputFormatter:dateFromString(date)
+end
+
 function wax.time.beginingOfDay(date)
   local calendar = NSCalendar:currentCalendar()
   local dateComponents = calendar:components_fromDate(-1, date)
