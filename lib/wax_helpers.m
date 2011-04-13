@@ -84,6 +84,24 @@ void wax_log(int flag, NSString *format, ...) {
     }
 }
 
+int wax_getStackTrace(lua_State *L) {
+    lua_getfield(L, LUA_GLOBALSINDEX, "debug");
+    if (!lua_istable(L, -1)) {
+        lua_pop(L, 1);
+        return 1;
+    }
+    
+    lua_getfield(L, -1, "traceback");
+    if (!lua_isfunction(L, -1)) {
+        lua_pop(L, 2);
+        return 1;
+    }    
+    lua_remove(L, -2); // Remove debug
+    
+    lua_call(L, 0, 1);    
+    return 1;
+}
+
 int wax_fromObjc(lua_State *L, const char *typeDescription, void *buffer) {
     BEGIN_STACK_MODIFY(L)
     

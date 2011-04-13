@@ -78,6 +78,7 @@ void wax_printStackAt(lua_State *L, int i);
 void wax_printTable(lua_State *L, int t);
 void wax_log(int flag, NSString *format, ...);
 
+int wax_getStackTrace(lua_State *L);
 // Convertion Helpers
 int wax_fromObjc(lua_State *L, const char *typeDescription, void *buffer);
 void wax_fromInstance(lua_State *L, id instance);

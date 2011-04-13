@@ -38,6 +38,14 @@ lua_State *wax_currentLuaState() {
 
 void uncaughtExceptionHandler(NSException *e) {
     NSLog(@"ERROR: Uncaught exception %@", [e description]);
+    lua_State *L = wax_currentLuaState();
+    
+    if (L) {
+        wax_getStackTrace(L);
+        const char *stackTrace = luaL_checkstring(L, -1);
+        NSLog(@"%s", stackTrace);
+        lua_pop(L, -1); // remove the stackTrace
+    }
 }
 
 int wax_panic(lua_State *L) {
