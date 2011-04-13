@@ -63,22 +63,23 @@
 #define END_STACK_MODIFY(L, i) while(lua_gettop((L)) > (__startStackIndex + (i))) lua_remove((L), __startStackIndex + 1);
 
 #ifndef LOG_FLAGS
-    #define LOG_FLAGS (LOG_FATAL | LOG_DEBUG)
+    #define LOG_FLAGS (LOG_FATAL | LOG_ERROR | LOG_DEBUG)
 #endif
 
 #define LOG_DEBUG	1 << 0
+#define LOG_ERROR	1 << 1
 #define LOG_FATAL	1 << 2
 
-#define LOG_GC		1 << 3
-#define LOG_NETWORK	1 << 4
+#define LOG_GC		1 << 5
+#define LOG_NETWORK	1 << 6
 
 // Debug Helpers
 void wax_printStack(lua_State *L);
 void wax_printStackAt(lua_State *L, int i);
 void wax_printTable(lua_State *L, int t);
 void wax_log(int flag, NSString *format, ...);
-
 int wax_getStackTrace(lua_State *L);
+
 // Convertion Helpers
 int wax_fromObjc(lua_State *L, const char *typeDescription, void *buffer);
 void wax_fromInstance(lua_State *L, id instance);
