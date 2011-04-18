@@ -85,7 +85,7 @@ end
 
 function table.find(t, func)
   for k, v in pairs(t) do
-    if func(v) then return v end
+    if func(v) then return v, k end
   end
   
   return nil
