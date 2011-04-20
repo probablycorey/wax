@@ -28,7 +28,7 @@ end
 
 function wax.time.beginingOfDay(date)
   local calendar = NSCalendar:currentCalendar()
-  local dateComponents = calendar:components_fromDate(-1, date)
+  local dateComponents = calendar:components_fromDate(-1, date or NSDate:date())
   local newComponents = NSDateComponents:init()
   newComponents:setYear(dateComponents:year())
   newComponents:setMonth(dateComponents:month())
@@ -71,5 +71,17 @@ function wax.time.timeAgoInWords(firstDate, secondDate)
   elseif years < 2 then return "almost 2 years"
   elseif minutes <= 1051199 then return "about 1 year"
   else return ("over %d years"):format(years)
+  end
+end
+
+function wax.time.since(date, referenceDate)
+  local difference = (referenceDate or NSDate:date()):timeIntervalSince1970() - date:timeIntervalSince1970()
+  local timeSinceMidnight = wax.time.beginingOfDay():timeIntervalSince1970() - date:timeIntervalSince1970()
+  
+  -- Also returns the preposition as second arg
+  if difference < wax.time.days(1) and difference < timeSinceMidnight then return wax.time.formatDate(date, "h:mm a"), "at"
+  elseif difference < wax.time.days(2) then return "Yesterday", ""
+  elseif difference < wax.time.days(7) then return wax.time.formatDate(date, "EEEE"), "on"
+  else return wax.time.formatDate(date, "MM/dd/yy"), "on"
   end
 end
