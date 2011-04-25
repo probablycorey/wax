@@ -12,7 +12,7 @@ namespace :tm do
   desc "Install textmate lua & wax bundles"
   task :install_bundles do
     sh "mkdir -p ~/Library/Application\\ Support/TextMate/Bundles/"
-    
+
     lua_bundle_dir = "~/Library/Application\\ Support/TextMate/Bundles/Lua.tmbundle"
     if not sh("test -e #{lua_bundle_dir}") {|ok, status| ok} # This is bad code...
       sh "curl -L http://github.com/textmate/lua.tmbundle/tarball/master | tar xvz"
@@ -33,14 +33,14 @@ Some tips to make life easier
 
 1) Install the Lua and Wax TextMate Bundles.
   a) Either type "rake tm:install_bundles"
-  
-     Or, you can manually install the bundles from 
+
+     Or, you can manually install the bundles from
      http://github.com/textmate/lua.tmbundle and
      http://github.com/probablycorey/Wax.tmbundle
      into ~/Library/Application\ Support/TextMate/Bundles
-     
+
   b) From TextMate click Bundles > Bundle Editor > Reload Bundles
-  
+
       TEXTMATE_HELP
     end
   end
@@ -50,18 +50,18 @@ desc "Update the wax lib with the lastest code"
 task :update do
   puts
   puts "User Input Required!"
-  puts "--------------------"  
+  puts "--------------------"
   print "About to remove wax directory '#{WAX_PATH}' and replace it with an updated version (y/n) "
 
   if STDIN.gets !~ /^y/i
     puts "Exiting... nothing was done!"
     return
-  end  
-  
+  end
+
   tmp_dir = "./_wax-download"
   rm_rf tmp_dir
   mkdir_p tmp_dir
-  sh "curl -L http://github.com/probablycorey/wax/tarball/master | tar -C #{tmp_dir} -x -z"  
+  sh "curl -L http://github.com/probablycorey/wax/tarball/master | tar -C #{tmp_dir} -x -z"
   rm_rf WAX_PATH
   sh "mv #{tmp_dir}/* \"#{WAX_PATH}\""
   rm_rf tmp_dir
@@ -69,7 +69,7 @@ end
 
 desc "Git specific tasks"
 namespace :git do
-  
+
   desc "make the wax folder a submodule"
   task :sub do
     rm_rf WAX_PATH
@@ -95,35 +95,29 @@ end
 
 desc "Package an adhoc build"
 task :adhoc do
-  if not ENV["sdk"]
-    raise "\nYou need to specify an sdk!\nUsage: rake adhoc sdk=iphoneos3.0\n"
-  end
-    
-  
-  sh "#{WAX_PATH}/bin/hammer clean"
-  rm_rf "build"
+  #sh "#{WAX_PATH}/bin/hammer clean"
+  #rm_rf "build"
 
-  output = `#{WAX_PATH}/bin/hammer --sdk #{ENV["sdk"]} -c 'Ad\\ Hoc' -v`
+  output = `#{WAX_PATH}/bin/hammer -c 'Ad\\ Hoc' -v`
   success = ($? == 0)
-  if not success 
+  if not success
     puts output
   else
+    puts output
     provisioning_id = output[/PROVISIONING_PROFILE\s+([\w\-]+)/, 1]
     provisioning_profile = `grep -rl '#{provisioning_id}' '#{ENV['HOME']}/Library/MobileDevice/Provisioning\ Profiles/'`.split("\n").first.strip
-  
-    raise "Could not find the Ad Hoc provisioning profile matching #{provisioning_id}" if not provisioning_profile
+    puts provisioning_id
 
-    timestamp = Time.now.strftime("%m-%d-%y")
-    dir = "adhoc-builds/#{timestamp}"
-    rm_rf dir
-    mkdir_p dir
+    raise "Could not find the Ad Hoc provisioning profile matching #{provisioning_id}" if not provisioning_profile or not provisioning_id
 
-    app_file = Dir["build/Ad Hoc-iphoneos/*.app"]          
-    
-    sh "cp '#{provisioning_profile}' '#{dir}'"
-    sh "mv '#{app_file}' '#{dir}'"
-    sh "cd '#{dir}'; zip -r adhoc-#{timestamp}.zip ./*"
-    sh "open #{dir}"
+    app_file = output[/CODESIGNING_FOLDER_PATH\s+(.*?)$/, 1]
+    executable_name = output[/EXECUTABLE_NAME\s+(.*?)$/, 1]
+    output_dir = "archive"
+    rm_rf output_dir
+    mkdir output_dir
+
+    sh "zip -r #{output_dir}/#{executable_name}.ipa '#{provisioning_profile}' #{app_file}"
+    sh "open #{output_dir}"
   end
 end
 
@@ -138,16 +132,16 @@ task :distribution do
 
   output = `#{WAX_PATH}/bin/hammer --sdk #{ENV["sdk"]} -c 'Distribution' -v`
   success = ($? == 0)
-  if not success 
+  if not success
     puts output
   else
     timestamp = Time.now.strftime("%m-%d-%y")
     dir = "distribution-builds/#{timestamp}"
     rm_rf dir
     mkdir_p dir
-    
+
     app_file = Dir["build/Distribution-iphoneos/*.app"]
-    
+
     sh "mv '#{app_file}' '#{dir}'"
     sh "cd '#{dir}'; zip -r distribution.zip ./*"
     sh "open #{dir}"
