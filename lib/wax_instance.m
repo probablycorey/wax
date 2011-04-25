@@ -340,8 +340,22 @@ static int __gc(lua_State *L) {
     
     wax_log(LOG_GC, @"Releasing %@ %@(%p)", instanceUserdata->isClass ? @"Class" : @"Instance", [instanceUserdata->instance class], instanceUserdata->instance);
     
-    if (!instanceUserdata->isClass && !instanceUserdata->isSuper) {        
+    if (!instanceUserdata->isClass && !instanceUserdata->isSuper) {
+        // This seems like a stupid hack. But...
+        // If we want to call methods on an object durring gc, we have to readd 
+        // the instance/userdata to the userdata table. Why? Because it is 
+        // removed from the weak table before GC is called.
+        wax_instance_pushUserdataTable(L);        
+        lua_pushlightuserdata(L, instanceUserdata->instance);        
+        lua_pushvalue(L, -3);
+        lua_rawset(L, -3);
+        
         [instanceUserdata->instance release];
+        
+        lua_pushlightuserdata(L, instanceUserdata->instance);        
+        lua_pushnil(L);
+        lua_rawset(L, -3);
+        lua_pop(L, 1);
     }
     
     return 0;
