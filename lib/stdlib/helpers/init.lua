@@ -37,15 +37,22 @@ end
 --   pcall(function() wax.print(tostring(obj)) end)
 -- end
 
-function puts(obj, ...)
+function wax.tostring(obj, ...)
   if type(obj) == "table" then 
-    print(table.tostring(obj))
-    return
+    return table.tostring(obj)
   end
   
-  if ... then obj = string.format(tostring(obj), ...) end
+  if ... then 
+    obj = string.format(tostring(obj), ...) 
+  else
+    obj = tostring(obj)
+  end
   
-  print(obj)
+  return obj
+end
+
+function puts(obj, ...)
+  print(wax.tostring(obj, ...))
 end
 
 function wax.guid()
