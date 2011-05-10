@@ -370,3 +370,8 @@ kCLAuthorizationStatusNotDetermined = 0
 kCLAuthorizationStatusRestricted = 1
 kCLAuthorizationStatusDenied = 2
 kCLAuthorizationStatusAuthorized = 3
+
+-- UIEventType
+UIEventTypeTouches = 0
+UIEventTypeMotion = 1
+UIEventTypeRemoteControl = 2
