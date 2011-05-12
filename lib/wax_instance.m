@@ -554,7 +554,7 @@ static int customInitMethodClosure(lua_State *L) {
     }
     
     if (lua_isnil(L, -1)) { // The init method returned nil... return the instanceUserdata instead
-		wax_instance_pushUserdata(L, instanceUserdata->instance);
+		luaL_error(L, "Init method must return the self");
     }
   
     return 1;
