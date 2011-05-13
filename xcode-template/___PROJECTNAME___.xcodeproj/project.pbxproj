@@ -18,7 +18,6 @@
 		04A6187412CA7AB6004ADB76 /* yajl_gen.c in Sources */ = {isa = PBXBuildFile; fileRef = 04A617F612CA7AB6004ADB76 /* yajl_gen.c */; };
 		04A6187512CA7AB6004ADB76 /* yajl_lex.c in Sources */ = {isa = PBXBuildFile; fileRef = 04A617F812CA7AB6004ADB76 /* yajl_lex.c */; };
 		04A6187612CA7AB6004ADB76 /* yajl_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 04A617FB12CA7AB6004ADB76 /* yajl_parser.c */; };
-		04A6187A12CA7AB6004ADB76 /* wax_xml.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A6180512CA7AB6004ADB76 /* wax_xml.m */; };
 		04A6187B12CA7AB6004ADB76 /* lapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 04A6180712CA7AB6004ADB76 /* lapi.c */; };
 		04A6187C12CA7AB6004ADB76 /* lauxlib.c in Sources */ = {isa = PBXBuildFile; fileRef = 04A6180912CA7AB6004ADB76 /* lauxlib.c */; };
 		04A6187D12CA7AB6004ADB76 /* lbaselib.c in Sources */ = {isa = PBXBuildFile; fileRef = 04A6180B12CA7AB6004ADB76 /* lbaselib.c */; };
@@ -93,8 +92,6 @@
 		04A617FB12CA7AB6004ADB76 /* yajl_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yajl_parser.c; sourceTree = "<group>"; };
 		04A617FC12CA7AB6004ADB76 /* yajl_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = yajl_parser.h; sourceTree = "<group>"; };
 		04A617FD12CA7AB6004ADB76 /* yajl-1.0.9.tar.gz */ = {isa = PBXFileReference; lastKnownFileType = archive.gzip; path = "yajl-1.0.9.tar.gz"; sourceTree = "<group>"; };
-		04A6180412CA7AB6004ADB76 /* wax_xml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_xml.h; sourceTree = "<group>"; };
-		04A6180512CA7AB6004ADB76 /* wax_xml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_xml.m; sourceTree = "<group>"; };
 		04A6180712CA7AB6004ADB76 /* lapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lapi.c; sourceTree = "<group>"; };
 		04A6180812CA7AB6004ADB76 /* lapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lapi.h; sourceTree = "<group>"; };
 		04A6180912CA7AB6004ADB76 /* lauxlib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lauxlib.c; sourceTree = "<group>"; };
@@ -246,7 +243,6 @@
 				04A617DC12CA7AB6004ADB76 /* filesystem */,
 				04A617DF12CA7AB6004ADB76 /* http */,
 				04A617E412CA7AB6004ADB76 /* json */,
-				04A6180312CA7AB6004ADB76 /* xml */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -316,15 +312,6 @@
 				04A617EC12CA7AB6004ADB76 /* yajl_parse.h */,
 			);
 			path = api;
-			sourceTree = "<group>";
-		};
-		04A6180312CA7AB6004ADB76 /* xml */ = {
-			isa = PBXGroup;
-			children = (
-				04A6180412CA7AB6004ADB76 /* wax_xml.h */,
-				04A6180512CA7AB6004ADB76 /* wax_xml.m */,
-			);
-			path = xml;
 			sourceTree = "<group>";
 		};
 		04A6180612CA7AB6004ADB76 /* lua */ = {
@@ -606,7 +593,6 @@
 				04A6187412CA7AB6004ADB76 /* yajl_gen.c in Sources */,
 				04A6187512CA7AB6004ADB76 /* yajl_lex.c in Sources */,
 				04A6187612CA7AB6004ADB76 /* yajl_parser.c in Sources */,
-				04A6187A12CA7AB6004ADB76 /* wax_xml.m in Sources */,
 				04A6187B12CA7AB6004ADB76 /* lapi.c in Sources */,
 				04A6187C12CA7AB6004ADB76 /* lauxlib.c in Sources */,
 				04A6187D12CA7AB6004ADB76 /* lbaselib.c in Sources */,
@@ -659,7 +645,6 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "___PROJECTNAMEASIDENTIFIER____Prefix.pch";
-				HEADER_SEARCH_PATHS = "$(SDK_ROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "___PROJECTNAMEASIDENTIFIER___-Info.plist";
 				PRODUCT_NAME = "___PROJECTNAME___";
 				WAX_COMPILE_SCRIPTS = "";
@@ -673,7 +658,6 @@
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "___PROJECTNAMEASIDENTIFIER____Prefix.pch";
-				HEADER_SEARCH_PATHS = "$(SDK_ROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "___PROJECTNAMEASIDENTIFIER___-Info.plist";
 				PRODUCT_NAME = "___PROJECTNAME___";
 				VALIDATE_PRODUCT = YES;
