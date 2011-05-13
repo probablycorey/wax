@@ -279,6 +279,7 @@ UITableViewRowAnimationLeft = 2
 UITableViewRowAnimationTop = 3
 UITableViewRowAnimationBottom = 4
 UITableViewRowAnimationNone = 5 -- available in iPhone 3.0
+UITableViewRowAnimationMiddle = 6
 
 -- UIViewAnimationTransition
 UIViewAnimationTransitionNone = 0
@@ -370,3 +371,26 @@ kCLAuthorizationStatusNotDetermined = 0
 kCLAuthorizationStatusRestricted = 1
 kCLAuthorizationStatusDenied = 2
 kCLAuthorizationStatusAuthorized = 3
+
+-- UISwipeGestureRecognizerDirection;
+UISwipeGestureRecognizerDirectionRight = math.pow(2, 0)
+UISwipeGestureRecognizerDirectionLeft = math.pow(2, 1)
+UISwipeGestureRecognizerDirectionUp = math.pow(2, 2)
+UISwipeGestureRecognizerDirectionDown = math.pow(2, 3)
+
+-- UIControlContentHorizontalAlignment
+UIControlContentHorizontalAlignmentCenter = 0
+UIControlContentHorizontalAlignmentLeft = 1
+UIControlContentHorizontalAlignmentRight = 2
+UIControlContentHorizontalAlignmentFill = 3
+
+-- UIControlContentVerticalAlignment
+UIControlContentVerticalAlignmentCenter = 0
+UIControlContentVerticalAlignmentTop = 1
+UIControlContentVerticalAlignmentBottom = 2
+UIControlContentVerticalAlignmentFill = 3
+
+-- UIEventType
+UIEventTypeTouches = 0
+UIEventTypeMotion = 1
+UIEventTypeRemoteControl = 2
