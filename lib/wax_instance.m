@@ -411,47 +411,32 @@ static int methodClosure(lua_State *L) {
     }
     
     SEL selector = sel_getUid(selectorName);
+    id instance = instanceUserdata->instance;
     BOOL autoAlloc = NO;
         
+    // If init is called on a class, auto-allocate it.    
     if (instanceUserdata->isClass && wax_isInitMethod(selectorName)) {
         autoAlloc = YES;
-
-        // If init is called on a class, allocate it.
-        id instance = [instanceUserdata->instance alloc];
-        object_getInstanceVariable(instance, WAX_CLASS_INSTANCE_USERDATA_IVAR_NAME, (void **)&instanceUserdata);
-        
-        // If a waxClass is alloc'd from ObjC it will automatically create a wax_instance_userdata
-        // if it's not a wax class we need to create it ourselves
-        if (!instanceUserdata) {
-            instanceUserdata = wax_instance_create(L, instance, NO);
-        }
-        else {
-            // Push the new instance data onto the stack
-            lua_pushlightuserdata(L, &instanceUserdata);
-        }
-
-        
-        // Also, replace the old userdata with the new one!
-        lua_replace(L, 1);
+        instance = [instance alloc];
     }
     
-    NSMethodSignature *signature = [instanceUserdata->instance methodSignatureForSelector:selector];
+    NSMethodSignature *signature = [instance methodSignatureForSelector:selector];
     if (!signature) {
-        const char *className = [NSStringFromClass([instanceUserdata->instance class]) UTF8String];
+        const char *className = [NSStringFromClass([instance class]) UTF8String];
         luaL_error(L, "'%s' has no method selector '%s'", className, selectorName);
     }
     
     NSInvocation *invocation = nil;
     invocation = [NSInvocation invocationWithMethodSignature:signature];
         
-    [invocation setTarget:instanceUserdata->instance];
+    [invocation setTarget:instance];
     [invocation setSelector:selector];
     
     int objcArgumentCount = [signature numberOfArguments] - 2; // skip the hidden self and _cmd argument
     int luaArgumentCount = lua_gettop(L) - 1;
     
     
-    if (objcArgumentCount > luaArgumentCount && !wax_instance_isWaxClass(instanceUserdata->instance)) { 
+    if (objcArgumentCount > luaArgumentCount && !wax_instance_isWaxClass(instance)) { 
         luaL_error(L, "Not Enough arguments given! Method named '%s' requires %d argument(s), you gave %d. (Make sure you used ':' to call the method)", selectorName, objcArgumentCount + 1, lua_gettop(L));
     }
     
@@ -465,10 +450,9 @@ static int methodClosure(lua_State *L) {
         [invocation invoke];
     }
     @catch (NSException *exception) {
-        luaL_error(L, "Error invoking method '%s' on '%s' because %s", selector, class_getName([instanceUserdata->instance class]), [[exception description] UTF8String]);
+        luaL_error(L, "Error invoking method '%s' on '%s' because %s", selector, class_getName([instance class]), [[exception description] UTF8String]);
     }
     
-    // Free the arguements
     for (int i = 0; i < objcArgumentCount; i++) {
         free(arguements[i]);
     }
@@ -476,37 +460,28 @@ static int methodClosure(lua_State *L) {
     
     int methodReturnLength = [signature methodReturnLength];
     if (methodReturnLength > 0) {
-        // TODO use lua buffers for strings
         void *buffer = calloc(1, methodReturnLength);
         [invocation getReturnValue:buffer];
             
         wax_fromObjc(L, [signature methodReturnType], buffer);
                 
-        if (lua_isuserdata(L, -1) && (
-            autoAlloc || // If autoAlloc'd then we assume the returned object is the same as the alloc'd method (gets around placeholder problem)
-            strcmp(selectorName, "alloc") == 0 || // If this object was alloc, retain, copy then don't "auto retain"
-            strcmp(selectorName, "copy") == 0 || 
-            strcmp(selectorName, "mutableCopy") == 0 ||
-            strcmp(selectorName, "allocWithZone") == 0 ||
-            strcmp(selectorName, "copyWithZone") == 0 ||
-            strcmp(selectorName, "mutableCopyWithZone") == 0)) {
-            // strcmp(selectorName, "retain") == 0 || // explicit retaining should not autorelease
-            
-            wax_instance_userdata *returnedObjLuaInstance = (wax_instance_userdata *)lua_topointer(L, -1);
-            wax_log(LOG_GC, @"Releasing %@(%p) autoAlloc=%d", [returnedObjLuaInstance->instance class], instanceUserdata->instance, autoAlloc);            
-            [returnedObjLuaInstance->instance release];
-        }
-        else if (autoAlloc && lua_isnil(L, -1)) {
-            // The init method returned nil... means initialization failed!
-            // Remove it from the userdataTable (We don't ever want to clean up after this... it should have cleaned up after itself)
-            wax_instance_pushUserdataTable(L);
-            lua_pushlightuserdata(L, instanceUserdata->instance);
-            lua_pushnil(L);
-            lua_rawset(L, -3);
-            lua_pop(L, 1); // Pop the userdataTable
-            
-            // and zero out the userdata
-            instanceUserdata->instance = nil;
+        if (autoAlloc) {
+            if (lua_isnil(L, -1)) {
+                // The init method returned nil... means initialization failed!
+                // Remove it from the userdataTable (We don't ever want to clean up after this... it should have cleaned up after itself)
+                wax_instance_pushUserdataTable(L);
+                lua_pushlightuserdata(L, instance);
+                lua_pushnil(L);
+                lua_rawset(L, -3);
+                lua_pop(L, 1); // Pop the userdataTable
+                
+                lua_pushnil(L);
+                [instance release];
+            }
+            else {
+                wax_instance_userdata *returnedInstanceUserdata = (wax_instance_userdata *)lua_topointer(L, -1);
+                [returnedInstanceUserdata->instance release]; // Wax automatically retains a copy of the object, so the alloc needs to be released
+            }            
         }
         
         free(buffer);
@@ -551,8 +526,9 @@ static int customInitMethodClosure(lua_State *L) {
     wax_instance_userdata *instanceUserdata = nil;
 	
     if (classInstanceUserdata->isClass) {
-        instanceUserdata = wax_instance_create(L, [classInstanceUserdata->instance alloc], NO);
-        [instanceUserdata->instance release]; // The userdata takes care of retaining this now
+        id instance = [classInstanceUserdata->instance alloc];
+        instanceUserdata = wax_instance_create(L, instance, NO);
+        [instance release]; // The userdata takes care of retaining this now
         lua_replace(L, 1); // replace the old userdata with the new one!
     }
     else {
@@ -568,7 +544,7 @@ static int customInitMethodClosure(lua_State *L) {
     }
     
     if (lua_isnil(L, -1)) { // The init method returned nil... return the instanceUserdata instead
-		wax_instance_pushUserdata(L, instanceUserdata->instance);
+		luaL_error(L, "Init method must return the self");
     }
   
     return 1;
