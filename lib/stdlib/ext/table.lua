@@ -61,7 +61,11 @@ end
 
 function table.indexOf(t, value)
   for k, v in pairs(t) do
-    if v == value then return k end
+    if type(value) == "function" then
+      if value(v) then return k end
+    else
+      if v == value then return k end
+    end
   end
   
   return nil
