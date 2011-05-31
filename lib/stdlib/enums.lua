@@ -378,6 +378,12 @@ UISwipeGestureRecognizerDirectionLeft = math.pow(2, 1)
 UISwipeGestureRecognizerDirectionUp = math.pow(2, 2)
 UISwipeGestureRecognizerDirectionDown = math.pow(2, 3)
 
+-- UIControlContentHorizontalAlignment
+UIControlContentHorizontalAlignmentCenter = 0
+UIControlContentHorizontalAlignmentLeft = 1
+UIControlContentHorizontalAlignmentRight = 2
+UIControlContentHorizontalAlignmentFill = 3
+
 -- UIControlContentVerticalAlignment
 UIControlContentVerticalAlignmentCenter = 0
 UIControlContentVerticalAlignmentTop = 1
