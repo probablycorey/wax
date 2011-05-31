@@ -1,4 +1,11 @@
 function waxClass(options)
+  local class = waxInlineClass(options)
+  setfenv(2, class._M)
+  return class
+end
+
+-- So you can create a class without screwing with the function environment
+function waxInlineClass(options)
   local className = options[1]
   local superclassName = options[2]
   local class = wax.class(className, superclassName)
@@ -13,7 +20,7 @@ function waxClass(options)
     wax.class.addProtocols(class, protocol)
   end 
 
-  local _M = setmetatable({
+  class._M = setmetatable({
       self = class,
     },
     {
@@ -30,7 +37,6 @@ function waxClass(options)
 
   _G[className] = class
   package.loaded[className] = class
-  setfenv(2, _M)
   
   return class
 end
