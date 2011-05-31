@@ -476,22 +476,13 @@ static int methodClosure(lua_State *L) {
                 lua_pop(L, 1); // Pop the userdataTable
                 
                 lua_pushnil(L);
+                [instance release];
             }
             else {
-                // If a waxClass is alloc'd from ObjC it will automatically create a wax_instance_userdata
-                // if it's not a wax class we need to create it ourselves
-                wax_instance_userdata *waxInstanceUserdata = nil;
-                object_getInstanceVariable(instance, WAX_CLASS_INSTANCE_USERDATA_IVAR_NAME, (void **)&waxInstanceUserdata);
-                
-                if (waxInstanceUserdata) {
-                    // Push the new instance data onto the stack
-                    lua_pushlightuserdata(L, &waxInstanceUserdata);
+                wax_instance_userdata *returnedInstanceUserdata = (wax_instance_userdata *)lua_topointer(L, -1);
+                if (returnedInstanceUserdata) { // Could return nil
+                    [returnedInstanceUserdata->instance release]; // Wax automatically retains a copy of the object, so the alloc needs to be released
                 }
-
-                // It was alloc'd and then retained when wax_instance_create was called, so release it once
-                wax_instance_userdata *returnedObjLuaInstance = (wax_instance_userdata *)lua_topointer(L, -1);
-                wax_log(LOG_GC, @"Releasing %@(%p) autoAlloc=%d", [returnedObjLuaInstance->instance class], returnedObjLuaInstance->instance, autoAlloc);            
-                [returnedObjLuaInstance->instance release];               
             }            
         }
         
@@ -537,8 +528,9 @@ static int customInitMethodClosure(lua_State *L) {
     wax_instance_userdata *instanceUserdata = nil;
 	
     if (classInstanceUserdata->isClass) {
-        instanceUserdata = wax_instance_create(L, [classInstanceUserdata->instance alloc], NO);
-        [instanceUserdata->instance release]; // The userdata takes care of retaining this now
+        id instance = [classInstanceUserdata->instance alloc];
+        instanceUserdata = wax_instance_create(L, instance, NO);
+        [instance release]; // The userdata takes care of retaining this now
         lua_replace(L, 1); // replace the old userdata with the new one!
     }
     else {
@@ -654,7 +646,7 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
     wax_selectorForInstance(instanceUserdata, foundSelectors, methodName, YES);
     SEL selector = foundSelectors[0];
     if (foundSelectors[1]) {
-        NSLog(@"Found two selectors that match %s. Defaulting to %s over %s", methodName, foundSelectors[0], foundSelectors[1]);
+        //NSLog(@"Found two selectors that match %s. Defaulting to %s over %s", methodName, foundSelectors[0], foundSelectors[1]);
     }
     
     Class klass = [instanceUserdata->instance class];
