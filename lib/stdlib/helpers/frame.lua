@@ -55,7 +55,8 @@ function wax.dimensions(object, varName)
       elseif key == "origin" then dimensions.x = value.x dimensions.y = value.y        
       
       elseif key == "stretchBottom" then dimensions.height = math.max(0, dimensions.height - dimensions.y)
-      
+      elseif key == "stretchRight" then
+        dimensions.width = dimensions.width + (value - (dimensions.width + dimensions.x))
       else
         return nil
       end
