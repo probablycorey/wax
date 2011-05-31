@@ -49,3 +49,7 @@ fi
 # the project first"
 THE_FUTURE=$(date -v +1M -j +"%m%d%H%M")
 touch -t $THE_FUTURE "$BUILT_PRODUCTS_DIR/$CONTENTS_FOLDER_PATH"/*.plist
+
+# Note:
+# It's handy to see the env of the build processes, there is some good stuff in there!
+env
