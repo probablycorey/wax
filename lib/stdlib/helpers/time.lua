@@ -14,16 +14,30 @@ end
 
 -- Pattern match formats found here http://unicode.org/reports/tr35/tr35-6.html#Date_Format_Patterns
 function wax.time.formatDate(date, pattern)
-  if not wax.time._outputFormatter then wax.time._outputFormatter = NSDateFormatter:init() end
+  if not wax.time._outputFormatter then 
+    wax.time._outputFormatter = NSDateFormatter:init()
+    local locale = NSLocale:initWithLocaleIdentifier("en_US_POSIX")
+    wax.time._outputFormatter:setLocale(locale)
+  end
+
   wax.time._outputFormatter:setDateFormat(pattern or "MMMM d")
   return wax.time._outputFormatter:stringFromDate(date)
 end
 
 -- Pattern match formats found here http://unicode.org/reports/tr35/tr35-6.html#Date_Format_Patterns
-function wax.time.parseDate(date, pattern)
-  if not wax.time._inputFormatter then wax.time._inputFormatter = NSDateFormatter:init() end
-  wax.time._inputFormatter:setDateFormat(pattern or "yyyy-MM-dd'T'HH:mm:ss'Z'")
-  return wax.time._inputFormatter:dateFromString(date)
+function wax.time.parseDate(dateString, pattern)
+  -- I don't think NSDateFormatter can handle times with Z at the end. Someone
+  -- prove me wrong!
+  dateString = dateString:gsub("Z$", " GMT")
+  
+  if not wax.time._inputFormatter then 
+    wax.time._inputFormatter = NSDateFormatter:init() 
+    locale = NSLocale:initWithLocaleIdentifier("en_US_POSIX")
+    wax.time._inputFormatter:setLocale(locale)
+  end
+
+  wax.time._inputFormatter:setDateFormat(pattern or "yyyy-MM-dd'T'HH:mm:ss ZZZ")
+  return wax.time._inputFormatter:dateFromString(dateString)
 end
 
 function wax.time.beginingOfDay(date)
@@ -75,11 +89,12 @@ function wax.time.timeAgoInWords(firstDate, secondDate)
 end
 
 function wax.time.since(date, referenceDate)
-  local difference = (referenceDate or NSDate:date()):timeIntervalSince1970() - date:timeIntervalSince1970()
-  local timeSinceMidnight = wax.time.beginingOfDay():timeIntervalSince1970() - date:timeIntervalSince1970()
+  referenceDate = referenceDate or NSDate:date()
+  local difference = referenceDate:timeIntervalSince1970() - date:timeIntervalSince1970()
+  local timeSinceMidnight = date:timeIntervalSince1970() - wax.time.beginingOfDay():timeIntervalSince1970()
   
   -- Also returns the preposition as second arg
-  if difference < wax.time.days(1) and difference < timeSinceMidnight then return wax.time.formatDate(date, "h:mm a"), "at"
+  if difference < wax.time.days(1) and timeSinceMidnight > 0 then return wax.time.formatDate(date, "h:mm a"), "at"
   elseif difference < wax.time.days(2) then return "Yesterday", ""
   elseif difference < wax.time.days(7) then return wax.time.formatDate(date, "EEEE"), "on"
   else return wax.time.formatDate(date, "MM/dd/yy"), "on"
