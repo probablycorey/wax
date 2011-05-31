@@ -24,7 +24,7 @@ function wax.cache.get(key, maxAge)
     wax.cache.clear(key)
     return nil
   else
-    return result, fileAge
+    return result
   end
 end
 
