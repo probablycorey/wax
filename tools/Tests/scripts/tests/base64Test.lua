@@ -39,9 +39,4 @@ describe["Base64 decoding"] = function()
     expect(wax.base64.decode("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/")).should_be(data)
   end
 
-  it["should handle the 254,0,0,0 scenario"] = function()
-    local data = string.char(unpack({0,0,254}))
-    expect(wax.base64.decode(wax.base64.encode(data))).should_be(data)
-  end
-
 end
