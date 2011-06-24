@@ -27,10 +27,12 @@ enum {
     NSMutableData *_data;
     NSHTTPURLResponse *_response;
     NSURLRequest *_request;
+    NSTimer *_timeoutTimer;
+    NSError *_error;
     
+    NSTimeInterval _timeout;
     int _format;
     bool _finished;
-    bool _error;
     bool _canceled;
 }
 
@@ -39,7 +41,7 @@ enum {
 @property (nonatomic, assign) int format;
 @property (nonatomic, readonly, getter=isFinished) bool finished;
 
-- (id)initWithRequest:(NSURLRequest *)urlRequest luaState:(lua_State *)luaState;
+- (id)initWithRequest:(NSURLRequest *)urlRequest timeout:(NSTimeInterval)timeout luaState:(lua_State *)luaState;
 - (void)callRedirectCallback:(NSURLResponse *)redirectResponse;
 - (BOOL)callLuaAuthCallback:(NSURLAuthenticationChallenge *)challenge;
 - (void)callLuaProgressCallback;
