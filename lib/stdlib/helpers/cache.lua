@@ -9,9 +9,11 @@ function wax.cache.get(key, maxAge)
 
   if not wax.filesystem.isFile(path) then return nil end
 
-  local fileAge = os.time() - wax.filesystem.attributes(path).modifiedAt
-  if maxAge and fileAge > maxAge then
-    return nil
+  if maxAge then
+    local fileAge = os.time() - wax.filesystem.attributes(path).modifiedAt
+    if fileAge > maxAge then
+      return nil
+    end
   end
 
   local success, result = pcall(function()
