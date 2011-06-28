@@ -17,7 +17,7 @@ function wax.alert(title, message, ...)
   local alert = UIAlertView:init()
   alert:setTitle(title)
   alert:setMessage(message)
-  
+
   if not ... then
     alert:addButtonWithTitle("OK")
   else
@@ -25,29 +25,31 @@ function wax.alert(title, message, ...)
       alert:addButtonWithTitle(name)
     end
   end
-  
+
   alert:show()
-  
+
   return alert
 end
 
--- -- Forces print to use NSLog
--- function print(obj)
---   -- if there is an error, ignore it
---   pcall(function() wax.print(tostring(obj)) end)
--- end
+-- Forces print to use NSLog
+if not UIDevice:currentDevice():model():match("iPhone Simulator") then
+  function print(obj)
+    -- if there is an error, ignore it
+    pcall(function() wax.print(tostring(obj)) end)
+  end
+end
 
 function wax.tostring(obj, ...)
-  if type(obj) == "table" then 
+  if type(obj) == "table" then
     return table.tostring(obj)
   end
-  
-  if ... then 
-    obj = string.format(tostring(obj), ...) 
+
+  if ... then
+    obj = string.format(tostring(obj), ...)
   else
     obj = tostring(obj)
   end
-  
+
   return obj
 end
 
@@ -61,10 +63,10 @@ end
 
 function wax.eval(input)
   return pcall(function()
-    if not input:match("=") then 
+    if not input:match("=") then
       input = "do return (" .. input .. ") end"
     end
-    
+
     local code, err = loadstring(input, "REPL")
     if err then
       error("Syntax Error: " .. err)

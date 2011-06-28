@@ -250,6 +250,7 @@ void wax_instance_pushUserdata(lua_State *L, id object) {
     lua_rawget(L, -2);
     lua_remove(L, -2); // remove userdataTable
     
+    
     END_STACK_MODIFY(L, 1)
 }
 
@@ -355,7 +356,7 @@ static int __gc(lua_State *L) {
         lua_pushlightuserdata(L, instanceUserdata->instance);        
         lua_pushnil(L);
         lua_rawset(L, -3);
-        lua_pop(L, 1);
+        lua_pop(L, 1);        
     }
     
     return 0;
@@ -527,10 +528,11 @@ static int customInitMethodClosure(lua_State *L) {
     wax_instance_userdata *classInstanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);
     wax_instance_userdata *instanceUserdata = nil;
 	
+    BOOL shouldRelease = NO;
     if (classInstanceUserdata->isClass) {
+        shouldRelease = YES;
         id instance = [classInstanceUserdata->instance alloc];
         instanceUserdata = wax_instance_create(L, instance, NO);
-        [instance release]; // The userdata takes care of retaining this now
         lua_replace(L, 1); // replace the old userdata with the new one!
     }
     else {
@@ -543,6 +545,10 @@ static int customInitMethodClosure(lua_State *L) {
     if (wax_pcall(L, lua_gettop(L) - 1, 1)) {
         const char* errorString = lua_tostring(L, -1);
         luaL_error(L, "Custom init method on '%s' failed.\n%s", class_getName([instanceUserdata->instance class]), errorString);
+    }
+    
+    if (shouldRelease) {
+        [instanceUserdata->instance release];
     }
     
     if (lua_isnil(L, -1)) { // The init method returned nil... return the instanceUserdata instead
@@ -559,6 +565,15 @@ static int pcallUserdata(lua_State *L, id self, SEL selector, va_list args) {
     BEGIN_STACK_MODIFY(L)    
     
     if (![[NSThread currentThread] isEqual:[NSThread mainThread]]) NSLog(@"PCALLUSERDATA: OH NO SEPERATE THREAD");
+    
+    // A WaxClass could have been created via objective-c (like via NSKeyUnarchiver)
+    // In this case, no lua object was ever associated with it, so we've got to
+    // create one.
+    if (wax_instance_isWaxClass(self)) {
+        BOOL isClass = self == [self class];
+        wax_instance_create(L, self, isClass); // If it already exists, then it will just return without doing anything
+        lua_pop(L, 1); // Pops userdata off
+    }
     
     // Find the function... could be in the object or in the class
     if (!wax_instance_pushFunction(L, self, selector)) {
