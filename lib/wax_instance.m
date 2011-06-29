@@ -67,11 +67,11 @@ wax_instance_userdata *wax_instance_create(lua_State *L, id instance, BOOL isCla
     wax_instance_pushUserdata(L, instance);
    
     if (lua_isnil(L, -1)) {
-        wax_log(LOG_GC, @"Creating %@ for %@(%p)", isClass ? @"class" : @"instance", [instance class], instance);
+        //wax_log(LOG_GC, @"Creating %@ for %@(%p)", isClass ? @"class" : @"instance", [instance class], instance);
         lua_pop(L, 1); // pop nil stack
     }
     else {
-        wax_log(LOG_GC, @"Found existing userdata %@ for %@(%p)", isClass ? @"class" : @"instance", [instance class], instance);
+        //wax_log(LOG_GC, @"Found existing userdata %@ for %@(%p)", isClass ? @"class" : @"instance", [instance class], instance);
         return lua_touserdata(L, -1);
     }
     
@@ -83,7 +83,7 @@ wax_instance_userdata *wax_instance_create(lua_State *L, id instance, BOOL isCla
 	instanceUserdata->actAsSuper = NO;
      
     if (!isClass) {
-        wax_log(LOG_GC, @"Retaining %@ for %@(%p -> %p)", isClass ? @"class" : @"instance", [instance class], instance, instanceUserdata);
+        //wax_log(LOG_GC, @"Retaining %@ for %@(%p -> %p)", isClass ? @"class" : @"instance", [instance class], instance, instanceUserdata);
         [instanceUserdata->instance retain];
     }
     
@@ -98,7 +98,7 @@ wax_instance_userdata *wax_instance_create(lua_State *L, id instance, BOOL isCla
     wax_instance_pushUserdataTable(L);
 
     // register the userdata table in the metatable (so we can access it from obj-c)
-    wax_log(LOG_GC, @"Storing reference of %@ to userdata table %@(%p -> %p)", isClass ? @"class" : @"instance", [instance class], instance, instanceUserdata);        
+    //wax_log(LOG_GC, @"Storing reference of %@ to userdata table %@(%p -> %p)", isClass ? @"class" : @"instance", [instance class], instance, instanceUserdata);        
     lua_pushlightuserdata(L, instanceUserdata->instance);
     lua_pushvalue(L, -3); // Push userdata
     lua_rawset(L, -3);
@@ -111,7 +111,7 @@ wax_instance_userdata *wax_instance_create(lua_State *L, id instance, BOOL isCla
     lua_pushvalue(L, -3); // Push userdata
     lua_rawset(L, -3);
     
-    wax_log(LOG_GC, @"Storing reference to strong userdata table %@(%p -> %p)", [instance class], instance, instanceUserdata);        
+    //wax_log(LOG_GC, @"Storing reference to strong userdata table %@(%p -> %p)", [instance class], instance, instanceUserdata);        
     
     lua_pop(L, 1); // Pop off strong userdata table
     
@@ -339,7 +339,7 @@ static int __newindex(lua_State *L) {
 static int __gc(lua_State *L) {
     wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);
     
-    wax_log(LOG_GC, @"Releasing %@ %@(%p)", instanceUserdata->isClass ? @"Class" : @"Instance", [instanceUserdata->instance class], instanceUserdata->instance);
+    //wax_log(LOG_GC, @"Releasing %@ %@(%p)", instanceUserdata->isClass ? @"Class" : @"Instance", [instanceUserdata->instance class], instanceUserdata->instance);
     
     if (!instanceUserdata->isClass && !instanceUserdata->isSuper) {
         // This seems like a stupid hack. But...
@@ -528,15 +528,17 @@ static int customInitMethodClosure(lua_State *L) {
     wax_instance_userdata *classInstanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);
     wax_instance_userdata *instanceUserdata = nil;
 	
+    id instance = nil;
     BOOL shouldRelease = NO;
     if (classInstanceUserdata->isClass) {
         shouldRelease = YES;
-        id instance = [classInstanceUserdata->instance alloc];
+        instance = [classInstanceUserdata->instance alloc];
         instanceUserdata = wax_instance_create(L, instance, NO);
         lua_replace(L, 1); // replace the old userdata with the new one!
     }
     else {
         luaL_error(L, "I WAS TOLD THIS WAS A CUSTOM INIT METHOD. BUT YOU LIED TO ME");
+        return -1;
     }
     
     lua_pushvalue(L, lua_upvalueindex(1)); // Grab the function!
@@ -548,7 +550,7 @@ static int customInitMethodClosure(lua_State *L) {
     }
     
     if (shouldRelease) {
-        [instanceUserdata->instance release];
+        [instance release];
     }
     
     if (lua_isnil(L, -1)) { // The init method returned nil... return the instanceUserdata instead
@@ -736,6 +738,7 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
             case WAX_TYPE_UNSIGNED_LONG:
             case WAX_TYPE_UNSIGNED_LONG_LONG:
                 imp = (IMP)WAX_METHOD_NAME(long);
+                break;
                 
             case WAX_TYPE_FLOAT:
                 imp = (IMP)WAX_METHOD_NAME(float);
@@ -753,6 +756,7 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
                         break;
                     default:
                         luaL_error(L, "Trying to override a method that has a struct return type of size '%d'. There is no implementation for this size yet.", size);
+                        return NO;
                         break;
                 }
                 break;
@@ -760,13 +764,14 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
                 
             default:   
                 luaL_error(L, "Can't override method with return type %s", simplifiedReturnType);
+                return NO;
                 break;
         }
 		
 		id metaclass = objc_getMetaClass(object_getClassName(klass));		
 		success = class_addMethod(klass, selector, imp, typeDescription) && class_addMethod(metaclass, selector, imp, typeDescription);
 		
-        free(returnType);                
+        if (returnType) free(returnType);                
     }
     else {
 		SEL possibleSelectors[2];

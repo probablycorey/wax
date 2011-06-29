@@ -47,5 +47,8 @@ enum {
 - (void)callLuaProgressCallback;
 - (void)callLuaCallback;
 
+// HSHTTPURLResponse Delegate Methods
+- (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error;
+
 @end
 

@@ -35,7 +35,7 @@
 }
 
 - (id)initWithRequest:(NSURLRequest *)urlRequest timeout:(NSTimeInterval)timeout luaState:(lua_State *)luaState {
-    [super initWithRequest:urlRequest delegate:self startImmediately:NO];
+    self = [super initWithRequest:urlRequest delegate:self startImmediately:NO];
     [self scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     L = luaState;
 

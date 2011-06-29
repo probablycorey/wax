@@ -364,7 +364,7 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
             *outsize = sizeof(void *);
             
             value = calloc(sizeof(void *), 1);            
-            void *pointer;
+            void *pointer = nil;
             
             switch (typeDescription[1]) {
                 case WAX_TYPE_VOID:
@@ -413,7 +413,7 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
             value = calloc(sizeof(id), 1);            
             // add number, string
             
-            id instance;
+            id instance = nil;
 
             switch (lua_type(L, stackIndex)) {
                 case LUA_TNIL:
