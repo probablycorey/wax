@@ -270,6 +270,20 @@ void wax_fromInstance(lua_State *L, id instance) {
 void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, int *outsize) {
     void *value = nil;
 
+    // Ignore method encodings
+    switch (typeDescription[0]) {
+        case WAX_PROTOCOL_TYPE_CONST:
+        case WAX_PROTOCOL_TYPE_IN:
+        case WAX_PROTOCOL_TYPE_INOUT:
+        case WAX_PROTOCOL_TYPE_OUT:
+        case WAX_PROTOCOL_TYPE_BYCOPY:
+        case WAX_PROTOCOL_TYPE_BYREF:
+        case  WAX_PROTOCOL_TYPE_ONEWAY:
+            typeDescription = typeDescription + 1; // Skip first
+            break;
+    }
+
+    
     if (outsize == nil) outsize = alloca(sizeof(int)); // if no outsize address set, treat it as a junk var
     
     switch (typeDescription[0]) {
