@@ -1,30 +1,31 @@
 wax.cache = {}
 setmetatable(wax.cache, wax.cache)
 
-
 -- Returns contents of cache keys
 --    key: string # value for cache
 --    maxAge: number (optional) # max age of file in seconds
 function wax.cache.get(key, maxAge)
   local path = wax.cache.pathFor(key)
-  
-  if not wax.filesystem.isFile(path) then return nil end  
 
-  local fileAge = os.time() - wax.filesystem.attributes(path).modifiedAt
-  if maxAge and fileAge > maxAge then
-    return nil
+  if not wax.filesystem.isFile(path) then return nil end
+
+  if maxAge then
+    local fileAge = os.time() - wax.filesystem.attributes(path).modifiedAt
+    if fileAge > maxAge then
+      return nil
+    end
   end
 
   local success, result = pcall(function()
     return NSKeyedUnarchiver:unarchiveObjectWithFile(path)
   end)
-  
+
   if not success then -- Bad cache
     puts("Error: Couldn't read cache with key %s", key)
     wax.cache.clear(key)
     return nil
   else
-    return result, fileAge
+    return result
   end
 end
 
@@ -38,8 +39,19 @@ function wax.cache.set(key, contents)
     wax.cache.clear(key)
   else
     local success = NSKeyedArchiver:archiveRootObject_toFile(contents, path)
-    if not success then puts("Couldn't archive cache '%s' to '%s'", key, path) end    
+    if not success then puts("Couldn't archive cache '%s' to '%s'", key, path) end
   end
+end
+
+function wax.cache.age(key)
+  local path = wax.cache.pathFor(key)
+
+  -- If there is no file, just send them back a really big age. Cleaner than
+  -- dealing with nils
+  if not wax.filesystem.isFile(path) then return wax.time.days(1000) end
+
+  local fileAge = os.time() - wax.filesystem.attributes(path).modifiedAt
+  return fileAge
 end
 
 -- Removes specific keys from cache

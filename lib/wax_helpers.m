@@ -84,6 +84,24 @@ void wax_log(int flag, NSString *format, ...) {
     }
 }
 
+int wax_getStackTrace(lua_State *L) {
+    lua_getfield(L, LUA_GLOBALSINDEX, "debug");
+    if (!lua_istable(L, -1)) {
+        lua_pop(L, 1);
+        return 1;
+    }
+    
+    lua_getfield(L, -1, "traceback");
+    if (!lua_isfunction(L, -1)) {
+        lua_pop(L, 2);
+        return 1;
+    }    
+    lua_remove(L, -2); // Remove debug
+    
+    lua_call(L, 0, 1);    
+    return 1;
+}
+
 int wax_fromObjc(lua_State *L, const char *typeDescription, void *buffer) {
     BEGIN_STACK_MODIFY(L)
     
@@ -252,6 +270,20 @@ void wax_fromInstance(lua_State *L, id instance) {
 void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, int *outsize) {
     void *value = nil;
 
+    // Ignore method encodings
+    switch (typeDescription[0]) {
+        case WAX_PROTOCOL_TYPE_CONST:
+        case WAX_PROTOCOL_TYPE_IN:
+        case WAX_PROTOCOL_TYPE_INOUT:
+        case WAX_PROTOCOL_TYPE_OUT:
+        case WAX_PROTOCOL_TYPE_BYCOPY:
+        case WAX_PROTOCOL_TYPE_BYREF:
+        case  WAX_PROTOCOL_TYPE_ONEWAY:
+            typeDescription = typeDescription + 1; // Skip first
+            break;
+    }
+
+    
     if (outsize == nil) outsize = alloca(sizeof(int)); // if no outsize address set, treat it as a junk var
     
     switch (typeDescription[0]) {
@@ -346,7 +378,7 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
             *outsize = sizeof(void *);
             
             value = calloc(sizeof(void *), 1);            
-            void *pointer;
+            void *pointer = nil;
             
             switch (typeDescription[1]) {
                 case WAX_TYPE_VOID:
@@ -395,7 +427,7 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
             value = calloc(sizeof(id), 1);            
             // add number, string
             
-            id instance;
+            id instance = nil;
 
             switch (lua_type(L, stackIndex)) {
                 case LUA_TNIL:
@@ -546,23 +578,30 @@ void wax_selectorsForName(const char *methodName, SEL possibleSelectors[2]) {
     free(objcMethodName);
 }
 
-SEL wax_selectorForInstance(wax_instance_userdata *instanceUserdata, const char *methodName, BOOL forceInstanceCheck) {    
+BOOL wax_selectorForInstance(wax_instance_userdata *instanceUserdata, SEL* foundSelectors, const char *methodName, BOOL forceInstanceCheck) {    
     SEL possibleSelectors[2];
     wax_selectorsForName(methodName, possibleSelectors);
     
     for (int i = 0; i < 2; i++) {
         SEL selector = possibleSelectors[i];
         if (!selector) continue; // There may be only one acceptable selector (i.e. methods with multiple keyword args)
-
+        
+        BOOL addSelector = NO;
         if (instanceUserdata->isClass && (forceInstanceCheck || wax_isInitMethod(methodName))) {
-            if ([instanceUserdata->instance instanceMethodSignatureForSelector:selector]) return selector;
+            if ([instanceUserdata->instance instanceMethodSignatureForSelector:selector]) addSelector = YES;
         }
         else {
-            if ([instanceUserdata->instance methodSignatureForSelector:selector]) return selector;
+            if ([instanceUserdata->instance methodSignatureForSelector:selector]) addSelector = YES;
         }    
+        
+        if (addSelector) {
+            if (!foundSelectors[0]) foundSelectors[0] = selector;
+            else foundSelectors[1] = selector;
+        }
     }
     
-    return nil;
+    // True if it found any selectors
+    return foundSelectors[0] || foundSelectors[1];
 }
 
 void wax_pushMethodNameFromSelector(lua_State *L, SEL selector) {

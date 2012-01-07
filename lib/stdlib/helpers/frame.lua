@@ -21,7 +21,7 @@ function wax.dimensions(object, varName)
       if key == "y" then key = "top"
       elseif key == "x" then key = "left"
       end
-    
+
       local dimensions = (varName == "frame") and object:frame() or object:bounds()
       if key == "left" then return dimensions.x
       elseif key == "right" then return dimensions.x + dimensions.width
@@ -29,20 +29,20 @@ function wax.dimensions(object, varName)
       elseif key == "bottom" then return dimensions.y + dimensions.height
       elseif key == "height" then return dimensions.height
       elseif key == "width" then return dimensions.width
-        
+
       elseif key == "size" then return CGSize(dimensions.width, dimensions.height)
       elseif key == "origin" then return CGPoint(dimensions.x, dimensions.y)
-        
+
       else
-        return nil
+        error("Unknown frame key: " .. key)
       end
     end,
-    
+
     __newindex = function(self, key, value)
       if key == "y" then key = "top"
       elseif key == "x" then key = "left"
       end
-    
+
       local dimensions = (varName == "frame") and object:frame() or object:bounds()
       if key == "left" then dimensions.x = value
       elseif key == "right" then dimensions.x = value - dimensions.width
@@ -50,22 +50,26 @@ function wax.dimensions(object, varName)
       elseif key == "bottom" then dimensions.y = value - dimensions.height
       elseif key == "height" then dimensions.height = value
       elseif key == "width" then dimensions.width = value
-      
+
       elseif key == "size" then dimensions.width = value.width dimensions.height = value.height
-      elseif key == "origin" then dimensions.x = value.x dimensions.y = value.y        
-      
-      elseif key == "stretchBottom" then dimensions.height = math.max(0, dimensions.height - dimensions.y)
-      
+      elseif key == "origin" then dimensions.x = value.x dimensions.y = value.y
+      elseif key == "stretchTop" then
+        dimensions.height = dimensions.height - (value - dimensions.y)
+        dimensions.y = value
+      elseif key == "stretchBottom" then
+        dimensions.height = dimensions.height + (value - (dimensions.height + dimensions.y))
+      elseif key == "stretchRight" then
+        dimensions.width = dimensions.width + (value - (dimensions.width + dimensions.x))
       else
-        return nil
+        error("Unknown frame key: " .. key)
       end
-      
+
       if (varName == "frame") then
-        object:setFrame(dimensions) 
-      else 
+        object:setFrame(dimensions)
+      else
         object:setBounds(dimensions)
       end
-      
+
       return self
     end
   })

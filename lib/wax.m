@@ -38,6 +38,14 @@ lua_State *wax_currentLuaState() {
 
 void uncaughtExceptionHandler(NSException *e) {
     NSLog(@"ERROR: Uncaught exception %@", [e description]);
+    lua_State *L = wax_currentLuaState();
+    
+    if (L) {
+        wax_getStackTrace(L);
+        const char *stackTrace = luaL_checkstring(L, -1);
+        NSLog(@"%s", stackTrace);
+        lua_pop(L, -1); // remove the stackTrace
+    }
 }
 
 int wax_panic(lua_State *L) {
@@ -67,19 +75,19 @@ void wax_setup() {
 	[wax_gc start];
 }
 
-void wax_start(char* initScript, lua_CFunction extensionFunciton, ...) {
+void wax_start(char* initScript, lua_CFunction extensionFunction, ...) {
 	wax_setup();
 	
 	lua_State *L = wax_currentLuaState();
 	
 	// Load extentions
 	// ---------------
-	if (extensionFunciton) { 
-        extensionFunciton(L);
+	if (extensionFunction) {
+        extensionFunction(L);
 		
         va_list ap;
-        va_start(ap, extensionFunciton);
-        while((extensionFunciton = va_arg(ap, lua_CFunction))) extensionFunciton(L);
+        va_start(ap, extensionFunction);
+        while((extensionFunction = va_arg(ap, lua_CFunction))) extensionFunction(L);
 		
         va_end(ap);
     }
@@ -103,14 +111,14 @@ void wax_start(char* initScript, lua_CFunction extensionFunciton, ...) {
 	// ----------------------
 	NSDictionary *env = [[NSProcessInfo processInfo] environment];
     if ([[env objectForKey:@"WAX_TEST"] isEqual:@"YES"]) {
-		NSLog(@"Running Tests");
+		printf("Running Tests\n");
 		if (luaL_dostring(L, "require 'tests'") != 0) {
 			fprintf(stderr,"Fatal error running tests: %s\n", lua_tostring(L,-1));
         }
         exit(1);
     }
 	else if ([[env objectForKey:@"WAX_REPL"] isEqual:@"YES"]) {
-		NSLog(@"Starting REPL");
+		printf("Starting REPL\n");
 		if (luaL_dostring(L, "require 'wax.repl'") != 0) {
             fprintf(stderr,"Fatal error starting the REPL: %s\n", lua_tostring(L,-1));
         }		
@@ -168,9 +176,10 @@ static void addGlobals(lua_State *L) {
     lua_pushcfunction(L, waxPrint);
     lua_setfield(L, -2, "print");    
     
-    
-    lua_pushcfunction(L, objcDebug);
-    lua_setfield(L, -2, "debug");    
+#ifdef DEBUG
+    lua_pushboolean(L, YES);
+    lua_setfield(L, -2, "isDebug");
+#endif
     
     lua_pop(L, 1); // pop the wax global off
     
@@ -243,10 +252,5 @@ static int toobjc(lua_State *L) {
 
 static int exitApp(lua_State *L) {
     exit(0);
-    return 0;
-}
-
-static int objcDebug(lua_State *L) {
-    NSLog(@"DEBUGGEG!");
     return 0;
 }

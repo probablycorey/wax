@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		047CDB581322C0340057CE3F /* AppDelegate.lua in Resources */ = {isa = PBXBuildFile; fileRef = 047CDB551322C0340057CE3F /* AppDelegate.lua */; };
+		047CDB591322C0340057CE3F /* SimpleAnnotation.lua in Resources */ = {isa = PBXBuildFile; fileRef = 047CDB561322C0340057CE3F /* SimpleAnnotation.lua */; };
+		047CDB5A1322C0340057CE3F /* SimpleMapController.lua in Resources */ = {isa = PBXBuildFile; fileRef = 047CDB571322C0340057CE3F /* SimpleMapController.lua */; };
+		047CDB621322C03F0057CE3F /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 047CDB611322C03F0057CE3F /* MapKit.framework */; };
 		04A6186B12CA7AB6004ADB76 /* wax_filesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A617DE12CA7AB6004ADB76 /* wax_filesystem.m */; };
 		04A6186C12CA7AB6004ADB76 /* wax_http.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A617E112CA7AB6004ADB76 /* wax_http.m */; };
 		04A6186D12CA7AB6004ADB76 /* wax_http_connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A617E312CA7AB6004ADB76 /* wax_http_connection.m */; };
@@ -18,6 +22,7 @@
 		04A6187412CA7AB6004ADB76 /* yajl_gen.c in Sources */ = {isa = PBXBuildFile; fileRef = 04A617F612CA7AB6004ADB76 /* yajl_gen.c */; };
 		04A6187512CA7AB6004ADB76 /* yajl_lex.c in Sources */ = {isa = PBXBuildFile; fileRef = 04A617F812CA7AB6004ADB76 /* yajl_lex.c */; };
 		04A6187612CA7AB6004ADB76 /* yajl_parser.c in Sources */ = {isa = PBXBuildFile; fileRef = 04A617FB12CA7AB6004ADB76 /* yajl_parser.c */; };
+		04A6187A12CA7AB6004ADB76 /* wax_xml.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A6180512CA7AB6004ADB76 /* wax_xml.m */; };
 		04A6187B12CA7AB6004ADB76 /* lapi.c in Sources */ = {isa = PBXBuildFile; fileRef = 04A6180712CA7AB6004ADB76 /* lapi.c */; };
 		04A6187C12CA7AB6004ADB76 /* lauxlib.c in Sources */ = {isa = PBXBuildFile; fileRef = 04A6180912CA7AB6004ADB76 /* lauxlib.c */; };
 		04A6187D12CA7AB6004ADB76 /* lbaselib.c in Sources */ = {isa = PBXBuildFile; fileRef = 04A6180B12CA7AB6004ADB76 /* lbaselib.c */; };
@@ -63,6 +68,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		047CDB551322C0340057CE3F /* AppDelegate.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AppDelegate.lua; sourceTree = "<group>"; };
+		047CDB561322C0340057CE3F /* SimpleAnnotation.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleAnnotation.lua; sourceTree = "<group>"; };
+		047CDB571322C0340057CE3F /* SimpleMapController.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SimpleMapController.lua; sourceTree = "<group>"; };
+		047CDB611322C03F0057CE3F /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		04A617DD12CA7AB6004ADB76 /* wax_filesystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_filesystem.h; sourceTree = "<group>"; };
 		04A617DE12CA7AB6004ADB76 /* wax_filesystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_filesystem.m; sourceTree = "<group>"; };
 		04A617E012CA7AB6004ADB76 /* wax_http.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_http.h; sourceTree = "<group>"; };
@@ -92,6 +101,8 @@
 		04A617FB12CA7AB6004ADB76 /* yajl_parser.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = yajl_parser.c; sourceTree = "<group>"; };
 		04A617FC12CA7AB6004ADB76 /* yajl_parser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = yajl_parser.h; sourceTree = "<group>"; };
 		04A617FD12CA7AB6004ADB76 /* yajl-1.0.9.tar.gz */ = {isa = PBXFileReference; lastKnownFileType = archive.gzip; path = "yajl-1.0.9.tar.gz"; sourceTree = "<group>"; };
+		04A6180412CA7AB6004ADB76 /* wax_xml.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_xml.h; sourceTree = "<group>"; };
+		04A6180512CA7AB6004ADB76 /* wax_xml.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_xml.m; sourceTree = "<group>"; };
 		04A6180712CA7AB6004ADB76 /* lapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lapi.c; sourceTree = "<group>"; };
 		04A6180812CA7AB6004ADB76 /* lapi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = lapi.h; sourceTree = "<group>"; };
 		04A6180912CA7AB6004ADB76 /* lauxlib.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lauxlib.c; sourceTree = "<group>"; };
@@ -184,16 +195,13 @@
 		04A6186512CA7AB6004ADB76 /* wax_struct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_struct.m; sourceTree = "<group>"; };
 		04A618B712CA7AC9004ADB76 /* ProtocolLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProtocolLoader.h; sourceTree = "<group>"; };
 		04A618D712CA83F0004ADB76 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
-		04A618F412CA84FC004ADB76 /* AppDelegate.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AppDelegate.lua; sourceTree = "<group>"; };
-		04A618F612CA84FC004ADB76 /* init.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = init.lua; sourceTree = "<group>"; };
-		04A618F712CA84FC004ADB76 /* someTest.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = someTest.lua; sourceTree = "<group>"; };
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		1D6058910D05DD3D006BFB54 /* ___PROJECTNAME___.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "___PROJECTNAME___.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* MapKitExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MapKitExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		32CA4F630368D1EE00C91783 /* ___PROJECTNAMEASIDENTIFIER____Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "___PROJECTNAMEASIDENTIFIER____Prefix.pch"; sourceTree = "<group>"; };
-		8D1107310486CEB800E47090 /* ___PROJECTNAMEASIDENTIFIER___-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "___PROJECTNAMEASIDENTIFIER___-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		32CA4F630368D1EE00C91783 /* MapKitExample_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapKitExample_Prefix.pch; sourceTree = "<group>"; };
+		8D1107310486CEB800E47090 /* MapKitExample-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "MapKitExample-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,6 +213,7 @@
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 				04A618D812CA83F0004ADB76 /* libxml2.2.dylib in Frameworks */,
+				047CDB621322C03F0057CE3F /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -243,6 +252,7 @@
 				04A617DC12CA7AB6004ADB76 /* filesystem */,
 				04A617DF12CA7AB6004ADB76 /* http */,
 				04A617E412CA7AB6004ADB76 /* json */,
+				04A6180312CA7AB6004ADB76 /* xml */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -312,6 +322,15 @@
 				04A617EC12CA7AB6004ADB76 /* yajl_parse.h */,
 			);
 			path = api;
+			sourceTree = "<group>";
+		};
+		04A6180312CA7AB6004ADB76 /* xml */ = {
+			isa = PBXGroup;
+			children = (
+				04A6180412CA7AB6004ADB76 /* wax_xml.h */,
+				04A6180512CA7AB6004ADB76 /* wax_xml.m */,
+			);
+			path = xml;
 			sourceTree = "<group>";
 		};
 		04A6180612CA7AB6004ADB76 /* lua */ = {
@@ -430,20 +449,12 @@
 		04A618F312CA84FC004ADB76 /* Scripts */ = {
 			isa = PBXGroup;
 			children = (
-				04A618F412CA84FC004ADB76 /* AppDelegate.lua */,
-				04A618F512CA84FC004ADB76 /* tests */,
+				047CDB551322C0340057CE3F /* AppDelegate.lua */,
+				047CDB561322C0340057CE3F /* SimpleAnnotation.lua */,
+				047CDB571322C0340057CE3F /* SimpleMapController.lua */,
 			);
 			name = Scripts;
 			path = scripts;
-			sourceTree = "<group>";
-		};
-		04A618F512CA84FC004ADB76 /* tests */ = {
-			isa = PBXGroup;
-			children = (
-				04A618F612CA84FC004ADB76 /* init.lua */,
-				04A618F712CA84FC004ADB76 /* someTest.lua */,
-			);
-			path = tests;
 			sourceTree = "<group>";
 		};
 		080E96DDFE201D6D7F000001 /* Classes */ = {
@@ -457,7 +468,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* ___PROJECTNAME___.app */,
+				1D6058910D05DD3D006BFB54 /* MapKitExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -480,7 +491,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
-				32CA4F630368D1EE00C91783 /* ___PROJECTNAMEASIDENTIFIER____Prefix.pch */,
+				32CA4F630368D1EE00C91783 /* MapKitExample_Prefix.pch */,
 			);
 			name = "Other Sources";
 			sourceTree = "<group>";
@@ -488,7 +499,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				8D1107310486CEB800E47090 /* ___PROJECTNAMEASIDENTIFIER___-Info.plist */,
+				8D1107310486CEB800E47090 /* MapKitExample-Info.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -500,6 +511,7 @@
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
+				047CDB611322C03F0057CE3F /* MapKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -507,9 +519,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1D6058900D05DD3D006BFB54 /* ___PROJECTNAME___ */ = {
+		1D6058900D05DD3D006BFB54 /* MapKitExample */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "___PROJECTNAME___" */;
+			buildConfigurationList = 1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "MapKitExample" */;
 			buildPhases = (
 				04A618B912CA7AF4004ADB76 /* Copy Lua scripts to bundle */,
 				1D60588D0D05DD3D006BFB54 /* Resources */,
@@ -520,9 +532,9 @@
 			);
 			dependencies = (
 			);
-			name = "___PROJECTNAME___";
-			productName = "___PROJECTNAME___";
-			productReference = 1D6058910D05DD3D006BFB54 /* ___PROJECTNAME___.app */;
+			name = MapKitExample;
+			productName = MapKitExample;
+			productReference = 1D6058910D05DD3D006BFB54 /* MapKitExample.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -530,7 +542,7 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
-			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "___PROJECTNAME___" */;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MapKitExample" */;
 			compatibilityVersion = "Xcode 3.1";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
@@ -544,7 +556,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1D6058900D05DD3D006BFB54 /* ___PROJECTNAME___ */,
+				1D6058900D05DD3D006BFB54 /* MapKitExample */,
 			);
 		};
 /* End PBXProject section */
@@ -554,6 +566,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				047CDB581322C0340057CE3F /* AppDelegate.lua in Resources */,
+				047CDB591322C0340057CE3F /* SimpleAnnotation.lua in Resources */,
+				047CDB5A1322C0340057CE3F /* SimpleMapController.lua in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -593,6 +608,7 @@
 				04A6187412CA7AB6004ADB76 /* yajl_gen.c in Sources */,
 				04A6187512CA7AB6004ADB76 /* yajl_lex.c in Sources */,
 				04A6187612CA7AB6004ADB76 /* yajl_parser.c in Sources */,
+				04A6187A12CA7AB6004ADB76 /* wax_xml.m in Sources */,
 				04A6187B12CA7AB6004ADB76 /* lapi.c in Sources */,
 				04A6187C12CA7AB6004ADB76 /* lauxlib.c in Sources */,
 				04A6187D12CA7AB6004ADB76 /* lbaselib.c in Sources */,
@@ -644,9 +660,10 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "___PROJECTNAMEASIDENTIFIER____Prefix.pch";
-				INFOPLIST_FILE = "___PROJECTNAMEASIDENTIFIER___-Info.plist";
-				PRODUCT_NAME = "___PROJECTNAME___";
+				GCC_PREFIX_HEADER = MapKitExample_Prefix.pch;
+				HEADER_SEARCH_PATHS = "$(SDK_ROOT)/usr/include/libxml2";
+				INFOPLIST_FILE = "MapKitExample-Info.plist";
+				PRODUCT_NAME = MapKitExample;
 				WAX_COMPILE_SCRIPTS = "";
 			};
 			name = Debug;
@@ -657,9 +674,10 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "___PROJECTNAMEASIDENTIFIER____Prefix.pch";
-				INFOPLIST_FILE = "___PROJECTNAMEASIDENTIFIER___-Info.plist";
-				PRODUCT_NAME = "___PROJECTNAME___";
+				GCC_PREFIX_HEADER = MapKitExample_Prefix.pch;
+				HEADER_SEARCH_PATHS = "$(SDK_ROOT)/usr/include/libxml2";
+				INFOPLIST_FILE = "MapKitExample-Info.plist";
+				PRODUCT_NAME = MapKitExample;
 				VALIDATE_PRODUCT = YES;
 				WAX_COMPILE_SCRIPTS = "";
 			};
@@ -695,7 +713,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "___PROJECTNAME___" */ = {
+		1D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "MapKitExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1D6058940D05DD3E006BFB54 /* Debug */,
@@ -704,7 +722,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "___PROJECTNAME___" */ = {
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MapKitExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4F08A954540054247B /* Debug */,

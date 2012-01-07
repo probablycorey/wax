@@ -18,7 +18,8 @@ function start(self)
   local formerPrint = print
   _G.print = function(...)
     formerPrint(...) 
-    self.server:send(table.concat({...}, '\t') .. "\n")
+    local objects = table.map({...}, function(o) return tostring(o) end)
+    self.server:send(table.concat(objects, '\t') .. "\n")
   end
 
   return nil

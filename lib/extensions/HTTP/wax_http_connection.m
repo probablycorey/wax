@@ -27,32 +27,45 @@
 
 - (void)dealloc {
     [_data release];
+    [_error release];
     [_response release];
     [_request release];
+    [_timeoutTimer release];
     [super dealloc];
 }
 
-- (id)initWithRequest:(NSURLRequest *)urlRequest luaState:(lua_State *)luaState {
-    [super initWithRequest:urlRequest delegate:self startImmediately:NO];
+- (id)initWithRequest:(NSURLRequest *)urlRequest timeout:(NSTimeInterval)timeout luaState:(lua_State *)luaState {
+    self = [super initWithRequest:urlRequest delegate:self startImmediately:NO];
     [self scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
     L = luaState;
 
     _data = [[NSMutableData alloc] init];
     _request = [urlRequest retain];
 
+    _timeout = timeout;
     _format = WAX_HTTP_UNKNOWN;
-    _error = NO;
     _canceled = NO;
     return self;
 }
 
+- (void)timeoutHack {
+    NSError *error = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorTimedOut userInfo:nil];
+    [self connection:self didFailWithError:error];
+    [self cancel];
+}
+
 - (void)start {
+    // Apple makes has a mandatory 240 second minimum timeout WTF? https://devforums.apple.com/thread/25282
+    // Because of this stupidity by Apple, we are forced to setup our own timeout
+    // using a timer.
+    _timeoutTimer = [[NSTimer scheduledTimerWithTimeInterval:_timeout target:self selector:@selector(timeoutHack) userInfo:nil repeats:NO] retain]; 
     wax_log(LOG_NETWORK, @"HTTP(%@) %@", [_request HTTPMethod], [_request URL]);
     [super start];
 }
 
 - (void)cancel {
 	wax_log(LOG_NETWORK, @"CANCELING (%@) %@", [_request HTTPMethod], [_request URL]);
+    [_timeoutTimer invalidate];
     _canceled = YES;
     [super cancel];
 }
@@ -84,9 +97,9 @@
 
 - (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     if (!_canceled) {
-        _error = YES;
+        _error = [error retain];
         [_data release];
-        _data = [[error localizedDescription] retain];
+        _data = nil;
         [self callLuaCallback];
     }
 }
@@ -117,7 +130,7 @@
     
     if (hasCallback && wax_pcall(L, 1, 0)) {
         const char* error_string = lua_tostring(L, -1);
-        printf("Problem calling Lua function '%s' from wax_http.\n%s", WAX_HTTP_REDIRECT_CALLBACK_FUNCTION_NAME, error_string);
+        luaL_error(L, "Problem calling Lua function '%s' from wax_http.\n%s", WAX_HTTP_REDIRECT_CALLBACK_FUNCTION_NAME, error_string);
     }
     
     END_STACK_MODIFY(L, 0)
@@ -143,7 +156,7 @@
     
     if (hasCallback && wax_pcall(L, 1, 0)) {
         const char* error_string = lua_tostring(L, -1);
-        printf("Problem calling Lua function '%s' from wax_http.\n%s", WAX_HTTP_AUTH_CALLBACK_FUNCTION_NAME, error_string);
+        luaL_error(L, "Problem calling Lua function '%s' from wax_http.\n%s", WAX_HTTP_AUTH_CALLBACK_FUNCTION_NAME, error_string);
     }
     
     END_STACK_MODIFY(L, 0)
@@ -180,7 +193,7 @@
     
 		if (wax_pcall(L, 2, 0)) {
 			const char* error_string = lua_tostring(L, -1);
-			printf("Problem calling Lua function '%s' from wax_http.\n%s", WAX_HTTP_PROGRESS_CALLBACK_FUNCTION_NAME, error_string);
+			luaL_error(L, "Problem calling Lua function '%s' from wax_http.\n%s", WAX_HTTP_PROGRESS_CALLBACK_FUNCTION_NAME, error_string);
 		}
 	}
     
@@ -189,6 +202,8 @@
 
 
 - (void)callLuaCallback { 
+    [_timeoutTimer invalidate];
+    
     BEGIN_STACK_MODIFY(L)
     
     if (_canceled) {
@@ -267,11 +282,18 @@
     }
     
     wax_fromObjc(L, "@", &_response);
-    wax_fromObjc(L, "@", &_data); // Send the raw data too (since oddly, the response doesn't contain it)
+    if (_error) {
+        wax_fromObjc(L, "@", &_error);
+    }
+    else {
+        lua_pushnil(L);
+    }
+
+    
     
     if (hasCallback && wax_pcall(L, 3, 0)) {
         const char* error_string = lua_tostring(L, -1);
-        printf("Problem calling Lua function '%s' from wax_http.\n%s", WAX_HTTP_CALLBACK_FUNCTION_NAME, error_string);
+        luaL_error(L, "Problem calling Lua function '%s' from wax_http.\n%s", WAX_HTTP_CALLBACK_FUNCTION_NAME, error_string);
     }
     
     _finished = YES;

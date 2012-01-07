@@ -106,9 +106,18 @@ static int __call(lua_State *L) {
         class_addMethod(klass, @selector(valueForUndefinedKey:), (IMP)valueForUndefinedKey, "@@:@");        
 
         id metaclass = object_getClass(klass);
+        
         // So objects created in ObjC will get an associated lua object
-        class_addMethod(metaclass, @selector(alloc), (IMP)alloc, "@@:");
-        class_addMethod(metaclass, @selector(allocWithZone:), (IMP)allocWithZone, "@@:^{_NSZone=}");
+        // Store the original allocWithZone implementation in case something secret goes on in there. 
+        // Calls to `alloc` always are end up calling `allocWithZone:` so we don't bother handling alloc here.
+        Method m = class_getInstanceMethod(metaclass, @selector(allocWithZone:));
+        
+        // If we the method has already been swizzled (by the class's super, then
+        // just leave it up to the super!
+        if (method_getImplementation(m) != (IMP)allocWithZone) {
+            class_addMethod(metaclass, @selector(wax_originalAllocWithZone:), method_getImplementation(m), method_getTypeEncoding(m));
+            class_addMethod(metaclass, @selector(allocWithZone:), (IMP)allocWithZone, "@@:^{_NSZone=}");
+        }
     }
         
     wax_instance_create(L, klass, YES);
@@ -140,32 +149,12 @@ static int name(lua_State *L) {
     return 1;
 }
 
-static id alloc(id self, SEL _cmd) {    
-    lua_State *L = wax_currentLuaState(); 
-    
-    BEGIN_STACK_MODIFY(L);
-    
-    id instance = class_createInstance(self, 0);
-    wax_instance_userdata *waxInstance = wax_instance_create(L, instance, NO);
-    object_setInstanceVariable(instance, WAX_CLASS_INSTANCE_USERDATA_IVAR_NAME, waxInstance);
-    
-    END_STACK_MODIFY(L, 0);
-    
-    return instance;
-}
-
 static id allocWithZone(id self, SEL _cmd, NSZone *zone) {
     lua_State *L = wax_currentLuaState(); 
-    
     BEGIN_STACK_MODIFY(L);
 
-    if (zone && zone != NSDefaultMallocZone()) {
-        [NSException raise:@"Wax Error" format:@"Wax doesn't handle allocing in zones other than the default! (It could, we just haven't gotten around to it yet)"];
-    }    
-    
-    id instance = class_createInstance(self, 0);
-    wax_instance_userdata *waxInstance = wax_instance_create(L, instance, NO);
-    object_setInstanceVariable(instance, WAX_CLASS_INSTANCE_USERDATA_IVAR_NAME, waxInstance);
+    id instance = [self wax_originalAllocWithZone:zone];
+    object_setInstanceVariable(instance, WAX_CLASS_INSTANCE_USERDATA_IVAR_NAME, @"YEAP");
     
     END_STACK_MODIFY(L, 0);
     

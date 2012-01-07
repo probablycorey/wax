@@ -91,18 +91,14 @@ static int request(lua_State *L) {
     [urlRequest setCachePolicy:cachePolicy];
     [urlRequest setAllHTTPHeaderFields:headerFields];
     [urlRequest setHTTPBody:body];
-    [urlRequest setTimeoutInterval:timeout]; // Apple makes has a mandatory 240 second timeout WTF? https://devforums.apple.com/thread/25282
-
+    
     wax_http_connection *connection;
-
-    connection = [[wax_http_connection alloc] initWithRequest:urlRequest luaState:L];
-
-    [connection autorelease];
+    connection = [[[wax_http_connection alloc] initWithRequest:urlRequest timeout:timeout luaState:L] autorelease]; 
     connection.format = format;
-
     [urlRequest release];
-
+    
     wax_instance_create(L, connection, NO);
+
 	if (pushCallback(L, WAX_HTTP_AUTH_CALLBACK_FUNCTION_NAME, 1)) {
 		lua_setfield(L, -2, WAX_HTTP_AUTH_CALLBACK_FUNCTION_NAME); // Set the authCallback function for the userdata         
 	}

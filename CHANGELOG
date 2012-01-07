@@ -1,0 +1,31 @@
+0.93
+
+* wax_startWithExtension was removed. 
+* wax_start's parameters have changed. It now takes the name of the init 
+  script usually "AppDelegate.lua". It also contains a null-terminated list of
+  extensions. Example below:
+  
+  wax_start("AppDelegate.lua", luaopen_wax_http);
+  
+* Wax doesn't look in WAX_ROOT/data/scripts for Lua files anymore. It now 
+  searches WAX_ROOT/scripts and then searches the app's Bundle path as well.
+  
+* Added wax_stdlib.h, this is used in the wax.framework to hold a compiled
+  version of the wax stdlib. It's just a dummy file otherwise.
+  
+* Renamed WAX_ROOT/lib/wax-scripts to WAX_ROOT/lib/stdlib because it was a
+  more accurate name.
+  
+* wax.framework is 100% more awesome. I put a lot of effort into making it
+  take as little effort as possible to add to a project. More info 
+  https://github.com/probablycorey/wax/wiki/Installation-framework
+  
+* When developing on the device, you no longer need to clean the build to 
+  ensure that the device has the updated files.
+
+* Bug fixes. Mostly dealing with waxClass and inheritance.
+
+* Better C++ compatibility. (via Tawanda Gwena)
+
+* Cross compilation of Lua bytecode files, and the ability to smush all of the
+  files together. (thanks to Matt Campbell and Jeremy Collins for their help)

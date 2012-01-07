@@ -184,14 +184,14 @@
 		043D107B12C92D6700775F70 /* wax_struct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_struct.h; sourceTree = "<group>"; };
 		043D107C12C92D6700775F70 /* wax_struct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_struct.m; sourceTree = "<group>"; };
 		AA747D9E0F9514B9006C5449 /* Framework_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Framework_Prefix.pch; sourceTree = SOURCE_ROOT; };
-		D2AAC07E0554694100DB518D /* libWax.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libWax.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		D2AAC07E0554694100DB518D /* libwax.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libwax.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
 		034768DFFF38A50411DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D2AAC07E0554694100DB518D /* libWax.a */,
+				D2AAC07E0554694100DB518D /* libwax.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -485,7 +485,7 @@
 			);
 			name = Wax;
 			productName = Framework;
-			productReference = D2AAC07E0554694100DB518D /* libWax.a */;
+			productReference = D2AAC07E0554694100DB518D /* libwax.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -607,7 +607,7 @@
 				HEADER_SEARCH_PATHS = "$(SDK_ROOT)/usr/include/libxml2";
 				INSTALL_PATH = /usr/local/lib;
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = Framework;
+				PRODUCT_NAME = wax;
 			};
 			name = Debug;
 		};
@@ -626,7 +626,7 @@
 				LINK_WITH_STANDARD_LIBRARIES = NO;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = Wax;
+				PRODUCT_NAME = wax;
 				STRIP_STYLE = all;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = framework;
