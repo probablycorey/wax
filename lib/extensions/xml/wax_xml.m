@@ -17,9 +17,6 @@ static void createTable(lua_State *L, xmlNode *node, char *textLabel, char *attr
 static int parse(lua_State *L);
 static int generate(lua_State *L);
 
-// define this one to enable any extensions made by Sinastria (mainly handling of parsing errors 
-// and a modification to parsing per se).
-#define WAX_XML_SINARTIA_EXTENSION 1
 
 static const struct luaL_Reg metaFunctions[] = {
     {NULL, NULL}
@@ -134,14 +131,12 @@ static void createTable(lua_State *L, xmlNode *node, char *textLabel, char *attr
                 break;
             case XML_COMMENT_NODE: // do nothing if it's a comment
                 break;
-#ifdef WAX_XML_SINARTIA_EXTENSION
             case XML_CDATA_SECTION_NODE:
                 if (xmlIsBlankNode(node)) continue;
                 lua_pushstring(L, textLabel);
                 lua_pushstring(L, (const char *)node->content);
                 lua_rawset(L, -3);
 		break;
-#endif
             default:
                 // I have no idea what these things are... XML is for weirdos
                 luaL_error(L, "UNKNOWN NODE TYPE %d", node->type);
@@ -186,12 +181,8 @@ static int parse(lua_State *L) {
         lua_pop(L, 1); // pop the custom label table off the stack (just making room!)
     }
 
-#ifdef WAX_XML_SINARTIA_EXTENSION    
     lua_remove(L, 1); // remove the xml string from the stack (we've copied it above)
     xmlSetStructuredErrorFunc(L, errorHandler);
-#else
-    lua_pop(L, 1); // pop the xml off the stack (just making room!)
-#endif
     
     doc = xmlReadMemory(xml, xmlLength, "noname.xml", NULL, 0);
     if (doc != NULL) {
@@ -201,26 +192,19 @@ static int parse(lua_State *L) {
         createTable(L, root_element, textLabel, attrsLabel);
     }
     else {
-#ifdef WAX_XML_SINARTIA_EXTENSION
         lua_pushnil(L);
-#else
-        luaL_error(L, "Unable open for parsing xml");
-#endif
     }
 	
     xmlFreeDoc(doc);
-#ifdef WAX_XML_SINARTIA_EXTENSION
     if (lua_isfunction(L, 1)) { // if we were given an error callback, now it's 
                                 // the time to remove it
         lua_remove(L, 1);
     }
-#endif	
     END_STACK_MODIFY(L, 1);
     
     return 1;
 }
 
-#ifdef WAX_XML_SINARTIA_EXTENSION
 
 // Makes a dictionary (table) with the data of the XML error object passed,
 // and pushes that dictionary onto the Lua stack.
@@ -294,7 +278,6 @@ static void errorHandler(void * L, xmlErrorPtr error)
     }
 }
 
-#endif
 
 static void createAttributes(lua_State *L, xmlNodePtr node) {
     lua_pushnil(L);
