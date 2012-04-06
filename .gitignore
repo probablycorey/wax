@@ -2,3 +2,5 @@ build/
 *.pbxuser
 *.perspectivev3
 wax.framework
+xcuserdata
+.DS_Store
