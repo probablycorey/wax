@@ -3,3 +3,4 @@ build/
 *.perspectivev3
 wax.framework
 xcuserdata
+.DS_Store
