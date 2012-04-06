@@ -73,10 +73,7 @@ static int __call(lua_State *L) {
     const char *className = luaL_checkstring(L, 2);
     Class klass = objc_getClass(className);
     
-    if (klass) { // Class should not already exist!
-        luaL_error(L, "Trying to create a class named '%s', but one already exists.", className);
-    }
-    else {
+    if (!klass) {
         Class superClass;    
         if (lua_isuserdata(L, 3)) {
             wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 3, WAX_INSTANCE_METATABLE_NAME);

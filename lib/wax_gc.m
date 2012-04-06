@@ -19,8 +19,16 @@
 
 @implementation wax_gc
 
+static NSTimer* timer = nil;
+
 + (void)start {
-    [NSTimer scheduledTimerWithTimeInterval:WAX_GC_TIMEOUT target:self selector:@selector(cleanupUnusedObject) userInfo:nil repeats:YES];
+    [timer invalidate];
+    timer = [NSTimer scheduledTimerWithTimeInterval:WAX_GC_TIMEOUT target:self selector:@selector(cleanupUnusedObject) userInfo:nil repeats:YES];
+}
+
++ (void)stop {
+    [timer invalidate];
+    timer = nil;
 }
 
 + (void)cleanupUnusedObject {   

@@ -14,6 +14,7 @@
 }
 
 + (void)start;
++ (void)stop;
 + (void)cleanupUnusedObject;
 
 @end
