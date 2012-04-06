@@ -526,7 +526,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/zsh;
-			shellScript = "\"$PROJECT_DIR/wax/lib/build-scripts/compile-stdlib.sh\"";
+			shellScript = "#\"$PROJECT_DIR/wax/lib/build-scripts/compile-stdlib.sh\"";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

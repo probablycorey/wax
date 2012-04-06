@@ -29,11 +29,13 @@ static int toobjc(lua_State *L);
 static int exitApp(lua_State *L);
 static int objcDebug(lua_State *L);
 
+static lua_State *currentL;
 lua_State *wax_currentLuaState() {
-    static lua_State *L;    
-    if (!L) L = lua_open();
     
-    return L;
+    if (!currentL) 
+        currentL = lua_open();
+    
+    return currentL;
 }
 
 void uncaughtExceptionHandler(NSException *e) {
@@ -152,7 +154,9 @@ void wax_startWithServer() {
 }
 
 void wax_end() {
+    [wax_gc stop];
     lua_close(wax_currentLuaState());
+    currentL = 0;
 }
 
 static void addGlobals(lua_State *L) {
