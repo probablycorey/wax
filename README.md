@@ -1,6 +1,10 @@
-** Wax is no longer being maintained by @probablycorey **
+###Wax is no longer being maintained by @probablycorey
+
 I am no longer doing iOS development, so I don't have time to make sure Wax is still viable.
 If you would like to take over as the maintainer of Wax let me know!
+
+Wax
+---
 
 Wax is a framework that lets you write native iPhone apps in 
 [Lua](http://www.lua.org/about.html). It bridges Objective-C and Lua using the 
@@ -8,7 +12,7 @@ Objective-C runtime. With Wax, **anything** you can do in Objective-C is **autom
 available in Lua! What are you waiting for, give it a shot!
 
 Why write iPhone apps in Lua?
----------------------------------------
+-----------------------------
 
 I love writing iPhone apps, but would rather write them in a dynamic language than in Objective-C. Here 
 are some reasons why many people prefer Lua + Wax over Objective-C...
