@@ -1,7 +1,8 @@
 ###Wax is no longer being maintained by @probablycorey
 
-I am no longer doing iOS development, so I don't have time to make sure Wax is still viable.
-If you would like to take over as the maintainer of Wax let me know!
+I am no longer developing iOS applications and don't have time to work on Wax.
+If you would like to take over as the maintainer, [fork](https://github.com/probablycorey/wax/fork) 
+Wax and maintain it there. If your fork becomes popular I will add a link to it to this Readme.
 
 Wax
 ---
