@@ -42,7 +42,7 @@ int luaopen_wax_class(lua_State *L) {
     
     luaL_newmetatable(L, WAX_CLASS_METATABLE_NAME);
     luaL_register(L, NULL, MetaMethods);
-    luaL_register(L, WAX_CLASS_METATABLE_NAME, Methods);    
+    luaL_register(L, WAX_CLASS_METATABLE_NAME, Methods);
 
     // Set the metatable for the module
     luaL_getmetatable(L, WAX_CLASS_METATABLE_NAME);

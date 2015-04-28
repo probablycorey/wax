@@ -1,4 +1,4 @@
-//
+  //
 //  wax_helpers.m
 //  Lua
 //
@@ -10,18 +10,14 @@
 #import "wax_instance.h"
 #import "wax_struct.h"
 #import "lauxlib.h"
+#import "wax_block_transfer.h"
 
-@interface WaxFunction : NSObject {}
-@end
-
-@implementation WaxFunction // Used to pass lua fuctions around
-@end
 
 void wax_printStack(lua_State *L) {
     int i;
     int top = lua_gettop(L);
     
-    for (i = 1; i <= top; i++) {        
+    for (i = 1; i <= top; i++) {
         printf("%d: ", i);
         wax_printStackAt(L, i);
         printf("\n");
@@ -43,6 +39,11 @@ void wax_printStackAt(lua_State *L, int i) {
             break;
         case LUA_TNUMBER:
             printf("'%g'", lua_tonumber(L, i));
+            break;
+        case LUA_TTABLE:
+            printf("%p\n{\n", lua_topointer(L, i));
+//            wax_printTable(L, i);
+            printf("}");
             break;
         default:
             printf("%p", lua_topointer(L, i));
@@ -101,6 +102,7 @@ int wax_getStackTrace(lua_State *L) {
     lua_call(L, 0, 1);    
     return 1;
 }
+
 
 int wax_fromObjc(lua_State *L, const char *typeDescription, void *buffer) {
     BEGIN_STACK_MODIFY(L)
@@ -212,6 +214,14 @@ void wax_fromStruct(lua_State *L, const char *typeDescription, void *buffer) {
     wax_struct_create(L, typeDescription, buffer);
 }
 
+BOOL isStackBlock(id instance){
+    NSString *des = NSStringFromClass([instance class]);
+    if([des isEqualToString:@"__NSStackBlock__"]){
+        return YES;
+    }
+    return NO;
+}
+
 void wax_fromInstance(lua_State *L, id instance) {
     BEGIN_STACK_MODIFY(L)
     
@@ -250,6 +260,8 @@ void wax_fromInstance(lua_State *L, id instance) {
 				luaL_error(L, "Could not get userdata associated with WaxFunction");
 			}
 			lua_getfield(L, -1, "function");
+		}else if (isStackBlock(instance)) {//stack block should copy,or gc will crash.
+            wax_instance_create(L, [[instance copy] autorelease], NO);
 		}
         else {
             wax_instance_create(L, instance, NO);
@@ -262,9 +274,11 @@ void wax_fromInstance(lua_State *L, id instance) {
     END_STACK_MODIFY(L, 1)
 }
 
+
+
 #define WAX_TO_INTEGER(_type_) *outsize = sizeof(_type_); value = calloc(sizeof(_type_), 1); *((_type_ *)value) = (_type_)lua_tointeger(L, stackIndex);
 #define WAX_TO_NUMBER(_type_) *outsize = sizeof(_type_); value = calloc(sizeof(_type_), 1); *((_type_ *)value) = (_type_)lua_tonumber(L, stackIndex);
-#define WAX_TO_BOOL_OR_CHAR(_type_) *outsize = sizeof(_type_); value = calloc(sizeof(_type_), 1); *((_type_ *)value) = (_type_)(lua_isstring(L, stackIndex) ? lua_tostring(L, stackIndex)[0] : lua_toboolean(L, stackIndex));
+#define WAX_TO_BOOL_OR_CHAR(_type_) *outsize = sizeof(_type_); value = calloc(sizeof(_type_), 1); *((_type_ *)value) = (_type_)( lua_isstring(L, stackIndex) ? lua_tostring(L, stackIndex)[0] : lua_toboolean(L, stackIndex));
 
 // MAKE SURE YOU RELEASE THE RETURN VALUE!
 void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, int *outsize) {
@@ -287,12 +301,23 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
     if (outsize == nil) outsize = alloca(sizeof(int)); // if no outsize address set, treat it as a junk var
     
     switch (typeDescription[0]) {
+        case WAX_TYPE_VOID://Convenient and unified treatment of the return value
+            *((int*)value) = 0;
+            break;
+            
         case WAX_TYPE_C99_BOOL:
             WAX_TO_BOOL_OR_CHAR(BOOL)
             break;            
             
         case WAX_TYPE_CHAR:
-            WAX_TO_BOOL_OR_CHAR(char)
+            *outsize = sizeof(char); value = calloc(sizeof(char), 1);
+            if(lua_type(L, stackIndex) == LUA_TNUMBER){//There should be corresponding with wax_fromObjc, otherwise the incoming char by wax_fromObjc into number, and then through the wax_copyToObjc into strings are truncated.（如'a'->97->'9'）
+                *((char *)value) = (char)lua_tonumber(L, stackIndex);
+            }else if(lua_type(L, stackIndex) == LUA_TSTRING){
+                *((char *)value) = (char)lua_tostring(L, stackIndex)[0];
+            }else{//32 bit BOOL is char
+                *((char *)value) = (char)lua_toboolean(L, stackIndex);
+            }
             break;
             
         case WAX_TYPE_INT:
@@ -364,13 +389,20 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
             }
             break;             
             
-        case WAX_TYPE_STRING: {
-            const char *string = lua_tostring(L, stackIndex);
-            int length = strlen(string) + 1;
-            *outsize = length;
+        case WAX_TYPE_STRING: {//Here is the address of the string value should be, and should not be the contents of the string itself
+//            const char *string = lua_tostring(L, stackIndex);
+//            int length = strlen(string) + 1;
+//            *outsize = length;
+//            
+//            value = calloc(sizeof(char *), length);
+//            strcpy(value, string);
             
-            value = calloc(sizeof(char *), length);
-            strcpy(value, string);
+            const char *string = lua_tostring(L, stackIndex);
+            *outsize = sizeof(char*);
+            
+            value = calloc(sizeof(char *), 1);
+            
+            memcpy(value, &string, *outsize);
             break;
         }
 
@@ -399,6 +431,9 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
 
                             break;                                  
                         }
+                        case LUA_TLIGHTUSERDATA:
+                            pointer = lua_touserdata(L, stackIndex);
+                            break;
                         default:
                             luaL_error(L, "Can't convert %s to wax_instance_userdata.", luaL_typename(L, stackIndex));
                             break;
@@ -668,6 +703,7 @@ int wax_sizeOfTypeDescription(const char *full_type_description) {
         switch (type_description[index]) {
             case WAX_TYPE_POINTER:
                 size += sizeof(void *);
+                break;//not need break?
                 
             case WAX_TYPE_CHAR:
                 size += sizeof(char);
@@ -771,7 +807,6 @@ int wax_sizeOfTypeDescription(const char *full_type_description) {
         
         index++;
     }
-    
     return size;
 }
 
@@ -839,6 +874,7 @@ int wax_simplifyTypeDescription(const char *in, char *out) {
 }
 
 int wax_errorFunction(lua_State *L) {
+    wax_printStack(L);
     lua_getfield(L, LUA_GLOBALSINDEX, "debug");
     if (!lua_istable(L, -1)) {
         lua_pop(L, 1);
@@ -867,4 +903,3 @@ int wax_pcall(lua_State *L, int argumentCount, int returnCount) {
     
     return lua_pcall(L, argumentCount, returnCount, errorFuncStackIndex);
 }
-

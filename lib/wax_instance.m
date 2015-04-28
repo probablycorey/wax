@@ -14,7 +14,7 @@
 
 #import "lauxlib.h"
 #import "lobject.h"
-
+#import "wax_imp_call_pool.h"
 static int __index(lua_State *L);
 static int __newindex(lua_State *L);
 static int __gc(lua_State *L);
@@ -29,6 +29,15 @@ static int customInitMethodClosure(lua_State *L);
 
 static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata);
 static int pcallUserdata(lua_State *L, id self, SEL selector, va_list args);
+static BOOL overrideMethodByInvocation(id klass, SEL selector);
+
+
+
+extern void wax_printStack(lua_State *L);
+extern void wax_printStackAt(lua_State *L, int i);
+extern void wax_printTable(lua_State *L, int t);
+extern void wax_log(int flag, NSString *format, ...);
+extern int wax_getStackTrace(lua_State *L);
 
 static const struct luaL_Reg metaFunctions[] = {
     {"__index", __index},
@@ -49,7 +58,7 @@ int luaopen_wax_instance(lua_State *L) {
     
     luaL_newmetatable(L, WAX_INSTANCE_METATABLE_NAME);
     luaL_register(L, NULL, metaFunctions);
-    luaL_register(L, WAX_INSTANCE_METATABLE_NAME, functions);    
+    luaL_register(L, WAX_INSTANCE_METATABLE_NAME, functions);
     
     END_STACK_MODIFY(L, 0)
     
@@ -67,12 +76,14 @@ wax_instance_userdata *wax_instance_create(lua_State *L, id instance, BOOL isCla
     wax_instance_pushUserdata(L, instance);
    
     if (lua_isnil(L, -1)) {
-        //wax_log(LOG_GC, @"Creating %@ for %@(%p)", isClass ? @"class" : @"instance", [instance class], instance);
+//        wax_log(LOG_GC, @"Creating %@ for %@(%p)", isClass ? @"class" : @"instance", [instance class], instance);
         lua_pop(L, 1); // pop nil stack
     }
     else {
-        //wax_log(LOG_GC, @"Found existing userdata %@ for %@(%p)", isClass ? @"class" : @"instance", [instance class], instance);
-        return lua_touserdata(L, -1);
+        wax_instance_userdata *data = lua_touserdata(L, -1);
+        [wax_global_lock() unlock];//need unlock
+//        wax_log(LOG_GC, @"Found existing userdata %@ for %@(%p -> %p)", isClass ? @"class" : @"instance", [instance class], instance, data);
+        return  data;
     }
     
     size_t nbytes = sizeof(wax_instance_userdata);
@@ -81,9 +92,10 @@ wax_instance_userdata *wax_instance_create(lua_State *L, id instance, BOOL isCla
     instanceUserdata->isClass = isClass;
     instanceUserdata->isSuper = nil;
 	instanceUserdata->actAsSuper = NO;
-     
-    if (!isClass) {
-        //wax_log(LOG_GC, @"Retaining %@ for %@(%p -> %p)", isClass ? @"class" : @"instance", [instance class], instance, instanceUserdata);
+    
+//    wax_log(LOG_GC, @"CreateUserdata %@ for %@(%p -> %p)", isClass ? @"class" : @"instance", [instance class], instance, instanceUserdata);
+    if (!isClass) {//retain when not metaClass
+//        wax_log(LOG_GC, @"Retaining %@ for %@(%p -> %p)", isClass ? @"class" : @"instance", [instance class], instance, instanceUserdata);
         [instanceUserdata->instance retain];
     }
     
@@ -92,7 +104,7 @@ wax_instance_userdata *wax_instance_create(lua_State *L, id instance, BOOL isCla
     lua_setmetatable(L, -2);
 
     // give it a nice clean environment
-    lua_newtable(L); 
+    lua_newtable(L);
     lua_setfenv(L, -2);
     
     wax_instance_pushUserdataTable(L);
@@ -101,9 +113,9 @@ wax_instance_userdata *wax_instance_create(lua_State *L, id instance, BOOL isCla
     //wax_log(LOG_GC, @"Storing reference of %@ to userdata table %@(%p -> %p)", isClass ? @"class" : @"instance", [instance class], instance, instanceUserdata);        
     lua_pushlightuserdata(L, instanceUserdata->instance);
     lua_pushvalue(L, -3); // Push userdata
-    lua_rawset(L, -3);
+    lua_rawset(L, -3);//__wax_userdata[instanceUserdata->instance]=instanceUserdata
         
-    lua_pop(L, 1); // Pop off userdata table
+    lua_pop(L, 1); // Pop off userdata tabl6e
 
     
     wax_instance_pushStrongUserdataTable(L);
@@ -216,8 +228,14 @@ BOOL wax_instance_pushFunction(lua_State *L, id self, SEL selector) {
     
     wax_instance_pushUserdata(L, self);
     if (lua_isnil(L, -1)) {
-        END_STACK_MODIFY(L, 0)
-        return NO; // userdata doesn't exist
+        // TODO:
+        // quick and dirty solution to let obj-c call directly into lua
+        // cause a obj-c leak, should we release it later?
+        wax_instance_userdata *data = wax_instance_create(L, self, NO);
+        NSLog(@"data->waxRetain = YES instance=%@", data->instance);
+//        [self release];
+//        END_STACK_MODIFY(L, 0)
+//        return NO; // userdata doesn't exist
     }
     
     lua_getfenv(L, -1);
@@ -277,7 +295,7 @@ static int __index(lua_State *L) {
 		lua_pushvalue(L, -2);
 		lua_rawget(L, 3);
 	}
-	else {
+	else { 
 		lua_pushnil(L);
 	}
 
@@ -327,20 +345,21 @@ static int __newindex(lua_State *L) {
     if (instanceUserdata->isClass && lua_type(L, 3) == LUA_TFUNCTION) {
         overrideMethod(L, instanceUserdata);
     }
-    
-    // Add value to the userdata's environment table
+
+    // Add value to the userdata's environment table.
     lua_getfenv(L, 1);
     lua_insert(L, 2);
-    lua_rawset(L, 2);        
+    lua_rawset(L, 2);
     
     return 0;
 }
 
 static int __gc(lua_State *L) {
+    
     wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);
     
-    //wax_log(LOG_GC, @"Releasing %@ %@(%p)", instanceUserdata->isClass ? @"Class" : @"Instance", [instanceUserdata->instance class], instanceUserdata->instance);
-    
+//    wax_log(LOG_GC, @"Releasing %@ %@(%p)", instanceUserdata->isClass ? @"Class" : @"Instance", [instanceUserdata->instance class], instanceUserdata->instance);
+
     if (!instanceUserdata->isClass && !instanceUserdata->isSuper) {
         // This seems like a stupid hack. But...
         // If we want to call methods on an object durring gc, we have to readd 
@@ -404,7 +423,7 @@ static int methodClosure(lua_State *L) {
     if (![[NSThread currentThread] isEqual:[NSThread mainThread]]) NSLog(@"METHODCLOSURE: OH NO SEPERATE THREAD");
 
     wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);    
-    const char *selectorName = luaL_checkstring(L, lua_upvalueindex(1));
+    const char *selectorName = luaL_checkstring(L, lua_upvalueindex(1));//
 
     // If the only arg is 'self' and there is a selector with no args. USE IT!
     if (lua_gettop(L) == 1 && lua_isstring(L, lua_upvalueindex(2))) {
@@ -418,7 +437,7 @@ static int methodClosure(lua_State *L) {
     // If init is called on a class, auto-allocate it.    
     if (instanceUserdata->isClass && wax_isInitMethod(selectorName)) {
         autoAlloc = YES;
-        instance = [instance alloc];
+        instance = [instance alloc];//retainCount is 1
     }
     
     NSMethodSignature *signature = [instance methodSignatureForSelector:selector];
@@ -482,7 +501,7 @@ static int methodClosure(lua_State *L) {
             else {
                 wax_instance_userdata *returnedInstanceUserdata = (wax_instance_userdata *)lua_topointer(L, -1);
                 if (returnedInstanceUserdata) { // Could return nil
-                    [returnedInstanceUserdata->instance release]; // Wax automatically retains a copy of the object, so the alloc needs to be released
+                    [returnedInstanceUserdata->instance release]; // Wax automatically retains a copy of the object, so the alloc needs to be released retainCount-1
                 }
             }            
         }
@@ -595,9 +614,13 @@ static int pcallUserdata(lua_State *L, id self, SEL selector, va_list args) {
     int nresults = [signature methodReturnLength] ? 1 : 0;
         
     for (int i = 2; i < [signature numberOfArguments]; i++) { // start at 2 because to skip the automatic self and _cmd arugments
-        const char *type = [signature getArgumentTypeAtIndex:i];
-        int size = wax_fromObjc(L, type, args);
-        args += size; // HACK! Since va_arg requires static type, I manually increment the args
+        const char *type = [signature getArgumentTypeAtIndex:i];    
+        const char *typeDescription = wax_removeProtocolEncodings(type);
+        void *buffer = nil;
+//        id temp = va_arg(args, id);
+//        id temp = *((id*)(args));
+        WAX_GET_ARG_BUFFER_WITH_TYPE(buffer, typeDescription, args);
+        wax_fromObjc(L, typeDescription, buffer);
     }
 
     if (wax_pcall(L, nargs, nresults)) { // Userdata will allways be the first object sent to the function  
@@ -612,10 +635,117 @@ error:
     return -1;
 }
 
+//64 solve 1:instance method go Invocation
+static int pcallUserdataARM64Invocation(lua_State *L, id self, SEL selector, NSInvocation *anInvocation) {
+    BEGIN_STACK_MODIFY(L)
+    
+    if (![[NSThread currentThread] isEqual:[NSThread mainThread]]) NSLog(@"PCALLUSERDATA: OH NO SEPERATE THREAD");
+    
+    // A WaxClass could have been created via objective-c (like via NSKeyUnarchiver)
+    // In this case, no lua object was ever associated with it, so we've got to
+    // create one.
+    if (wax_instance_isWaxClass(self)) {
+        BOOL isClass = self == [self class];
+        wax_instance_create(L, self, isClass); // If it already exists, then it will just return without doing anything
+        lua_pop(L, 1); // Pops userdata off
+    }
+    
+    // Find the function... could be in the object or in the class
+    if (!wax_instance_pushFunction(L, self, selector)) {
+        lua_pushfstring(L, "Could not find function named \"%s\" associated with object %s(%p).(It may have been released by the GC)", selector, class_getName([self class]), self);
+        goto error; // function not found in userdata...
+    }
+    
+    // Push userdata as the first argument
+    wax_fromInstance(L, self);
+    if (lua_isnil(L, -1)) {
+        lua_pushfstring(L, "Could not convert '%s' into lua", class_getName([self class]));
+        goto error;
+    }
+    
+    NSMethodSignature *signature = [self methodSignatureForSelector:selector];
+    int nargs = [signature numberOfArguments] - 1; // Don't send in the _cmd argument, only self
+    int nresults = [signature methodReturnLength] ? 1 : 0;
+    
+    for (NSUInteger i = 2; i < [signature numberOfArguments]; i++) { // start at 2 because to skip the automatic self and _cmd arugments
+        const char *type = [signature getArgumentTypeAtIndex:i];
+        const char *typeDescription = wax_removeProtocolEncodings(type);
+        
+        void *buffer = calloc(sizeof(double), 1);//bigest double pointer
+        memset(buffer, 0, sizeof(double));
+        [anInvocation getArgument:buffer atIndex:i];
+        
+        wax_fromObjc(L, typeDescription, buffer);
+    }
+    
+    if (wax_pcall(L, nargs, nresults)) { // Userdata will allways be the first object sent to the function
+        goto error;
+    }
+    
+    END_STACK_MODIFY(L, nresults)
+    return nresults;
+    
+error:
+    END_STACK_MODIFY(L, 1)
+    return -1;
+}
+
+////64bit solve : imp pointer
+static int pcallUserdataARM64ImpCall(lua_State *L, id self, SEL selector, va_list args) {
+    BEGIN_STACK_MODIFY(L)
+    
+    if (![[NSThread currentThread] isEqual:[NSThread mainThread]]) NSLog(@"PCALLUSERDATA: OH NO SEPERATE THREAD");
+    
+    // A WaxClass could have been created via objective-c (like via NSKeyUnarchiver)
+    // In this case, no lua object was ever associated with it, so we've got to
+    // create one.
+    if (wax_instance_isWaxClass(self)) {
+        BOOL isClass = self == [self class];
+        wax_instance_create(L, self, isClass); // If it already exists, then it will just return without doing anything
+        lua_pop(L, 1); // Pops userdata off
+    }
+    
+    // Find the function... could be in the object or in the class
+    if (!wax_instance_pushFunction(L, self, selector)) {
+        lua_pushfstring(L, "Could not find function named \"%s\" associated with object %s(%p).(It may have been released by the GC)", selector, class_getName([self class]), self);
+        goto error; // function not found in userdata...
+    }
+    
+    // Push userdata as the first argument
+    wax_fromInstance(L, self);
+    if (lua_isnil(L, -1)) {
+        lua_pushfstring(L, "Could not convert '%s' into lua", class_getName([self class]));
+        goto error;
+    }
+    
+    NSMethodSignature *signature = [self methodSignatureForSelector:selector];
+    NSUInteger nargs = [signature numberOfArguments] - 1; // Don't send in the _cmd argument, only self
+    int nresults = [signature methodReturnLength] ? 1 : 0;
+    
+    for (NSUInteger i = 2; i < [signature numberOfArguments]; i++) { // start at 2 because to skip the automatic self and _cmd arugments
+        const char *type = [signature getArgumentTypeAtIndex:i];
+        const char *typeDescription = wax_removeProtocolEncodings(type);
+        
+        void *buffer = va_arg(args, void*);
+        wax_fromObjc(L, typeDescription, buffer);
+    }
+    
+    if (wax_pcall(L, (int)nargs, nresults)) { // Userdata will allways be the first object sent to the function
+        goto error;
+    }
+    
+    END_STACK_MODIFY(L, nresults)
+    return nresults;
+    
+error:
+    END_STACK_MODIFY(L, 1)
+    return -1;
+}
+
 #define WAX_METHOD_NAME(_type_) wax_##_type_##_call
 
 #define WAX_METHOD(_type_) \
-static _type_ WAX_METHOD_NAME(_type_)(id self, SEL _cmd, ...) { \
+_type_ WAX_METHOD_NAME(_type_)(id self, SEL _cmd, ...) { \
 va_list args; \
 va_start(args, _cmd); \
 va_list args_copy; \
@@ -623,11 +753,27 @@ va_copy(args_copy, args); \
 /* Grab the static L... this is a hack */ \
 lua_State *L = wax_currentLuaState(); \
 BEGIN_STACK_MODIFY(L); \
-int result = pcallUserdata(L, self, _cmd, args_copy); \
+int result = 0;\
+if(WAX_IS_ARM_64){\
+result = pcallUserdataARM64ImpCall(L, self, _cmd, args_copy); \
+}\
+else{\
+    result = pcallUserdata(L, self, _cmd, args_copy); \
+}\
 va_end(args_copy); \
 va_end(args); \
 if (result == -1) { \
-    luaL_error(L, "Error calling '%s' on '%s'\n%s", _cmd, [[self description] UTF8String], lua_tostring(L, -1)); \
+    printf("wax_luaRuntimeErrorHandler=%p", wax_getLuaRuntimeErrorHandler());\
+    if(wax_getLuaRuntimeErrorHandler()){\
+        fprintf(stderr, "Error calling '%s' on '%s'\n%s", sel_getName(_cmd), [[self description] UTF8String], lua_tostring(L, -1));\
+        wax_getLuaRuntimeErrorHandler()([NSString stringWithFormat:@"Error calling '%s' on '%@'\n%s", sel_getName(_cmd), self, lua_tostring(L, -1)], NO);\
+        _type_ returnValue; \
+        bzero(&returnValue, sizeof(_type_)); \
+        END_STACK_MODIFY(L, 0) \
+        return returnValue; \
+    }else{\
+        luaL_error(L, "Error calling '%s' on '%s'\n%s", _cmd, [[self description] UTF8String], lua_tostring(L, -1)); \
+    }\
 } \
 else if (result == 0) { \
     _type_ returnValue; \
@@ -648,10 +794,86 @@ typedef struct _buffer_16 {char b[16];} buffer_16;
 
 WAX_METHOD(buffer_16)
 WAX_METHOD(id)
-WAX_METHOD(int)
 WAX_METHOD(long)
+WAX_METHOD(BOOL)
+
+WAX_METHOD(int)
+WAX_METHOD(LongLong)
 WAX_METHOD(float)
-WAX_METHOD(BOOL) 
+WAX_METHOD(double)
+
+
+static IMP impForOverrideMethod(lua_State *L, const char* typeDescription, const char *returnType){
+    IMP imp = NULL;
+#if WAX_IS_ARM_64 == 1
+    
+    size_t length = strlen(typeDescription) + 1;
+    char *simpleTypeDescription = alloca(length);
+    bzero(simpleTypeDescription, length);
+    wax_simplifyTypeDescription(typeDescription, simpleTypeDescription);
+    
+    imp = waxImpARM64CallWithParamsTypeEncoding([NSString stringWithUTF8String:simpleTypeDescription]);
+    
+    
+#else //32 bit old logic
+    const char *simplifiedReturnType = wax_removeProtocolEncodings(returnType);
+    switch (simplifiedReturnType[0]) {
+        case WAX_TYPE_VOID:
+        case WAX_TYPE_ID:
+            imp = (IMP)WAX_METHOD_NAME(id);
+            break;
+            
+        case WAX_TYPE_CHAR:
+        case WAX_TYPE_INT:
+        case WAX_TYPE_SHORT:
+        case WAX_TYPE_UNSIGNED_CHAR:
+        case WAX_TYPE_UNSIGNED_INT:
+        case WAX_TYPE_UNSIGNED_SHORT:
+            imp = (IMP)WAX_METHOD_NAME(int);
+            break;
+            
+        case WAX_TYPE_LONG:
+        case WAX_TYPE_UNSIGNED_LONG:
+            imp = (IMP)WAX_METHOD_NAME(long);
+            break;
+
+        case WAX_TYPE_LONG_LONG:
+        case WAX_TYPE_UNSIGNED_LONG_LONG:
+            imp = (IMP)WAX_METHOD_NAME(LongLong);
+            break;
+            
+        case WAX_TYPE_FLOAT:
+            imp = (IMP)WAX_METHOD_NAME(float);
+            break;
+        case WAX_TYPE_DOUBLE:
+            imp = (IMP)WAX_METHOD_NAME(double);
+            break;
+            
+        case WAX_TYPE_C99_BOOL:
+            imp = (IMP)WAX_METHOD_NAME(BOOL);
+            break;
+            
+        case WAX_TYPE_STRUCT: {
+            int size = wax_sizeOfTypeDescription(simplifiedReturnType);
+            switch (size) {
+                case 16:
+                    imp = (IMP)WAX_METHOD_NAME(buffer_16);
+                    break;
+                default:
+                    luaL_error(L, "Trying to override a method that has a struct return type of size '%d'. There is no implementation for this size yet.", size);
+                    
+                    break;
+            }
+            break;
+        }
+            
+        default:
+            luaL_error(L, "Can't override method with return type %s", simplifiedReturnType);
+            break;
+    }
+#endif
+    return imp;
+}
 
 // Only allow classes to do this
 static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata) {
@@ -710,68 +932,54 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
             currentClass = [currentClass superclass];
         }
     }
-    
-    if (returnType) { // Matching method found! Create an Obj-C method on the 
+
+    if (returnType) { // Matching method found! Create an Obj-C method on the
         if (!instanceUserdata->isClass) {
             luaL_error(L, "Trying to override method '%s' on an instance. You can only override classes", methodName);
-        }            
-        
-        const char *simplifiedReturnType = wax_removeProtocolEncodings(returnType);
-        IMP imp;
-        switch (simplifiedReturnType[0]) {
-            case WAX_TYPE_VOID:
-            case WAX_TYPE_ID:
-                imp = (IMP)WAX_METHOD_NAME(id);
-                break;
-                
-            case WAX_TYPE_CHAR:
-            case WAX_TYPE_INT:
-            case WAX_TYPE_SHORT:
-            case WAX_TYPE_UNSIGNED_CHAR:
-            case WAX_TYPE_UNSIGNED_INT:
-            case WAX_TYPE_UNSIGNED_SHORT:   
-                imp = (IMP)WAX_METHOD_NAME(int);
-                break;            
-                
-            case WAX_TYPE_LONG:
-            case WAX_TYPE_LONG_LONG:
-            case WAX_TYPE_UNSIGNED_LONG:
-            case WAX_TYPE_UNSIGNED_LONG_LONG:
-                imp = (IMP)WAX_METHOD_NAME(long);
-                break;
-                
-            case WAX_TYPE_FLOAT:
-                imp = (IMP)WAX_METHOD_NAME(float);
-                break;
-                
-            case WAX_TYPE_C99_BOOL:
-                imp = (IMP)WAX_METHOD_NAME(BOOL);
-                break;
-                
-            case WAX_TYPE_STRUCT: {
-                int size = wax_sizeOfTypeDescription(simplifiedReturnType);
-                switch (size) {
-                    case 16:
-                        imp = (IMP)WAX_METHOD_NAME(buffer_16);
-                        break;
-                    default:
-                        luaL_error(L, "Trying to override a method that has a struct return type of size '%d'. There is no implementation for this size yet.", size);
-                        return NO;
-                        break;
-                }
-                break;
-            }
-                
-            default:   
-                luaL_error(L, "Can't override method with return type %s", simplifiedReturnType);
-                return NO;
-                break;
         }
-		
-		id metaclass = objc_getMetaClass(object_getClassName(klass));		
-		success = class_addMethod(klass, selector, imp, typeDescription) && class_addMethod(metaclass, selector, imp, typeDescription);
-		
-        if (returnType) free(returnType);                
+        
+        IMP imp = impForOverrideMethod(L, typeDescription, returnType);
+        if(!imp){//no sutiable IMP
+            luaL_error(L, "Can't override method with typeDescription %s", typeDescription);
+            [wax_global_lock() unlock];//need unlock
+            return NO;
+        }
+        
+        // OVERRIDE if exists
+		id metaclass = objc_getMetaClass(object_getClassName(klass));
+//        success = class_addMethod(klass, selector, imp, typeDescription) && class_addMethod(metaclass, selector, imp, typeDescription);
+
+        IMP instImp = class_respondsToSelector(klass, selector) ? class_getMethodImplementation(klass, selector) : NULL;
+        IMP metaImp = class_respondsToSelector(metaclass, selector) ? class_getMethodImplementation(metaclass, selector) : NULL;
+        if(instImp) {
+            // original selector is reserved in ORIGxxxx
+            IMP prevImp = class_replaceMethod(klass, selector, imp, typeDescription);
+            const char *selectorName = sel_getName(selector);
+            char newSelectorName[strlen(selectorName) + 10];
+            strcpy(newSelectorName, "ORIG");
+            strcat(newSelectorName, selectorName);
+            SEL newSelector = sel_getUid(newSelectorName);
+            if(!class_respondsToSelector(klass, newSelector)) {
+                class_addMethod(klass, newSelector, prevImp, typeDescription);
+            }
+            success = YES;
+        } else if(metaImp) {
+            IMP prevImp = class_replaceMethod(metaclass, selector, imp, typeDescription);
+            const char *selectorName = sel_getName(selector);
+            char newSelectorName[strlen(selectorName) + 10];
+            strcpy(newSelectorName, "ORIG");
+            strcat(newSelectorName, selectorName);
+            SEL newSelector = sel_getUid(newSelectorName);
+            if(!class_respondsToSelector(metaclass, newSelector)) {
+                class_addMethod(metaclass, newSelector, prevImp, typeDescription);
+            }
+            success = YES;
+        } else {
+            // add to both instance and class method
+            success = class_addMethod(klass, selector, imp, typeDescription) && class_addMethod(metaclass, selector, imp, typeDescription);
+        }
+        
+        if (returnType) free(returnType);
     }
     else {
 		SEL possibleSelectors[2];
@@ -791,15 +999,49 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
             
 			size_t typeDescriptionSize = 3 + argCount;
 			typeDescription = calloc(typeDescriptionSize + 1, sizeof(char));
-			memset(typeDescription, '@', typeDescriptionSize);
+			memset(typeDescription, '@', typeDescriptionSize);//param all are id
 			typeDescription[2] = ':'; // Never forget _cmd!
-			
-			IMP imp = (IMP)WAX_METHOD_NAME(id);
+
+            IMP imp = impForOverrideMethod(L, typeDescription, "id");
+            if(!imp){//no sutiable imp
+                luaL_error(L, "Can't add method with typeDescription %s", typeDescription);
+                [wax_global_lock() unlock];//need unlock
+                return NO;
+            }
 			id metaclass = objc_getMetaClass(object_getClassName(klass));
 
-			success = success &&
-				class_addMethod(klass, possibleSelectors[i], imp, typeDescription) &&
-				class_addMethod(metaclass, possibleSelectors[i], imp, typeDescription);
+//            success = class_addMethod(klass, possibleSelectors[i], imp, typeDescription) &&
+//				class_addMethod(metaclass, possibleSelectors[i], imp, typeDescription);
+            
+            IMP instImp = class_respondsToSelector(klass, selector) ? class_getMethodImplementation(klass, selector) : NULL;
+            IMP metaImp = class_respondsToSelector(metaclass, selector) ? class_getMethodImplementation(metaclass, selector) : NULL;
+            if(instImp) {
+                // original selector is reserved in ORIGxxxx
+                IMP prevImp = class_replaceMethod(klass, selector, imp, typeDescription);
+                const char *selectorName = sel_getName(selector);
+                char newSelectorName[strlen(selectorName) + 10];
+                strcpy(newSelectorName, "ORIG");
+                strcat(newSelectorName, selectorName);
+                SEL newSelector = sel_getUid(newSelectorName);
+                if(!class_respondsToSelector(klass, newSelector)) {
+                    class_addMethod(klass, newSelector, prevImp, typeDescription);
+                }
+                success = YES;
+            } else if(metaImp) {
+                IMP prevImp = class_replaceMethod(metaclass, selector, imp, typeDescription);
+                const char *selectorName = sel_getName(selector);
+                char newSelectorName[strlen(selectorName) + 10];
+                strcpy(newSelectorName, "ORIG");
+                strcat(newSelectorName, selectorName);
+                SEL newSelector = sel_getUid(newSelectorName);
+                if(!class_respondsToSelector(metaclass, newSelector)) {
+                    class_addMethod(metaclass, newSelector, prevImp, typeDescription);
+                }
+                success = YES;
+            } else {
+                // add to both instance and class method
+                success = class_addMethod(klass, selector, imp, typeDescription) && class_addMethod(metaclass, selector, imp, typeDescription);
+            }
 			
 			free(typeDescription);
 		}
@@ -807,4 +1049,98 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
     
     END_STACK_MODIFY(L, 1)
     return success;
+}
+
+
+static const char replaceKey;
+
+static BOOL isMethodReplaced(id klass, SEL selector){
+    NSMutableDictionary *replaceDict = objc_getAssociatedObject(klass, &replaceKey);
+    if(replaceDict && [replaceDict objectForKey:NSStringFromSelector(selector)]){//is method by replaced
+        return YES;
+    }else{
+        return NO;
+    }
+}
+
+
+static void addMethodToReplacedDict(id klass, SEL selector){
+    NSMutableDictionary *replaceDict = objc_getAssociatedObject(klass, &replaceKey);
+    if(!replaceDict){
+        replaceDict = [NSMutableDictionary dictionaryWithCapacity:2];
+    }
+    replaceDict[NSStringFromSelector(selector)] = @"1";
+    objc_setAssociatedObject(klass, &replaceKey, replaceDict, OBJC_ASSOCIATION_RETAIN);
+}
+
+static SEL getORIGSelector(SEL selector){
+    const char *selectorName = sel_getName(selector);
+    char newSelectorName[strlen(selectorName) + 10];
+    strcpy(newSelectorName, "ORIG");
+    strcat(newSelectorName, selectorName);
+    SEL newSelector = sel_getUid(newSelectorName);
+    return newSelector;
+}
+
+
+static void replaceMethodAndGenerateORIG(id klass, SEL selector, IMP newIMP){
+    Method selectorMethod = class_getInstanceMethod(klass, selector);
+    const char *typeDescription =  method_getTypeEncoding(selectorMethod);
+    
+    IMP prevImp = class_replaceMethod(klass, selector, newIMP, typeDescription);
+    if(prevImp == newIMP){
+        NSLog(@"Repetition replace but, never mind");
+        return ;
+    }
+    
+    const char *selectorName = sel_getName(selector);
+    char newSelectorName[strlen(selectorName) + 10];
+    strcpy(newSelectorName, "ORIG");
+    strcat(newSelectorName, selectorName);
+    SEL newSelector = sel_getUid(newSelectorName);
+    if(!class_respondsToSelector(klass, newSelector)) {
+        class_addMethod(klass, newSelector, prevImp, typeDescription);
+    }
+    
+    addMethodToReplacedDict(klass, selector);
+}
+
+static BOOL overrideMethodByInvocation(id klass, SEL selector) {
+    if(!selector){
+        return NO;
+    }
+    replaceMethodAndGenerateORIG(klass, selector, _objc_msgForward);//trigger forwardInvocation
+    
+    if(!isMethodReplaced(klass, @selector(forwardInvocation:))){//If you have replace before forwardInvocation is not necessary to do
+        //in block ，Do not use any external data
+        IMP forwardInvocationBlock = imp_implementationWithBlock(^(id self, NSInvocation *anInvocation){
+            NSLog(@"Fun:%s Line:%d", __PRETTY_FUNCTION__, __LINE__);
+            if(isMethodReplaced([self class], anInvocation.selector)){
+                NSLog(@"Fun:%s Line:%d", __PRETTY_FUNCTION__, __LINE__);
+                lua_State *L = wax_currentLuaState();
+                BEGIN_STACK_MODIFY(L);
+                int result = pcallUserdataARM64Invocation(L, self, anInvocation.selector, anInvocation);
+                if (result == -1) {//error
+                    if(wax_getLuaRuntimeErrorHandler()){
+                        wax_getLuaRuntimeErrorHandler()([NSString stringWithFormat:@"Error calling '%s' on '%@'\n%s", sel_getName(anInvocation.selector), self, lua_tostring(L, -1)], NO);
+                    }else{
+                        luaL_error(L, "Error calling '%s' on '%s'\n%s", anInvocation.selector, [[self description] UTF8String], lua_tostring(L, -1));
+                    }
+                }
+                else if (result == 1) {//have return value
+                    NSMethodSignature *signature = [self methodSignatureForSelector:anInvocation.selector];
+                    void *pReturnValue = wax_copyToObjc(L, [signature methodReturnType], -1, nil);
+                    [anInvocation setReturnValue:pReturnValue];
+                    free(pReturnValue);
+                }
+                
+                END_STACK_MODIFY(L, 0)
+            }else{//cal original forwardInvocation method
+                ((void(*)(id, SEL, id))objc_msgSend)(self, getORIGSelector(selector), anInvocation);
+            };  
+        });
+        
+        replaceMethodAndGenerateORIG(klass, @selector(forwardInvocation:), forwardInvocationBlock);
+    }
+    return 0;
 }

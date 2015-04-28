@@ -43,5 +43,5 @@ typedef enum {
 @end
 
 // This is needed because the runtime doesn't automatically load protocols
-@interface HACK_WAX_DELEGATE_IMPLEMENTOR <WaxServerDelegate> {} 
+@interface HACK_WAX_DELEGATE_IMPLEMENTOR : NSObject  <WaxServerDelegate> {}
 @end

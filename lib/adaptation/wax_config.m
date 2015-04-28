@@ -1,0 +1,31 @@
+//
+// wax_config.m
+// wax
+//
+//  Created by junzhan on 14-9-25.
+//  Copyright (c) 2014年 junzhan. All rights reserved.
+//
+
+#import "wax_config.h"
+#import "wax_helpers.h"
+#import "wax_gc.h"
+#import "wax_capi.h"
+
+int luaSetWaxConfig(lua_State *L){
+    if(lua_isnil(L, -1)){
+        return 0;
+    }else{
+        id *instancePointer = wax_copyToObjc(L, "@", -1, nil);
+        id instance = *(id *)instancePointer;
+        
+        if([instance isKindOfClass:[NSDictionary class]]){
+            if([instance objectForKey:@"wax_gc_timeout"]){//gc time
+                [wax_gc setWaxGCTimeout:[[instance objectForKey:@"wax_gc_timeout"] integerValue]];
+            }else if([instance objectForKey:@"wax_openBindOCFunction"]){
+                wax_openBindOCFunction(L);
+            }
+        }
+        free(instancePointer);
+    }
+    return 0;
+}

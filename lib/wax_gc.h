@@ -17,4 +17,6 @@
 + (void)stop;
 + (void)cleanupUnusedObject;
 
+//set gc time interval
++ (void)setWaxGCTimeout:(NSInteger)time;
 @end

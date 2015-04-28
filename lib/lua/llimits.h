@@ -13,7 +13,7 @@
 
 
 #include "lua.h"
-
+#include <pthread.h>
 
 typedef LUAI_UINT32 lu_int32;
 
@@ -105,10 +105,12 @@ typedef lu_int32 Instruction;
 #define LUA_MINBUFFER    32
 #endif
 
-
 #ifndef lua_lock
-#define lua_lock(L)     ((void) 0) 
-#define lua_unlock(L)   ((void) 0)
+//#define lua_lock(L)     ((void) 0) 
+//#define lua_unlock(L)   ((void) 0)
+#define lua_lock(L) pthread_mutex_lock(&(G(L)->lock));
+#define lua_unlock(L) pthread_mutex_unlock(&(G(L)->lock));
+
 #endif
 
 #ifndef luai_threadyield

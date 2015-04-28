@@ -12,8 +12,10 @@
 #import <objc/message.h>
 
 #import "lua.h"
+#import "wax_define.h"
 
 #define WAX_INSTANCE_METATABLE_NAME "wax.instance"
+
 
 typedef struct _wax_instance_userdata {
     id instance;
@@ -32,3 +34,12 @@ void wax_instance_pushStrongUserdataTable(lua_State *L);
 BOOL wax_instance_pushFunction(lua_State *L, id self, SEL selector);
 void wax_instance_pushUserdata(lua_State *L, id object);
 BOOL wax_instance_isWaxClass(id instance);
+
+
+
+//declare
+int wax_int_call(id self, SEL _cmd, ...);
+id wax_id_call(id self, SEL _cmd, ...);
+LongLong wax_LongLong_call(id self, SEL _cmd, ...);
+float wax_float_call(id self, SEL _cmd, ...);
+double wax_double_call(id self, SEL _cmd, ...);

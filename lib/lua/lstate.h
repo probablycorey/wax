@@ -12,7 +12,8 @@
 #include "lobject.h"
 #include "ltm.h"
 #include "lzio.h"
-
+#include <sys/_types.h>
+//#include <sys/_types/_pthread_mutex_t.h>
 
 
 struct lua_longjmp;  /* defined in ldo.c */
@@ -91,6 +92,7 @@ typedef struct global_State {
   UpVal uvhead;  /* head of double-linked list of all open upvalues */
   struct Table *mt[NUM_TAGS];  /* metatables for basic types */
   TString *tmname[TM_N];  /* array with tag-method names */
+    pthread_mutex_t lock;
 } global_State;
 
 

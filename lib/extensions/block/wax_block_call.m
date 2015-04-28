@@ -1,0 +1,184 @@
+//
+// wax_block_call.m
+// wax
+//
+//  Created by junzhan on 15-1-8.
+//  Copyright (c) 2015年 junzhan. All rights reserved.
+//
+
+#import "wax_block_call.h"
+#import "wax_block_call_pool.h"
+#import "wax.h"
+#import "wax_instance.h"
+#import "wax_helpers.h"
+#import "wax_block.h"
+
+id wax_block_call_objectFromLuaState(lua_State *L, int index){
+    if(lua_isnil(L, index)){
+        return nil;
+    }else{
+        id *instancePointer = wax_copyToObjc(L, "@", index, nil);
+        id instance = *(id *)instancePointer;
+        free(instancePointer);
+        return instance;
+    }
+}
+int luaCallBlockReturnVoidWithObjectParam(lua_State *L){
+    int n = lua_gettop(L);
+    wax_instance_userdata *block = lua_touserdata(L, -n);
+    switch (n) {
+        case 1:
+        {
+            void (^y)()  = block->instance;
+            y();
+        }
+            break;
+        case 2:
+        {
+            void (^y)(id)  = block->instance;
+            y(wax_block_call_objectFromLuaState(L, -1));
+        }
+            break;
+        case 3:
+        {
+            void (^y)(id, id)  = block->instance;
+            y(wax_block_call_objectFromLuaState(L, -2), wax_block_call_objectFromLuaState(L, -1));
+        }
+            break;
+        case 4:
+        {
+            void (^y)(id, id, id)  = block->instance;
+            y(wax_block_call_objectFromLuaState(L, -3), wax_block_call_objectFromLuaState(L, -2), wax_block_call_objectFromLuaState(L, -1));
+        }
+            break;
+        case 5:
+        {
+            void (^y)(id, id, id, id)  = block->instance;
+            y(wax_block_call_objectFromLuaState(L, -4), wax_block_call_objectFromLuaState(L, -3), wax_block_call_objectFromLuaState(L, -2), wax_block_call_objectFromLuaState(L, -1));
+        }
+            break;
+        case 6:
+        {
+            void (^y)(id, id, id, id, id)  = block->instance;
+            y(wax_block_call_objectFromLuaState(L, -5), wax_block_call_objectFromLuaState(L, -4), wax_block_call_objectFromLuaState(L, -3), wax_block_call_objectFromLuaState(L, -2), wax_block_call_objectFromLuaState(L, -1));
+        }
+            break;
+            
+        default:
+            break;
+    }
+    return 0;
+}
+
+int luaCallBlockReturnObjectWithObjectParam(lua_State *L){
+    int n = lua_gettop(L);
+    wax_instance_userdata *block = lua_touserdata(L, -n);
+    id res = nil;
+    switch (n) {
+        case 1:
+        {
+            id (^y)()  = block->instance;
+            res = y();
+        }
+            break;
+        case 2:
+        {
+            id (^y)(id)  = block->instance;
+            res = y(wax_block_call_objectFromLuaState(L, -1));
+        }
+            break;
+        case 3:
+        {
+            id (^y)(id, id)  = block->instance;
+            res = y(wax_block_call_objectFromLuaState(L, -2), wax_block_call_objectFromLuaState(L, -1));
+        }
+            break;
+        case 4:
+        {
+            id (^y)(id, id, id)  = block->instance;
+            res = y(wax_block_call_objectFromLuaState(L, -3), wax_block_call_objectFromLuaState(L, -2), wax_block_call_objectFromLuaState(L, -1));
+        }
+            break;
+        case 5:
+        {
+            id (^y)(id, id, id, id)  = block->instance;
+            res = y(wax_block_call_objectFromLuaState(L, -4), wax_block_call_objectFromLuaState(L, -3), wax_block_call_objectFromLuaState(L, -2), wax_block_call_objectFromLuaState(L, -1));
+        }
+            break;
+        case 6:
+        {
+            id (^y)(id, id, id, id, id)  = block->instance;
+            res = y(wax_block_call_objectFromLuaState(L, -5), wax_block_call_objectFromLuaState(L, -4), wax_block_call_objectFromLuaState(L, -3), wax_block_call_objectFromLuaState(L, -2), wax_block_call_objectFromLuaState(L, -1));
+        }
+            break;
+            
+        default:
+            break;
+    }
+    wax_fromInstance(L, res);
+    return 1;
+}
+
+void *lua_call_bb(lua_State *L, int index, char typeEncoding){
+    char tempTypeEncoding[3] = {0};//at least 3 byte, or wax_simplifyTypeDescription maybe out of bounds
+    tempTypeEncoding[0] = typeEncoding;
+    void *returnBuffer = wax_copyToObjc(L, tempTypeEncoding, index, nil);
+    //    free(returnBuffer);//Release will cause loss of data. TODO
+    return returnBuffer;
+}
+
+int luaCallBlockWithParamsTypeArray(lua_State *L){
+    int n = lua_gettop(L);
+    wax_instance_userdata *blockUserData = lua_touserdata(L, 1);
+    
+    id *instancePointer = wax_copyToObjc(L, "@", 2, nil);
+    NSArray *paramsTypeArray = *(id *)instancePointer;
+    free(instancePointer);
+    
+    NSString *paramsTypeEncoding = wax_block_paramsTypeEncodingWithTypeArray(paramsTypeArray);
+    
+    const char *origTypeEncoding = [paramsTypeEncoding UTF8String];
+    char *newTypeEncoding = alloca(sizeof(char)*strlen(origTypeEncoding));
+    strcpy(newTypeEncoding, origTypeEncoding);
+    int st = 2;//1:block,2:return value
+    int paramNum = n - 2;
+    
+    for(NSUInteger i = 0; i < paramNum; ++i){
+        char tempChar = newTypeEncoding[i];
+        if(tempChar == WAX_TYPE_FLOAT || tempChar == WAX_TYPE_DOUBLE){//float,double
+            continue ;
+        }else if(tempChar == WAX_TYPE_INT || tempChar == WAX_TYPE_UNSIGNED_INT){
+            newTypeEncoding[i] = WAX_TYPE_INT;//WAX_TYPE_UNSIGNED_INT as int
+        }else if(tempChar == WAX_TYPE_LONG_LONG || tempChar == WAX_TYPE_UNSIGNED_LONG_LONG){
+            newTypeEncoding[i] = WAX_TYPE_LONG_LONG;//WAX_TYPE_UNSIGNED_LONG_LONG as longlong
+        }else if(tempChar == WAX_TYPE_POINTER || tempChar == WAX_TYPE_STRING || tempChar == WAX_TYPE_ID){//pointer
+#if WAX_IS_ARM_64 == 1
+            newTypeEncoding[i] = WAX_TYPE_INT;
+#else
+            newTypeEncoding[i] = WAX_TYPE_LONG_LONG;
+#endif
+        }else{//other all 32 bit as int, 64 bit as longlong
+#if WAX_IS_ARM_64 == 1
+            newTypeEncoding[i] = WAX_TYPE_INT;
+#else
+            newTypeEncoding[i] = WAX_TYPE_LONG_LONG;
+#endif
+        }
+    }
+    
+    NSValue *value = [wax_block_call_pool() objectForKey:[NSString stringWithUTF8String:newTypeEncoding]];
+    if(!value){
+        NSLog(@"can't match block luaCallBlockWithParamsTypeEncoding");
+        return 0;
+    }
+    
+    void* (*luaBlockCallBuffer)(lua_State *L, id block, int st, const char *te) = [value pointerValue];
+    
+    void *returnBuffer = luaBlockCallBuffer(L, blockUserData->instance, st, origTypeEncoding);
+    
+    //original type
+    char tempTypeEncoding[3] = {0};//at least 3 byte, or wax_simplifyTypeDescription maybe out of bounds
+    tempTypeEncoding[0] = newTypeEncoding[0];
+    wax_fromObjc(L, tempTypeEncoding, returnBuffer);
+    return 1;
+}

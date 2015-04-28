@@ -11,7 +11,7 @@
 #import <objc/message.h>
 
 #import "wax_instance.h"
-
+#import "wax_lock.h"
 #import "lua.h"
 
 //#define _C_ATOM     '%'
@@ -58,9 +58,11 @@
 #define WAX_PROTOCOL_TYPE_BYREF 'R'
 #define WAX_PROTOCOL_TYPE_ONEWAY 'V'
 
-#define BEGIN_STACK_MODIFY(L) int __startStackIndex = lua_gettop((L));
+#define BEGIN_STACK_MODIFY(L)      [wax_global_lock() lock];\
+int __startStackIndex = lua_gettop((L));\
 
-#define END_STACK_MODIFY(L, i) while(lua_gettop((L)) > (__startStackIndex + (i))) lua_remove((L), __startStackIndex + 1);
+#define END_STACK_MODIFY(L, i) while(lua_gettop((L)) > (__startStackIndex + (i))) lua_remove((L), __startStackIndex + 1);\
+[wax_global_lock() unlock];\
 
 #ifndef LOG_FLAGS
     #define LOG_FLAGS (LOG_FATAL | LOG_ERROR | LOG_DEBUG)
@@ -100,3 +102,125 @@ int wax_simplifyTypeDescription(const char *in, char *out);
 
 int wax_errorFunction(lua_State *L);
 int wax_pcall(lua_State *L, int argumentCount, int returnCount);
+
+
+#define WAX_GET_ARG_BUFFER_WITH_TYPE(buffer, typeDescription, args)\
+switch (typeDescription[0]) {\
+case WAX_TYPE_VOID:\
+{\
+buffer = 0;\
+break;\
+}\
+case WAX_TYPE_POINTER:\
+{\
+void *arg = va_arg(args, void*);\
+buffer = &arg;\
+break;\
+}\
+case WAX_TYPE_CHAR:\
+{\
+char arg = va_arg(args, char);\
+buffer = &arg;\
+break;\
+}\
+case WAX_TYPE_SHORT:\
+{\
+short arg = va_arg(args, short);\
+buffer = &arg;\
+break;\
+}\
+case WAX_TYPE_INT:\
+{\
+int arg = va_arg(args, int);\
+buffer = &arg;\
+break;\
+}\
+case WAX_TYPE_UNSIGNED_CHAR:\
+{\
+unsigned char arg = va_arg(args, unsigned char);\
+buffer = &arg;\
+break;\
+}\
+case WAX_TYPE_UNSIGNED_INT:\
+{\
+unsigned int arg = va_arg(args, unsigned int);\
+buffer = &arg;\
+break;\
+}\
+case WAX_TYPE_UNSIGNED_SHORT:\
+{\
+unsigned short arg = va_arg(args, unsigned short);\
+buffer = &arg;\
+break;\
+}\
+case WAX_TYPE_LONG:\
+{\
+long arg = va_arg(args, long);\
+buffer = &arg;\
+break;\
+}\
+case WAX_TYPE_LONG_LONG:\
+{\
+long long arg = va_arg(args, long long);\
+buffer = &arg;\
+break;\
+}\
+case WAX_TYPE_UNSIGNED_LONG:\
+{\
+unsigned long arg = va_arg(args, unsigned long);\
+buffer = &arg;\
+break;\
+}\
+case WAX_TYPE_UNSIGNED_LONG_LONG:\
+{\
+unsigned long long arg = va_arg(args, unsigned long long);\
+buffer = &arg;\
+break;\
+}\
+case WAX_TYPE_FLOAT:\
+{\
+float arg = va_arg(args, float);\
+buffer = &arg;\
+break;\
+}\
+case WAX_TYPE_DOUBLE:\
+{\
+double arg = va_arg(args, double);\
+buffer = &arg;\
+break;\
+}\
+case WAX_TYPE_C99_BOOL:\
+{\
+BOOL arg = va_arg(args, BOOL);\
+buffer = &arg;\
+break;\
+}\
+case WAX_TYPE_STRING:\
+{\
+char * arg = va_arg(args, char *);\
+buffer = &arg;\
+break;\
+}\
+case WAX_TYPE_ID:\
+{\
+id arg = va_arg(args, id);\
+buffer = &arg;\
+break;\
+}\
+case WAX_TYPE_SELECTOR:\
+{\
+SEL arg = va_arg(args, SEL);\
+buffer = &arg;\
+break;\
+}\
+case WAX_TYPE_CLASS:\
+{\
+id arg = va_arg(args, id);\
+buffer = &arg;\
+break;\
+}\
+\
+default:\
+luaL_error(L, "Unable to convert Obj-C type with type description '%s'", typeDescription);\
+break;\
+}\

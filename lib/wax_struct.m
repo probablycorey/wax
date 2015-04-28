@@ -79,7 +79,7 @@ wax_struct_userdata *wax_struct_create(lua_State *L, const char *typeDescription
     if (typeDescription[0] == '{') { // We can get a name from the type desciption
         char *endLocation = strchr(&typeDescription[1], '='); 
         if (endLocation) {
-            int size = endLocation - &typeDescription[1];
+            size_t size = endLocation - &typeDescription[1];
             structUserdata->name = calloc(sizeof(char *), size + 1); // add 1 for '\0'
             strncpy(structUserdata->name, &typeDescription[1], size);            
         }
@@ -231,7 +231,7 @@ static int copy(lua_State *L) {
     wax_struct_userdata *structUserdata = (wax_struct_userdata *)luaL_checkudata(L, 1, WAX_STRUCT_METATABLE_NAME);
     wax_struct_userdata *newStructUserdata = wax_struct_create(L, structUserdata->typeDescription, structUserdata->data);
     
-    int size = strlen(structUserdata->name);
+    size_t size = strlen(structUserdata->name);
     newStructUserdata->name = calloc(sizeof(char *), size + 1); // add 1 for '\0'
     strncpy(newStructUserdata->name, structUserdata->name,  size);            
     
