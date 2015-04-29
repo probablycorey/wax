@@ -4,3 +4,6 @@ build/
 wax.framework
 xcuserdata
 .DS_Store
+*.xcworkspacedata
+*.xcuserdata
+*.xccheckout
