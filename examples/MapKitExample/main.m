@@ -18,7 +18,7 @@
 
 int main(int argc, char *argv[]) {
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
-    
+    NSLog(@"isArm64=%d", sizeof(NSInteger) == 8);
     wax_start("AppDelegate", luaopen_wax_http, luaopen_wax_json, luaopen_wax_xml, nil);
     
     int retVal = UIApplicationMain(argc, argv, nil, @"AppDelegate");

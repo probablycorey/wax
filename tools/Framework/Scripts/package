@@ -43,11 +43,16 @@ FRAMEWORK_INPUT_I386_FILES="build/$BUILD_TYPE-iphonesimulator/lib$FRAMEWORK_NAME
 
 echo "Framework: Creating library..."
 
-lipo \
+# lipo \
+#   "$FRAMEWORK_INPUT_ARM_FILES" \
+#   -create \
+#   -arch i386 "$FRAMEWORK_INPUT_I386_FILES" \
+#   -o "$FRAMEWORK_DIR/Versions/Current/$FRAMEWORK_NAME"
+
+lipo -create \
   "$FRAMEWORK_INPUT_ARM_FILES" \
-  -create \
-  -arch i386 "$FRAMEWORK_INPUT_I386_FILES" \
-  -o "$FRAMEWORK_DIR/Versions/Current/$FRAMEWORK_NAME"
+  "$FRAMEWORK_INPUT_I386_FILES" \
+  -output "$FRAMEWORK_DIR/Versions/Current/$FRAMEWORK_NAME"
 
 # Now copy the final assets over: your library
 # header files and the plist file

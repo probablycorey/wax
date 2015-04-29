@@ -20,6 +20,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
     [self.window makeKeyAndVisible];
+    NSLog(@"isArm64=%d", sizeof(NSInteger) == 8);
 	wax_start("init.lua", nil);
     return YES;
 }

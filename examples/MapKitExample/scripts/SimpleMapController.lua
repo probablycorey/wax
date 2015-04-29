@@ -9,6 +9,7 @@ function init(self)
     lat=37.7749295,
     long=-122.4194155,
   }
+ return self
 end
 
 function viewDidLoad(self)

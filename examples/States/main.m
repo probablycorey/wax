@@ -13,6 +13,8 @@
 #import "wax/wax.h"
 
 int main(int argc, char *argv[]) {
+    NSLog(@"isArm64=%d", sizeof(NSInteger) == 8);
+    
     NSAutoreleasePool * pool = [[NSAutoreleasePool alloc] init];
     
     wax_start("AppDelegate", nil);

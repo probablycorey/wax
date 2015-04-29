@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00DAC0F61AF0B5CF00206217 /* wax_config.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DAC0F01AF0B5CF00206217 /* wax_config.m */; };
+		00DAC0F71AF0B5CF00206217 /* wax_imp_call_pool.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DAC0F21AF0B5CF00206217 /* wax_imp_call_pool.m */; };
+		00DAC0F81AF0B5CF00206217 /* wax_lock.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DAC0F41AF0B5CF00206217 /* wax_lock.m */; };
+		00DAC1071AF0B5DA00206217 /* wax_block.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DAC0FB1AF0B5DA00206217 /* wax_block.m */; };
+		00DAC1081AF0B5DA00206217 /* wax_block_call.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DAC0FD1AF0B5DA00206217 /* wax_block_call.m */; };
+		00DAC1091AF0B5DA00206217 /* wax_block_call_pool.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DAC0FF1AF0B5DA00206217 /* wax_block_call_pool.m */; };
+		00DAC10A1AF0B5DA00206217 /* wax_block_transfer.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DAC1011AF0B5DA00206217 /* wax_block_transfer.m */; };
+		00DAC10B1AF0B5DA00206217 /* wax_block_transfer_pool.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DAC1031AF0B5DA00206217 /* wax_block_transfer_pool.m */; };
+		00DAC10C1AF0B5DA00206217 /* wax_capi.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DAC1061AF0B5DA00206217 /* wax_capi.m */; };
 		0413C0701200C9960069C579 /* wax_gc.m in Sources */ = {isa = PBXBuildFile; fileRef = 0413C06D1200C9960069C579 /* wax_gc.m */; };
 		0413C0711200C9960069C579 /* wax_server.m in Sources */ = {isa = PBXBuildFile; fileRef = 0413C06F1200C9960069C579 /* wax_server.m */; };
 		0422EC721135DFE6007F6343 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0422EC711135DFE6007F6343 /* libxml2.dylib */; };
@@ -82,6 +91,25 @@
 /* End PBXBuildRule section */
 
 /* Begin PBXFileReference section */
+		00DAC0EF1AF0B5CF00206217 /* wax_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_config.h; sourceTree = "<group>"; };
+		00DAC0F01AF0B5CF00206217 /* wax_config.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_config.m; sourceTree = "<group>"; };
+		00DAC0F11AF0B5CF00206217 /* wax_imp_call_pool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_imp_call_pool.h; sourceTree = "<group>"; };
+		00DAC0F21AF0B5CF00206217 /* wax_imp_call_pool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_imp_call_pool.m; sourceTree = "<group>"; };
+		00DAC0F31AF0B5CF00206217 /* wax_lock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_lock.h; sourceTree = "<group>"; };
+		00DAC0F41AF0B5CF00206217 /* wax_lock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_lock.m; sourceTree = "<group>"; };
+		00DAC0F51AF0B5CF00206217 /* wax_define.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wax_define.h; path = ../../../../lib/wax_define.h; sourceTree = "<group>"; };
+		00DAC0FA1AF0B5DA00206217 /* wax_block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_block.h; sourceTree = "<group>"; };
+		00DAC0FB1AF0B5DA00206217 /* wax_block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_block.m; sourceTree = "<group>"; };
+		00DAC0FC1AF0B5DA00206217 /* wax_block_call.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_block_call.h; sourceTree = "<group>"; };
+		00DAC0FD1AF0B5DA00206217 /* wax_block_call.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_block_call.m; sourceTree = "<group>"; };
+		00DAC0FE1AF0B5DA00206217 /* wax_block_call_pool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_block_call_pool.h; sourceTree = "<group>"; };
+		00DAC0FF1AF0B5DA00206217 /* wax_block_call_pool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_block_call_pool.m; sourceTree = "<group>"; };
+		00DAC1001AF0B5DA00206217 /* wax_block_transfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_block_transfer.h; sourceTree = "<group>"; };
+		00DAC1011AF0B5DA00206217 /* wax_block_transfer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_block_transfer.m; sourceTree = "<group>"; };
+		00DAC1021AF0B5DA00206217 /* wax_block_transfer_pool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_block_transfer_pool.h; sourceTree = "<group>"; };
+		00DAC1031AF0B5DA00206217 /* wax_block_transfer_pool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_block_transfer_pool.m; sourceTree = "<group>"; };
+		00DAC1051AF0B5DA00206217 /* wax_capi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_capi.h; sourceTree = "<group>"; };
+		00DAC1061AF0B5DA00206217 /* wax_capi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_capi.m; sourceTree = "<group>"; };
 		0413C06C1200C9960069C579 /* wax_gc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wax_gc.h; path = ../../lib/wax_gc.h; sourceTree = SOURCE_ROOT; };
 		0413C06D1200C9960069C579 /* wax_gc.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = wax_gc.m; path = ../../lib/wax_gc.m; sourceTree = SOURCE_ROOT; };
 		0413C06E1200C9960069C579 /* wax_server.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wax_server.h; path = ../../lib/wax_server.h; sourceTree = SOURCE_ROOT; };
@@ -217,9 +245,52 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		00DAC0EE1AF0B5CF00206217 /* adaptation */ = {
+			isa = PBXGroup;
+			children = (
+				00DAC0EF1AF0B5CF00206217 /* wax_config.h */,
+				00DAC0F01AF0B5CF00206217 /* wax_config.m */,
+				00DAC0F11AF0B5CF00206217 /* wax_imp_call_pool.h */,
+				00DAC0F21AF0B5CF00206217 /* wax_imp_call_pool.m */,
+				00DAC0F31AF0B5CF00206217 /* wax_lock.h */,
+				00DAC0F41AF0B5CF00206217 /* wax_lock.m */,
+			);
+			name = adaptation;
+			path = ../../../../lib/adaptation;
+			sourceTree = "<group>";
+		};
+		00DAC0F91AF0B5DA00206217 /* block */ = {
+			isa = PBXGroup;
+			children = (
+				00DAC0FA1AF0B5DA00206217 /* wax_block.h */,
+				00DAC0FB1AF0B5DA00206217 /* wax_block.m */,
+				00DAC0FC1AF0B5DA00206217 /* wax_block_call.h */,
+				00DAC0FD1AF0B5DA00206217 /* wax_block_call.m */,
+				00DAC0FE1AF0B5DA00206217 /* wax_block_call_pool.h */,
+				00DAC0FF1AF0B5DA00206217 /* wax_block_call_pool.m */,
+				00DAC1001AF0B5DA00206217 /* wax_block_transfer.h */,
+				00DAC1011AF0B5DA00206217 /* wax_block_transfer.m */,
+				00DAC1021AF0B5DA00206217 /* wax_block_transfer_pool.h */,
+				00DAC1031AF0B5DA00206217 /* wax_block_transfer_pool.m */,
+			);
+			name = block;
+			path = ../../../../../lib/extensions/block;
+			sourceTree = "<group>";
+		};
+		00DAC1041AF0B5DA00206217 /* capi */ = {
+			isa = PBXGroup;
+			children = (
+				00DAC1051AF0B5DA00206217 /* wax_capi.h */,
+				00DAC1061AF0B5DA00206217 /* wax_capi.m */,
+			);
+			name = capi;
+			path = ../../../../../lib/extensions/capi;
+			sourceTree = "<group>";
+		};
 		043E60C6113C3DA5007A6104 /* wax */ = {
 			isa = PBXGroup;
 			children = (
+				00DAC0EE1AF0B5CF00206217 /* adaptation */,
 				043E60CA113C3DA5007A6104 /* build-scripts */,
 				043E60CD113C3DA5007A6104 /* extensions */,
 				043E60FD113C3DA5007A6104 /* lua */,
@@ -237,6 +308,7 @@
 				0413C06F1200C9960069C579 /* wax_server.m */,
 				043E6150113C3DA5007A6104 /* wax_struct.h */,
 				043E6151113C3DA5007A6104 /* wax_struct.m */,
+				00DAC0F51AF0B5CF00206217 /* wax_define.h */,
 			);
 			name = wax;
 			path = wax/lib;
@@ -254,6 +326,8 @@
 		043E60CD113C3DA5007A6104 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				00DAC0F91AF0B5DA00206217 /* block */,
+				00DAC1041AF0B5DA00206217 /* capi */,
 				043E60D4113C3DA5007A6104 /* http */,
 				043E60D9113C3DA5007A6104 /* json */,
 				043E60FA113C3DA5007A6104 /* xml */,
@@ -483,6 +557,8 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Tests" */;
 			compatibilityVersion = "Xcode 3.1";
 			developmentRegion = English;
@@ -544,10 +620,12 @@
 				043E615D113C3DA5007A6104 /* yajl.c in Sources */,
 				043E615E113C3DA5007A6104 /* yajl_alloc.c in Sources */,
 				043E615F113C3DA5007A6104 /* yajl_buf.c in Sources */,
+				00DAC0F61AF0B5CF00206217 /* wax_config.m in Sources */,
 				043E6160113C3DA5007A6104 /* yajl_encode.c in Sources */,
 				043E6161113C3DA5007A6104 /* yajl_gen.c in Sources */,
 				043E6162113C3DA5007A6104 /* yajl_lex.c in Sources */,
 				043E6163113C3DA5007A6104 /* yajl_parser.c in Sources */,
+				00DAC1091AF0B5DA00206217 /* wax_block_call_pool.m in Sources */,
 				043E6167113C3DA5007A6104 /* wax_xml.m in Sources */,
 				043E6168113C3DA5007A6104 /* lapi.c in Sources */,
 				043E6169113C3DA5007A6104 /* lauxlib.c in Sources */,
@@ -559,17 +637,23 @@
 				043E616F113C3DA5007A6104 /* ldump.c in Sources */,
 				043E6170113C3DA5007A6104 /* lfunc.c in Sources */,
 				043E6171113C3DA5007A6104 /* lgc.c in Sources */,
+				00DAC0F81AF0B5CF00206217 /* wax_lock.m in Sources */,
+				00DAC1071AF0B5DA00206217 /* wax_block.m in Sources */,
 				043E6172113C3DA5007A6104 /* linit.c in Sources */,
 				043E6173113C3DA5007A6104 /* liolib.c in Sources */,
 				043E6174113C3DA5007A6104 /* llex.c in Sources */,
+				00DAC10C1AF0B5DA00206217 /* wax_capi.m in Sources */,
 				043E6175113C3DA5007A6104 /* lmathlib.c in Sources */,
 				043E6176113C3DA5007A6104 /* lmem.c in Sources */,
+				00DAC10B1AF0B5DA00206217 /* wax_block_transfer_pool.m in Sources */,
 				043E6177113C3DA5007A6104 /* loadlib.c in Sources */,
 				043E6178113C3DA5007A6104 /* lobject.c in Sources */,
+				00DAC1081AF0B5DA00206217 /* wax_block_call.m in Sources */,
 				043E6179113C3DA5007A6104 /* lopcodes.c in Sources */,
 				043E617A113C3DA5007A6104 /* loslib.c in Sources */,
 				043E617B113C3DA5007A6104 /* lparser.c in Sources */,
 				043E617C113C3DA5007A6104 /* lstate.c in Sources */,
+				00DAC10A1AF0B5DA00206217 /* wax_block_transfer.m in Sources */,
 				043E617D113C3DA5007A6104 /* lstring.c in Sources */,
 				043E617E113C3DA5007A6104 /* lstrlib.c in Sources */,
 				043E617F113C3DA5007A6104 /* ltable.c in Sources */,
@@ -587,6 +671,7 @@
 				04D22AA3113EEB48000F7048 /* SimpleDelegateObject.m in Sources */,
 				04D22AA4113EEB48000F7048 /* SimpleObject.m in Sources */,
 				04D22AA5113EEB48000F7048 /* Structs.m in Sources */,
+				00DAC0F71AF0B5CF00206217 /* wax_imp_call_pool.m in Sources */,
 				0413C0701200C9960069C579 /* wax_gc.m in Sources */,
 				0413C0711200C9960069C579 /* wax_server.m in Sources */,
 			);
@@ -599,6 +684,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -611,10 +697,11 @@
 				);
 				HEADER_SEARCH_PATHS = "$(SDK_ROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "Tests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = Tests;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				VALID_ARCHS = "$(ARCHS_STANDARD)";
 			};
 			name = Debug;
 		};
@@ -622,6 +709,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -629,10 +717,11 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "WAX_LUA_INIT_SCRIPT='\"AppDelegate\"'";
 				HEADER_SEARCH_PATHS = "$(SDK_ROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "Tests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = Tests;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				VALID_ARCHS = "$(ARCHS_STANDARD)";
 			};
 			name = Release;
 		};
@@ -643,6 +732,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PREBINDING = NO;
 				SDKROOT = iphoneos4.0;
 			};
@@ -652,6 +742,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
@@ -660,10 +751,11 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "WAX_LUA_INIT_SCRIPT='\"AppDelegate\"'";
 				HEADER_SEARCH_PATHS = "$(SDK_ROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "Tests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = Tests;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				VALID_ARCHS = "$(ARCHS_STANDARD)";
 			};
 			name = "Ad Hoc";
 		};
@@ -674,6 +766,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PREBINDING = NO;
 				SDKROOT = iphoneos4.0;
 			};
@@ -683,6 +776,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -690,10 +784,11 @@
 				GCC_PREPROCESSOR_DEFINITIONS = "WAX_LUA_INIT_SCRIPT='\"AppDelegate\"'";
 				HEADER_SEARCH_PATHS = "$(SDK_ROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = "Tests-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_NAME = Tests;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
+				VALID_ARCHS = "$(ARCHS_STANDARD)";
 			};
 			name = Distribution;
 		};
@@ -704,6 +799,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PREBINDING = NO;
 				SDKROOT = iphoneos4.0;
 			};
@@ -716,6 +812,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PREBINDING = NO;
 				SDKROOT = iphoneos4.0;
 			};

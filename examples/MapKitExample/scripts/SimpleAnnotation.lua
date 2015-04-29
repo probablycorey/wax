@@ -9,6 +9,7 @@ function initWithLatLong(self, lat, long)
   -- method names required by the MKAnnotation protocol.
   self._title = 'Untitled'
   self._subtitle = ''
+  return self
 end
 
 function coordinate(self)

@@ -9,7 +9,7 @@ end
 
 function viewDidLoad(self)
   wax.http.request{"http://search.twitter.com/trends.json", callback = function(json, response)
-    if response:statusCode() == 200 then
+    if response and response:statusCode() == 200 then
       self.trends = json["trends"]
     end
     self:tableView():reloadData()

@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		04A616D212CA6EEB004ADB76 /* wax.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04A616D112CA6EEB004ADB76 /* wax.framework */; };
+		00DAC0EB1AF0B36000206217 /* wax.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00DAC0EA1AF0B36000206217 /* wax.framework */; };
+		00DAC0ED1AF0B3A000206217 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 00DAC0EC1AF0B3A000206217 /* Default-568h@2x.png */; };
 		04A616D912CA6F2F004ADB76 /* AppDelegate.lua in Resources */ = {isa = PBXBuildFile; fileRef = 04A616D412CA6F2F004ADB76 /* AppDelegate.lua */; };
 		04A616DA12CA6F2F004ADB76 /* CapitalsTable.lua in Resources */ = {isa = PBXBuildFile; fileRef = 04A616D512CA6F2F004ADB76 /* CapitalsTable.lua */; };
 		04A616DB12CA6F2F004ADB76 /* StatesTable.lua in Resources */ = {isa = PBXBuildFile; fileRef = 04A616D612CA6F2F004ADB76 /* StatesTable.lua */; };
@@ -19,7 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		04A616D112CA6EEB004ADB76 /* wax.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = wax.framework; sourceTree = SOURCE_ROOT; };
+		00DAC0EA1AF0B36000206217 /* wax.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = wax.framework; path = ../../framework/wax.framework; sourceTree = "<group>"; };
+		00DAC0EC1AF0B3A000206217 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		04A616D412CA6F2F004ADB76 /* AppDelegate.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AppDelegate.lua; sourceTree = "<group>"; };
 		04A616D512CA6F2F004ADB76 /* CapitalsTable.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CapitalsTable.lua; sourceTree = "<group>"; };
 		04A616D612CA6F2F004ADB76 /* StatesTable.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = StatesTable.lua; sourceTree = "<group>"; };
@@ -39,9 +41,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
+				00DAC0EB1AF0B36000206217 /* wax.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
-				04A616D212CA6EEB004ADB76 /* wax.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -93,6 +95,7 @@
 			children = (
 				04A6174912CA75A4004ADB76 /* states.plist */,
 				8D1107310486CEB800E47090 /* States-Info.plist */,
+				00DAC0EC1AF0B3A000206217 /* Default-568h@2x.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -100,7 +103,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				04A616D112CA6EEB004ADB76 /* wax.framework */,
+				00DAC0EA1AF0B36000206217 /* wax.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
@@ -134,6 +137,8 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "States" */;
 			compatibilityVersion = "Xcode 3.1";
 			developmentRegion = English;
@@ -161,6 +166,7 @@
 				04A616D912CA6F2F004ADB76 /* AppDelegate.lua in Resources */,
 				04A616DA12CA6F2F004ADB76 /* CapitalsTable.lua in Resources */,
 				04A616DB12CA6F2F004ADB76 /* StatesTable.lua in Resources */,
+				00DAC0ED1AF0B3A000206217 /* Default-568h@2x.png in Resources */,
 				04A6174A12CA75A4004ADB76 /* states.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -201,16 +207,21 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				COPY_PHASE_STRIP = NO;
-				FRAMEWORK_SEARCH_PATHS = $PROJECT_DIR;
+				FRAMEWORK_SEARCH_PATHS = (
+					$PROJECT_DIR,
+					"/Users/junzhan/Documents/macpro-data/project/OpenSource/wax/framework",
+				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = States_Prefix.pch;
 				INFOPLIST_FILE = "States-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = States;
+				VALID_ARCHS = "$(ARCHS_STANDARD)";
 			};
 			name = Debug;
 		};
@@ -218,15 +229,20 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				COPY_PHASE_STRIP = YES;
-				FRAMEWORK_SEARCH_PATHS = $PROJECT_DIR;
+				FRAMEWORK_SEARCH_PATHS = (
+					$PROJECT_DIR,
+					"/Users/junzhan/Documents/macpro-data/project/OpenSource/wax/framework",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = States_Prefix.pch;
 				INFOPLIST_FILE = "States-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 3.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = States;
 				VALIDATE_PRODUCT = YES;
+				VALID_ARCHS = "$(ARCHS_STANDARD)";
 			};
 			name = Release;
 		};
@@ -238,6 +254,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
 			};
@@ -251,6 +268,7 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PREBINDING = NO;
 				SDKROOT = iphoneos;
