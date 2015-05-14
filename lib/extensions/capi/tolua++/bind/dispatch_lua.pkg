@@ -1,0 +1,31 @@
+$#include <dispatch/dispatch.h>
+
+#define DISPATCH_QUEUE_PRIORITY_HIGH 2
+#define DISPATCH_QUEUE_PRIORITY_DEFAULT 0
+#define DISPATCH_QUEUE_PRIORITY_LOW -2
+#define DISPATCH_QUEUE_PRIORITY_BACKGROUND -32768
+
+#define DISPATCH_TIME_NOW 0
+#define DISPATCH_TIME_FOREVER 1000000000
+#define NSEC_PER_SEC	1000000000
+
+
+void* dispatch_get_main_queue ( void );
+void* dispatch_get_global_queue ( long identifier, unsigned long flags );
+void* dispatch_queue_create ( const char *label, void* attr );
+void* dispatch_get_current_queue ( void );
+
+const char * dispatch_queue_get_label ( void* queue );
+void dispatch_main ( void );
+
+void dispatch_async ( void* queue, void* block );
+void dispatch_sync ( void* queue, void* block );
+void dispatch_after ( unsigned long long when, void* queue, void* block );
+void dispatch_apply ( unsigned long long iterations, void* queue, void*);
+void dispatch_once ( long *predicate, void* block );
+
+void* dispatch_semaphore_create ( long value );
+long dispatch_semaphore_signal ( void* dsema );
+long dispatch_semaphore_wait ( void* dsema, unsigned long long timeout );
+
+unsigned long long dispatch_time ( unsigned long long when, long long delta );

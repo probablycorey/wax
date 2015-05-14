@@ -7,6 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		008AB8AA1B04382600E5DF56 /* NSObject+TBIvarAccess.h in Headers */ = {isa = PBXBuildFile; fileRef = 008AB8871B04382600E5DF56 /* NSObject+TBIvarAccess.h */; };
+		008AB8AB1B04382600E5DF56 /* NSObject+TBIvarAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 008AB8881B04382600E5DF56 /* NSObject+TBIvarAccess.m */; };
+		008AB8AC1B04382600E5DF56 /* TBStubObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 008AB8891B04382600E5DF56 /* TBStubObject.h */; };
+		008AB8AD1B04382600E5DF56 /* TBStubObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 008AB88A1B04382600E5DF56 /* TBStubObject.m */; };
+		008AB8AE1B04382600E5DF56 /* wax_block.h in Headers */ = {isa = PBXBuildFile; fileRef = 008AB88C1B04382600E5DF56 /* wax_block.h */; };
+		008AB8AF1B04382600E5DF56 /* wax_block.m in Sources */ = {isa = PBXBuildFile; fileRef = 008AB88D1B04382600E5DF56 /* wax_block.m */; };
+		008AB8B01B04382600E5DF56 /* wax_block_call.h in Headers */ = {isa = PBXBuildFile; fileRef = 008AB88E1B04382600E5DF56 /* wax_block_call.h */; };
+		008AB8B11B04382600E5DF56 /* wax_block_call.m in Sources */ = {isa = PBXBuildFile; fileRef = 008AB88F1B04382600E5DF56 /* wax_block_call.m */; };
+		008AB8B21B04382600E5DF56 /* wax_block_call_pool.h in Headers */ = {isa = PBXBuildFile; fileRef = 008AB8901B04382600E5DF56 /* wax_block_call_pool.h */; };
+		008AB8B31B04382600E5DF56 /* wax_block_call_pool.m in Sources */ = {isa = PBXBuildFile; fileRef = 008AB8911B04382600E5DF56 /* wax_block_call_pool.m */; };
+		008AB8B41B04382600E5DF56 /* wax_block_transfer.h in Headers */ = {isa = PBXBuildFile; fileRef = 008AB8921B04382600E5DF56 /* wax_block_transfer.h */; };
+		008AB8B51B04382600E5DF56 /* wax_block_transfer.m in Sources */ = {isa = PBXBuildFile; fileRef = 008AB8931B04382600E5DF56 /* wax_block_transfer.m */; };
+		008AB8B61B04382600E5DF56 /* wax_block_transfer_pool.h in Headers */ = {isa = PBXBuildFile; fileRef = 008AB8941B04382600E5DF56 /* wax_block_transfer_pool.h */; };
+		008AB8B71B04382600E5DF56 /* wax_block_transfer_pool.m in Sources */ = {isa = PBXBuildFile; fileRef = 008AB8951B04382600E5DF56 /* wax_block_transfer_pool.m */; };
+		008AB8B81B04382600E5DF56 /* dispatch_lua.m in Sources */ = {isa = PBXBuildFile; fileRef = 008AB8991B04382600E5DF56 /* dispatch_lua.m */; };
+		008AB8B91B04382600E5DF56 /* objc_runtime_lua.m in Sources */ = {isa = PBXBuildFile; fileRef = 008AB89B1B04382600E5DF56 /* objc_runtime_lua.m */; };
+		008AB8BA1B04382600E5DF56 /* pthread_lua.m in Sources */ = {isa = PBXBuildFile; fileRef = 008AB89E1B04382600E5DF56 /* pthread_lua.m */; };
+		008AB8BB1B04382600E5DF56 /* UIKitFunction_lua.m in Sources */ = {isa = PBXBuildFile; fileRef = 008AB8A01B04382600E5DF56 /* UIKitFunction_lua.m */; };
+		008AB8BC1B04382600E5DF56 /* tolua++.h in Headers */ = {isa = PBXBuildFile; fileRef = 008AB8A11B04382600E5DF56 /* tolua++.h */; };
+		008AB8BD1B04382600E5DF56 /* tolua_event.c in Sources */ = {isa = PBXBuildFile; fileRef = 008AB8A21B04382600E5DF56 /* tolua_event.c */; };
+		008AB8BE1B04382600E5DF56 /* tolua_event.h in Headers */ = {isa = PBXBuildFile; fileRef = 008AB8A31B04382600E5DF56 /* tolua_event.h */; };
+		008AB8BF1B04382600E5DF56 /* tolua_is.c in Sources */ = {isa = PBXBuildFile; fileRef = 008AB8A41B04382600E5DF56 /* tolua_is.c */; };
+		008AB8C01B04382600E5DF56 /* tolua_map.c in Sources */ = {isa = PBXBuildFile; fileRef = 008AB8A51B04382600E5DF56 /* tolua_map.c */; };
+		008AB8C11B04382600E5DF56 /* tolua_push.c in Sources */ = {isa = PBXBuildFile; fileRef = 008AB8A61B04382600E5DF56 /* tolua_push.c */; };
+		008AB8C21B04382600E5DF56 /* tolua_to.c in Sources */ = {isa = PBXBuildFile; fileRef = 008AB8A71B04382600E5DF56 /* tolua_to.c */; };
+		008AB8C31B04382600E5DF56 /* wax_capi.h in Headers */ = {isa = PBXBuildFile; fileRef = 008AB8A81B04382600E5DF56 /* wax_capi.h */; };
+		008AB8C41B04382600E5DF56 /* wax_capi.m in Sources */ = {isa = PBXBuildFile; fileRef = 008AB8A91B04382600E5DF56 /* wax_capi.m */; };
 		00E9B1691AEFB272004EDF30 /* wax_config.h in Headers */ = {isa = PBXBuildFile; fileRef = 00E9B1621AEFB272004EDF30 /* wax_config.h */; };
 		00E9B16A1AEFB272004EDF30 /* wax_config.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9B1631AEFB272004EDF30 /* wax_config.m */; };
 		00E9B16B1AEFB272004EDF30 /* wax_imp_call_pool.h in Headers */ = {isa = PBXBuildFile; fileRef = 00E9B1641AEFB272004EDF30 /* wax_imp_call_pool.h */; };
@@ -14,18 +41,6 @@
 		00E9B16D1AEFB272004EDF30 /* wax_lock.h in Headers */ = {isa = PBXBuildFile; fileRef = 00E9B1661AEFB272004EDF30 /* wax_lock.h */; };
 		00E9B16E1AEFB272004EDF30 /* wax_lock.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9B1671AEFB272004EDF30 /* wax_lock.m */; };
 		00E9B16F1AEFB272004EDF30 /* wax_define.h in Headers */ = {isa = PBXBuildFile; fileRef = 00E9B1681AEFB272004EDF30 /* wax_define.h */; };
-		00E9B17E1AEFB286004EDF30 /* wax_block.h in Headers */ = {isa = PBXBuildFile; fileRef = 00E9B1711AEFB286004EDF30 /* wax_block.h */; };
-		00E9B17F1AEFB286004EDF30 /* wax_block.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9B1721AEFB286004EDF30 /* wax_block.m */; };
-		00E9B1801AEFB286004EDF30 /* wax_block_call.h in Headers */ = {isa = PBXBuildFile; fileRef = 00E9B1731AEFB286004EDF30 /* wax_block_call.h */; };
-		00E9B1811AEFB286004EDF30 /* wax_block_call.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9B1741AEFB286004EDF30 /* wax_block_call.m */; };
-		00E9B1821AEFB286004EDF30 /* wax_block_call_pool.h in Headers */ = {isa = PBXBuildFile; fileRef = 00E9B1751AEFB286004EDF30 /* wax_block_call_pool.h */; };
-		00E9B1831AEFB286004EDF30 /* wax_block_call_pool.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9B1761AEFB286004EDF30 /* wax_block_call_pool.m */; };
-		00E9B1841AEFB286004EDF30 /* wax_block_transfer.h in Headers */ = {isa = PBXBuildFile; fileRef = 00E9B1771AEFB286004EDF30 /* wax_block_transfer.h */; };
-		00E9B1851AEFB286004EDF30 /* wax_block_transfer.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9B1781AEFB286004EDF30 /* wax_block_transfer.m */; };
-		00E9B1861AEFB286004EDF30 /* wax_block_transfer_pool.h in Headers */ = {isa = PBXBuildFile; fileRef = 00E9B1791AEFB286004EDF30 /* wax_block_transfer_pool.h */; };
-		00E9B1871AEFB286004EDF30 /* wax_block_transfer_pool.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9B17A1AEFB286004EDF30 /* wax_block_transfer_pool.m */; };
-		00E9B1881AEFB286004EDF30 /* wax_capi.h in Headers */ = {isa = PBXBuildFile; fileRef = 00E9B17C1AEFB286004EDF30 /* wax_capi.h */; };
-		00E9B1891AEFB286004EDF30 /* wax_capi.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9B17D1AEFB286004EDF30 /* wax_capi.m */; };
 		043D108212C92D6700775F70 /* wax_filesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 043D0FF512C92D6600775F70 /* wax_filesystem.m */; };
 		043D108412C92D6700775F70 /* wax_http.m in Sources */ = {isa = PBXBuildFile; fileRef = 043D0FF812C92D6600775F70 /* wax_http.m */; };
 		043D108612C92D6700775F70 /* wax_http_connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 043D0FFA12C92D6600775F70 /* wax_http_connection.m */; };
@@ -78,6 +93,33 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		008AB8871B04382600E5DF56 /* NSObject+TBIvarAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+TBIvarAccess.h"; sourceTree = "<group>"; };
+		008AB8881B04382600E5DF56 /* NSObject+TBIvarAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+TBIvarAccess.m"; sourceTree = "<group>"; };
+		008AB8891B04382600E5DF56 /* TBStubObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBStubObject.h; sourceTree = "<group>"; };
+		008AB88A1B04382600E5DF56 /* TBStubObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBStubObject.m; sourceTree = "<group>"; };
+		008AB88C1B04382600E5DF56 /* wax_block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_block.h; sourceTree = "<group>"; };
+		008AB88D1B04382600E5DF56 /* wax_block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_block.m; sourceTree = "<group>"; };
+		008AB88E1B04382600E5DF56 /* wax_block_call.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_block_call.h; sourceTree = "<group>"; };
+		008AB88F1B04382600E5DF56 /* wax_block_call.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_block_call.m; sourceTree = "<group>"; };
+		008AB8901B04382600E5DF56 /* wax_block_call_pool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_block_call_pool.h; sourceTree = "<group>"; };
+		008AB8911B04382600E5DF56 /* wax_block_call_pool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_block_call_pool.m; sourceTree = "<group>"; };
+		008AB8921B04382600E5DF56 /* wax_block_transfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_block_transfer.h; sourceTree = "<group>"; };
+		008AB8931B04382600E5DF56 /* wax_block_transfer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_block_transfer.m; sourceTree = "<group>"; };
+		008AB8941B04382600E5DF56 /* wax_block_transfer_pool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_block_transfer_pool.h; sourceTree = "<group>"; };
+		008AB8951B04382600E5DF56 /* wax_block_transfer_pool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_block_transfer_pool.m; sourceTree = "<group>"; };
+		008AB8991B04382600E5DF56 /* dispatch_lua.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dispatch_lua.m; sourceTree = "<group>"; };
+		008AB89B1B04382600E5DF56 /* objc_runtime_lua.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = objc_runtime_lua.m; sourceTree = "<group>"; };
+		008AB89E1B04382600E5DF56 /* pthread_lua.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pthread_lua.m; sourceTree = "<group>"; };
+		008AB8A01B04382600E5DF56 /* UIKitFunction_lua.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIKitFunction_lua.m; sourceTree = "<group>"; };
+		008AB8A11B04382600E5DF56 /* tolua++.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "tolua++.h"; sourceTree = "<group>"; };
+		008AB8A21B04382600E5DF56 /* tolua_event.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tolua_event.c; sourceTree = "<group>"; };
+		008AB8A31B04382600E5DF56 /* tolua_event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tolua_event.h; sourceTree = "<group>"; };
+		008AB8A41B04382600E5DF56 /* tolua_is.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tolua_is.c; sourceTree = "<group>"; };
+		008AB8A51B04382600E5DF56 /* tolua_map.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tolua_map.c; sourceTree = "<group>"; };
+		008AB8A61B04382600E5DF56 /* tolua_push.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tolua_push.c; sourceTree = "<group>"; };
+		008AB8A71B04382600E5DF56 /* tolua_to.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tolua_to.c; sourceTree = "<group>"; };
+		008AB8A81B04382600E5DF56 /* wax_capi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_capi.h; sourceTree = "<group>"; };
+		008AB8A91B04382600E5DF56 /* wax_capi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_capi.m; sourceTree = "<group>"; };
 		00E9B1621AEFB272004EDF30 /* wax_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_config.h; sourceTree = "<group>"; };
 		00E9B1631AEFB272004EDF30 /* wax_config.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_config.m; sourceTree = "<group>"; };
 		00E9B1641AEFB272004EDF30 /* wax_imp_call_pool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_imp_call_pool.h; sourceTree = "<group>"; };
@@ -85,18 +127,6 @@
 		00E9B1661AEFB272004EDF30 /* wax_lock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_lock.h; sourceTree = "<group>"; };
 		00E9B1671AEFB272004EDF30 /* wax_lock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_lock.m; sourceTree = "<group>"; };
 		00E9B1681AEFB272004EDF30 /* wax_define.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wax_define.h; path = ../../../../lib/wax_define.h; sourceTree = "<group>"; };
-		00E9B1711AEFB286004EDF30 /* wax_block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_block.h; sourceTree = "<group>"; };
-		00E9B1721AEFB286004EDF30 /* wax_block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_block.m; sourceTree = "<group>"; };
-		00E9B1731AEFB286004EDF30 /* wax_block_call.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_block_call.h; sourceTree = "<group>"; };
-		00E9B1741AEFB286004EDF30 /* wax_block_call.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_block_call.m; sourceTree = "<group>"; };
-		00E9B1751AEFB286004EDF30 /* wax_block_call_pool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_block_call_pool.h; sourceTree = "<group>"; };
-		00E9B1761AEFB286004EDF30 /* wax_block_call_pool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_block_call_pool.m; sourceTree = "<group>"; };
-		00E9B1771AEFB286004EDF30 /* wax_block_transfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_block_transfer.h; sourceTree = "<group>"; };
-		00E9B1781AEFB286004EDF30 /* wax_block_transfer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_block_transfer.m; sourceTree = "<group>"; };
-		00E9B1791AEFB286004EDF30 /* wax_block_transfer_pool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_block_transfer_pool.h; sourceTree = "<group>"; };
-		00E9B17A1AEFB286004EDF30 /* wax_block_transfer_pool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_block_transfer_pool.m; sourceTree = "<group>"; };
-		00E9B17C1AEFB286004EDF30 /* wax_capi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_capi.h; sourceTree = "<group>"; };
-		00E9B17D1AEFB286004EDF30 /* wax_capi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_capi.m; sourceTree = "<group>"; };
 		043D0EB512C92CF600775F70 /* Framework.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Framework.plist; sourceTree = "<group>"; };
 		043D0EB612C92D1200775F70 /* ProtocolLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProtocolLoader.h; sourceTree = "<group>"; };
 		043D0FE912C92D6600775F70 /* compile-stdlib.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "compile-stdlib.sh"; sourceTree = "<group>"; };
@@ -226,6 +256,73 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		008AB8861B04382600E5DF56 /* ivar */ = {
+			isa = PBXGroup;
+			children = (
+				008AB8871B04382600E5DF56 /* NSObject+TBIvarAccess.h */,
+				008AB8881B04382600E5DF56 /* NSObject+TBIvarAccess.m */,
+				008AB8891B04382600E5DF56 /* TBStubObject.h */,
+				008AB88A1B04382600E5DF56 /* TBStubObject.m */,
+			);
+			name = ivar;
+			path = ../../../../../lib/extensions/ivar;
+			sourceTree = "<group>";
+		};
+		008AB88B1B04382600E5DF56 /* block */ = {
+			isa = PBXGroup;
+			children = (
+				008AB88C1B04382600E5DF56 /* wax_block.h */,
+				008AB88D1B04382600E5DF56 /* wax_block.m */,
+				008AB88E1B04382600E5DF56 /* wax_block_call.h */,
+				008AB88F1B04382600E5DF56 /* wax_block_call.m */,
+				008AB8901B04382600E5DF56 /* wax_block_call_pool.h */,
+				008AB8911B04382600E5DF56 /* wax_block_call_pool.m */,
+				008AB8921B04382600E5DF56 /* wax_block_transfer.h */,
+				008AB8931B04382600E5DF56 /* wax_block_transfer.m */,
+				008AB8941B04382600E5DF56 /* wax_block_transfer_pool.h */,
+				008AB8951B04382600E5DF56 /* wax_block_transfer_pool.m */,
+			);
+			name = block;
+			path = ../../../../../lib/extensions/block;
+			sourceTree = "<group>";
+		};
+		008AB8961B04382600E5DF56 /* capi */ = {
+			isa = PBXGroup;
+			children = (
+				008AB8971B04382600E5DF56 /* tolua++ */,
+				008AB8A81B04382600E5DF56 /* wax_capi.h */,
+				008AB8A91B04382600E5DF56 /* wax_capi.m */,
+			);
+			name = capi;
+			path = ../../../../../lib/extensions/capi;
+			sourceTree = "<group>";
+		};
+		008AB8971B04382600E5DF56 /* tolua++ */ = {
+			isa = PBXGroup;
+			children = (
+				008AB8981B04382600E5DF56 /* bind */,
+				008AB8A11B04382600E5DF56 /* tolua++.h */,
+				008AB8A21B04382600E5DF56 /* tolua_event.c */,
+				008AB8A31B04382600E5DF56 /* tolua_event.h */,
+				008AB8A41B04382600E5DF56 /* tolua_is.c */,
+				008AB8A51B04382600E5DF56 /* tolua_map.c */,
+				008AB8A61B04382600E5DF56 /* tolua_push.c */,
+				008AB8A71B04382600E5DF56 /* tolua_to.c */,
+			);
+			path = "tolua++";
+			sourceTree = "<group>";
+		};
+		008AB8981B04382600E5DF56 /* bind */ = {
+			isa = PBXGroup;
+			children = (
+				008AB8991B04382600E5DF56 /* dispatch_lua.m */,
+				008AB89B1B04382600E5DF56 /* objc_runtime_lua.m */,
+				008AB89E1B04382600E5DF56 /* pthread_lua.m */,
+				008AB8A01B04382600E5DF56 /* UIKitFunction_lua.m */,
+			);
+			path = bind;
+			sourceTree = "<group>";
+		};
 		00E9B1611AEFB272004EDF30 /* adaptation */ = {
 			isa = PBXGroup;
 			children = (
@@ -240,34 +337,6 @@
 			path = ../../../../lib/adaptation;
 			sourceTree = "<group>";
 		};
-		00E9B1701AEFB286004EDF30 /* block */ = {
-			isa = PBXGroup;
-			children = (
-				00E9B1711AEFB286004EDF30 /* wax_block.h */,
-				00E9B1721AEFB286004EDF30 /* wax_block.m */,
-				00E9B1731AEFB286004EDF30 /* wax_block_call.h */,
-				00E9B1741AEFB286004EDF30 /* wax_block_call.m */,
-				00E9B1751AEFB286004EDF30 /* wax_block_call_pool.h */,
-				00E9B1761AEFB286004EDF30 /* wax_block_call_pool.m */,
-				00E9B1771AEFB286004EDF30 /* wax_block_transfer.h */,
-				00E9B1781AEFB286004EDF30 /* wax_block_transfer.m */,
-				00E9B1791AEFB286004EDF30 /* wax_block_transfer_pool.h */,
-				00E9B17A1AEFB286004EDF30 /* wax_block_transfer_pool.m */,
-			);
-			name = block;
-			path = ../../../../lib/extensions/block;
-			sourceTree = "<group>";
-		};
-		00E9B17B1AEFB286004EDF30 /* capi */ = {
-			isa = PBXGroup;
-			children = (
-				00E9B17C1AEFB286004EDF30 /* wax_capi.h */,
-				00E9B17D1AEFB286004EDF30 /* wax_capi.m */,
-			);
-			name = capi;
-			path = ../../../../lib/extensions/capi;
-			sourceTree = "<group>";
-		};
 		034768DFFF38A50411DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -279,8 +348,6 @@
 		043D0FE712C92D6600775F70 /* Wax */ = {
 			isa = PBXGroup;
 			children = (
-				00E9B1701AEFB286004EDF30 /* block */,
-				00E9B17B1AEFB286004EDF30 /* capi */,
 				00E9B1611AEFB272004EDF30 /* adaptation */,
 				043D0FE812C92D6600775F70 /* build-scripts */,
 				043D0FEC12C92D6600775F70 /* extensions */,
@@ -318,6 +385,9 @@
 		043D0FEC12C92D6600775F70 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				008AB8861B04382600E5DF56 /* ivar */,
+				008AB88B1B04382600E5DF56 /* block */,
+				008AB8961B04382600E5DF56 /* capi */,
 				043D0FF312C92D6600775F70 /* filesystem */,
 				043D0FF612C92D6600775F70 /* HTTP */,
 				043D0FFB12C92D6600775F70 /* json */,
@@ -549,16 +619,20 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E9B1841AEFB286004EDF30 /* wax_block_transfer.h in Headers */,
-				00E9B1861AEFB286004EDF30 /* wax_block_transfer_pool.h in Headers */,
+				008AB8B61B04382600E5DF56 /* wax_block_transfer_pool.h in Headers */,
+				008AB8BE1B04382600E5DF56 /* tolua_event.h in Headers */,
 				00E9B16F1AEFB272004EDF30 /* wax_define.h in Headers */,
-				00E9B1821AEFB286004EDF30 /* wax_block_call_pool.h in Headers */,
-				00E9B1801AEFB286004EDF30 /* wax_block_call.h in Headers */,
+				008AB8BC1B04382600E5DF56 /* tolua++.h in Headers */,
+				008AB8AC1B04382600E5DF56 /* TBStubObject.h in Headers */,
+				008AB8B41B04382600E5DF56 /* wax_block_transfer.h in Headers */,
+				008AB8AA1B04382600E5DF56 /* NSObject+TBIvarAccess.h in Headers */,
+				008AB8B01B04382600E5DF56 /* wax_block_call.h in Headers */,
+				008AB8C31B04382600E5DF56 /* wax_capi.h in Headers */,
 				00E9B16D1AEFB272004EDF30 /* wax_lock.h in Headers */,
+				008AB8B21B04382600E5DF56 /* wax_block_call_pool.h in Headers */,
 				00E9B16B1AEFB272004EDF30 /* wax_imp_call_pool.h in Headers */,
-				00E9B17E1AEFB286004EDF30 /* wax_block.h in Headers */,
-				00E9B1881AEFB286004EDF30 /* wax_capi.h in Headers */,
 				00E9B1691AEFB272004EDF30 /* wax_config.h in Headers */,
+				008AB8AE1B04382600E5DF56 /* wax_block.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -633,39 +707,43 @@
 			buildActionMask = 2147483647;
 			files = (
 				043D108212C92D6700775F70 /* wax_filesystem.m in Sources */,
-				00E9B1891AEFB286004EDF30 /* wax_capi.m in Sources */,
 				00E9B16E1AEFB272004EDF30 /* wax_lock.m in Sources */,
+				008AB8C01B04382600E5DF56 /* tolua_map.c in Sources */,
 				043D108412C92D6700775F70 /* wax_http.m in Sources */,
 				043D108612C92D6700775F70 /* wax_http_connection.m in Sources */,
+				008AB8BD1B04382600E5DF56 /* tolua_event.c in Sources */,
 				043D108712C92D6700775F70 /* wax_json.c in Sources */,
 				043D108C12C92D6700775F70 /* yajl.c in Sources */,
 				043D108D12C92D6700775F70 /* yajl_alloc.c in Sources */,
 				043D108F12C92D6700775F70 /* yajl_buf.c in Sources */,
+				008AB8B11B04382600E5DF56 /* wax_block_call.m in Sources */,
 				043D109312C92D6700775F70 /* yajl_encode.c in Sources */,
 				043D109512C92D6700775F70 /* yajl_gen.c in Sources */,
 				043D109712C92D6700775F70 /* yajl_lex.c in Sources */,
+				008AB8AB1B04382600E5DF56 /* NSObject+TBIvarAccess.m in Sources */,
 				043D109A12C92D6700775F70 /* yajl_parser.c in Sources */,
-				00E9B17F1AEFB286004EDF30 /* wax_block.m in Sources */,
 				043D10A112C92D6700775F70 /* wax_xml.m in Sources */,
 				043D10A212C92D6700775F70 /* lapi.c in Sources */,
 				043D10A412C92D6700775F70 /* lauxlib.c in Sources */,
 				043D10A612C92D6700775F70 /* lbaselib.c in Sources */,
-				00E9B1831AEFB286004EDF30 /* wax_block_call_pool.m in Sources */,
 				043D10A712C92D6700775F70 /* lcode.c in Sources */,
 				043D10A912C92D6700775F70 /* ldblib.c in Sources */,
 				043D10AA12C92D6700775F70 /* ldebug.c in Sources */,
-				00E9B1851AEFB286004EDF30 /* wax_block_transfer.m in Sources */,
-				00E9B1811AEFB286004EDF30 /* wax_block_call.m in Sources */,
 				043D10AC12C92D6700775F70 /* ldo.c in Sources */,
 				043D10AE12C92D6700775F70 /* ldump.c in Sources */,
 				043D10AF12C92D6700775F70 /* lfunc.c in Sources */,
 				043D10B112C92D6700775F70 /* lgc.c in Sources */,
 				043D10B312C92D6700775F70 /* linit.c in Sources */,
+				008AB8C11B04382600E5DF56 /* tolua_push.c in Sources */,
 				043D10B412C92D6700775F70 /* liolib.c in Sources */,
+				008AB8B51B04382600E5DF56 /* wax_block_transfer.m in Sources */,
 				043D10B512C92D6700775F70 /* llex.c in Sources */,
 				043D10B812C92D6700775F70 /* lmathlib.c in Sources */,
+				008AB8B31B04382600E5DF56 /* wax_block_call_pool.m in Sources */,
+				008AB8B91B04382600E5DF56 /* objc_runtime_lua.m in Sources */,
 				043D10B912C92D6700775F70 /* lmem.c in Sources */,
 				043D10BB12C92D6700775F70 /* loadlib.c in Sources */,
+				008AB8BF1B04382600E5DF56 /* tolua_is.c in Sources */,
 				043D10BC12C92D6700775F70 /* lobject.c in Sources */,
 				043D10BE12C92D6700775F70 /* lopcodes.c in Sources */,
 				043D10C012C92D6700775F70 /* loslib.c in Sources */,
@@ -673,8 +751,10 @@
 				043D10C312C92D6700775F70 /* lstate.c in Sources */,
 				043D10C512C92D6700775F70 /* lstring.c in Sources */,
 				043D10C712C92D6700775F70 /* lstrlib.c in Sources */,
-				00E9B1871AEFB286004EDF30 /* wax_block_transfer_pool.m in Sources */,
+				008AB8B71B04382600E5DF56 /* wax_block_transfer_pool.m in Sources */,
 				043D10C812C92D6700775F70 /* ltable.c in Sources */,
+				008AB8B81B04382600E5DF56 /* dispatch_lua.m in Sources */,
+				008AB8AD1B04382600E5DF56 /* TBStubObject.m in Sources */,
 				043D10CA12C92D6700775F70 /* ltablib.c in Sources */,
 				043D10CB12C92D6700775F70 /* ltm.c in Sources */,
 				043D10D012C92D6700775F70 /* lundump.c in Sources */,
@@ -683,12 +763,17 @@
 				043D10D412C92D6700775F70 /* lzio.c in Sources */,
 				00E9B16C1AEFB272004EDF30 /* wax_imp_call_pool.m in Sources */,
 				043D10D612C92D6700775F70 /* print.c in Sources */,
+				008AB8BB1B04382600E5DF56 /* UIKitFunction_lua.m in Sources */,
 				043D10D812C92D6700775F70 /* wax.m in Sources */,
 				043D10DA12C92D6700775F70 /* wax_class.m in Sources */,
 				043D10DC12C92D6700775F70 /* wax_gc.m in Sources */,
 				043D10DE12C92D6700775F70 /* wax_helpers.m in Sources */,
+				008AB8BA1B04382600E5DF56 /* pthread_lua.m in Sources */,
 				043D10E012C92D6700775F70 /* wax_instance.m in Sources */,
 				043D10E212C92D6700775F70 /* wax_server.m in Sources */,
+				008AB8AF1B04382600E5DF56 /* wax_block.m in Sources */,
+				008AB8C41B04382600E5DF56 /* wax_capi.m in Sources */,
+				008AB8C21B04382600E5DF56 /* tolua_to.c in Sources */,
 				043D10E512C92D6700775F70 /* wax_struct.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

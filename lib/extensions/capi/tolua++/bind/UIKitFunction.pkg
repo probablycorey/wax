@@ -1,0 +1,171 @@
+$#import "wax_struct.h"
+$#import "wax_instance.h"
+$#import "wax_helpers.h"
+
+//NSData * UIImageJPEGRepresentation ( UIImage *image, CGFloat compressionQuality );
+void * UIImageJPEGRepresentation ( void *image, double compressionQuality );
+
+//NSData * UIImagePNGRepresentation ( UIImage *image );
+void * UIImagePNGRepresentation ( void *image );
+
+//void UIImageWriteToSavedPhotosAlbum ( UIImage *image, id completionTarget, SEL completionSelector, void *contextInfo );
+void UIImageWriteToSavedPhotosAlbum ( void *image, void* completionTarget, char* completionSelector, void *contextInfo );
+
+//void UISaveVideoAtPathToSavedPhotosAlbum ( NSString *videoPath, id completionTarget, SEL completionSelector, void *contextInfo );
+void UISaveVideoAtPathToSavedPhotosAlbum ( void *videoPath, void* completionTarget, char* completionSelector, void *contextInfo );
+
+//BOOL UIVideoAtPathIsCompatibleWithSavedPhotosAlbum ( NSString *videoPath );
+bool UIVideoAtPathIsCompatibleWithSavedPhotosAlbum ( void *videoPath );
+
+//CGContextRef UIGraphicsGetCurrentContext ( void );
+void* UIGraphicsGetCurrentContext ( void );
+
+//void UIGraphicsPushContext ( CGContextRef context );
+void UIGraphicsPushContext ( void* context );
+
+//void UIGraphicsPopContext ( void );
+void UIGraphicsPopContext ( void );
+
+//void UIGraphicsBeginImageContext ( CGSize size );
+void UIGraphicsBeginImageContext ( void* size );
+
+//void UIGraphicsBeginImageContextWithOptions ( CGSize size, BOOL opaque, CGFloat scale );
+void UIGraphicsBeginImageContextWithOptions ( void* size, bool opaque, double scale );
+
+//UIImage * UIGraphicsGetImageFromCurrentImageContext ( void );
+void * UIGraphicsGetImageFromCurrentImageContext ( void );
+
+//void UIGraphicsEndImageContext ( void );
+void UIGraphicsEndImageContext ( void );
+
+//void UIRectClip ( CGRect rect );
+void UIRectClip ( void* rect );
+
+//void UIRectFill ( CGRect rect );
+void UIRectFill ( void* rect );
+
+//void UIRectFillUsingBlendMode ( CGRect rect, CGBlendMode blendMode );
+void UIRectFillUsingBlendMode ( void* rect, long blendMode );
+
+//void UIRectFrame ( CGRect rect );
+void UIRectFrame ( void* rect );
+
+//void UIRectFrameUsingBlendMode ( CGRect rect, CGBlendMode blendMode );
+void UIRectFrameUsingBlendMode ( void* rect, long blendMode );
+
+//void UIGraphicsBeginPDFContextToData ( NSMutableData *data, CGRect bounds, NSDictionary *documentInfo );
+void UIGraphicsBeginPDFContextToData ( void *data, void* bounds, void *documentInfo );
+
+//BOOL UIGraphicsBeginPDFContextToFile ( NSString *path, CGRect bounds, NSDictionary *documentInfo );
+bool UIGraphicsBeginPDFContextToFile ( void *path, void* bounds, void *documentInfo );
+
+//void UIGraphicsEndPDFContext ( void );
+void UIGraphicsEndPDFContext ( void );
+
+//void UIGraphicsBeginPDFPage ( void );
+void UIGraphicsBeginPDFPage ( void );
+
+//void UIGraphicsBeginPDFPageWithInfo ( CGRect bounds, NSDictionary *pageInfo );
+void UIGraphicsBeginPDFPageWithInfo ( void* bounds, void *pageInfo );
+
+//CGRect UIGraphicsGetPDFContextBounds ( void );
+void* UIGraphicsGetPDFContextBounds ( void );
+
+//void UIGraphicsAddPDFContextDestinationAtPoint ( NSString *name, CGPoint point );
+void UIGraphicsAddPDFContextDestinationAtPoint ( void *name, void* point );
+
+//void UIGraphicsSetPDFContextDestinationForRect ( NSString *name, CGRect rect );
+void UIGraphicsSetPDFContextDestinationForRect ( void *name, void* rect );
+
+//void UIGraphicsSetPDFContextURLForRect ( NSURL *url, CGRect rect );
+void UIGraphicsSetPDFContextURLForRect ( void *url, void* rect );
+
+//CGAffineTransform CGAffineTransformFromString ( NSString *string );
+void* CGAffineTransformFromString ( void *string );
+
+//CGPoint CGPointFromString ( NSString *string );
+void* CGPointFromString ( void *string );
+
+//CGRect CGRectFromString ( NSString *string );
+void* CGRectFromString ( void *string );
+
+//CGSize CGSizeFromString ( NSString *string );
+void* CGSizeFromString ( void *string );
+
+//NSString * NSStringFromCGAffineTransform ( CGAffineTransform transform );
+void * NSStringFromCGAffineTransform ( void* transform );
+
+//NSString * NSStringFromCGPoint ( CGPoint point );
+void * NSStringFromCGPoint ( void* point );
+
+//NSString * NSStringFromCGRect ( CGRect rect );
+void * NSStringFromCGRect ( void* rect );
+
+//NSString * NSStringFromCGSize ( CGSize size );
+void * NSStringFromCGSize ( void* size );
+
+//NSString * NSStringFromUIEdgeInsets ( UIEdgeInsets insets );
+void * NSStringFromUIEdgeInsets ( void* insets );
+
+//NSString * NSStringFromUIOffset ( UIOffset offset );
+void * NSStringFromUIOffset ( void* offset );
+
+//UIEdgeInsets UIEdgeInsetsFromString ( NSString *string );
+void* UIEdgeInsetsFromString ( void *string );
+
+//UIOffset UIOffsetFromString ( NSString *string );
+void* UIOffsetFromString ( void *string );
+
+//BOOL UIEdgeInsetsEqualToEdgeInsets ( UIEdgeInsets insets1, UIEdgeInsets insets2 );
+bool UIEdgeInsetsEqualToEdgeInsets ( void* insets1, void* insets2 );
+
+//CGRect UIEdgeInsetsInsetRect ( CGRect rect, UIEdgeInsets insets );
+void* UIEdgeInsetsInsetRect ( void* rect, void* insets );
+
+//BOOL UIOffsetEqualToOffset ( UIOffset offset1, UIOffset offset2 );
+bool UIOffsetEqualToOffset ( void* offset1, void* offset2 );
+
+//void UIAccessibilityPostNotification ( UIAccessibilityNotifications notification, id argument );
+void UIAccessibilityPostNotification ( long notification, void* argument );
+
+//BOOL UIAccessibilityIsVoiceOverRunning ( void );
+bool UIAccessibilityIsVoiceOverRunning ( void );
+
+//BOOL UIAccessibilityIsClosedCaptioningEnabled ( void );
+bool UIAccessibilityIsClosedCaptioningEnabled ( void );
+
+//void UIAccessibilityRequestGuidedAccessSession ( BOOL enable, void (^completionHandler)(BOOL didSucceed) );
+void UIAccessibilityRequestGuidedAccessSession ( bool enable, void (^completionHandler)(bool didSucceed) );
+
+//BOOL UIAccessibilityIsGuidedAccessEnabled ( void );
+bool UIAccessibilityIsGuidedAccessEnabled ( void );
+
+//BOOL UIAccessibilityIsInvertColorsEnabled ( void );
+bool UIAccessibilityIsInvertColorsEnabled ( void );
+
+//BOOL UIAccessibilityIsMonoAudioEnabled ( void );
+bool UIAccessibilityIsMonoAudioEnabled ( void );
+
+//void UIAccessibilityZoomFocusChanged ( UIAccessibilityZoomType type, CGRect frame, UIView *view );
+void UIAccessibilityZoomFocusChanged ( long type, void* frame, void *view );
+
+//void UIAccessibilityRegisterGestureConflictWithZoom ( void );
+void UIAccessibilityRegisterGestureConflictWithZoom ( void );
+
+//CGRect UIAccessibilityConvertFrameToScreenCoordinates ( CGRect rect, UIView *view );
+void* UIAccessibilityConvertFrameToScreenCoordinates ( void* rect, void *view );
+
+//UIBezierPath * UIAccessibilityConvertPathToScreenCoordinates ( UIBezierPath *path, UIView *view );
+void * UIAccessibilityConvertPathToScreenCoordinates ( void *path, void *view );
+
+//CTTextAlignment NSTextAlignmentToCTTextAlignment ( NSTextAlignment nsTextAlignment );
+long NSTextAlignmentToCTTextAlignment ( long nsTextAlignment );
+
+//NSTextAlignment NSTextAlignmentFromCTTextAlignment ( CTTextAlignment ctTextAlignment );
+long NSTextAlignmentFromCTTextAlignment ( long ctTextAlignment );
+
+//UIGuidedAccessRestrictionState UIGuidedAccessRestrictionStateForIdentifier ( NSString *restrictionIdentifier );
+long UIGuidedAccessRestrictionStateForIdentifier ( void *restrictionIdentifier );
+
+
+

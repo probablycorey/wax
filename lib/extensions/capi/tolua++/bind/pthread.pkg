@@ -1,0 +1,8 @@
+$#import <pthread/pthread.h>
+
+int pthread_mutex_init(void* mutex, void* attr);
+int pthread_mutex_destroy(void* mutex);
+
+int pthread_mutex_lock(void* mutex);
+int pthread_mutex_trylock(void* mutex);
+int pthread_mutex_unlock(void* mutex);

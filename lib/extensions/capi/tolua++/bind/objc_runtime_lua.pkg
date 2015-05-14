@@ -1,0 +1,28 @@
+$#include <objc/message.h>
+
+enum {
+    OBJC_ASSOCIATION_ASSIGN = 0,           /**< Specifies a weak reference to the associated object. */
+    OBJC_ASSOCIATION_RETAIN_NONATOMIC = 1, /**< Specifies a strong reference to the associated object. 
+                                            *   The association is not made atomically. */
+    OBJC_ASSOCIATION_COPY_NONATOMIC = 3,   /**< Specifies that the associated object is copied. 
+                                            *   The association is not made atomically. */
+    OBJC_ASSOCIATION_RETAIN = 01401,       /**< Specifies a strong reference to the associated object.
+                                            *   The association is made atomically. */
+    OBJC_ASSOCIATION_COPY = 01403          /**< Specifies that the associated object is copied.
+                                            *   The association is made atomically. */
+};
+
+const char * class_getName ( void* cls );
+void* class_getSuperclass ( void* cls );
+void* class_setSuperclass ( void* cls, void* newSuper );
+bool class_isMetaClass ( void* cls );
+long long class_getInstanceSize ( void* cls );
+void* class_getInstanceVariable ( void* cls, const char *name );
+void* class_getClassVariable ( void* cls, const char *name );
+
+
+void objc_setAssociatedObject ( void* object, void *key, void* value, long long policy );
+void* objc_getAssociatedObject ( void* object, const void *key );
+void objc_removeAssociatedObjects ( void* object );
+
+const char * property_getName ( void* property );
