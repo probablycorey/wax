@@ -1,0 +1,576 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		0074622C1B04484C0066D641 /* AutoTestBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 007462141B04484C0066D641 /* AutoTestBase.m */; };
+		0074622D1B04484C0066D641 /* AutoTestBlockCall.m in Sources */ = {isa = PBXBuildFile; fileRef = 007462161B04484C0066D641 /* AutoTestBlockCall.m */; };
+		0074622E1B04484C0066D641 /* AutoTestBlockTransfer.m in Sources */ = {isa = PBXBuildFile; fileRef = 007462181B04484C0066D641 /* AutoTestBlockTransfer.m */; };
+		0074622F1B04484C0066D641 /* AutoTestGCD.m in Sources */ = {isa = PBXBuildFile; fileRef = 0074621A1B04484C0066D641 /* AutoTestGCD.m */; };
+		007462301B04484C0066D641 /* AutoTestHookMethod.m in Sources */ = {isa = PBXBuildFile; fileRef = 0074621C1B04484C0066D641 /* AutoTestHookMethod.m */; };
+		007462311B04484C0066D641 /* AutoTestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 0074621E1B04484C0066D641 /* AutoTestManager.m */; };
+		007462321B04484C0066D641 /* AutoTestRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = 007462201B04484C0066D641 /* AutoTestRuntime.m */; };
+		007462331B04484C0066D641 /* AutoTestUIKitFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 007462221B04484C0066D641 /* AutoTestUIKitFunction.m */; };
+		007462341B04484C0066D641 /* AutoTestUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 007462241B04484C0066D641 /* AutoTestUtil.m */; };
+		007462351B04484C0066D641 /* AutoTestBlockCall.lua in Resources */ = {isa = PBXBuildFile; fileRef = 007462261B04484C0066D641 /* AutoTestBlockCall.lua */; };
+		007462361B04484C0066D641 /* AutoTestBlockTransfer.lua in Resources */ = {isa = PBXBuildFile; fileRef = 007462271B04484C0066D641 /* AutoTestBlockTransfer.lua */; };
+		007462371B04484C0066D641 /* AutoTestGCD.lua in Resources */ = {isa = PBXBuildFile; fileRef = 007462281B04484C0066D641 /* AutoTestGCD.lua */; };
+		007462381B04484C0066D641 /* AutoTestHookMethod.lua in Resources */ = {isa = PBXBuildFile; fileRef = 007462291B04484C0066D641 /* AutoTestHookMethod.lua */; };
+		007462391B04484C0066D641 /* AutoTestRuntime.lua in Resources */ = {isa = PBXBuildFile; fileRef = 0074622A1B04484C0066D641 /* AutoTestRuntime.lua */; };
+		0074623A1B04484C0066D641 /* AutoTestUIKitFunction.lua in Resources */ = {isa = PBXBuildFile; fileRef = 0074622B1B04484C0066D641 /* AutoTestUIKitFunction.lua */; };
+		0074623D1B044B630066D641 /* AutoTestConfig.lua in Resources */ = {isa = PBXBuildFile; fileRef = 0074623C1B044B630066D641 /* AutoTestConfig.lua */; };
+		008AB8D41B043EEE00E5DF56 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 008AB8D31B043EEE00E5DF56 /* main.m */; };
+		008AB8D71B043EEE00E5DF56 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 008AB8D61B043EEE00E5DF56 /* AppDelegate.m */; };
+		008AB8D91B043EEE00E5DF56 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 008AB8D81B043EEE00E5DF56 /* Images.xcassets */; };
+		008AB8DC1B043EEE00E5DF56 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 008AB8DA1B043EEE00E5DF56 /* LaunchScreen.xib */; };
+		008AB8E81B043EEE00E5DF56 /* AutoTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 008AB8E71B043EEE00E5DF56 /* AutoTestTests.m */; };
+		F3DBFDFAD301CCE7588C8AC9 /* libPods-AutoTest.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E1B3FD9374D45EC39F7A0EE /* libPods-AutoTest.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		008AB8E21B043EEE00E5DF56 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 008AB8C61B043EEE00E5DF56 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 008AB8CD1B043EEE00E5DF56;
+			remoteInfo = AutoTest;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		007462131B04484C0066D641 /* AutoTestBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoTestBase.h; sourceTree = "<group>"; };
+		007462141B04484C0066D641 /* AutoTestBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoTestBase.m; sourceTree = "<group>"; };
+		007462151B04484C0066D641 /* AutoTestBlockCall.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoTestBlockCall.h; sourceTree = "<group>"; };
+		007462161B04484C0066D641 /* AutoTestBlockCall.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoTestBlockCall.m; sourceTree = "<group>"; };
+		007462171B04484C0066D641 /* AutoTestBlockTransfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoTestBlockTransfer.h; sourceTree = "<group>"; };
+		007462181B04484C0066D641 /* AutoTestBlockTransfer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoTestBlockTransfer.m; sourceTree = "<group>"; };
+		007462191B04484C0066D641 /* AutoTestGCD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoTestGCD.h; sourceTree = "<group>"; };
+		0074621A1B04484C0066D641 /* AutoTestGCD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoTestGCD.m; sourceTree = "<group>"; };
+		0074621B1B04484C0066D641 /* AutoTestHookMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoTestHookMethod.h; sourceTree = "<group>"; };
+		0074621C1B04484C0066D641 /* AutoTestHookMethod.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoTestHookMethod.m; sourceTree = "<group>"; };
+		0074621D1B04484C0066D641 /* AutoTestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoTestManager.h; sourceTree = "<group>"; };
+		0074621E1B04484C0066D641 /* AutoTestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoTestManager.m; sourceTree = "<group>"; };
+		0074621F1B04484C0066D641 /* AutoTestRuntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoTestRuntime.h; sourceTree = "<group>"; };
+		007462201B04484C0066D641 /* AutoTestRuntime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoTestRuntime.m; sourceTree = "<group>"; };
+		007462211B04484C0066D641 /* AutoTestUIKitFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoTestUIKitFunction.h; sourceTree = "<group>"; };
+		007462221B04484C0066D641 /* AutoTestUIKitFunction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoTestUIKitFunction.m; sourceTree = "<group>"; };
+		007462231B04484C0066D641 /* AutoTestUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoTestUtil.h; sourceTree = "<group>"; };
+		007462241B04484C0066D641 /* AutoTestUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoTestUtil.m; sourceTree = "<group>"; };
+		007462261B04484C0066D641 /* AutoTestBlockCall.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AutoTestBlockCall.lua; sourceTree = "<group>"; };
+		007462271B04484C0066D641 /* AutoTestBlockTransfer.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AutoTestBlockTransfer.lua; sourceTree = "<group>"; };
+		007462281B04484C0066D641 /* AutoTestGCD.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AutoTestGCD.lua; sourceTree = "<group>"; };
+		007462291B04484C0066D641 /* AutoTestHookMethod.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AutoTestHookMethod.lua; sourceTree = "<group>"; };
+		0074622A1B04484C0066D641 /* AutoTestRuntime.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AutoTestRuntime.lua; sourceTree = "<group>"; };
+		0074622B1B04484C0066D641 /* AutoTestUIKitFunction.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AutoTestUIKitFunction.lua; sourceTree = "<group>"; };
+		0074623B1B044AB20066D641 /* AutoTest-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AutoTest-Prefix.pch"; sourceTree = "<group>"; };
+		0074623C1B044B630066D641 /* AutoTestConfig.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AutoTestConfig.lua; sourceTree = "<group>"; };
+		008AB8CE1B043EEE00E5DF56 /* AutoTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AutoTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		008AB8D21B043EEE00E5DF56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		008AB8D31B043EEE00E5DF56 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		008AB8D51B043EEE00E5DF56 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		008AB8D61B043EEE00E5DF56 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		008AB8D81B043EEE00E5DF56 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		008AB8DB1B043EEE00E5DF56 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		008AB8E11B043EEE00E5DF56 /* AutoTestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AutoTestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		008AB8E61B043EEE00E5DF56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		008AB8E71B043EEE00E5DF56 /* AutoTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AutoTestTests.m; sourceTree = "<group>"; };
+		2E1B3FD9374D45EC39F7A0EE /* libPods-AutoTest.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AutoTest.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ABEB0B191F9206265E1284FB /* Pods-AutoTest.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AutoTest.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AutoTest/Pods-AutoTest.debug.xcconfig"; sourceTree = "<group>"; };
+		F20FE7F13683FA0B6007867A /* Pods-AutoTest.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AutoTest.release.xcconfig"; path = "Pods/Target Support Files/Pods-AutoTest/Pods-AutoTest.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		008AB8CB1B043EEE00E5DF56 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F3DBFDFAD301CCE7588C8AC9 /* libPods-AutoTest.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		008AB8DE1B043EEE00E5DF56 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		007462121B04484C0066D641 /* AutoTestClass */ = {
+			isa = PBXGroup;
+			children = (
+				007462131B04484C0066D641 /* AutoTestBase.h */,
+				007462141B04484C0066D641 /* AutoTestBase.m */,
+				007462151B04484C0066D641 /* AutoTestBlockCall.h */,
+				007462161B04484C0066D641 /* AutoTestBlockCall.m */,
+				007462171B04484C0066D641 /* AutoTestBlockTransfer.h */,
+				007462181B04484C0066D641 /* AutoTestBlockTransfer.m */,
+				007462191B04484C0066D641 /* AutoTestGCD.h */,
+				0074621A1B04484C0066D641 /* AutoTestGCD.m */,
+				0074621B1B04484C0066D641 /* AutoTestHookMethod.h */,
+				0074621C1B04484C0066D641 /* AutoTestHookMethod.m */,
+				0074621D1B04484C0066D641 /* AutoTestManager.h */,
+				0074621E1B04484C0066D641 /* AutoTestManager.m */,
+				0074621F1B04484C0066D641 /* AutoTestRuntime.h */,
+				007462201B04484C0066D641 /* AutoTestRuntime.m */,
+				007462211B04484C0066D641 /* AutoTestUIKitFunction.h */,
+				007462221B04484C0066D641 /* AutoTestUIKitFunction.m */,
+				007462231B04484C0066D641 /* AutoTestUtil.h */,
+				007462241B04484C0066D641 /* AutoTestUtil.m */,
+			);
+			path = AutoTestClass;
+			sourceTree = "<group>";
+		};
+		007462251B04484C0066D641 /* AutoTestScript */ = {
+			isa = PBXGroup;
+			children = (
+				0074623C1B044B630066D641 /* AutoTestConfig.lua */,
+				007462261B04484C0066D641 /* AutoTestBlockCall.lua */,
+				007462271B04484C0066D641 /* AutoTestBlockTransfer.lua */,
+				007462281B04484C0066D641 /* AutoTestGCD.lua */,
+				007462291B04484C0066D641 /* AutoTestHookMethod.lua */,
+				0074622A1B04484C0066D641 /* AutoTestRuntime.lua */,
+				0074622B1B04484C0066D641 /* AutoTestUIKitFunction.lua */,
+			);
+			path = AutoTestScript;
+			sourceTree = "<group>";
+		};
+		008AB8C51B043EEE00E5DF56 = {
+			isa = PBXGroup;
+			children = (
+				008AB8D01B043EEE00E5DF56 /* AutoTest */,
+				008AB8E41B043EEE00E5DF56 /* AutoTestTests */,
+				008AB8CF1B043EEE00E5DF56 /* Products */,
+				980267BBF5E40029AAACF3AF /* Pods */,
+				19FFDD1F5F05B7F2CA068260 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		008AB8CF1B043EEE00E5DF56 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				008AB8CE1B043EEE00E5DF56 /* AutoTest.app */,
+				008AB8E11B043EEE00E5DF56 /* AutoTestTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		008AB8D01B043EEE00E5DF56 /* AutoTest */ = {
+			isa = PBXGroup;
+			children = (
+				007462121B04484C0066D641 /* AutoTestClass */,
+				007462251B04484C0066D641 /* AutoTestScript */,
+				008AB8D51B043EEE00E5DF56 /* AppDelegate.h */,
+				008AB8D61B043EEE00E5DF56 /* AppDelegate.m */,
+				008AB8D81B043EEE00E5DF56 /* Images.xcassets */,
+				008AB8DA1B043EEE00E5DF56 /* LaunchScreen.xib */,
+				008AB8D11B043EEE00E5DF56 /* Supporting Files */,
+			);
+			path = AutoTest;
+			sourceTree = "<group>";
+		};
+		008AB8D11B043EEE00E5DF56 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				0074623B1B044AB20066D641 /* AutoTest-Prefix.pch */,
+				008AB8D21B043EEE00E5DF56 /* Info.plist */,
+				008AB8D31B043EEE00E5DF56 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		008AB8E41B043EEE00E5DF56 /* AutoTestTests */ = {
+			isa = PBXGroup;
+			children = (
+				008AB8E71B043EEE00E5DF56 /* AutoTestTests.m */,
+				008AB8E51B043EEE00E5DF56 /* Supporting Files */,
+			);
+			path = AutoTestTests;
+			sourceTree = "<group>";
+		};
+		008AB8E51B043EEE00E5DF56 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				008AB8E61B043EEE00E5DF56 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		19FFDD1F5F05B7F2CA068260 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2E1B3FD9374D45EC39F7A0EE /* libPods-AutoTest.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		980267BBF5E40029AAACF3AF /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				ABEB0B191F9206265E1284FB /* Pods-AutoTest.debug.xcconfig */,
+				F20FE7F13683FA0B6007867A /* Pods-AutoTest.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		008AB8CD1B043EEE00E5DF56 /* AutoTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 008AB8EB1B043EEE00E5DF56 /* Build configuration list for PBXNativeTarget "AutoTest" */;
+			buildPhases = (
+				840BCB7A5D5C48B3E9B6E1C3 /* Check Pods Manifest.lock */,
+				008AB8CA1B043EEE00E5DF56 /* Sources */,
+				008AB8CB1B043EEE00E5DF56 /* Frameworks */,
+				008AB8CC1B043EEE00E5DF56 /* Resources */,
+				82DDFC60EAC904E0DE8F6C4E /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AutoTest;
+			productName = AutoTest;
+			productReference = 008AB8CE1B043EEE00E5DF56 /* AutoTest.app */;
+			productType = "com.apple.product-type.application";
+		};
+		008AB8E01B043EEE00E5DF56 /* AutoTestTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 008AB8EE1B043EEE00E5DF56 /* Build configuration list for PBXNativeTarget "AutoTestTests" */;
+			buildPhases = (
+				008AB8DD1B043EEE00E5DF56 /* Sources */,
+				008AB8DE1B043EEE00E5DF56 /* Frameworks */,
+				008AB8DF1B043EEE00E5DF56 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				008AB8E31B043EEE00E5DF56 /* PBXTargetDependency */,
+			);
+			name = AutoTestTests;
+			productName = AutoTestTests;
+			productReference = 008AB8E11B043EEE00E5DF56 /* AutoTestTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		008AB8C61B043EEE00E5DF56 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = taobao.com;
+				TargetAttributes = {
+					008AB8CD1B043EEE00E5DF56 = {
+						CreatedOnToolsVersion = 6.1;
+					};
+					008AB8E01B043EEE00E5DF56 = {
+						CreatedOnToolsVersion = 6.1;
+						TestTargetID = 008AB8CD1B043EEE00E5DF56;
+					};
+				};
+			};
+			buildConfigurationList = 008AB8C91B043EEE00E5DF56 /* Build configuration list for PBXProject "AutoTest" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 008AB8C51B043EEE00E5DF56;
+			productRefGroup = 008AB8CF1B043EEE00E5DF56 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				008AB8CD1B043EEE00E5DF56 /* AutoTest */,
+				008AB8E01B043EEE00E5DF56 /* AutoTestTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		008AB8CC1B043EEE00E5DF56 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				007462391B04484C0066D641 /* AutoTestRuntime.lua in Resources */,
+				008AB8DC1B043EEE00E5DF56 /* LaunchScreen.xib in Resources */,
+				008AB8D91B043EEE00E5DF56 /* Images.xcassets in Resources */,
+				007462361B04484C0066D641 /* AutoTestBlockTransfer.lua in Resources */,
+				007462371B04484C0066D641 /* AutoTestGCD.lua in Resources */,
+				007462351B04484C0066D641 /* AutoTestBlockCall.lua in Resources */,
+				0074623D1B044B630066D641 /* AutoTestConfig.lua in Resources */,
+				0074623A1B04484C0066D641 /* AutoTestUIKitFunction.lua in Resources */,
+				007462381B04484C0066D641 /* AutoTestHookMethod.lua in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		008AB8DF1B043EEE00E5DF56 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		82DDFC60EAC904E0DE8F6C4E /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-AutoTest/Pods-AutoTest-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		840BCB7A5D5C48B3E9B6E1C3 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		008AB8CA1B043EEE00E5DF56 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				007462311B04484C0066D641 /* AutoTestManager.m in Sources */,
+				0074622E1B04484C0066D641 /* AutoTestBlockTransfer.m in Sources */,
+				008AB8D71B043EEE00E5DF56 /* AppDelegate.m in Sources */,
+				007462321B04484C0066D641 /* AutoTestRuntime.m in Sources */,
+				0074622C1B04484C0066D641 /* AutoTestBase.m in Sources */,
+				007462341B04484C0066D641 /* AutoTestUtil.m in Sources */,
+				007462331B04484C0066D641 /* AutoTestUIKitFunction.m in Sources */,
+				007462301B04484C0066D641 /* AutoTestHookMethod.m in Sources */,
+				0074622F1B04484C0066D641 /* AutoTestGCD.m in Sources */,
+				0074622D1B04484C0066D641 /* AutoTestBlockCall.m in Sources */,
+				008AB8D41B043EEE00E5DF56 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		008AB8DD1B043EEE00E5DF56 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				008AB8E81B043EEE00E5DF56 /* AutoTestTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		008AB8E31B043EEE00E5DF56 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 008AB8CD1B043EEE00E5DF56 /* AutoTest */;
+			targetProxy = 008AB8E21B043EEE00E5DF56 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		008AB8DA1B043EEE00E5DF56 /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				008AB8DB1B043EEE00E5DF56 /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		008AB8E91B043EEE00E5DF56 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		008AB8EA1B043EEE00E5DF56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		008AB8EC1B043EEE00E5DF56 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = ABEB0B191F9206265E1284FB /* Pods-AutoTest.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = "AutoTest/AutoTest-Prefix.pch";
+				INFOPLIST_FILE = AutoTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		008AB8ED1B043EEE00E5DF56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = F20FE7F13683FA0B6007867A /* Pods-AutoTest.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				GCC_PREFIX_HEADER = "AutoTest/AutoTest-Prefix.pch";
+				INFOPLIST_FILE = AutoTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		008AB8EF1B043EEE00E5DF56 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = AutoTestTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AutoTest.app/AutoTest";
+			};
+			name = Debug;
+		};
+		008AB8F01B043EEE00E5DF56 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = AutoTestTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AutoTest.app/AutoTest";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		008AB8C91B043EEE00E5DF56 /* Build configuration list for PBXProject "AutoTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				008AB8E91B043EEE00E5DF56 /* Debug */,
+				008AB8EA1B043EEE00E5DF56 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		008AB8EB1B043EEE00E5DF56 /* Build configuration list for PBXNativeTarget "AutoTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				008AB8EC1B043EEE00E5DF56 /* Debug */,
+				008AB8ED1B043EEE00E5DF56 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		008AB8EE1B043EEE00E5DF56 /* Build configuration list for PBXNativeTarget "AutoTestTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				008AB8EF1B043EEE00E5DF56 /* Debug */,
+				008AB8F01B043EEE00E5DF56 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 008AB8C61B043EEE00E5DF56 /* Project object */;
+}

@@ -1,0 +1,7 @@
+platform :ios
+
+
+target 'AutoTest' do
+	platform:ios, '6.0'
+	pod 'wax', :path=>'../../'
+end

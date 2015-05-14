@@ -1,0 +1,63 @@
+//
+//  Prefix header
+//
+//  The contents of this file are implicitly included at the beginning of every source file.
+//
+
+#import <Availability.h>
+
+#ifndef __IPHONE_3_0
+#warning "This project uses features only available in iOS SDK 3.0 and later."
+#endif
+
+#ifdef __OBJC__
+    #import <UIKit/UIKit.h>
+    #import <Foundation/Foundation.h>
+#endif
+
+
+#if __LP64__ || (TARGET_OS_EMBEDDED && !TARGET_OS_IPHONE) || TARGET_OS_WIN32 || NS_BUILD_32_LIKE_64
+#warning @"64 bit arm"
+#define WAX_IS_ARM_64 1
+#else
+#warning @"32 bit arm"
+#endif
+
+//#ifdef DEBUG
+//
+//#else
+//
+//#define NSLog(...) {}
+//#endif
+
+
+#pragma mark test value
+
+#if WAX_IS_ARM_64 == 1
+    #define TEST_VALUE_INTEGER 1234567890123
+#else
+    #define TEST_VALUE_INTEGER 1234567
+#endif
+
+#if WAX_IS_ARM_64 == 1
+    #define TEST_VALUE_U_INTEGER 12345678901234
+#else
+    #define TEST_VALUE_U_INTEGER 12345678
+#endif
+
+#define TEST_VALUE_SHORT 12345
+#define TEST_VALUE_INT 123456
+#define TEST_VALUE_LONG_LONG 1234567890123456ll
+#define TEST_VALUE_U_LONG_LONG 12345678901234567llu
+#define TEST_VALUE_VOID_POINTER (void*)"efg"
+
+#define TEST_VALUE_ID  self
+#define TEST_VALUE_CHAR 'a'
+#define TEST_VALUE_CHAR_POINTER "abc"
+#define TEST_VALUE_BOOL (BOOL)YES
+#define TEST_VALUE_bool false
+
+
+#define TEST_VALUE_FLOAT 123.456f
+#define TEST_VALUE_CGFLOAT (CGFloat)1234.5678
+#define TEST_VALUE_DOUBLE (double)12345.6789

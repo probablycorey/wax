@@ -7,3 +7,4 @@ xcuserdata
 *.xcworkspacedata
 *.xcuserdata
 *.xccheckout
+Pods/
