@@ -16,6 +16,15 @@
 		00E9B1A61AEFB4FC004EDF30 /* wax_block_transfer.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9B19D1AEFB4FC004EDF30 /* wax_block_transfer.m */; };
 		00E9B1A71AEFB4FC004EDF30 /* wax_block_transfer_pool.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9B19F1AEFB4FC004EDF30 /* wax_block_transfer_pool.m */; };
 		00E9B1A81AEFB4FC004EDF30 /* wax_capi.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9B1A21AEFB4FC004EDF30 /* wax_capi.m */; };
+		00F1A1541BBA9B5B0030C463 /* dispatch_lua.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F1A1451BBA9B5B0030C463 /* dispatch_lua.m */; };
+		00F1A1551BBA9B5B0030C463 /* objc_runtime_lua.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F1A1471BBA9B5B0030C463 /* objc_runtime_lua.m */; };
+		00F1A1561BBA9B5B0030C463 /* pthread_lua.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F1A14A1BBA9B5B0030C463 /* pthread_lua.m */; };
+		00F1A1571BBA9B5B0030C463 /* UIKitFunction_lua.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F1A14C1BBA9B5B0030C463 /* UIKitFunction_lua.m */; };
+		00F1A1581BBA9B5B0030C463 /* tolua_event.c in Sources */ = {isa = PBXBuildFile; fileRef = 00F1A14E1BBA9B5B0030C463 /* tolua_event.c */; };
+		00F1A1591BBA9B5B0030C463 /* tolua_is.c in Sources */ = {isa = PBXBuildFile; fileRef = 00F1A1501BBA9B5B0030C463 /* tolua_is.c */; };
+		00F1A15A1BBA9B5B0030C463 /* tolua_map.c in Sources */ = {isa = PBXBuildFile; fileRef = 00F1A1511BBA9B5B0030C463 /* tolua_map.c */; };
+		00F1A15B1BBA9B5B0030C463 /* tolua_push.c in Sources */ = {isa = PBXBuildFile; fileRef = 00F1A1521BBA9B5B0030C463 /* tolua_push.c */; };
+		00F1A15C1BBA9B5B0030C463 /* tolua_to.c in Sources */ = {isa = PBXBuildFile; fileRef = 00F1A1531BBA9B5B0030C463 /* tolua_to.c */; };
 		04A6186B12CA7AB6004ADB76 /* wax_filesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A617DE12CA7AB6004ADB76 /* wax_filesystem.m */; };
 		04A6186C12CA7AB6004ADB76 /* wax_http.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A617E112CA7AB6004ADB76 /* wax_http.m */; };
 		04A6186D12CA7AB6004ADB76 /* wax_http_connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 04A617E312CA7AB6004ADB76 /* wax_http_connection.m */; };
@@ -93,6 +102,17 @@
 		00E9B1A11AEFB4FC004EDF30 /* wax_capi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_capi.h; sourceTree = "<group>"; };
 		00E9B1A21AEFB4FC004EDF30 /* wax_capi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_capi.m; sourceTree = "<group>"; };
 		00E9B1A91AEFB50D004EDF30 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		00F1A1451BBA9B5B0030C463 /* dispatch_lua.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = dispatch_lua.m; sourceTree = "<group>"; };
+		00F1A1471BBA9B5B0030C463 /* objc_runtime_lua.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = objc_runtime_lua.m; sourceTree = "<group>"; };
+		00F1A14A1BBA9B5B0030C463 /* pthread_lua.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pthread_lua.m; sourceTree = "<group>"; };
+		00F1A14C1BBA9B5B0030C463 /* UIKitFunction_lua.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIKitFunction_lua.m; sourceTree = "<group>"; };
+		00F1A14D1BBA9B5B0030C463 /* tolua++.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "tolua++.h"; sourceTree = "<group>"; };
+		00F1A14E1BBA9B5B0030C463 /* tolua_event.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tolua_event.c; sourceTree = "<group>"; };
+		00F1A14F1BBA9B5B0030C463 /* tolua_event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = tolua_event.h; sourceTree = "<group>"; };
+		00F1A1501BBA9B5B0030C463 /* tolua_is.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tolua_is.c; sourceTree = "<group>"; };
+		00F1A1511BBA9B5B0030C463 /* tolua_map.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tolua_map.c; sourceTree = "<group>"; };
+		00F1A1521BBA9B5B0030C463 /* tolua_push.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tolua_push.c; sourceTree = "<group>"; };
+		00F1A1531BBA9B5B0030C463 /* tolua_to.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = tolua_to.c; sourceTree = "<group>"; };
 		0444909612D2962800E8D955 /* AppDelegate.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = AppDelegate.lua; sourceTree = "<group>"; };
 		0444909712D2962800E8D955 /* TwitterTableViewController.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = TwitterTableViewController.lua; sourceTree = "<group>"; };
 		045B0B8212D3BB0B001697A0 /* compile-stdlib.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "compile-stdlib.sh"; sourceTree = "<group>"; };
@@ -280,11 +300,38 @@
 		00E9B1A01AEFB4FC004EDF30 /* capi */ = {
 			isa = PBXGroup;
 			children = (
+				00F1A1431BBA9B5B0030C463 /* tolua++ */,
 				00E9B1A11AEFB4FC004EDF30 /* wax_capi.h */,
 				00E9B1A21AEFB4FC004EDF30 /* wax_capi.m */,
 			);
 			name = capi;
 			path = ../../../../lib/extensions/capi;
+			sourceTree = "<group>";
+		};
+		00F1A1431BBA9B5B0030C463 /* tolua++ */ = {
+			isa = PBXGroup;
+			children = (
+				00F1A1441BBA9B5B0030C463 /* bind */,
+				00F1A14D1BBA9B5B0030C463 /* tolua++.h */,
+				00F1A14E1BBA9B5B0030C463 /* tolua_event.c */,
+				00F1A14F1BBA9B5B0030C463 /* tolua_event.h */,
+				00F1A1501BBA9B5B0030C463 /* tolua_is.c */,
+				00F1A1511BBA9B5B0030C463 /* tolua_map.c */,
+				00F1A1521BBA9B5B0030C463 /* tolua_push.c */,
+				00F1A1531BBA9B5B0030C463 /* tolua_to.c */,
+			);
+			path = "tolua++";
+			sourceTree = "<group>";
+		};
+		00F1A1441BBA9B5B0030C463 /* bind */ = {
+			isa = PBXGroup;
+			children = (
+				00F1A1451BBA9B5B0030C463 /* dispatch_lua.m */,
+				00F1A1471BBA9B5B0030C463 /* objc_runtime_lua.m */,
+				00F1A14A1BBA9B5B0030C463 /* pthread_lua.m */,
+				00F1A14C1BBA9B5B0030C463 /* UIKitFunction_lua.m */,
+			);
+			path = bind;
 			sourceTree = "<group>";
 		};
 		045B0B8112D3BB0B001697A0 /* build-scripts */ = {
@@ -667,8 +714,10 @@
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				04A6186B12CA7AB6004ADB76 /* wax_filesystem.m in Sources */,
+				00F1A15A1BBA9B5B0030C463 /* tolua_map.c in Sources */,
 				04A6186C12CA7AB6004ADB76 /* wax_http.m in Sources */,
 				04A6186D12CA7AB6004ADB76 /* wax_http_connection.m in Sources */,
+				00F1A1581BBA9B5B0030C463 /* tolua_event.c in Sources */,
 				04A6186F12CA7AB6004ADB76 /* wax_json.c in Sources */,
 				04A6187012CA7AB6004ADB76 /* yajl.c in Sources */,
 				04A6187112CA7AB6004ADB76 /* yajl_alloc.c in Sources */,
@@ -691,13 +740,16 @@
 				04A6188212CA7AB6004ADB76 /* ldump.c in Sources */,
 				04A6188312CA7AB6004ADB76 /* lfunc.c in Sources */,
 				04A6188412CA7AB6004ADB76 /* lgc.c in Sources */,
+				00F1A15B1BBA9B5B0030C463 /* tolua_push.c in Sources */,
 				04A6188512CA7AB6004ADB76 /* linit.c in Sources */,
 				04A6188612CA7AB6004ADB76 /* liolib.c in Sources */,
 				04A6188712CA7AB6004ADB76 /* llex.c in Sources */,
 				04A6188812CA7AB6004ADB76 /* lmathlib.c in Sources */,
 				00E9B1A81AEFB4FC004EDF30 /* wax_capi.m in Sources */,
+				00F1A1551BBA9B5B0030C463 /* objc_runtime_lua.m in Sources */,
 				04A6188912CA7AB6004ADB76 /* lmem.c in Sources */,
 				04A6188A12CA7AB6004ADB76 /* loadlib.c in Sources */,
+				00F1A1591BBA9B5B0030C463 /* tolua_is.c in Sources */,
 				04A6188B12CA7AB6004ADB76 /* lobject.c in Sources */,
 				04A6188C12CA7AB6004ADB76 /* lopcodes.c in Sources */,
 				04A6188D12CA7AB6004ADB76 /* loslib.c in Sources */,
@@ -707,6 +759,7 @@
 				04A6188F12CA7AB6004ADB76 /* lstate.c in Sources */,
 				04A6189012CA7AB6004ADB76 /* lstring.c in Sources */,
 				04A6189112CA7AB6004ADB76 /* lstrlib.c in Sources */,
+				00F1A1541BBA9B5B0030C463 /* dispatch_lua.m in Sources */,
 				04A6189212CA7AB6004ADB76 /* ltable.c in Sources */,
 				04A6189312CA7AB6004ADB76 /* ltablib.c in Sources */,
 				04A6189412CA7AB6004ADB76 /* ltm.c in Sources */,
@@ -716,13 +769,16 @@
 				00E9B1A51AEFB4FC004EDF30 /* wax_block_call_pool.m in Sources */,
 				04A6189812CA7AB6004ADB76 /* print.c in Sources */,
 				00E9B1A61AEFB4FC004EDF30 /* wax_block_transfer.m in Sources */,
+				00F1A1571BBA9B5B0030C463 /* UIKitFunction_lua.m in Sources */,
 				04A618B012CA7AB6004ADB76 /* wax.m in Sources */,
 				04A618B112CA7AB6004ADB76 /* wax_class.m in Sources */,
 				04A618B212CA7AB6004ADB76 /* wax_gc.m in Sources */,
 				04A618B312CA7AB6004ADB76 /* wax_helpers.m in Sources */,
+				00F1A1561BBA9B5B0030C463 /* pthread_lua.m in Sources */,
 				00E9B1941AEFB4F4004EDF30 /* wax_lock.m in Sources */,
 				04A618B412CA7AB6004ADB76 /* wax_instance.m in Sources */,
 				04A618B512CA7AB6004ADB76 /* wax_server.m in Sources */,
+				00F1A15C1BBA9B5B0030C463 /* tolua_to.c in Sources */,
 				04A618B612CA7AB6004ADB76 /* wax_struct.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

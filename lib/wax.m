@@ -20,6 +20,7 @@
 #import "lauxlib.h"
 #import "lobject.h"
 #import "lualib.h"
+#import "wax_define.h"
 static void addGlobals(lua_State *L);
 static int waxRoot(lua_State *L);
 static int waxPrint(lua_State *L);
@@ -93,6 +94,7 @@ void wax_setup() {
 }
 
 void wax_start(char* initScript, lua_CFunction extensionFunction, ...) {
+    
 	wax_setup();
 	
 	lua_State *L = wax_currentLuaState();
@@ -120,9 +122,16 @@ void wax_start(char* initScript, lua_CFunction extensionFunction, ...) {
 		size_t stdlibSize = strlen(stdlib);
 	#endif
     
+//    for(int i = 0; i < stdlibSize; ++i){
+//        printf("%d,", stdlib[i]);
+//    }
+    
 	if (luaL_loadbuffer(L, stdlib, stdlibSize, "loading wax stdlib") || lua_pcall(L, 0, LUA_MULTRET, 0)) {
 		fprintf(stderr,"Error opening wax scripts: %s\n", lua_tostring(L,-1));
 	}
+//    if (luaL_loadfile(L, "/Users/junzhan/Documents/macpro-data/project/all_github/wax/examples/States_nof/wax.dat副本") || lua_pcall(L, 0, LUA_MULTRET, 0)) {
+//        fprintf(stderr,"Error opening wax scripts: %s\n", lua_tostring(L,-1));
+//    }
     
 	// Run Tests or the REPL?
 	// ----------------------
@@ -302,14 +311,22 @@ static int exitApp(lua_State *L) {
 
 #pragma mark run
 int wax_runLuaString(const char *script){
-    [wax_global_lock() lock];
+    [wax_globalLock() lock];
     int i = luaL_dostring(wax_currentLuaState(), script);
-    [wax_global_lock() unlock];
+    [wax_globalLock() unlock];
     return i;
 }
 
+int wax_runLuaFile(const char *script){
+    [wax_globalLock() lock];
+    int i = luaL_dofile(wax_currentLuaState(), script);
+    [wax_globalLock() unlock];
+    return i;
+}
+
+
 int wax_runLuaByteCode(NSData *data, NSString *name){
-    [wax_global_lock() lock];
+    [wax_globalLock() lock];
     
     lua_State *L = wax_currentLuaState();
     int i = (luaL_loadbuffer(L, [data bytes], data.length, [name cStringUsingEncoding:NSUTF8StringEncoding]) || lua_pcall(L, 0, LUA_MULTRET, 0));
@@ -318,7 +335,7 @@ int wax_runLuaByteCode(NSData *data, NSString *name){
         NSLog(@"error = %@", error);
     }
     
-    [wax_global_lock() unlock];
+    [wax_globalLock() unlock];
     return i;
 }
 

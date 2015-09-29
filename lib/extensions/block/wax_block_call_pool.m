@@ -7,6822 +7,6822 @@ void *returnBuffer = calloc(sizeof(type), 1);\
 return returnBuffer;\
 
 
-void* lua_call_ib0(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib0(lua_State *L, id block, int st, const char *te){
     int (^y)() = block;
     int res = y();
     REURN_BUFFER(int)
 }
-void* lua_call_ib1i(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib1i(lua_State *L, id block, int st, const char *te){
     int (^y)(int) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib1q(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib1q(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib1f(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib1f(lua_State *L, id block, int st, const char *te){
     int (^y)(float) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib1d(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib1d(lua_State *L, id block, int st, const char *te){
     int (^y)(double) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib2ii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib2ii(lua_State *L, id block, int st, const char *te){
     int (^y)(int,int) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib2iq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib2iq(lua_State *L, id block, int st, const char *te){
     int (^y)(int,LongLong) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib2if(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib2if(lua_State *L, id block, int st, const char *te){
     int (^y)(int,float) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib2id(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib2id(lua_State *L, id block, int st, const char *te){
     int (^y)(int,double) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib2qi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib2qi(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,int) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib2qq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib2qq(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,LongLong) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib2qf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib2qf(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,float) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib2qd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib2qd(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,double) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib2fi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib2fi(lua_State *L, id block, int st, const char *te){
     int (^y)(float,int) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib2fq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib2fq(lua_State *L, id block, int st, const char *te){
     int (^y)(float,LongLong) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib2ff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib2ff(lua_State *L, id block, int st, const char *te){
     int (^y)(float,float) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib2fd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib2fd(lua_State *L, id block, int st, const char *te){
     int (^y)(float,double) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib2di(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib2di(lua_State *L, id block, int st, const char *te){
     int (^y)(double,int) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib2dq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib2dq(lua_State *L, id block, int st, const char *te){
     int (^y)(double,LongLong) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib2df(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib2df(lua_State *L, id block, int st, const char *te){
     int (^y)(double,float) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib2dd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib2dd(lua_State *L, id block, int st, const char *te){
     int (^y)(double,double) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3iii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3iii(lua_State *L, id block, int st, const char *te){
     int (^y)(int,int,int) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3iiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3iiq(lua_State *L, id block, int st, const char *te){
     int (^y)(int,int,LongLong) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3iif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3iif(lua_State *L, id block, int st, const char *te){
     int (^y)(int,int,float) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3iid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3iid(lua_State *L, id block, int st, const char *te){
     int (^y)(int,int,double) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3iqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3iqi(lua_State *L, id block, int st, const char *te){
     int (^y)(int,LongLong,int) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3iqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3iqq(lua_State *L, id block, int st, const char *te){
     int (^y)(int,LongLong,LongLong) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3iqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3iqf(lua_State *L, id block, int st, const char *te){
     int (^y)(int,LongLong,float) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3iqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3iqd(lua_State *L, id block, int st, const char *te){
     int (^y)(int,LongLong,double) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3ifi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3ifi(lua_State *L, id block, int st, const char *te){
     int (^y)(int,float,int) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3ifq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3ifq(lua_State *L, id block, int st, const char *te){
     int (^y)(int,float,LongLong) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3iff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3iff(lua_State *L, id block, int st, const char *te){
     int (^y)(int,float,float) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3ifd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3ifd(lua_State *L, id block, int st, const char *te){
     int (^y)(int,float,double) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3idi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3idi(lua_State *L, id block, int st, const char *te){
     int (^y)(int,double,int) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3idq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3idq(lua_State *L, id block, int st, const char *te){
     int (^y)(int,double,LongLong) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3idf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3idf(lua_State *L, id block, int st, const char *te){
     int (^y)(int,double,float) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3idd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3idd(lua_State *L, id block, int st, const char *te){
     int (^y)(int,double,double) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3qii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3qii(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,int,int) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3qiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3qiq(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,int,LongLong) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3qif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3qif(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,int,float) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3qid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3qid(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,int,double) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3qqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3qqi(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,LongLong,int) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3qqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3qqq(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,LongLong,LongLong) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3qqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3qqf(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,LongLong,float) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3qqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3qqd(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,LongLong,double) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3qfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3qfi(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,float,int) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3qfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3qfq(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,float,LongLong) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3qff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3qff(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,float,float) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3qfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3qfd(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,float,double) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3qdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3qdi(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,double,int) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3qdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3qdq(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,double,LongLong) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3qdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3qdf(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,double,float) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3qdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3qdd(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,double,double) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3fii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3fii(lua_State *L, id block, int st, const char *te){
     int (^y)(float,int,int) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3fiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3fiq(lua_State *L, id block, int st, const char *te){
     int (^y)(float,int,LongLong) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3fif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3fif(lua_State *L, id block, int st, const char *te){
     int (^y)(float,int,float) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3fid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3fid(lua_State *L, id block, int st, const char *te){
     int (^y)(float,int,double) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3fqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3fqi(lua_State *L, id block, int st, const char *te){
     int (^y)(float,LongLong,int) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3fqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3fqq(lua_State *L, id block, int st, const char *te){
     int (^y)(float,LongLong,LongLong) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3fqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3fqf(lua_State *L, id block, int st, const char *te){
     int (^y)(float,LongLong,float) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3fqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3fqd(lua_State *L, id block, int st, const char *te){
     int (^y)(float,LongLong,double) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3ffi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3ffi(lua_State *L, id block, int st, const char *te){
     int (^y)(float,float,int) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3ffq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3ffq(lua_State *L, id block, int st, const char *te){
     int (^y)(float,float,LongLong) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3fff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3fff(lua_State *L, id block, int st, const char *te){
     int (^y)(float,float,float) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3ffd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3ffd(lua_State *L, id block, int st, const char *te){
     int (^y)(float,float,double) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3fdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3fdi(lua_State *L, id block, int st, const char *te){
     int (^y)(float,double,int) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3fdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3fdq(lua_State *L, id block, int st, const char *te){
     int (^y)(float,double,LongLong) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3fdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3fdf(lua_State *L, id block, int st, const char *te){
     int (^y)(float,double,float) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3fdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3fdd(lua_State *L, id block, int st, const char *te){
     int (^y)(float,double,double) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3dii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3dii(lua_State *L, id block, int st, const char *te){
     int (^y)(double,int,int) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3diq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3diq(lua_State *L, id block, int st, const char *te){
     int (^y)(double,int,LongLong) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3dif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3dif(lua_State *L, id block, int st, const char *te){
     int (^y)(double,int,float) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3did(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3did(lua_State *L, id block, int st, const char *te){
     int (^y)(double,int,double) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3dqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3dqi(lua_State *L, id block, int st, const char *te){
     int (^y)(double,LongLong,int) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3dqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3dqq(lua_State *L, id block, int st, const char *te){
     int (^y)(double,LongLong,LongLong) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3dqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3dqf(lua_State *L, id block, int st, const char *te){
     int (^y)(double,LongLong,float) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3dqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3dqd(lua_State *L, id block, int st, const char *te){
     int (^y)(double,LongLong,double) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3dfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3dfi(lua_State *L, id block, int st, const char *te){
     int (^y)(double,float,int) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3dfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3dfq(lua_State *L, id block, int st, const char *te){
     int (^y)(double,float,LongLong) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3dff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3dff(lua_State *L, id block, int st, const char *te){
     int (^y)(double,float,float) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3dfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3dfd(lua_State *L, id block, int st, const char *te){
     int (^y)(double,float,double) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3ddi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3ddi(lua_State *L, id block, int st, const char *te){
     int (^y)(double,double,int) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3ddq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3ddq(lua_State *L, id block, int st, const char *te){
     int (^y)(double,double,LongLong) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3ddf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3ddf(lua_State *L, id block, int st, const char *te){
     int (^y)(double,double,float) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib3ddd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib3ddd(lua_State *L, id block, int st, const char *te){
     int (^y)(double,double,double) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iiii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iiii(lua_State *L, id block, int st, const char *te){
     int (^y)(int,int,int,int) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iiiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iiiq(lua_State *L, id block, int st, const char *te){
     int (^y)(int,int,int,LongLong) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iiif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iiif(lua_State *L, id block, int st, const char *te){
     int (^y)(int,int,int,float) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iiid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iiid(lua_State *L, id block, int st, const char *te){
     int (^y)(int,int,int,double) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iiqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iiqi(lua_State *L, id block, int st, const char *te){
     int (^y)(int,int,LongLong,int) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iiqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iiqq(lua_State *L, id block, int st, const char *te){
     int (^y)(int,int,LongLong,LongLong) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iiqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iiqf(lua_State *L, id block, int st, const char *te){
     int (^y)(int,int,LongLong,float) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iiqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iiqd(lua_State *L, id block, int st, const char *te){
     int (^y)(int,int,LongLong,double) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iifi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iifi(lua_State *L, id block, int st, const char *te){
     int (^y)(int,int,float,int) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iifq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iifq(lua_State *L, id block, int st, const char *te){
     int (^y)(int,int,float,LongLong) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iiff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iiff(lua_State *L, id block, int st, const char *te){
     int (^y)(int,int,float,float) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iifd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iifd(lua_State *L, id block, int st, const char *te){
     int (^y)(int,int,float,double) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iidi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iidi(lua_State *L, id block, int st, const char *te){
     int (^y)(int,int,double,int) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iidq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iidq(lua_State *L, id block, int st, const char *te){
     int (^y)(int,int,double,LongLong) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iidf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iidf(lua_State *L, id block, int st, const char *te){
     int (^y)(int,int,double,float) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iidd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iidd(lua_State *L, id block, int st, const char *te){
     int (^y)(int,int,double,double) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iqii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iqii(lua_State *L, id block, int st, const char *te){
     int (^y)(int,LongLong,int,int) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iqiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iqiq(lua_State *L, id block, int st, const char *te){
     int (^y)(int,LongLong,int,LongLong) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iqif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iqif(lua_State *L, id block, int st, const char *te){
     int (^y)(int,LongLong,int,float) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iqid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iqid(lua_State *L, id block, int st, const char *te){
     int (^y)(int,LongLong,int,double) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iqqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iqqi(lua_State *L, id block, int st, const char *te){
     int (^y)(int,LongLong,LongLong,int) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iqqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iqqq(lua_State *L, id block, int st, const char *te){
     int (^y)(int,LongLong,LongLong,LongLong) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iqqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iqqf(lua_State *L, id block, int st, const char *te){
     int (^y)(int,LongLong,LongLong,float) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iqqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iqqd(lua_State *L, id block, int st, const char *te){
     int (^y)(int,LongLong,LongLong,double) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iqfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iqfi(lua_State *L, id block, int st, const char *te){
     int (^y)(int,LongLong,float,int) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iqfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iqfq(lua_State *L, id block, int st, const char *te){
     int (^y)(int,LongLong,float,LongLong) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iqff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iqff(lua_State *L, id block, int st, const char *te){
     int (^y)(int,LongLong,float,float) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iqfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iqfd(lua_State *L, id block, int st, const char *te){
     int (^y)(int,LongLong,float,double) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iqdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iqdi(lua_State *L, id block, int st, const char *te){
     int (^y)(int,LongLong,double,int) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iqdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iqdq(lua_State *L, id block, int st, const char *te){
     int (^y)(int,LongLong,double,LongLong) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iqdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iqdf(lua_State *L, id block, int st, const char *te){
     int (^y)(int,LongLong,double,float) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iqdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iqdd(lua_State *L, id block, int st, const char *te){
     int (^y)(int,LongLong,double,double) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ifii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ifii(lua_State *L, id block, int st, const char *te){
     int (^y)(int,float,int,int) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ifiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ifiq(lua_State *L, id block, int st, const char *te){
     int (^y)(int,float,int,LongLong) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ifif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ifif(lua_State *L, id block, int st, const char *te){
     int (^y)(int,float,int,float) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ifid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ifid(lua_State *L, id block, int st, const char *te){
     int (^y)(int,float,int,double) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ifqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ifqi(lua_State *L, id block, int st, const char *te){
     int (^y)(int,float,LongLong,int) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ifqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ifqq(lua_State *L, id block, int st, const char *te){
     int (^y)(int,float,LongLong,LongLong) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ifqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ifqf(lua_State *L, id block, int st, const char *te){
     int (^y)(int,float,LongLong,float) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ifqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ifqd(lua_State *L, id block, int st, const char *te){
     int (^y)(int,float,LongLong,double) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iffi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iffi(lua_State *L, id block, int st, const char *te){
     int (^y)(int,float,float,int) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iffq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iffq(lua_State *L, id block, int st, const char *te){
     int (^y)(int,float,float,LongLong) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ifff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ifff(lua_State *L, id block, int st, const char *te){
     int (^y)(int,float,float,float) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iffd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iffd(lua_State *L, id block, int st, const char *te){
     int (^y)(int,float,float,double) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ifdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ifdi(lua_State *L, id block, int st, const char *te){
     int (^y)(int,float,double,int) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ifdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ifdq(lua_State *L, id block, int st, const char *te){
     int (^y)(int,float,double,LongLong) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ifdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ifdf(lua_State *L, id block, int st, const char *te){
     int (^y)(int,float,double,float) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ifdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ifdd(lua_State *L, id block, int st, const char *te){
     int (^y)(int,float,double,double) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4idii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4idii(lua_State *L, id block, int st, const char *te){
     int (^y)(int,double,int,int) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4idiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4idiq(lua_State *L, id block, int st, const char *te){
     int (^y)(int,double,int,LongLong) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4idif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4idif(lua_State *L, id block, int st, const char *te){
     int (^y)(int,double,int,float) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4idid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4idid(lua_State *L, id block, int st, const char *te){
     int (^y)(int,double,int,double) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4idqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4idqi(lua_State *L, id block, int st, const char *te){
     int (^y)(int,double,LongLong,int) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4idqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4idqq(lua_State *L, id block, int st, const char *te){
     int (^y)(int,double,LongLong,LongLong) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4idqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4idqf(lua_State *L, id block, int st, const char *te){
     int (^y)(int,double,LongLong,float) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4idqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4idqd(lua_State *L, id block, int st, const char *te){
     int (^y)(int,double,LongLong,double) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4idfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4idfi(lua_State *L, id block, int st, const char *te){
     int (^y)(int,double,float,int) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4idfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4idfq(lua_State *L, id block, int st, const char *te){
     int (^y)(int,double,float,LongLong) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4idff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4idff(lua_State *L, id block, int st, const char *te){
     int (^y)(int,double,float,float) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4idfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4idfd(lua_State *L, id block, int st, const char *te){
     int (^y)(int,double,float,double) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iddi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iddi(lua_State *L, id block, int st, const char *te){
     int (^y)(int,double,double,int) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iddq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iddq(lua_State *L, id block, int st, const char *te){
     int (^y)(int,double,double,LongLong) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iddf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iddf(lua_State *L, id block, int st, const char *te){
     int (^y)(int,double,double,float) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4iddd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4iddd(lua_State *L, id block, int st, const char *te){
     int (^y)(int,double,double,double) = block;
     int res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qiii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qiii(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,int,int,int) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qiiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qiiq(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,int,int,LongLong) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qiif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qiif(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,int,int,float) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qiid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qiid(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,int,int,double) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qiqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qiqi(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,int,LongLong,int) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qiqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qiqq(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,int,LongLong,LongLong) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qiqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qiqf(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,int,LongLong,float) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qiqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qiqd(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,int,LongLong,double) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qifi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qifi(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,int,float,int) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qifq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qifq(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,int,float,LongLong) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qiff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qiff(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,int,float,float) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qifd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qifd(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,int,float,double) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qidi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qidi(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,int,double,int) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qidq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qidq(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,int,double,LongLong) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qidf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qidf(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,int,double,float) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qidd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qidd(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,int,double,double) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qqii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qqii(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,LongLong,int,int) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qqiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qqiq(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,LongLong,int,LongLong) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qqif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qqif(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,LongLong,int,float) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qqid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qqid(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,LongLong,int,double) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qqqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qqqi(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,LongLong,LongLong,int) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qqqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qqqq(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,LongLong,LongLong,LongLong) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qqqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qqqf(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,LongLong,LongLong,float) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qqqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qqqd(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,LongLong,LongLong,double) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qqfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qqfi(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,LongLong,float,int) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qqfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qqfq(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,LongLong,float,LongLong) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qqff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qqff(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,LongLong,float,float) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qqfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qqfd(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,LongLong,float,double) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qqdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qqdi(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,LongLong,double,int) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qqdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qqdq(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,LongLong,double,LongLong) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qqdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qqdf(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,LongLong,double,float) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qqdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qqdd(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,LongLong,double,double) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qfii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qfii(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,float,int,int) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qfiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qfiq(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,float,int,LongLong) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qfif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qfif(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,float,int,float) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qfid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qfid(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,float,int,double) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qfqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qfqi(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,float,LongLong,int) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qfqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qfqq(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,float,LongLong,LongLong) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qfqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qfqf(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,float,LongLong,float) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qfqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qfqd(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,float,LongLong,double) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qffi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qffi(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,float,float,int) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qffq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qffq(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,float,float,LongLong) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qfff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qfff(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,float,float,float) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qffd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qffd(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,float,float,double) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qfdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qfdi(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,float,double,int) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qfdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qfdq(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,float,double,LongLong) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qfdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qfdf(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,float,double,float) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qfdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qfdd(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,float,double,double) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qdii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qdii(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,double,int,int) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qdiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qdiq(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,double,int,LongLong) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qdif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qdif(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,double,int,float) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qdid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qdid(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,double,int,double) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qdqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qdqi(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,double,LongLong,int) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qdqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qdqq(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,double,LongLong,LongLong) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qdqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qdqf(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,double,LongLong,float) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qdqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qdqd(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,double,LongLong,double) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qdfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qdfi(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,double,float,int) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qdfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qdfq(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,double,float,LongLong) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qdff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qdff(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,double,float,float) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qdfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qdfd(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,double,float,double) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qddi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qddi(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,double,double,int) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qddq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qddq(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,double,double,LongLong) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qddf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qddf(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,double,double,float) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4qddd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4qddd(lua_State *L, id block, int st, const char *te){
     int (^y)(LongLong,double,double,double) = block;
     int res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fiii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fiii(lua_State *L, id block, int st, const char *te){
     int (^y)(float,int,int,int) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fiiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fiiq(lua_State *L, id block, int st, const char *te){
     int (^y)(float,int,int,LongLong) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fiif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fiif(lua_State *L, id block, int st, const char *te){
     int (^y)(float,int,int,float) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fiid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fiid(lua_State *L, id block, int st, const char *te){
     int (^y)(float,int,int,double) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fiqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fiqi(lua_State *L, id block, int st, const char *te){
     int (^y)(float,int,LongLong,int) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fiqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fiqq(lua_State *L, id block, int st, const char *te){
     int (^y)(float,int,LongLong,LongLong) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fiqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fiqf(lua_State *L, id block, int st, const char *te){
     int (^y)(float,int,LongLong,float) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fiqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fiqd(lua_State *L, id block, int st, const char *te){
     int (^y)(float,int,LongLong,double) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fifi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fifi(lua_State *L, id block, int st, const char *te){
     int (^y)(float,int,float,int) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fifq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fifq(lua_State *L, id block, int st, const char *te){
     int (^y)(float,int,float,LongLong) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fiff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fiff(lua_State *L, id block, int st, const char *te){
     int (^y)(float,int,float,float) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fifd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fifd(lua_State *L, id block, int st, const char *te){
     int (^y)(float,int,float,double) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fidi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fidi(lua_State *L, id block, int st, const char *te){
     int (^y)(float,int,double,int) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fidq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fidq(lua_State *L, id block, int st, const char *te){
     int (^y)(float,int,double,LongLong) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fidf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fidf(lua_State *L, id block, int st, const char *te){
     int (^y)(float,int,double,float) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fidd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fidd(lua_State *L, id block, int st, const char *te){
     int (^y)(float,int,double,double) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fqii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fqii(lua_State *L, id block, int st, const char *te){
     int (^y)(float,LongLong,int,int) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fqiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fqiq(lua_State *L, id block, int st, const char *te){
     int (^y)(float,LongLong,int,LongLong) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fqif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fqif(lua_State *L, id block, int st, const char *te){
     int (^y)(float,LongLong,int,float) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fqid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fqid(lua_State *L, id block, int st, const char *te){
     int (^y)(float,LongLong,int,double) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fqqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fqqi(lua_State *L, id block, int st, const char *te){
     int (^y)(float,LongLong,LongLong,int) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fqqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fqqq(lua_State *L, id block, int st, const char *te){
     int (^y)(float,LongLong,LongLong,LongLong) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fqqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fqqf(lua_State *L, id block, int st, const char *te){
     int (^y)(float,LongLong,LongLong,float) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fqqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fqqd(lua_State *L, id block, int st, const char *te){
     int (^y)(float,LongLong,LongLong,double) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fqfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fqfi(lua_State *L, id block, int st, const char *te){
     int (^y)(float,LongLong,float,int) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fqfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fqfq(lua_State *L, id block, int st, const char *te){
     int (^y)(float,LongLong,float,LongLong) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fqff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fqff(lua_State *L, id block, int st, const char *te){
     int (^y)(float,LongLong,float,float) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fqfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fqfd(lua_State *L, id block, int st, const char *te){
     int (^y)(float,LongLong,float,double) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fqdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fqdi(lua_State *L, id block, int st, const char *te){
     int (^y)(float,LongLong,double,int) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fqdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fqdq(lua_State *L, id block, int st, const char *te){
     int (^y)(float,LongLong,double,LongLong) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fqdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fqdf(lua_State *L, id block, int st, const char *te){
     int (^y)(float,LongLong,double,float) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fqdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fqdd(lua_State *L, id block, int st, const char *te){
     int (^y)(float,LongLong,double,double) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ffii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ffii(lua_State *L, id block, int st, const char *te){
     int (^y)(float,float,int,int) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ffiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ffiq(lua_State *L, id block, int st, const char *te){
     int (^y)(float,float,int,LongLong) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ffif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ffif(lua_State *L, id block, int st, const char *te){
     int (^y)(float,float,int,float) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ffid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ffid(lua_State *L, id block, int st, const char *te){
     int (^y)(float,float,int,double) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ffqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ffqi(lua_State *L, id block, int st, const char *te){
     int (^y)(float,float,LongLong,int) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ffqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ffqq(lua_State *L, id block, int st, const char *te){
     int (^y)(float,float,LongLong,LongLong) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ffqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ffqf(lua_State *L, id block, int st, const char *te){
     int (^y)(float,float,LongLong,float) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ffqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ffqd(lua_State *L, id block, int st, const char *te){
     int (^y)(float,float,LongLong,double) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fffi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fffi(lua_State *L, id block, int st, const char *te){
     int (^y)(float,float,float,int) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fffq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fffq(lua_State *L, id block, int st, const char *te){
     int (^y)(float,float,float,LongLong) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ffff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ffff(lua_State *L, id block, int st, const char *te){
     int (^y)(float,float,float,float) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fffd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fffd(lua_State *L, id block, int st, const char *te){
     int (^y)(float,float,float,double) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ffdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ffdi(lua_State *L, id block, int st, const char *te){
     int (^y)(float,float,double,int) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ffdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ffdq(lua_State *L, id block, int st, const char *te){
     int (^y)(float,float,double,LongLong) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ffdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ffdf(lua_State *L, id block, int st, const char *te){
     int (^y)(float,float,double,float) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ffdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ffdd(lua_State *L, id block, int st, const char *te){
     int (^y)(float,float,double,double) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fdii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fdii(lua_State *L, id block, int st, const char *te){
     int (^y)(float,double,int,int) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fdiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fdiq(lua_State *L, id block, int st, const char *te){
     int (^y)(float,double,int,LongLong) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fdif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fdif(lua_State *L, id block, int st, const char *te){
     int (^y)(float,double,int,float) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fdid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fdid(lua_State *L, id block, int st, const char *te){
     int (^y)(float,double,int,double) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fdqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fdqi(lua_State *L, id block, int st, const char *te){
     int (^y)(float,double,LongLong,int) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fdqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fdqq(lua_State *L, id block, int st, const char *te){
     int (^y)(float,double,LongLong,LongLong) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fdqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fdqf(lua_State *L, id block, int st, const char *te){
     int (^y)(float,double,LongLong,float) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fdqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fdqd(lua_State *L, id block, int st, const char *te){
     int (^y)(float,double,LongLong,double) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fdfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fdfi(lua_State *L, id block, int st, const char *te){
     int (^y)(float,double,float,int) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fdfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fdfq(lua_State *L, id block, int st, const char *te){
     int (^y)(float,double,float,LongLong) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fdff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fdff(lua_State *L, id block, int st, const char *te){
     int (^y)(float,double,float,float) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fdfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fdfd(lua_State *L, id block, int st, const char *te){
     int (^y)(float,double,float,double) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fddi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fddi(lua_State *L, id block, int st, const char *te){
     int (^y)(float,double,double,int) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fddq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fddq(lua_State *L, id block, int st, const char *te){
     int (^y)(float,double,double,LongLong) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fddf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fddf(lua_State *L, id block, int st, const char *te){
     int (^y)(float,double,double,float) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4fddd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4fddd(lua_State *L, id block, int st, const char *te){
     int (^y)(float,double,double,double) = block;
     int res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4diii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4diii(lua_State *L, id block, int st, const char *te){
     int (^y)(double,int,int,int) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4diiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4diiq(lua_State *L, id block, int st, const char *te){
     int (^y)(double,int,int,LongLong) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4diif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4diif(lua_State *L, id block, int st, const char *te){
     int (^y)(double,int,int,float) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4diid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4diid(lua_State *L, id block, int st, const char *te){
     int (^y)(double,int,int,double) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4diqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4diqi(lua_State *L, id block, int st, const char *te){
     int (^y)(double,int,LongLong,int) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4diqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4diqq(lua_State *L, id block, int st, const char *te){
     int (^y)(double,int,LongLong,LongLong) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4diqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4diqf(lua_State *L, id block, int st, const char *te){
     int (^y)(double,int,LongLong,float) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4diqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4diqd(lua_State *L, id block, int st, const char *te){
     int (^y)(double,int,LongLong,double) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4difi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4difi(lua_State *L, id block, int st, const char *te){
     int (^y)(double,int,float,int) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4difq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4difq(lua_State *L, id block, int st, const char *te){
     int (^y)(double,int,float,LongLong) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4diff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4diff(lua_State *L, id block, int st, const char *te){
     int (^y)(double,int,float,float) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4difd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4difd(lua_State *L, id block, int st, const char *te){
     int (^y)(double,int,float,double) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4didi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4didi(lua_State *L, id block, int st, const char *te){
     int (^y)(double,int,double,int) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4didq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4didq(lua_State *L, id block, int st, const char *te){
     int (^y)(double,int,double,LongLong) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4didf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4didf(lua_State *L, id block, int st, const char *te){
     int (^y)(double,int,double,float) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4didd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4didd(lua_State *L, id block, int st, const char *te){
     int (^y)(double,int,double,double) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dqii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dqii(lua_State *L, id block, int st, const char *te){
     int (^y)(double,LongLong,int,int) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dqiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dqiq(lua_State *L, id block, int st, const char *te){
     int (^y)(double,LongLong,int,LongLong) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dqif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dqif(lua_State *L, id block, int st, const char *te){
     int (^y)(double,LongLong,int,float) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dqid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dqid(lua_State *L, id block, int st, const char *te){
     int (^y)(double,LongLong,int,double) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dqqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dqqi(lua_State *L, id block, int st, const char *te){
     int (^y)(double,LongLong,LongLong,int) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dqqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dqqq(lua_State *L, id block, int st, const char *te){
     int (^y)(double,LongLong,LongLong,LongLong) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dqqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dqqf(lua_State *L, id block, int st, const char *te){
     int (^y)(double,LongLong,LongLong,float) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dqqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dqqd(lua_State *L, id block, int st, const char *te){
     int (^y)(double,LongLong,LongLong,double) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dqfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dqfi(lua_State *L, id block, int st, const char *te){
     int (^y)(double,LongLong,float,int) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dqfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dqfq(lua_State *L, id block, int st, const char *te){
     int (^y)(double,LongLong,float,LongLong) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dqff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dqff(lua_State *L, id block, int st, const char *te){
     int (^y)(double,LongLong,float,float) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dqfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dqfd(lua_State *L, id block, int st, const char *te){
     int (^y)(double,LongLong,float,double) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dqdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dqdi(lua_State *L, id block, int st, const char *te){
     int (^y)(double,LongLong,double,int) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dqdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dqdq(lua_State *L, id block, int st, const char *te){
     int (^y)(double,LongLong,double,LongLong) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dqdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dqdf(lua_State *L, id block, int st, const char *te){
     int (^y)(double,LongLong,double,float) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dqdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dqdd(lua_State *L, id block, int st, const char *te){
     int (^y)(double,LongLong,double,double) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dfii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dfii(lua_State *L, id block, int st, const char *te){
     int (^y)(double,float,int,int) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dfiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dfiq(lua_State *L, id block, int st, const char *te){
     int (^y)(double,float,int,LongLong) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dfif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dfif(lua_State *L, id block, int st, const char *te){
     int (^y)(double,float,int,float) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dfid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dfid(lua_State *L, id block, int st, const char *te){
     int (^y)(double,float,int,double) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dfqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dfqi(lua_State *L, id block, int st, const char *te){
     int (^y)(double,float,LongLong,int) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dfqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dfqq(lua_State *L, id block, int st, const char *te){
     int (^y)(double,float,LongLong,LongLong) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dfqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dfqf(lua_State *L, id block, int st, const char *te){
     int (^y)(double,float,LongLong,float) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dfqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dfqd(lua_State *L, id block, int st, const char *te){
     int (^y)(double,float,LongLong,double) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dffi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dffi(lua_State *L, id block, int st, const char *te){
     int (^y)(double,float,float,int) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dffq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dffq(lua_State *L, id block, int st, const char *te){
     int (^y)(double,float,float,LongLong) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dfff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dfff(lua_State *L, id block, int st, const char *te){
     int (^y)(double,float,float,float) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dffd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dffd(lua_State *L, id block, int st, const char *te){
     int (^y)(double,float,float,double) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dfdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dfdi(lua_State *L, id block, int st, const char *te){
     int (^y)(double,float,double,int) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dfdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dfdq(lua_State *L, id block, int st, const char *te){
     int (^y)(double,float,double,LongLong) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dfdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dfdf(lua_State *L, id block, int st, const char *te){
     int (^y)(double,float,double,float) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dfdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dfdd(lua_State *L, id block, int st, const char *te){
     int (^y)(double,float,double,double) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ddii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ddii(lua_State *L, id block, int st, const char *te){
     int (^y)(double,double,int,int) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ddiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ddiq(lua_State *L, id block, int st, const char *te){
     int (^y)(double,double,int,LongLong) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ddif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ddif(lua_State *L, id block, int st, const char *te){
     int (^y)(double,double,int,float) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ddid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ddid(lua_State *L, id block, int st, const char *te){
     int (^y)(double,double,int,double) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ddqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ddqi(lua_State *L, id block, int st, const char *te){
     int (^y)(double,double,LongLong,int) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ddqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ddqq(lua_State *L, id block, int st, const char *te){
     int (^y)(double,double,LongLong,LongLong) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ddqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ddqf(lua_State *L, id block, int st, const char *te){
     int (^y)(double,double,LongLong,float) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ddqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ddqd(lua_State *L, id block, int st, const char *te){
     int (^y)(double,double,LongLong,double) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ddfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ddfi(lua_State *L, id block, int st, const char *te){
     int (^y)(double,double,float,int) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ddfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ddfq(lua_State *L, id block, int st, const char *te){
     int (^y)(double,double,float,LongLong) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ddff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ddff(lua_State *L, id block, int st, const char *te){
     int (^y)(double,double,float,float) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4ddfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4ddfd(lua_State *L, id block, int st, const char *te){
     int (^y)(double,double,float,double) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dddi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dddi(lua_State *L, id block, int st, const char *te){
     int (^y)(double,double,double,int) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dddq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dddq(lua_State *L, id block, int st, const char *te){
     int (^y)(double,double,double,LongLong) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dddf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dddf(lua_State *L, id block, int st, const char *te){
     int (^y)(double,double,double,float) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_ib4dddd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_ib4dddd(lua_State *L, id block, int st, const char *te){
     int (^y)(double,double,double,double) = block;
     int res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(int)
 }
-void* lua_call_qb0(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb0(lua_State *L, id block, int st, const char *te){
     LongLong (^y)() = block;
     LongLong res = y();
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb1i(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb1i(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb1q(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb1q(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb1f(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb1f(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb1d(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb1d(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb2ii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb2ii(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,int) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb2iq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb2iq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,LongLong) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb2if(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb2if(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,float) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb2id(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb2id(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,double) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb2qi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb2qi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,int) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb2qq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb2qq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,LongLong) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb2qf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb2qf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,float) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb2qd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb2qd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,double) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb2fi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb2fi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,int) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb2fq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb2fq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,LongLong) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb2ff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb2ff(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,float) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb2fd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb2fd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,double) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb2di(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb2di(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,int) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb2dq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb2dq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,LongLong) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb2df(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb2df(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,float) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb2dd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb2dd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,double) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3iii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3iii(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,int,int) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3iiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3iiq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,int,LongLong) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3iif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3iif(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,int,float) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3iid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3iid(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,int,double) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3iqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3iqi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,LongLong,int) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3iqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3iqq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,LongLong,LongLong) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3iqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3iqf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,LongLong,float) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3iqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3iqd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,LongLong,double) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3ifi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3ifi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,float,int) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3ifq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3ifq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,float,LongLong) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3iff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3iff(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,float,float) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3ifd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3ifd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,float,double) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3idi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3idi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,double,int) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3idq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3idq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,double,LongLong) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3idf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3idf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,double,float) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3idd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3idd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,double,double) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3qii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3qii(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,int,int) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3qiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3qiq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,int,LongLong) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3qif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3qif(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,int,float) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3qid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3qid(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,int,double) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3qqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3qqi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,LongLong,int) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3qqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3qqq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,LongLong,LongLong) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3qqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3qqf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,LongLong,float) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3qqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3qqd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,LongLong,double) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3qfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3qfi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,float,int) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3qfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3qfq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,float,LongLong) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3qff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3qff(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,float,float) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3qfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3qfd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,float,double) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3qdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3qdi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,double,int) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3qdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3qdq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,double,LongLong) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3qdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3qdf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,double,float) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3qdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3qdd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,double,double) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3fii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3fii(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,int,int) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3fiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3fiq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,int,LongLong) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3fif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3fif(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,int,float) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3fid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3fid(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,int,double) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3fqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3fqi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,LongLong,int) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3fqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3fqq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,LongLong,LongLong) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3fqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3fqf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,LongLong,float) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3fqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3fqd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,LongLong,double) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3ffi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3ffi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,float,int) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3ffq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3ffq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,float,LongLong) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3fff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3fff(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,float,float) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3ffd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3ffd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,float,double) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3fdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3fdi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,double,int) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3fdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3fdq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,double,LongLong) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3fdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3fdf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,double,float) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3fdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3fdd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,double,double) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3dii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3dii(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,int,int) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3diq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3diq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,int,LongLong) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3dif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3dif(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,int,float) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3did(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3did(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,int,double) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3dqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3dqi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,LongLong,int) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3dqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3dqq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,LongLong,LongLong) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3dqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3dqf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,LongLong,float) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3dqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3dqd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,LongLong,double) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3dfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3dfi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,float,int) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3dfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3dfq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,float,LongLong) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3dff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3dff(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,float,float) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3dfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3dfd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,float,double) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3ddi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3ddi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,double,int) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3ddq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3ddq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,double,LongLong) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3ddf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3ddf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,double,float) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb3ddd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb3ddd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,double,double) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iiii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iiii(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,int,int,int) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iiiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iiiq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,int,int,LongLong) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iiif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iiif(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,int,int,float) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iiid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iiid(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,int,int,double) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iiqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iiqi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,int,LongLong,int) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iiqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iiqq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,int,LongLong,LongLong) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iiqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iiqf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,int,LongLong,float) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iiqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iiqd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,int,LongLong,double) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iifi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iifi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,int,float,int) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iifq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iifq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,int,float,LongLong) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iiff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iiff(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,int,float,float) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iifd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iifd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,int,float,double) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iidi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iidi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,int,double,int) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iidq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iidq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,int,double,LongLong) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iidf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iidf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,int,double,float) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iidd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iidd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,int,double,double) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iqii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iqii(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,LongLong,int,int) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iqiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iqiq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,LongLong,int,LongLong) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iqif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iqif(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,LongLong,int,float) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iqid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iqid(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,LongLong,int,double) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iqqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iqqi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,LongLong,LongLong,int) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iqqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iqqq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,LongLong,LongLong,LongLong) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iqqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iqqf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,LongLong,LongLong,float) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iqqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iqqd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,LongLong,LongLong,double) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iqfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iqfi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,LongLong,float,int) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iqfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iqfq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,LongLong,float,LongLong) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iqff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iqff(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,LongLong,float,float) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iqfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iqfd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,LongLong,float,double) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iqdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iqdi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,LongLong,double,int) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iqdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iqdq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,LongLong,double,LongLong) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iqdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iqdf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,LongLong,double,float) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iqdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iqdd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,LongLong,double,double) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ifii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ifii(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,float,int,int) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ifiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ifiq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,float,int,LongLong) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ifif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ifif(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,float,int,float) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ifid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ifid(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,float,int,double) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ifqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ifqi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,float,LongLong,int) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ifqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ifqq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,float,LongLong,LongLong) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ifqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ifqf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,float,LongLong,float) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ifqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ifqd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,float,LongLong,double) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iffi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iffi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,float,float,int) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iffq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iffq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,float,float,LongLong) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ifff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ifff(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,float,float,float) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iffd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iffd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,float,float,double) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ifdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ifdi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,float,double,int) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ifdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ifdq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,float,double,LongLong) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ifdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ifdf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,float,double,float) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ifdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ifdd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,float,double,double) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4idii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4idii(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,double,int,int) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4idiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4idiq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,double,int,LongLong) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4idif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4idif(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,double,int,float) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4idid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4idid(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,double,int,double) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4idqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4idqi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,double,LongLong,int) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4idqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4idqq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,double,LongLong,LongLong) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4idqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4idqf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,double,LongLong,float) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4idqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4idqd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,double,LongLong,double) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4idfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4idfi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,double,float,int) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4idfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4idfq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,double,float,LongLong) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4idff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4idff(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,double,float,float) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4idfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4idfd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,double,float,double) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iddi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iddi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,double,double,int) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iddq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iddq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,double,double,LongLong) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iddf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iddf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,double,double,float) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4iddd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4iddd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(int,double,double,double) = block;
     LongLong res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qiii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qiii(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,int,int,int) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qiiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qiiq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,int,int,LongLong) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qiif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qiif(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,int,int,float) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qiid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qiid(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,int,int,double) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qiqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qiqi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,int,LongLong,int) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qiqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qiqq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,int,LongLong,LongLong) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qiqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qiqf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,int,LongLong,float) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qiqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qiqd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,int,LongLong,double) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qifi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qifi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,int,float,int) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qifq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qifq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,int,float,LongLong) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qiff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qiff(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,int,float,float) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qifd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qifd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,int,float,double) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qidi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qidi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,int,double,int) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qidq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qidq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,int,double,LongLong) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qidf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qidf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,int,double,float) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qidd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qidd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,int,double,double) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qqii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qqii(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,LongLong,int,int) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qqiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qqiq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,LongLong,int,LongLong) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qqif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qqif(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,LongLong,int,float) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qqid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qqid(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,LongLong,int,double) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qqqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qqqi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,LongLong,LongLong,int) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qqqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qqqq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,LongLong,LongLong,LongLong) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qqqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qqqf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,LongLong,LongLong,float) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qqqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qqqd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,LongLong,LongLong,double) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qqfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qqfi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,LongLong,float,int) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qqfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qqfq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,LongLong,float,LongLong) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qqff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qqff(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,LongLong,float,float) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qqfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qqfd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,LongLong,float,double) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qqdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qqdi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,LongLong,double,int) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qqdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qqdq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,LongLong,double,LongLong) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qqdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qqdf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,LongLong,double,float) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qqdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qqdd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,LongLong,double,double) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qfii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qfii(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,float,int,int) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qfiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qfiq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,float,int,LongLong) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qfif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qfif(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,float,int,float) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qfid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qfid(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,float,int,double) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qfqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qfqi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,float,LongLong,int) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qfqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qfqq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,float,LongLong,LongLong) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qfqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qfqf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,float,LongLong,float) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qfqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qfqd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,float,LongLong,double) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qffi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qffi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,float,float,int) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qffq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qffq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,float,float,LongLong) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qfff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qfff(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,float,float,float) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qffd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qffd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,float,float,double) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qfdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qfdi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,float,double,int) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qfdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qfdq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,float,double,LongLong) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qfdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qfdf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,float,double,float) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qfdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qfdd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,float,double,double) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qdii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qdii(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,double,int,int) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qdiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qdiq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,double,int,LongLong) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qdif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qdif(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,double,int,float) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qdid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qdid(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,double,int,double) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qdqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qdqi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,double,LongLong,int) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qdqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qdqq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,double,LongLong,LongLong) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qdqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qdqf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,double,LongLong,float) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qdqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qdqd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,double,LongLong,double) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qdfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qdfi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,double,float,int) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qdfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qdfq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,double,float,LongLong) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qdff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qdff(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,double,float,float) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qdfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qdfd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,double,float,double) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qddi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qddi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,double,double,int) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qddq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qddq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,double,double,LongLong) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qddf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qddf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,double,double,float) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4qddd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4qddd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(LongLong,double,double,double) = block;
     LongLong res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fiii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fiii(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,int,int,int) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fiiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fiiq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,int,int,LongLong) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fiif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fiif(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,int,int,float) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fiid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fiid(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,int,int,double) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fiqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fiqi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,int,LongLong,int) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fiqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fiqq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,int,LongLong,LongLong) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fiqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fiqf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,int,LongLong,float) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fiqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fiqd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,int,LongLong,double) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fifi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fifi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,int,float,int) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fifq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fifq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,int,float,LongLong) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fiff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fiff(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,int,float,float) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fifd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fifd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,int,float,double) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fidi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fidi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,int,double,int) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fidq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fidq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,int,double,LongLong) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fidf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fidf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,int,double,float) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fidd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fidd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,int,double,double) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fqii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fqii(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,LongLong,int,int) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fqiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fqiq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,LongLong,int,LongLong) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fqif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fqif(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,LongLong,int,float) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fqid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fqid(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,LongLong,int,double) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fqqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fqqi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,LongLong,LongLong,int) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fqqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fqqq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,LongLong,LongLong,LongLong) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fqqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fqqf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,LongLong,LongLong,float) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fqqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fqqd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,LongLong,LongLong,double) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fqfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fqfi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,LongLong,float,int) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fqfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fqfq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,LongLong,float,LongLong) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fqff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fqff(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,LongLong,float,float) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fqfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fqfd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,LongLong,float,double) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fqdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fqdi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,LongLong,double,int) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fqdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fqdq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,LongLong,double,LongLong) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fqdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fqdf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,LongLong,double,float) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fqdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fqdd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,LongLong,double,double) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ffii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ffii(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,float,int,int) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ffiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ffiq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,float,int,LongLong) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ffif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ffif(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,float,int,float) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ffid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ffid(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,float,int,double) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ffqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ffqi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,float,LongLong,int) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ffqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ffqq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,float,LongLong,LongLong) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ffqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ffqf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,float,LongLong,float) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ffqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ffqd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,float,LongLong,double) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fffi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fffi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,float,float,int) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fffq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fffq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,float,float,LongLong) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ffff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ffff(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,float,float,float) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fffd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fffd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,float,float,double) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ffdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ffdi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,float,double,int) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ffdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ffdq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,float,double,LongLong) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ffdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ffdf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,float,double,float) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ffdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ffdd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,float,double,double) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fdii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fdii(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,double,int,int) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fdiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fdiq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,double,int,LongLong) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fdif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fdif(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,double,int,float) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fdid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fdid(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,double,int,double) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fdqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fdqi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,double,LongLong,int) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fdqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fdqq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,double,LongLong,LongLong) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fdqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fdqf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,double,LongLong,float) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fdqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fdqd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,double,LongLong,double) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fdfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fdfi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,double,float,int) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fdfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fdfq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,double,float,LongLong) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fdff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fdff(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,double,float,float) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fdfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fdfd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,double,float,double) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fddi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fddi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,double,double,int) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fddq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fddq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,double,double,LongLong) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fddf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fddf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,double,double,float) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4fddd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4fddd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(float,double,double,double) = block;
     LongLong res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4diii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4diii(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,int,int,int) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4diiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4diiq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,int,int,LongLong) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4diif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4diif(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,int,int,float) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4diid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4diid(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,int,int,double) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4diqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4diqi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,int,LongLong,int) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4diqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4diqq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,int,LongLong,LongLong) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4diqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4diqf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,int,LongLong,float) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4diqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4diqd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,int,LongLong,double) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4difi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4difi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,int,float,int) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4difq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4difq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,int,float,LongLong) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4diff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4diff(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,int,float,float) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4difd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4difd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,int,float,double) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4didi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4didi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,int,double,int) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4didq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4didq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,int,double,LongLong) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4didf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4didf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,int,double,float) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4didd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4didd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,int,double,double) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dqii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dqii(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,LongLong,int,int) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dqiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dqiq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,LongLong,int,LongLong) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dqif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dqif(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,LongLong,int,float) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dqid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dqid(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,LongLong,int,double) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dqqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dqqi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,LongLong,LongLong,int) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dqqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dqqq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,LongLong,LongLong,LongLong) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dqqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dqqf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,LongLong,LongLong,float) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dqqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dqqd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,LongLong,LongLong,double) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dqfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dqfi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,LongLong,float,int) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dqfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dqfq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,LongLong,float,LongLong) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dqff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dqff(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,LongLong,float,float) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dqfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dqfd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,LongLong,float,double) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dqdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dqdi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,LongLong,double,int) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dqdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dqdq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,LongLong,double,LongLong) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dqdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dqdf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,LongLong,double,float) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dqdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dqdd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,LongLong,double,double) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dfii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dfii(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,float,int,int) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dfiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dfiq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,float,int,LongLong) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dfif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dfif(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,float,int,float) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dfid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dfid(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,float,int,double) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dfqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dfqi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,float,LongLong,int) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dfqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dfqq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,float,LongLong,LongLong) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dfqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dfqf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,float,LongLong,float) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dfqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dfqd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,float,LongLong,double) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dffi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dffi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,float,float,int) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dffq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dffq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,float,float,LongLong) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dfff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dfff(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,float,float,float) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dffd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dffd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,float,float,double) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dfdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dfdi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,float,double,int) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dfdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dfdq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,float,double,LongLong) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dfdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dfdf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,float,double,float) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dfdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dfdd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,float,double,double) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ddii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ddii(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,double,int,int) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ddiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ddiq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,double,int,LongLong) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ddif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ddif(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,double,int,float) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ddid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ddid(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,double,int,double) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ddqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ddqi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,double,LongLong,int) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ddqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ddqq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,double,LongLong,LongLong) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ddqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ddqf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,double,LongLong,float) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ddqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ddqd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,double,LongLong,double) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ddfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ddfi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,double,float,int) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ddfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ddfq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,double,float,LongLong) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ddff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ddff(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,double,float,float) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4ddfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4ddfd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,double,float,double) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dddi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dddi(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,double,double,int) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dddq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dddq(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,double,double,LongLong) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dddf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dddf(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,double,double,float) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_qb4dddd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_qb4dddd(lua_State *L, id block, int st, const char *te){
     LongLong (^y)(double,double,double,double) = block;
     LongLong res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(LongLong)
 }
-void* lua_call_fb0(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb0(lua_State *L, id block, int st, const char *te){
     float (^y)() = block;
     float res = y();
     REURN_BUFFER(float)
 }
-void* lua_call_fb1i(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb1i(lua_State *L, id block, int st, const char *te){
     float (^y)(int) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb1q(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb1q(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb1f(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb1f(lua_State *L, id block, int st, const char *te){
     float (^y)(float) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb1d(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb1d(lua_State *L, id block, int st, const char *te){
     float (^y)(double) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb2ii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb2ii(lua_State *L, id block, int st, const char *te){
     float (^y)(int,int) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb2iq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb2iq(lua_State *L, id block, int st, const char *te){
     float (^y)(int,LongLong) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb2if(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb2if(lua_State *L, id block, int st, const char *te){
     float (^y)(int,float) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb2id(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb2id(lua_State *L, id block, int st, const char *te){
     float (^y)(int,double) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb2qi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb2qi(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,int) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb2qq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb2qq(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,LongLong) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb2qf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb2qf(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,float) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb2qd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb2qd(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,double) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb2fi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb2fi(lua_State *L, id block, int st, const char *te){
     float (^y)(float,int) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb2fq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb2fq(lua_State *L, id block, int st, const char *te){
     float (^y)(float,LongLong) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb2ff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb2ff(lua_State *L, id block, int st, const char *te){
     float (^y)(float,float) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb2fd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb2fd(lua_State *L, id block, int st, const char *te){
     float (^y)(float,double) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb2di(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb2di(lua_State *L, id block, int st, const char *te){
     float (^y)(double,int) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb2dq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb2dq(lua_State *L, id block, int st, const char *te){
     float (^y)(double,LongLong) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb2df(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb2df(lua_State *L, id block, int st, const char *te){
     float (^y)(double,float) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb2dd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb2dd(lua_State *L, id block, int st, const char *te){
     float (^y)(double,double) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3iii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3iii(lua_State *L, id block, int st, const char *te){
     float (^y)(int,int,int) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3iiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3iiq(lua_State *L, id block, int st, const char *te){
     float (^y)(int,int,LongLong) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3iif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3iif(lua_State *L, id block, int st, const char *te){
     float (^y)(int,int,float) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3iid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3iid(lua_State *L, id block, int st, const char *te){
     float (^y)(int,int,double) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3iqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3iqi(lua_State *L, id block, int st, const char *te){
     float (^y)(int,LongLong,int) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3iqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3iqq(lua_State *L, id block, int st, const char *te){
     float (^y)(int,LongLong,LongLong) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3iqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3iqf(lua_State *L, id block, int st, const char *te){
     float (^y)(int,LongLong,float) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3iqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3iqd(lua_State *L, id block, int st, const char *te){
     float (^y)(int,LongLong,double) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3ifi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3ifi(lua_State *L, id block, int st, const char *te){
     float (^y)(int,float,int) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3ifq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3ifq(lua_State *L, id block, int st, const char *te){
     float (^y)(int,float,LongLong) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3iff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3iff(lua_State *L, id block, int st, const char *te){
     float (^y)(int,float,float) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3ifd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3ifd(lua_State *L, id block, int st, const char *te){
     float (^y)(int,float,double) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3idi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3idi(lua_State *L, id block, int st, const char *te){
     float (^y)(int,double,int) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3idq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3idq(lua_State *L, id block, int st, const char *te){
     float (^y)(int,double,LongLong) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3idf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3idf(lua_State *L, id block, int st, const char *te){
     float (^y)(int,double,float) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3idd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3idd(lua_State *L, id block, int st, const char *te){
     float (^y)(int,double,double) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3qii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3qii(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,int,int) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3qiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3qiq(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,int,LongLong) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3qif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3qif(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,int,float) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3qid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3qid(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,int,double) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3qqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3qqi(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,LongLong,int) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3qqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3qqq(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,LongLong,LongLong) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3qqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3qqf(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,LongLong,float) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3qqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3qqd(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,LongLong,double) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3qfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3qfi(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,float,int) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3qfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3qfq(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,float,LongLong) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3qff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3qff(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,float,float) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3qfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3qfd(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,float,double) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3qdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3qdi(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,double,int) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3qdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3qdq(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,double,LongLong) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3qdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3qdf(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,double,float) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3qdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3qdd(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,double,double) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3fii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3fii(lua_State *L, id block, int st, const char *te){
     float (^y)(float,int,int) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3fiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3fiq(lua_State *L, id block, int st, const char *te){
     float (^y)(float,int,LongLong) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3fif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3fif(lua_State *L, id block, int st, const char *te){
     float (^y)(float,int,float) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3fid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3fid(lua_State *L, id block, int st, const char *te){
     float (^y)(float,int,double) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3fqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3fqi(lua_State *L, id block, int st, const char *te){
     float (^y)(float,LongLong,int) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3fqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3fqq(lua_State *L, id block, int st, const char *te){
     float (^y)(float,LongLong,LongLong) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3fqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3fqf(lua_State *L, id block, int st, const char *te){
     float (^y)(float,LongLong,float) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3fqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3fqd(lua_State *L, id block, int st, const char *te){
     float (^y)(float,LongLong,double) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3ffi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3ffi(lua_State *L, id block, int st, const char *te){
     float (^y)(float,float,int) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3ffq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3ffq(lua_State *L, id block, int st, const char *te){
     float (^y)(float,float,LongLong) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3fff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3fff(lua_State *L, id block, int st, const char *te){
     float (^y)(float,float,float) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3ffd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3ffd(lua_State *L, id block, int st, const char *te){
     float (^y)(float,float,double) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3fdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3fdi(lua_State *L, id block, int st, const char *te){
     float (^y)(float,double,int) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3fdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3fdq(lua_State *L, id block, int st, const char *te){
     float (^y)(float,double,LongLong) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3fdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3fdf(lua_State *L, id block, int st, const char *te){
     float (^y)(float,double,float) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3fdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3fdd(lua_State *L, id block, int st, const char *te){
     float (^y)(float,double,double) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3dii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3dii(lua_State *L, id block, int st, const char *te){
     float (^y)(double,int,int) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3diq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3diq(lua_State *L, id block, int st, const char *te){
     float (^y)(double,int,LongLong) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3dif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3dif(lua_State *L, id block, int st, const char *te){
     float (^y)(double,int,float) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3did(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3did(lua_State *L, id block, int st, const char *te){
     float (^y)(double,int,double) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3dqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3dqi(lua_State *L, id block, int st, const char *te){
     float (^y)(double,LongLong,int) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3dqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3dqq(lua_State *L, id block, int st, const char *te){
     float (^y)(double,LongLong,LongLong) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3dqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3dqf(lua_State *L, id block, int st, const char *te){
     float (^y)(double,LongLong,float) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3dqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3dqd(lua_State *L, id block, int st, const char *te){
     float (^y)(double,LongLong,double) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3dfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3dfi(lua_State *L, id block, int st, const char *te){
     float (^y)(double,float,int) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3dfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3dfq(lua_State *L, id block, int st, const char *te){
     float (^y)(double,float,LongLong) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3dff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3dff(lua_State *L, id block, int st, const char *te){
     float (^y)(double,float,float) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3dfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3dfd(lua_State *L, id block, int st, const char *te){
     float (^y)(double,float,double) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3ddi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3ddi(lua_State *L, id block, int st, const char *te){
     float (^y)(double,double,int) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3ddq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3ddq(lua_State *L, id block, int st, const char *te){
     float (^y)(double,double,LongLong) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3ddf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3ddf(lua_State *L, id block, int st, const char *te){
     float (^y)(double,double,float) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb3ddd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb3ddd(lua_State *L, id block, int st, const char *te){
     float (^y)(double,double,double) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iiii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iiii(lua_State *L, id block, int st, const char *te){
     float (^y)(int,int,int,int) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iiiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iiiq(lua_State *L, id block, int st, const char *te){
     float (^y)(int,int,int,LongLong) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iiif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iiif(lua_State *L, id block, int st, const char *te){
     float (^y)(int,int,int,float) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iiid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iiid(lua_State *L, id block, int st, const char *te){
     float (^y)(int,int,int,double) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iiqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iiqi(lua_State *L, id block, int st, const char *te){
     float (^y)(int,int,LongLong,int) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iiqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iiqq(lua_State *L, id block, int st, const char *te){
     float (^y)(int,int,LongLong,LongLong) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iiqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iiqf(lua_State *L, id block, int st, const char *te){
     float (^y)(int,int,LongLong,float) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iiqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iiqd(lua_State *L, id block, int st, const char *te){
     float (^y)(int,int,LongLong,double) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iifi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iifi(lua_State *L, id block, int st, const char *te){
     float (^y)(int,int,float,int) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iifq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iifq(lua_State *L, id block, int st, const char *te){
     float (^y)(int,int,float,LongLong) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iiff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iiff(lua_State *L, id block, int st, const char *te){
     float (^y)(int,int,float,float) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iifd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iifd(lua_State *L, id block, int st, const char *te){
     float (^y)(int,int,float,double) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iidi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iidi(lua_State *L, id block, int st, const char *te){
     float (^y)(int,int,double,int) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iidq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iidq(lua_State *L, id block, int st, const char *te){
     float (^y)(int,int,double,LongLong) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iidf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iidf(lua_State *L, id block, int st, const char *te){
     float (^y)(int,int,double,float) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iidd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iidd(lua_State *L, id block, int st, const char *te){
     float (^y)(int,int,double,double) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iqii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iqii(lua_State *L, id block, int st, const char *te){
     float (^y)(int,LongLong,int,int) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iqiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iqiq(lua_State *L, id block, int st, const char *te){
     float (^y)(int,LongLong,int,LongLong) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iqif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iqif(lua_State *L, id block, int st, const char *te){
     float (^y)(int,LongLong,int,float) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iqid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iqid(lua_State *L, id block, int st, const char *te){
     float (^y)(int,LongLong,int,double) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iqqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iqqi(lua_State *L, id block, int st, const char *te){
     float (^y)(int,LongLong,LongLong,int) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iqqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iqqq(lua_State *L, id block, int st, const char *te){
     float (^y)(int,LongLong,LongLong,LongLong) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iqqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iqqf(lua_State *L, id block, int st, const char *te){
     float (^y)(int,LongLong,LongLong,float) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iqqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iqqd(lua_State *L, id block, int st, const char *te){
     float (^y)(int,LongLong,LongLong,double) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iqfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iqfi(lua_State *L, id block, int st, const char *te){
     float (^y)(int,LongLong,float,int) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iqfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iqfq(lua_State *L, id block, int st, const char *te){
     float (^y)(int,LongLong,float,LongLong) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iqff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iqff(lua_State *L, id block, int st, const char *te){
     float (^y)(int,LongLong,float,float) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iqfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iqfd(lua_State *L, id block, int st, const char *te){
     float (^y)(int,LongLong,float,double) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iqdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iqdi(lua_State *L, id block, int st, const char *te){
     float (^y)(int,LongLong,double,int) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iqdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iqdq(lua_State *L, id block, int st, const char *te){
     float (^y)(int,LongLong,double,LongLong) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iqdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iqdf(lua_State *L, id block, int st, const char *te){
     float (^y)(int,LongLong,double,float) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iqdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iqdd(lua_State *L, id block, int st, const char *te){
     float (^y)(int,LongLong,double,double) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ifii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ifii(lua_State *L, id block, int st, const char *te){
     float (^y)(int,float,int,int) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ifiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ifiq(lua_State *L, id block, int st, const char *te){
     float (^y)(int,float,int,LongLong) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ifif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ifif(lua_State *L, id block, int st, const char *te){
     float (^y)(int,float,int,float) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ifid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ifid(lua_State *L, id block, int st, const char *te){
     float (^y)(int,float,int,double) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ifqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ifqi(lua_State *L, id block, int st, const char *te){
     float (^y)(int,float,LongLong,int) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ifqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ifqq(lua_State *L, id block, int st, const char *te){
     float (^y)(int,float,LongLong,LongLong) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ifqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ifqf(lua_State *L, id block, int st, const char *te){
     float (^y)(int,float,LongLong,float) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ifqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ifqd(lua_State *L, id block, int st, const char *te){
     float (^y)(int,float,LongLong,double) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iffi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iffi(lua_State *L, id block, int st, const char *te){
     float (^y)(int,float,float,int) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iffq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iffq(lua_State *L, id block, int st, const char *te){
     float (^y)(int,float,float,LongLong) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ifff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ifff(lua_State *L, id block, int st, const char *te){
     float (^y)(int,float,float,float) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iffd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iffd(lua_State *L, id block, int st, const char *te){
     float (^y)(int,float,float,double) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ifdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ifdi(lua_State *L, id block, int st, const char *te){
     float (^y)(int,float,double,int) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ifdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ifdq(lua_State *L, id block, int st, const char *te){
     float (^y)(int,float,double,LongLong) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ifdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ifdf(lua_State *L, id block, int st, const char *te){
     float (^y)(int,float,double,float) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ifdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ifdd(lua_State *L, id block, int st, const char *te){
     float (^y)(int,float,double,double) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4idii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4idii(lua_State *L, id block, int st, const char *te){
     float (^y)(int,double,int,int) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4idiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4idiq(lua_State *L, id block, int st, const char *te){
     float (^y)(int,double,int,LongLong) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4idif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4idif(lua_State *L, id block, int st, const char *te){
     float (^y)(int,double,int,float) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4idid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4idid(lua_State *L, id block, int st, const char *te){
     float (^y)(int,double,int,double) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4idqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4idqi(lua_State *L, id block, int st, const char *te){
     float (^y)(int,double,LongLong,int) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4idqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4idqq(lua_State *L, id block, int st, const char *te){
     float (^y)(int,double,LongLong,LongLong) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4idqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4idqf(lua_State *L, id block, int st, const char *te){
     float (^y)(int,double,LongLong,float) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4idqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4idqd(lua_State *L, id block, int st, const char *te){
     float (^y)(int,double,LongLong,double) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4idfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4idfi(lua_State *L, id block, int st, const char *te){
     float (^y)(int,double,float,int) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4idfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4idfq(lua_State *L, id block, int st, const char *te){
     float (^y)(int,double,float,LongLong) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4idff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4idff(lua_State *L, id block, int st, const char *te){
     float (^y)(int,double,float,float) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4idfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4idfd(lua_State *L, id block, int st, const char *te){
     float (^y)(int,double,float,double) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iddi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iddi(lua_State *L, id block, int st, const char *te){
     float (^y)(int,double,double,int) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iddq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iddq(lua_State *L, id block, int st, const char *te){
     float (^y)(int,double,double,LongLong) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iddf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iddf(lua_State *L, id block, int st, const char *te){
     float (^y)(int,double,double,float) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4iddd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4iddd(lua_State *L, id block, int st, const char *te){
     float (^y)(int,double,double,double) = block;
     float res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qiii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qiii(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,int,int,int) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qiiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qiiq(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,int,int,LongLong) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qiif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qiif(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,int,int,float) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qiid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qiid(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,int,int,double) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qiqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qiqi(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,int,LongLong,int) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qiqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qiqq(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,int,LongLong,LongLong) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qiqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qiqf(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,int,LongLong,float) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qiqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qiqd(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,int,LongLong,double) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qifi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qifi(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,int,float,int) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qifq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qifq(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,int,float,LongLong) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qiff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qiff(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,int,float,float) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qifd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qifd(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,int,float,double) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qidi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qidi(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,int,double,int) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qidq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qidq(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,int,double,LongLong) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qidf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qidf(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,int,double,float) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qidd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qidd(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,int,double,double) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qqii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qqii(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,LongLong,int,int) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qqiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qqiq(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,LongLong,int,LongLong) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qqif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qqif(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,LongLong,int,float) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qqid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qqid(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,LongLong,int,double) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qqqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qqqi(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,LongLong,LongLong,int) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qqqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qqqq(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,LongLong,LongLong,LongLong) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qqqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qqqf(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,LongLong,LongLong,float) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qqqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qqqd(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,LongLong,LongLong,double) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qqfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qqfi(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,LongLong,float,int) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qqfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qqfq(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,LongLong,float,LongLong) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qqff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qqff(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,LongLong,float,float) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qqfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qqfd(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,LongLong,float,double) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qqdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qqdi(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,LongLong,double,int) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qqdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qqdq(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,LongLong,double,LongLong) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qqdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qqdf(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,LongLong,double,float) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qqdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qqdd(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,LongLong,double,double) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qfii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qfii(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,float,int,int) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qfiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qfiq(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,float,int,LongLong) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qfif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qfif(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,float,int,float) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qfid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qfid(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,float,int,double) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qfqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qfqi(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,float,LongLong,int) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qfqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qfqq(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,float,LongLong,LongLong) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qfqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qfqf(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,float,LongLong,float) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qfqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qfqd(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,float,LongLong,double) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qffi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qffi(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,float,float,int) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qffq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qffq(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,float,float,LongLong) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qfff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qfff(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,float,float,float) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qffd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qffd(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,float,float,double) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qfdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qfdi(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,float,double,int) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qfdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qfdq(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,float,double,LongLong) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qfdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qfdf(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,float,double,float) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qfdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qfdd(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,float,double,double) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qdii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qdii(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,double,int,int) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qdiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qdiq(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,double,int,LongLong) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qdif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qdif(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,double,int,float) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qdid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qdid(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,double,int,double) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qdqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qdqi(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,double,LongLong,int) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qdqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qdqq(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,double,LongLong,LongLong) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qdqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qdqf(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,double,LongLong,float) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qdqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qdqd(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,double,LongLong,double) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qdfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qdfi(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,double,float,int) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qdfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qdfq(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,double,float,LongLong) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qdff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qdff(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,double,float,float) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qdfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qdfd(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,double,float,double) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qddi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qddi(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,double,double,int) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qddq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qddq(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,double,double,LongLong) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qddf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qddf(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,double,double,float) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4qddd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4qddd(lua_State *L, id block, int st, const char *te){
     float (^y)(LongLong,double,double,double) = block;
     float res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fiii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fiii(lua_State *L, id block, int st, const char *te){
     float (^y)(float,int,int,int) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fiiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fiiq(lua_State *L, id block, int st, const char *te){
     float (^y)(float,int,int,LongLong) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fiif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fiif(lua_State *L, id block, int st, const char *te){
     float (^y)(float,int,int,float) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fiid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fiid(lua_State *L, id block, int st, const char *te){
     float (^y)(float,int,int,double) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fiqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fiqi(lua_State *L, id block, int st, const char *te){
     float (^y)(float,int,LongLong,int) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fiqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fiqq(lua_State *L, id block, int st, const char *te){
     float (^y)(float,int,LongLong,LongLong) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fiqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fiqf(lua_State *L, id block, int st, const char *te){
     float (^y)(float,int,LongLong,float) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fiqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fiqd(lua_State *L, id block, int st, const char *te){
     float (^y)(float,int,LongLong,double) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fifi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fifi(lua_State *L, id block, int st, const char *te){
     float (^y)(float,int,float,int) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fifq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fifq(lua_State *L, id block, int st, const char *te){
     float (^y)(float,int,float,LongLong) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fiff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fiff(lua_State *L, id block, int st, const char *te){
     float (^y)(float,int,float,float) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fifd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fifd(lua_State *L, id block, int st, const char *te){
     float (^y)(float,int,float,double) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fidi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fidi(lua_State *L, id block, int st, const char *te){
     float (^y)(float,int,double,int) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fidq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fidq(lua_State *L, id block, int st, const char *te){
     float (^y)(float,int,double,LongLong) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fidf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fidf(lua_State *L, id block, int st, const char *te){
     float (^y)(float,int,double,float) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fidd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fidd(lua_State *L, id block, int st, const char *te){
     float (^y)(float,int,double,double) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fqii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fqii(lua_State *L, id block, int st, const char *te){
     float (^y)(float,LongLong,int,int) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fqiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fqiq(lua_State *L, id block, int st, const char *te){
     float (^y)(float,LongLong,int,LongLong) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fqif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fqif(lua_State *L, id block, int st, const char *te){
     float (^y)(float,LongLong,int,float) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fqid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fqid(lua_State *L, id block, int st, const char *te){
     float (^y)(float,LongLong,int,double) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fqqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fqqi(lua_State *L, id block, int st, const char *te){
     float (^y)(float,LongLong,LongLong,int) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fqqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fqqq(lua_State *L, id block, int st, const char *te){
     float (^y)(float,LongLong,LongLong,LongLong) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fqqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fqqf(lua_State *L, id block, int st, const char *te){
     float (^y)(float,LongLong,LongLong,float) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fqqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fqqd(lua_State *L, id block, int st, const char *te){
     float (^y)(float,LongLong,LongLong,double) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fqfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fqfi(lua_State *L, id block, int st, const char *te){
     float (^y)(float,LongLong,float,int) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fqfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fqfq(lua_State *L, id block, int st, const char *te){
     float (^y)(float,LongLong,float,LongLong) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fqff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fqff(lua_State *L, id block, int st, const char *te){
     float (^y)(float,LongLong,float,float) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fqfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fqfd(lua_State *L, id block, int st, const char *te){
     float (^y)(float,LongLong,float,double) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fqdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fqdi(lua_State *L, id block, int st, const char *te){
     float (^y)(float,LongLong,double,int) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fqdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fqdq(lua_State *L, id block, int st, const char *te){
     float (^y)(float,LongLong,double,LongLong) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fqdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fqdf(lua_State *L, id block, int st, const char *te){
     float (^y)(float,LongLong,double,float) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fqdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fqdd(lua_State *L, id block, int st, const char *te){
     float (^y)(float,LongLong,double,double) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ffii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ffii(lua_State *L, id block, int st, const char *te){
     float (^y)(float,float,int,int) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ffiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ffiq(lua_State *L, id block, int st, const char *te){
     float (^y)(float,float,int,LongLong) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ffif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ffif(lua_State *L, id block, int st, const char *te){
     float (^y)(float,float,int,float) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ffid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ffid(lua_State *L, id block, int st, const char *te){
     float (^y)(float,float,int,double) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ffqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ffqi(lua_State *L, id block, int st, const char *te){
     float (^y)(float,float,LongLong,int) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ffqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ffqq(lua_State *L, id block, int st, const char *te){
     float (^y)(float,float,LongLong,LongLong) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ffqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ffqf(lua_State *L, id block, int st, const char *te){
     float (^y)(float,float,LongLong,float) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ffqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ffqd(lua_State *L, id block, int st, const char *te){
     float (^y)(float,float,LongLong,double) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fffi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fffi(lua_State *L, id block, int st, const char *te){
     float (^y)(float,float,float,int) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fffq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fffq(lua_State *L, id block, int st, const char *te){
     float (^y)(float,float,float,LongLong) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ffff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ffff(lua_State *L, id block, int st, const char *te){
     float (^y)(float,float,float,float) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fffd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fffd(lua_State *L, id block, int st, const char *te){
     float (^y)(float,float,float,double) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ffdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ffdi(lua_State *L, id block, int st, const char *te){
     float (^y)(float,float,double,int) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ffdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ffdq(lua_State *L, id block, int st, const char *te){
     float (^y)(float,float,double,LongLong) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ffdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ffdf(lua_State *L, id block, int st, const char *te){
     float (^y)(float,float,double,float) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ffdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ffdd(lua_State *L, id block, int st, const char *te){
     float (^y)(float,float,double,double) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fdii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fdii(lua_State *L, id block, int st, const char *te){
     float (^y)(float,double,int,int) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fdiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fdiq(lua_State *L, id block, int st, const char *te){
     float (^y)(float,double,int,LongLong) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fdif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fdif(lua_State *L, id block, int st, const char *te){
     float (^y)(float,double,int,float) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fdid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fdid(lua_State *L, id block, int st, const char *te){
     float (^y)(float,double,int,double) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fdqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fdqi(lua_State *L, id block, int st, const char *te){
     float (^y)(float,double,LongLong,int) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fdqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fdqq(lua_State *L, id block, int st, const char *te){
     float (^y)(float,double,LongLong,LongLong) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fdqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fdqf(lua_State *L, id block, int st, const char *te){
     float (^y)(float,double,LongLong,float) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fdqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fdqd(lua_State *L, id block, int st, const char *te){
     float (^y)(float,double,LongLong,double) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fdfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fdfi(lua_State *L, id block, int st, const char *te){
     float (^y)(float,double,float,int) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fdfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fdfq(lua_State *L, id block, int st, const char *te){
     float (^y)(float,double,float,LongLong) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fdff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fdff(lua_State *L, id block, int st, const char *te){
     float (^y)(float,double,float,float) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fdfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fdfd(lua_State *L, id block, int st, const char *te){
     float (^y)(float,double,float,double) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fddi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fddi(lua_State *L, id block, int st, const char *te){
     float (^y)(float,double,double,int) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fddq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fddq(lua_State *L, id block, int st, const char *te){
     float (^y)(float,double,double,LongLong) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fddf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fddf(lua_State *L, id block, int st, const char *te){
     float (^y)(float,double,double,float) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4fddd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4fddd(lua_State *L, id block, int st, const char *te){
     float (^y)(float,double,double,double) = block;
     float res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4diii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4diii(lua_State *L, id block, int st, const char *te){
     float (^y)(double,int,int,int) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4diiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4diiq(lua_State *L, id block, int st, const char *te){
     float (^y)(double,int,int,LongLong) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4diif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4diif(lua_State *L, id block, int st, const char *te){
     float (^y)(double,int,int,float) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4diid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4diid(lua_State *L, id block, int st, const char *te){
     float (^y)(double,int,int,double) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4diqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4diqi(lua_State *L, id block, int st, const char *te){
     float (^y)(double,int,LongLong,int) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4diqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4diqq(lua_State *L, id block, int st, const char *te){
     float (^y)(double,int,LongLong,LongLong) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4diqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4diqf(lua_State *L, id block, int st, const char *te){
     float (^y)(double,int,LongLong,float) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4diqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4diqd(lua_State *L, id block, int st, const char *te){
     float (^y)(double,int,LongLong,double) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4difi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4difi(lua_State *L, id block, int st, const char *te){
     float (^y)(double,int,float,int) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4difq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4difq(lua_State *L, id block, int st, const char *te){
     float (^y)(double,int,float,LongLong) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4diff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4diff(lua_State *L, id block, int st, const char *te){
     float (^y)(double,int,float,float) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4difd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4difd(lua_State *L, id block, int st, const char *te){
     float (^y)(double,int,float,double) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4didi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4didi(lua_State *L, id block, int st, const char *te){
     float (^y)(double,int,double,int) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4didq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4didq(lua_State *L, id block, int st, const char *te){
     float (^y)(double,int,double,LongLong) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4didf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4didf(lua_State *L, id block, int st, const char *te){
     float (^y)(double,int,double,float) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4didd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4didd(lua_State *L, id block, int st, const char *te){
     float (^y)(double,int,double,double) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dqii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dqii(lua_State *L, id block, int st, const char *te){
     float (^y)(double,LongLong,int,int) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dqiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dqiq(lua_State *L, id block, int st, const char *te){
     float (^y)(double,LongLong,int,LongLong) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dqif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dqif(lua_State *L, id block, int st, const char *te){
     float (^y)(double,LongLong,int,float) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dqid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dqid(lua_State *L, id block, int st, const char *te){
     float (^y)(double,LongLong,int,double) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dqqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dqqi(lua_State *L, id block, int st, const char *te){
     float (^y)(double,LongLong,LongLong,int) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dqqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dqqq(lua_State *L, id block, int st, const char *te){
     float (^y)(double,LongLong,LongLong,LongLong) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dqqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dqqf(lua_State *L, id block, int st, const char *te){
     float (^y)(double,LongLong,LongLong,float) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dqqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dqqd(lua_State *L, id block, int st, const char *te){
     float (^y)(double,LongLong,LongLong,double) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dqfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dqfi(lua_State *L, id block, int st, const char *te){
     float (^y)(double,LongLong,float,int) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dqfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dqfq(lua_State *L, id block, int st, const char *te){
     float (^y)(double,LongLong,float,LongLong) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dqff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dqff(lua_State *L, id block, int st, const char *te){
     float (^y)(double,LongLong,float,float) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dqfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dqfd(lua_State *L, id block, int st, const char *te){
     float (^y)(double,LongLong,float,double) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dqdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dqdi(lua_State *L, id block, int st, const char *te){
     float (^y)(double,LongLong,double,int) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dqdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dqdq(lua_State *L, id block, int st, const char *te){
     float (^y)(double,LongLong,double,LongLong) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dqdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dqdf(lua_State *L, id block, int st, const char *te){
     float (^y)(double,LongLong,double,float) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dqdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dqdd(lua_State *L, id block, int st, const char *te){
     float (^y)(double,LongLong,double,double) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dfii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dfii(lua_State *L, id block, int st, const char *te){
     float (^y)(double,float,int,int) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dfiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dfiq(lua_State *L, id block, int st, const char *te){
     float (^y)(double,float,int,LongLong) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dfif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dfif(lua_State *L, id block, int st, const char *te){
     float (^y)(double,float,int,float) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dfid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dfid(lua_State *L, id block, int st, const char *te){
     float (^y)(double,float,int,double) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dfqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dfqi(lua_State *L, id block, int st, const char *te){
     float (^y)(double,float,LongLong,int) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dfqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dfqq(lua_State *L, id block, int st, const char *te){
     float (^y)(double,float,LongLong,LongLong) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dfqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dfqf(lua_State *L, id block, int st, const char *te){
     float (^y)(double,float,LongLong,float) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dfqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dfqd(lua_State *L, id block, int st, const char *te){
     float (^y)(double,float,LongLong,double) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dffi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dffi(lua_State *L, id block, int st, const char *te){
     float (^y)(double,float,float,int) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dffq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dffq(lua_State *L, id block, int st, const char *te){
     float (^y)(double,float,float,LongLong) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dfff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dfff(lua_State *L, id block, int st, const char *te){
     float (^y)(double,float,float,float) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dffd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dffd(lua_State *L, id block, int st, const char *te){
     float (^y)(double,float,float,double) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dfdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dfdi(lua_State *L, id block, int st, const char *te){
     float (^y)(double,float,double,int) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dfdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dfdq(lua_State *L, id block, int st, const char *te){
     float (^y)(double,float,double,LongLong) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dfdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dfdf(lua_State *L, id block, int st, const char *te){
     float (^y)(double,float,double,float) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dfdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dfdd(lua_State *L, id block, int st, const char *te){
     float (^y)(double,float,double,double) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ddii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ddii(lua_State *L, id block, int st, const char *te){
     float (^y)(double,double,int,int) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ddiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ddiq(lua_State *L, id block, int st, const char *te){
     float (^y)(double,double,int,LongLong) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ddif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ddif(lua_State *L, id block, int st, const char *te){
     float (^y)(double,double,int,float) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ddid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ddid(lua_State *L, id block, int st, const char *te){
     float (^y)(double,double,int,double) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ddqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ddqi(lua_State *L, id block, int st, const char *te){
     float (^y)(double,double,LongLong,int) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ddqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ddqq(lua_State *L, id block, int st, const char *te){
     float (^y)(double,double,LongLong,LongLong) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ddqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ddqf(lua_State *L, id block, int st, const char *te){
     float (^y)(double,double,LongLong,float) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ddqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ddqd(lua_State *L, id block, int st, const char *te){
     float (^y)(double,double,LongLong,double) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ddfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ddfi(lua_State *L, id block, int st, const char *te){
     float (^y)(double,double,float,int) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ddfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ddfq(lua_State *L, id block, int st, const char *te){
     float (^y)(double,double,float,LongLong) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ddff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ddff(lua_State *L, id block, int st, const char *te){
     float (^y)(double,double,float,float) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4ddfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4ddfd(lua_State *L, id block, int st, const char *te){
     float (^y)(double,double,float,double) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dddi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dddi(lua_State *L, id block, int st, const char *te){
     float (^y)(double,double,double,int) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dddq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dddq(lua_State *L, id block, int st, const char *te){
     float (^y)(double,double,double,LongLong) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dddf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dddf(lua_State *L, id block, int st, const char *te){
     float (^y)(double,double,double,float) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_fb4dddd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_fb4dddd(lua_State *L, id block, int st, const char *te){
     float (^y)(double,double,double,double) = block;
     float res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(float)
 }
-void* lua_call_db0(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db0(lua_State *L, id block, int st, const char *te){
     double (^y)() = block;
     double res = y();
     REURN_BUFFER(double)
 }
-void* lua_call_db1i(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db1i(lua_State *L, id block, int st, const char *te){
     double (^y)(int) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])));
     REURN_BUFFER(double)
 }
-void* lua_call_db1q(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db1q(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])));
     REURN_BUFFER(double)
 }
-void* lua_call_db1f(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db1f(lua_State *L, id block, int st, const char *te){
     double (^y)(float) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])));
     REURN_BUFFER(double)
 }
-void* lua_call_db1d(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db1d(lua_State *L, id block, int st, const char *te){
     double (^y)(double) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])));
     REURN_BUFFER(double)
 }
-void* lua_call_db2ii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db2ii(lua_State *L, id block, int st, const char *te){
     double (^y)(int,int) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(double)
 }
-void* lua_call_db2iq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db2iq(lua_State *L, id block, int st, const char *te){
     double (^y)(int,LongLong) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(double)
 }
-void* lua_call_db2if(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db2if(lua_State *L, id block, int st, const char *te){
     double (^y)(int,float) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(double)
 }
-void* lua_call_db2id(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db2id(lua_State *L, id block, int st, const char *te){
     double (^y)(int,double) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(double)
 }
-void* lua_call_db2qi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db2qi(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,int) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(double)
 }
-void* lua_call_db2qq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db2qq(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,LongLong) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(double)
 }
-void* lua_call_db2qf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db2qf(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,float) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(double)
 }
-void* lua_call_db2qd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db2qd(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,double) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(double)
 }
-void* lua_call_db2fi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db2fi(lua_State *L, id block, int st, const char *te){
     double (^y)(float,int) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(double)
 }
-void* lua_call_db2fq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db2fq(lua_State *L, id block, int st, const char *te){
     double (^y)(float,LongLong) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(double)
 }
-void* lua_call_db2ff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db2ff(lua_State *L, id block, int st, const char *te){
     double (^y)(float,float) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(double)
 }
-void* lua_call_db2fd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db2fd(lua_State *L, id block, int st, const char *te){
     double (^y)(float,double) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(double)
 }
-void* lua_call_db2di(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db2di(lua_State *L, id block, int st, const char *te){
     double (^y)(double,int) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(double)
 }
-void* lua_call_db2dq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db2dq(lua_State *L, id block, int st, const char *te){
     double (^y)(double,LongLong) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(double)
 }
-void* lua_call_db2df(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db2df(lua_State *L, id block, int st, const char *te){
     double (^y)(double,float) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(double)
 }
-void* lua_call_db2dd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db2dd(lua_State *L, id block, int st, const char *te){
     double (^y)(double,double) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3iii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3iii(lua_State *L, id block, int st, const char *te){
     double (^y)(int,int,int) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3iiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3iiq(lua_State *L, id block, int st, const char *te){
     double (^y)(int,int,LongLong) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3iif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3iif(lua_State *L, id block, int st, const char *te){
     double (^y)(int,int,float) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3iid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3iid(lua_State *L, id block, int st, const char *te){
     double (^y)(int,int,double) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3iqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3iqi(lua_State *L, id block, int st, const char *te){
     double (^y)(int,LongLong,int) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3iqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3iqq(lua_State *L, id block, int st, const char *te){
     double (^y)(int,LongLong,LongLong) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3iqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3iqf(lua_State *L, id block, int st, const char *te){
     double (^y)(int,LongLong,float) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3iqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3iqd(lua_State *L, id block, int st, const char *te){
     double (^y)(int,LongLong,double) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3ifi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3ifi(lua_State *L, id block, int st, const char *te){
     double (^y)(int,float,int) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3ifq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3ifq(lua_State *L, id block, int st, const char *te){
     double (^y)(int,float,LongLong) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3iff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3iff(lua_State *L, id block, int st, const char *te){
     double (^y)(int,float,float) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3ifd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3ifd(lua_State *L, id block, int st, const char *te){
     double (^y)(int,float,double) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3idi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3idi(lua_State *L, id block, int st, const char *te){
     double (^y)(int,double,int) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3idq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3idq(lua_State *L, id block, int st, const char *te){
     double (^y)(int,double,LongLong) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3idf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3idf(lua_State *L, id block, int st, const char *te){
     double (^y)(int,double,float) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3idd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3idd(lua_State *L, id block, int st, const char *te){
     double (^y)(int,double,double) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3qii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3qii(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,int,int) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3qiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3qiq(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,int,LongLong) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3qif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3qif(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,int,float) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3qid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3qid(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,int,double) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3qqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3qqi(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,LongLong,int) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3qqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3qqq(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,LongLong,LongLong) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3qqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3qqf(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,LongLong,float) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3qqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3qqd(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,LongLong,double) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3qfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3qfi(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,float,int) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3qfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3qfq(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,float,LongLong) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3qff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3qff(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,float,float) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3qfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3qfd(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,float,double) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3qdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3qdi(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,double,int) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3qdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3qdq(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,double,LongLong) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3qdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3qdf(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,double,float) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3qdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3qdd(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,double,double) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3fii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3fii(lua_State *L, id block, int st, const char *te){
     double (^y)(float,int,int) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3fiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3fiq(lua_State *L, id block, int st, const char *te){
     double (^y)(float,int,LongLong) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3fif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3fif(lua_State *L, id block, int st, const char *te){
     double (^y)(float,int,float) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3fid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3fid(lua_State *L, id block, int st, const char *te){
     double (^y)(float,int,double) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3fqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3fqi(lua_State *L, id block, int st, const char *te){
     double (^y)(float,LongLong,int) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3fqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3fqq(lua_State *L, id block, int st, const char *te){
     double (^y)(float,LongLong,LongLong) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3fqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3fqf(lua_State *L, id block, int st, const char *te){
     double (^y)(float,LongLong,float) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3fqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3fqd(lua_State *L, id block, int st, const char *te){
     double (^y)(float,LongLong,double) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3ffi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3ffi(lua_State *L, id block, int st, const char *te){
     double (^y)(float,float,int) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3ffq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3ffq(lua_State *L, id block, int st, const char *te){
     double (^y)(float,float,LongLong) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3fff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3fff(lua_State *L, id block, int st, const char *te){
     double (^y)(float,float,float) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3ffd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3ffd(lua_State *L, id block, int st, const char *te){
     double (^y)(float,float,double) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3fdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3fdi(lua_State *L, id block, int st, const char *te){
     double (^y)(float,double,int) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3fdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3fdq(lua_State *L, id block, int st, const char *te){
     double (^y)(float,double,LongLong) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3fdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3fdf(lua_State *L, id block, int st, const char *te){
     double (^y)(float,double,float) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3fdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3fdd(lua_State *L, id block, int st, const char *te){
     double (^y)(float,double,double) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3dii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3dii(lua_State *L, id block, int st, const char *te){
     double (^y)(double,int,int) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3diq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3diq(lua_State *L, id block, int st, const char *te){
     double (^y)(double,int,LongLong) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3dif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3dif(lua_State *L, id block, int st, const char *te){
     double (^y)(double,int,float) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3did(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3did(lua_State *L, id block, int st, const char *te){
     double (^y)(double,int,double) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3dqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3dqi(lua_State *L, id block, int st, const char *te){
     double (^y)(double,LongLong,int) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3dqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3dqq(lua_State *L, id block, int st, const char *te){
     double (^y)(double,LongLong,LongLong) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3dqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3dqf(lua_State *L, id block, int st, const char *te){
     double (^y)(double,LongLong,float) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3dqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3dqd(lua_State *L, id block, int st, const char *te){
     double (^y)(double,LongLong,double) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3dfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3dfi(lua_State *L, id block, int st, const char *te){
     double (^y)(double,float,int) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3dfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3dfq(lua_State *L, id block, int st, const char *te){
     double (^y)(double,float,LongLong) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3dff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3dff(lua_State *L, id block, int st, const char *te){
     double (^y)(double,float,float) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3dfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3dfd(lua_State *L, id block, int st, const char *te){
     double (^y)(double,float,double) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3ddi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3ddi(lua_State *L, id block, int st, const char *te){
     double (^y)(double,double,int) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3ddq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3ddq(lua_State *L, id block, int st, const char *te){
     double (^y)(double,double,LongLong) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3ddf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3ddf(lua_State *L, id block, int st, const char *te){
     double (^y)(double,double,float) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db3ddd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db3ddd(lua_State *L, id block, int st, const char *te){
     double (^y)(double,double,double) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iiii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iiii(lua_State *L, id block, int st, const char *te){
     double (^y)(int,int,int,int) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iiiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iiiq(lua_State *L, id block, int st, const char *te){
     double (^y)(int,int,int,LongLong) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iiif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iiif(lua_State *L, id block, int st, const char *te){
     double (^y)(int,int,int,float) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iiid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iiid(lua_State *L, id block, int st, const char *te){
     double (^y)(int,int,int,double) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iiqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iiqi(lua_State *L, id block, int st, const char *te){
     double (^y)(int,int,LongLong,int) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iiqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iiqq(lua_State *L, id block, int st, const char *te){
     double (^y)(int,int,LongLong,LongLong) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iiqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iiqf(lua_State *L, id block, int st, const char *te){
     double (^y)(int,int,LongLong,float) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iiqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iiqd(lua_State *L, id block, int st, const char *te){
     double (^y)(int,int,LongLong,double) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iifi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iifi(lua_State *L, id block, int st, const char *te){
     double (^y)(int,int,float,int) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iifq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iifq(lua_State *L, id block, int st, const char *te){
     double (^y)(int,int,float,LongLong) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iiff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iiff(lua_State *L, id block, int st, const char *te){
     double (^y)(int,int,float,float) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iifd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iifd(lua_State *L, id block, int st, const char *te){
     double (^y)(int,int,float,double) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iidi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iidi(lua_State *L, id block, int st, const char *te){
     double (^y)(int,int,double,int) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iidq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iidq(lua_State *L, id block, int st, const char *te){
     double (^y)(int,int,double,LongLong) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iidf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iidf(lua_State *L, id block, int st, const char *te){
     double (^y)(int,int,double,float) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iidd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iidd(lua_State *L, id block, int st, const char *te){
     double (^y)(int,int,double,double) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iqii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iqii(lua_State *L, id block, int st, const char *te){
     double (^y)(int,LongLong,int,int) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iqiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iqiq(lua_State *L, id block, int st, const char *te){
     double (^y)(int,LongLong,int,LongLong) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iqif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iqif(lua_State *L, id block, int st, const char *te){
     double (^y)(int,LongLong,int,float) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iqid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iqid(lua_State *L, id block, int st, const char *te){
     double (^y)(int,LongLong,int,double) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iqqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iqqi(lua_State *L, id block, int st, const char *te){
     double (^y)(int,LongLong,LongLong,int) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iqqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iqqq(lua_State *L, id block, int st, const char *te){
     double (^y)(int,LongLong,LongLong,LongLong) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iqqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iqqf(lua_State *L, id block, int st, const char *te){
     double (^y)(int,LongLong,LongLong,float) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iqqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iqqd(lua_State *L, id block, int st, const char *te){
     double (^y)(int,LongLong,LongLong,double) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iqfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iqfi(lua_State *L, id block, int st, const char *te){
     double (^y)(int,LongLong,float,int) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iqfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iqfq(lua_State *L, id block, int st, const char *te){
     double (^y)(int,LongLong,float,LongLong) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iqff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iqff(lua_State *L, id block, int st, const char *te){
     double (^y)(int,LongLong,float,float) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iqfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iqfd(lua_State *L, id block, int st, const char *te){
     double (^y)(int,LongLong,float,double) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iqdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iqdi(lua_State *L, id block, int st, const char *te){
     double (^y)(int,LongLong,double,int) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iqdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iqdq(lua_State *L, id block, int st, const char *te){
     double (^y)(int,LongLong,double,LongLong) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iqdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iqdf(lua_State *L, id block, int st, const char *te){
     double (^y)(int,LongLong,double,float) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iqdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iqdd(lua_State *L, id block, int st, const char *te){
     double (^y)(int,LongLong,double,double) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ifii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ifii(lua_State *L, id block, int st, const char *te){
     double (^y)(int,float,int,int) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ifiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ifiq(lua_State *L, id block, int st, const char *te){
     double (^y)(int,float,int,LongLong) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ifif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ifif(lua_State *L, id block, int st, const char *te){
     double (^y)(int,float,int,float) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ifid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ifid(lua_State *L, id block, int st, const char *te){
     double (^y)(int,float,int,double) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ifqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ifqi(lua_State *L, id block, int st, const char *te){
     double (^y)(int,float,LongLong,int) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ifqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ifqq(lua_State *L, id block, int st, const char *te){
     double (^y)(int,float,LongLong,LongLong) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ifqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ifqf(lua_State *L, id block, int st, const char *te){
     double (^y)(int,float,LongLong,float) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ifqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ifqd(lua_State *L, id block, int st, const char *te){
     double (^y)(int,float,LongLong,double) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iffi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iffi(lua_State *L, id block, int st, const char *te){
     double (^y)(int,float,float,int) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iffq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iffq(lua_State *L, id block, int st, const char *te){
     double (^y)(int,float,float,LongLong) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ifff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ifff(lua_State *L, id block, int st, const char *te){
     double (^y)(int,float,float,float) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iffd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iffd(lua_State *L, id block, int st, const char *te){
     double (^y)(int,float,float,double) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ifdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ifdi(lua_State *L, id block, int st, const char *te){
     double (^y)(int,float,double,int) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ifdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ifdq(lua_State *L, id block, int st, const char *te){
     double (^y)(int,float,double,LongLong) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ifdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ifdf(lua_State *L, id block, int st, const char *te){
     double (^y)(int,float,double,float) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ifdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ifdd(lua_State *L, id block, int st, const char *te){
     double (^y)(int,float,double,double) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4idii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4idii(lua_State *L, id block, int st, const char *te){
     double (^y)(int,double,int,int) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4idiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4idiq(lua_State *L, id block, int st, const char *te){
     double (^y)(int,double,int,LongLong) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4idif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4idif(lua_State *L, id block, int st, const char *te){
     double (^y)(int,double,int,float) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4idid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4idid(lua_State *L, id block, int st, const char *te){
     double (^y)(int,double,int,double) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4idqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4idqi(lua_State *L, id block, int st, const char *te){
     double (^y)(int,double,LongLong,int) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4idqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4idqq(lua_State *L, id block, int st, const char *te){
     double (^y)(int,double,LongLong,LongLong) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4idqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4idqf(lua_State *L, id block, int st, const char *te){
     double (^y)(int,double,LongLong,float) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4idqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4idqd(lua_State *L, id block, int st, const char *te){
     double (^y)(int,double,LongLong,double) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4idfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4idfi(lua_State *L, id block, int st, const char *te){
     double (^y)(int,double,float,int) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4idfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4idfq(lua_State *L, id block, int st, const char *te){
     double (^y)(int,double,float,LongLong) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4idff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4idff(lua_State *L, id block, int st, const char *te){
     double (^y)(int,double,float,float) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4idfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4idfd(lua_State *L, id block, int st, const char *te){
     double (^y)(int,double,float,double) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iddi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iddi(lua_State *L, id block, int st, const char *te){
     double (^y)(int,double,double,int) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iddq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iddq(lua_State *L, id block, int st, const char *te){
     double (^y)(int,double,double,LongLong) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iddf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iddf(lua_State *L, id block, int st, const char *te){
     double (^y)(int,double,double,float) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4iddd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4iddd(lua_State *L, id block, int st, const char *te){
     double (^y)(int,double,double,double) = block;
     double res = y(*((int*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qiii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qiii(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,int,int,int) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qiiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qiiq(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,int,int,LongLong) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qiif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qiif(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,int,int,float) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qiid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qiid(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,int,int,double) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qiqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qiqi(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,int,LongLong,int) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qiqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qiqq(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,int,LongLong,LongLong) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qiqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qiqf(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,int,LongLong,float) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qiqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qiqd(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,int,LongLong,double) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qifi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qifi(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,int,float,int) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qifq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qifq(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,int,float,LongLong) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qiff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qiff(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,int,float,float) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qifd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qifd(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,int,float,double) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qidi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qidi(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,int,double,int) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qidq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qidq(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,int,double,LongLong) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qidf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qidf(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,int,double,float) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qidd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qidd(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,int,double,double) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qqii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qqii(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,LongLong,int,int) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qqiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qqiq(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,LongLong,int,LongLong) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qqif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qqif(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,LongLong,int,float) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qqid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qqid(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,LongLong,int,double) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qqqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qqqi(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,LongLong,LongLong,int) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qqqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qqqq(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,LongLong,LongLong,LongLong) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qqqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qqqf(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,LongLong,LongLong,float) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qqqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qqqd(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,LongLong,LongLong,double) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qqfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qqfi(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,LongLong,float,int) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qqfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qqfq(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,LongLong,float,LongLong) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qqff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qqff(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,LongLong,float,float) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qqfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qqfd(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,LongLong,float,double) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qqdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qqdi(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,LongLong,double,int) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qqdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qqdq(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,LongLong,double,LongLong) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qqdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qqdf(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,LongLong,double,float) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qqdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qqdd(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,LongLong,double,double) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qfii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qfii(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,float,int,int) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qfiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qfiq(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,float,int,LongLong) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qfif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qfif(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,float,int,float) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qfid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qfid(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,float,int,double) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qfqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qfqi(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,float,LongLong,int) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qfqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qfqq(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,float,LongLong,LongLong) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qfqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qfqf(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,float,LongLong,float) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qfqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qfqd(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,float,LongLong,double) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qffi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qffi(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,float,float,int) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qffq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qffq(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,float,float,LongLong) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qfff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qfff(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,float,float,float) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qffd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qffd(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,float,float,double) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qfdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qfdi(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,float,double,int) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qfdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qfdq(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,float,double,LongLong) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qfdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qfdf(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,float,double,float) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qfdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qfdd(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,float,double,double) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qdii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qdii(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,double,int,int) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qdiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qdiq(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,double,int,LongLong) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qdif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qdif(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,double,int,float) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qdid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qdid(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,double,int,double) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qdqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qdqi(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,double,LongLong,int) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qdqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qdqq(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,double,LongLong,LongLong) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qdqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qdqf(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,double,LongLong,float) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qdqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qdqd(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,double,LongLong,double) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qdfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qdfi(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,double,float,int) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qdfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qdfq(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,double,float,LongLong) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qdff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qdff(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,double,float,float) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qdfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qdfd(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,double,float,double) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qddi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qddi(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,double,double,int) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qddq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qddq(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,double,double,LongLong) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qddf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qddf(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,double,double,float) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4qddd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4qddd(lua_State *L, id block, int st, const char *te){
     double (^y)(LongLong,double,double,double) = block;
     double res = y(*((LongLong*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fiii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fiii(lua_State *L, id block, int st, const char *te){
     double (^y)(float,int,int,int) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fiiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fiiq(lua_State *L, id block, int st, const char *te){
     double (^y)(float,int,int,LongLong) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fiif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fiif(lua_State *L, id block, int st, const char *te){
     double (^y)(float,int,int,float) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fiid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fiid(lua_State *L, id block, int st, const char *te){
     double (^y)(float,int,int,double) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fiqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fiqi(lua_State *L, id block, int st, const char *te){
     double (^y)(float,int,LongLong,int) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fiqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fiqq(lua_State *L, id block, int st, const char *te){
     double (^y)(float,int,LongLong,LongLong) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fiqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fiqf(lua_State *L, id block, int st, const char *te){
     double (^y)(float,int,LongLong,float) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fiqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fiqd(lua_State *L, id block, int st, const char *te){
     double (^y)(float,int,LongLong,double) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fifi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fifi(lua_State *L, id block, int st, const char *te){
     double (^y)(float,int,float,int) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fifq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fifq(lua_State *L, id block, int st, const char *te){
     double (^y)(float,int,float,LongLong) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fiff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fiff(lua_State *L, id block, int st, const char *te){
     double (^y)(float,int,float,float) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fifd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fifd(lua_State *L, id block, int st, const char *te){
     double (^y)(float,int,float,double) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fidi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fidi(lua_State *L, id block, int st, const char *te){
     double (^y)(float,int,double,int) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fidq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fidq(lua_State *L, id block, int st, const char *te){
     double (^y)(float,int,double,LongLong) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fidf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fidf(lua_State *L, id block, int st, const char *te){
     double (^y)(float,int,double,float) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fidd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fidd(lua_State *L, id block, int st, const char *te){
     double (^y)(float,int,double,double) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fqii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fqii(lua_State *L, id block, int st, const char *te){
     double (^y)(float,LongLong,int,int) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fqiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fqiq(lua_State *L, id block, int st, const char *te){
     double (^y)(float,LongLong,int,LongLong) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fqif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fqif(lua_State *L, id block, int st, const char *te){
     double (^y)(float,LongLong,int,float) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fqid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fqid(lua_State *L, id block, int st, const char *te){
     double (^y)(float,LongLong,int,double) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fqqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fqqi(lua_State *L, id block, int st, const char *te){
     double (^y)(float,LongLong,LongLong,int) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fqqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fqqq(lua_State *L, id block, int st, const char *te){
     double (^y)(float,LongLong,LongLong,LongLong) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fqqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fqqf(lua_State *L, id block, int st, const char *te){
     double (^y)(float,LongLong,LongLong,float) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fqqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fqqd(lua_State *L, id block, int st, const char *te){
     double (^y)(float,LongLong,LongLong,double) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fqfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fqfi(lua_State *L, id block, int st, const char *te){
     double (^y)(float,LongLong,float,int) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fqfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fqfq(lua_State *L, id block, int st, const char *te){
     double (^y)(float,LongLong,float,LongLong) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fqff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fqff(lua_State *L, id block, int st, const char *te){
     double (^y)(float,LongLong,float,float) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fqfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fqfd(lua_State *L, id block, int st, const char *te){
     double (^y)(float,LongLong,float,double) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fqdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fqdi(lua_State *L, id block, int st, const char *te){
     double (^y)(float,LongLong,double,int) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fqdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fqdq(lua_State *L, id block, int st, const char *te){
     double (^y)(float,LongLong,double,LongLong) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fqdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fqdf(lua_State *L, id block, int st, const char *te){
     double (^y)(float,LongLong,double,float) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fqdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fqdd(lua_State *L, id block, int st, const char *te){
     double (^y)(float,LongLong,double,double) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ffii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ffii(lua_State *L, id block, int st, const char *te){
     double (^y)(float,float,int,int) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ffiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ffiq(lua_State *L, id block, int st, const char *te){
     double (^y)(float,float,int,LongLong) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ffif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ffif(lua_State *L, id block, int st, const char *te){
     double (^y)(float,float,int,float) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ffid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ffid(lua_State *L, id block, int st, const char *te){
     double (^y)(float,float,int,double) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ffqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ffqi(lua_State *L, id block, int st, const char *te){
     double (^y)(float,float,LongLong,int) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ffqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ffqq(lua_State *L, id block, int st, const char *te){
     double (^y)(float,float,LongLong,LongLong) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ffqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ffqf(lua_State *L, id block, int st, const char *te){
     double (^y)(float,float,LongLong,float) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ffqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ffqd(lua_State *L, id block, int st, const char *te){
     double (^y)(float,float,LongLong,double) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fffi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fffi(lua_State *L, id block, int st, const char *te){
     double (^y)(float,float,float,int) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fffq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fffq(lua_State *L, id block, int st, const char *te){
     double (^y)(float,float,float,LongLong) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ffff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ffff(lua_State *L, id block, int st, const char *te){
     double (^y)(float,float,float,float) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fffd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fffd(lua_State *L, id block, int st, const char *te){
     double (^y)(float,float,float,double) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ffdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ffdi(lua_State *L, id block, int st, const char *te){
     double (^y)(float,float,double,int) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ffdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ffdq(lua_State *L, id block, int st, const char *te){
     double (^y)(float,float,double,LongLong) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ffdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ffdf(lua_State *L, id block, int st, const char *te){
     double (^y)(float,float,double,float) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ffdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ffdd(lua_State *L, id block, int st, const char *te){
     double (^y)(float,float,double,double) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fdii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fdii(lua_State *L, id block, int st, const char *te){
     double (^y)(float,double,int,int) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fdiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fdiq(lua_State *L, id block, int st, const char *te){
     double (^y)(float,double,int,LongLong) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fdif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fdif(lua_State *L, id block, int st, const char *te){
     double (^y)(float,double,int,float) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fdid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fdid(lua_State *L, id block, int st, const char *te){
     double (^y)(float,double,int,double) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fdqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fdqi(lua_State *L, id block, int st, const char *te){
     double (^y)(float,double,LongLong,int) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fdqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fdqq(lua_State *L, id block, int st, const char *te){
     double (^y)(float,double,LongLong,LongLong) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fdqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fdqf(lua_State *L, id block, int st, const char *te){
     double (^y)(float,double,LongLong,float) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fdqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fdqd(lua_State *L, id block, int st, const char *te){
     double (^y)(float,double,LongLong,double) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fdfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fdfi(lua_State *L, id block, int st, const char *te){
     double (^y)(float,double,float,int) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fdfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fdfq(lua_State *L, id block, int st, const char *te){
     double (^y)(float,double,float,LongLong) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fdff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fdff(lua_State *L, id block, int st, const char *te){
     double (^y)(float,double,float,float) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fdfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fdfd(lua_State *L, id block, int st, const char *te){
     double (^y)(float,double,float,double) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fddi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fddi(lua_State *L, id block, int st, const char *te){
     double (^y)(float,double,double,int) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fddq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fddq(lua_State *L, id block, int st, const char *te){
     double (^y)(float,double,double,LongLong) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fddf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fddf(lua_State *L, id block, int st, const char *te){
     double (^y)(float,double,double,float) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4fddd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4fddd(lua_State *L, id block, int st, const char *te){
     double (^y)(float,double,double,double) = block;
     double res = y(*((float*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4diii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4diii(lua_State *L, id block, int st, const char *te){
     double (^y)(double,int,int,int) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4diiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4diiq(lua_State *L, id block, int st, const char *te){
     double (^y)(double,int,int,LongLong) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4diif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4diif(lua_State *L, id block, int st, const char *te){
     double (^y)(double,int,int,float) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4diid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4diid(lua_State *L, id block, int st, const char *te){
     double (^y)(double,int,int,double) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4diqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4diqi(lua_State *L, id block, int st, const char *te){
     double (^y)(double,int,LongLong,int) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4diqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4diqq(lua_State *L, id block, int st, const char *te){
     double (^y)(double,int,LongLong,LongLong) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4diqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4diqf(lua_State *L, id block, int st, const char *te){
     double (^y)(double,int,LongLong,float) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4diqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4diqd(lua_State *L, id block, int st, const char *te){
     double (^y)(double,int,LongLong,double) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4difi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4difi(lua_State *L, id block, int st, const char *te){
     double (^y)(double,int,float,int) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4difq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4difq(lua_State *L, id block, int st, const char *te){
     double (^y)(double,int,float,LongLong) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4diff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4diff(lua_State *L, id block, int st, const char *te){
     double (^y)(double,int,float,float) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4difd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4difd(lua_State *L, id block, int st, const char *te){
     double (^y)(double,int,float,double) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4didi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4didi(lua_State *L, id block, int st, const char *te){
     double (^y)(double,int,double,int) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4didq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4didq(lua_State *L, id block, int st, const char *te){
     double (^y)(double,int,double,LongLong) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4didf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4didf(lua_State *L, id block, int st, const char *te){
     double (^y)(double,int,double,float) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4didd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4didd(lua_State *L, id block, int st, const char *te){
     double (^y)(double,int,double,double) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((int*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dqii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dqii(lua_State *L, id block, int st, const char *te){
     double (^y)(double,LongLong,int,int) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dqiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dqiq(lua_State *L, id block, int st, const char *te){
     double (^y)(double,LongLong,int,LongLong) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dqif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dqif(lua_State *L, id block, int st, const char *te){
     double (^y)(double,LongLong,int,float) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dqid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dqid(lua_State *L, id block, int st, const char *te){
     double (^y)(double,LongLong,int,double) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dqqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dqqi(lua_State *L, id block, int st, const char *te){
     double (^y)(double,LongLong,LongLong,int) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dqqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dqqq(lua_State *L, id block, int st, const char *te){
     double (^y)(double,LongLong,LongLong,LongLong) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dqqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dqqf(lua_State *L, id block, int st, const char *te){
     double (^y)(double,LongLong,LongLong,float) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dqqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dqqd(lua_State *L, id block, int st, const char *te){
     double (^y)(double,LongLong,LongLong,double) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dqfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dqfi(lua_State *L, id block, int st, const char *te){
     double (^y)(double,LongLong,float,int) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dqfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dqfq(lua_State *L, id block, int st, const char *te){
     double (^y)(double,LongLong,float,LongLong) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dqff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dqff(lua_State *L, id block, int st, const char *te){
     double (^y)(double,LongLong,float,float) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dqfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dqfd(lua_State *L, id block, int st, const char *te){
     double (^y)(double,LongLong,float,double) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dqdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dqdi(lua_State *L, id block, int st, const char *te){
     double (^y)(double,LongLong,double,int) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dqdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dqdq(lua_State *L, id block, int st, const char *te){
     double (^y)(double,LongLong,double,LongLong) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dqdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dqdf(lua_State *L, id block, int st, const char *te){
     double (^y)(double,LongLong,double,float) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dqdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dqdd(lua_State *L, id block, int st, const char *te){
     double (^y)(double,LongLong,double,double) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((LongLong*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dfii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dfii(lua_State *L, id block, int st, const char *te){
     double (^y)(double,float,int,int) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dfiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dfiq(lua_State *L, id block, int st, const char *te){
     double (^y)(double,float,int,LongLong) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dfif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dfif(lua_State *L, id block, int st, const char *te){
     double (^y)(double,float,int,float) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dfid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dfid(lua_State *L, id block, int st, const char *te){
     double (^y)(double,float,int,double) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dfqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dfqi(lua_State *L, id block, int st, const char *te){
     double (^y)(double,float,LongLong,int) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dfqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dfqq(lua_State *L, id block, int st, const char *te){
     double (^y)(double,float,LongLong,LongLong) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dfqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dfqf(lua_State *L, id block, int st, const char *te){
     double (^y)(double,float,LongLong,float) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dfqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dfqd(lua_State *L, id block, int st, const char *te){
     double (^y)(double,float,LongLong,double) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dffi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dffi(lua_State *L, id block, int st, const char *te){
     double (^y)(double,float,float,int) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dffq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dffq(lua_State *L, id block, int st, const char *te){
     double (^y)(double,float,float,LongLong) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dfff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dfff(lua_State *L, id block, int st, const char *te){
     double (^y)(double,float,float,float) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dffd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dffd(lua_State *L, id block, int st, const char *te){
     double (^y)(double,float,float,double) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dfdi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dfdi(lua_State *L, id block, int st, const char *te){
     double (^y)(double,float,double,int) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dfdq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dfdq(lua_State *L, id block, int st, const char *te){
     double (^y)(double,float,double,LongLong) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dfdf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dfdf(lua_State *L, id block, int st, const char *te){
     double (^y)(double,float,double,float) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dfdd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dfdd(lua_State *L, id block, int st, const char *te){
     double (^y)(double,float,double,double) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((float*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ddii(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ddii(lua_State *L, id block, int st, const char *te){
     double (^y)(double,double,int,int) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ddiq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ddiq(lua_State *L, id block, int st, const char *te){
     double (^y)(double,double,int,LongLong) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ddif(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ddif(lua_State *L, id block, int st, const char *te){
     double (^y)(double,double,int,float) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ddid(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ddid(lua_State *L, id block, int st, const char *te){
     double (^y)(double,double,int,double) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((int*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ddqi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ddqi(lua_State *L, id block, int st, const char *te){
     double (^y)(double,double,LongLong,int) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ddqq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ddqq(lua_State *L, id block, int st, const char *te){
     double (^y)(double,double,LongLong,LongLong) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ddqf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ddqf(lua_State *L, id block, int st, const char *te){
     double (^y)(double,double,LongLong,float) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ddqd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ddqd(lua_State *L, id block, int st, const char *te){
     double (^y)(double,double,LongLong,double) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((LongLong*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ddfi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ddfi(lua_State *L, id block, int st, const char *te){
     double (^y)(double,double,float,int) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ddfq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ddfq(lua_State *L, id block, int st, const char *te){
     double (^y)(double,double,float,LongLong) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ddff(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ddff(lua_State *L, id block, int st, const char *te){
     double (^y)(double,double,float,float) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4ddfd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4ddfd(lua_State *L, id block, int st, const char *te){
     double (^y)(double,double,float,double) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((float*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dddi(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dddi(lua_State *L, id block, int st, const char *te){
     double (^y)(double,double,double,int) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((int*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dddq(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dddq(lua_State *L, id block, int st, const char *te){
     double (^y)(double,double,double,LongLong) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((LongLong*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dddf(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dddf(lua_State *L, id block, int st, const char *te){
     double (^y)(double,double,double,float) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((float*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)
 }
-void* lua_call_db4dddd(lua_State *L, id block, int st, const char *te){
+static void* lua_call_db4dddd(lua_State *L, id block, int st, const char *te){
     double (^y)(double,double,double,double) = block;
     double res = y(*((double*)lua_call_bb(L, st+1, te[1])),*((double*)lua_call_bb(L, st+2, te[2])),*((double*)lua_call_bb(L, st+3, te[3])),*((double*)lua_call_bb(L, st+4, te[4])));
     REURN_BUFFER(double)

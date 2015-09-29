@@ -103,7 +103,6 @@ int wax_getStackTrace(lua_State *L) {
     return 1;
 }
 
-
 int wax_fromObjc(lua_State *L, const char *typeDescription, void *buffer) {
     BEGIN_STACK_MODIFY(L)
     
@@ -586,11 +585,14 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
 
 // You can't tell if there are 0 or 1 arguments based on selector alone, so pass in an SEL[2] for possibleSelectors
 void wax_selectorsForName(const char *methodName, SEL possibleSelectors[2]) {
-    int strlength = strlen(methodName) + 2; // Add 2. One for trailing : and one for \0
-    char *objcMethodName = calloc(strlength, 1); 
+    size_t methodLength = strlen(methodName);
+    size_t strlength = methodLength + 2; // Add 2. One for trailing : and one for \0
+    char *objcMethodName = calloc(strlength, 1);
     
     int argCount = 0;
     strcpy(objcMethodName, methodName);
+    
+    //case for underline prefix method. eg: void _mymethod(id);
     for(int i = 0; objcMethodName[i]; i++) {
         if (objcMethodName[i] == '_') {
             argCount++;
@@ -599,18 +601,34 @@ void wax_selectorsForName(const char *methodName, SEL possibleSelectors[2]) {
     }
     
     objcMethodName[strlength - 2] = ':'; // Add final arg portion
-    possibleSelectors[0] = sel_getUid(objcMethodName);
     
-    if (argCount == 0) {
-        objcMethodName[strlength - 2] = '\0';
-        possibleSelectors[1] = sel_getUid(objcMethodName);        
+    if(strstr(objcMethodName, WAX_METHOD_UNDER_LINE_MARK)){//method contain '_'
+        NSString *strObjcMethodName = [NSString stringWithUTF8String:objcMethodName];
+        strObjcMethodName = [strObjcMethodName stringByReplacingOccurrencesOfString:[NSString stringWithUTF8String:WAX_METHOD_UNDER_LINE_MARK] withString:@"_"];//restore to '_'
+        NSLog(@"[strObjcMethodName UTF8String]=%s", [strObjcMethodName UTF8String]);
+        possibleSelectors[0] = sel_getUid([strObjcMethodName UTF8String]);
+        
+        if (argCount == 0) {
+            NSString *noArgMethodName = [strObjcMethodName substringToIndex:strObjcMethodName.length-1];//strip ':'
+            NSLog(@"[noArgMethodName UTF8String]=%s", [noArgMethodName UTF8String]);
+            possibleSelectors[1] = sel_getUid([noArgMethodName UTF8String]);
+        }
+        else {
+            possibleSelectors[1] = nil;
+        }
+        free(objcMethodName);
+    }else{
+        possibleSelectors[0] = sel_getUid(objcMethodName);
+        
+        if (argCount == 0) {
+            objcMethodName[strlength - 2] = '\0';
+            possibleSelectors[1] = sel_getUid(objcMethodName);
+        }
+        else {
+            possibleSelectors[1] = nil;
+        }
+        free(objcMethodName);
     }
-    else {
-        possibleSelectors[1] = nil;
-    }
-
-
-    free(objcMethodName);
 }
 
 BOOL wax_selectorForInstance(wax_instance_userdata *instanceUserdata, SEL* foundSelectors, const char *methodName, BOOL forceInstanceCheck) {    
@@ -642,7 +660,7 @@ BOOL wax_selectorForInstance(wax_instance_userdata *instanceUserdata, SEL* found
 void wax_pushMethodNameFromSelector(lua_State *L, SEL selector) {
     BEGIN_STACK_MODIFY(L)
     const char *methodName = [NSStringFromSelector(selector) UTF8String];
-    int length = strlen(methodName);
+    size_t length = strlen(methodName);
     
     luaL_Buffer b;
     luaL_buffinit(L, &b);    
@@ -651,6 +669,8 @@ void wax_pushMethodNameFromSelector(lua_State *L, SEL selector) {
     while(methodName[i]) {
         if (methodName[i] == ':') {
             if (i < length - 1) luaL_addchar(&b, '_');
+        }else if(methodName[i] == '_'){//method contain '_'
+            luaL_addstring(&b, WAX_METHOD_UNDER_LINE_MARK);
         }
         else {
             luaL_addchar(&b, methodName[i]);
@@ -899,7 +919,7 @@ int wax_errorFunction(lua_State *L) {
 int wax_pcall(lua_State *L, int argumentCount, int returnCount) {
     lua_pushcclosure(L, wax_errorFunction, 0);
     int errorFuncStackIndex = lua_gettop(L) - (argumentCount + 1); // Insert error function before arguments
-    lua_insert(L, errorFuncStackIndex);
+    lua_insert(L, errorFuncStackIndex);//插到userdata前面
     
     return lua_pcall(L, argumentCount, returnCount, errorFuncStackIndex);
 }

@@ -1712,7 +1712,7 @@ static int tolua_UIKitFunction_UIGuidedAccessRestrictionStateForIdentifier00(lua
 /* Open function */
 TOLUA_API int tolua_UIKitFunction_open (lua_State* tolua_S)
 {
-    [wax_global_lock() lock];
+    [wax_globalLock() lock];
  tolua_open(tolua_S);
  tolua_reg_types(tolua_S);
  tolua_module(tolua_S,NULL,0);
@@ -1773,7 +1773,7 @@ TOLUA_API int tolua_UIKitFunction_open (lua_State* tolua_S)
   tolua_function(tolua_S,"NSTextAlignmentFromCTTextAlignment",tolua_UIKitFunction_NSTextAlignmentFromCTTextAlignment00);
   tolua_function(tolua_S,"UIGuidedAccessRestrictionStateForIdentifier",tolua_UIKitFunction_UIGuidedAccessRestrictionStateForIdentifier00);
  tolua_endmodule(tolua_S);
-        [wax_global_lock() unlock];
+        [wax_globalLock() unlock];
  return 1;
 }
 

@@ -15,6 +15,7 @@
 #import "lauxlib.h"
 #import "lobject.h"
 #import "wax_imp_call_pool.h"
+#import "wax_define.h"
 static int __index(lua_State *L);
 static int __newindex(lua_State *L);
 static int __gc(lua_State *L);
@@ -81,7 +82,7 @@ wax_instance_userdata *wax_instance_create(lua_State *L, id instance, BOOL isCla
     }
     else {
         wax_instance_userdata *data = lua_touserdata(L, -1);
-        [wax_global_lock() unlock];//need unlock
+        [wax_globalLock() unlock];//need unlock
 //        wax_log(LOG_GC, @"Found existing userdata %@ for %@(%p -> %p)", isClass ? @"class" : @"instance", [instance class], instance, data);
         return  data;
     }
@@ -118,7 +119,7 @@ wax_instance_userdata *wax_instance_create(lua_State *L, id instance, BOOL isCla
     lua_pop(L, 1); // Pop off userdata tabl6e
 
     
-    wax_instance_pushStrongUserdataTable(L);
+    wax_instance_pushStrongUserdataTable(L);//strong和weak table均增加对instanceUserdata的引用?
     lua_pushlightuserdata(L, instanceUserdata->instance);
     lua_pushvalue(L, -3); // Push userdata
     lua_rawset(L, -3);
@@ -763,9 +764,8 @@ else{\
 va_end(args_copy); \
 va_end(args); \
 if (result == -1) { \
-    printf("wax_luaRuntimeErrorHandler=%p", wax_getLuaRuntimeErrorHandler());\
     if(wax_getLuaRuntimeErrorHandler()){\
-        fprintf(stderr, "Error calling '%s' on '%s'\n%s", sel_getName(_cmd), [[self description] UTF8String], lua_tostring(L, -1));\
+        fprintf(stderr, "Error calling '%s' on '%s'\n%s\n", sel_getName(_cmd), [[self description] UTF8String], lua_tostring(L, -1));\
         wax_getLuaRuntimeErrorHandler()([NSString stringWithFormat:@"Error calling '%s' on '%@'\n%s", sel_getName(_cmd), self, lua_tostring(L, -1)], NO);\
         _type_ returnValue; \
         bzero(&returnValue, sizeof(_type_)); \
@@ -941,7 +941,7 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
         IMP imp = impForOverrideMethod(L, typeDescription, returnType);
         if(!imp){//no sutiable IMP
             luaL_error(L, "Can't override method with typeDescription %s", typeDescription);
-            [wax_global_lock() unlock];//need unlock
+            [wax_globalLock() unlock];//need unlock
             return NO;
         }
         
@@ -956,7 +956,7 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
             IMP prevImp = class_replaceMethod(klass, selector, imp, typeDescription);
             const char *selectorName = sel_getName(selector);
             char newSelectorName[strlen(selectorName) + 10];
-            strcpy(newSelectorName, "ORIG");
+            strcpy(newSelectorName, WAX_ORIGINAL_METHOD_PREFIX);
             strcat(newSelectorName, selectorName);
             SEL newSelector = sel_getUid(newSelectorName);
             if(!class_respondsToSelector(klass, newSelector)) {
@@ -967,7 +967,7 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
             IMP prevImp = class_replaceMethod(metaclass, selector, imp, typeDescription);
             const char *selectorName = sel_getName(selector);
             char newSelectorName[strlen(selectorName) + 10];
-            strcpy(newSelectorName, "ORIG");
+            strcpy(newSelectorName, WAX_ORIGINAL_METHOD_PREFIX);
             strcat(newSelectorName, selectorName);
             SEL newSelector = sel_getUid(newSelectorName);
             if(!class_respondsToSelector(metaclass, newSelector)) {
@@ -997,53 +997,51 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
 				argCount++;
 			}
             
-			size_t typeDescriptionSize = 3 + argCount;
-			typeDescription = calloc(typeDescriptionSize + 1, sizeof(char));
-			memset(typeDescription, '@', typeDescriptionSize);//param all are id
-			typeDescription[2] = ':'; // Never forget _cmd!
-
-            IMP imp = impForOverrideMethod(L, typeDescription, "id");
-            if(!imp){//no sutiable imp
-                luaL_error(L, "Can't add method with typeDescription %s", typeDescription);
-                [wax_global_lock() unlock];//need unlock
-                return NO;
-            }
 			id metaclass = objc_getMetaClass(object_getClassName(klass));
 
-//            success = class_addMethod(klass, possibleSelectors[i], imp, typeDescription) &&
-//				class_addMethod(metaclass, possibleSelectors[i], imp, typeDescription);
-            
-            IMP instImp = class_respondsToSelector(klass, selector) ? class_getMethodImplementation(klass, selector) : NULL;
             IMP metaImp = class_respondsToSelector(metaclass, selector) ? class_getMethodImplementation(metaclass, selector) : NULL;
-            if(instImp) {
-                // original selector is reserved in ORIGxxxx
-                IMP prevImp = class_replaceMethod(klass, selector, imp, typeDescription);
-                const char *selectorName = sel_getName(selector);
-                char newSelectorName[strlen(selectorName) + 10];
-                strcpy(newSelectorName, "ORIG");
-                strcat(newSelectorName, selectorName);
-                SEL newSelector = sel_getUid(newSelectorName);
-                if(!class_respondsToSelector(klass, newSelector)) {
-                    class_addMethod(klass, newSelector, prevImp, typeDescription);
+            if(metaImp) {//has class method
+                Method method = class_getClassMethod(klass, selector);
+                typeDescription = (char *)method_getTypeEncoding(method);
+                returnType = method_copyReturnType(method);
+            
+                IMP imp = impForOverrideMethod(L, typeDescription, returnType);
+                if(!imp){//no imp
+                    luaL_error(L, "Can't add method with typeDescription %s", typeDescription);
+                    [wax_globalLock() unlock];
+                    return NO;
                 }
-                success = YES;
-            } else if(metaImp) {
+                
                 IMP prevImp = class_replaceMethod(metaclass, selector, imp, typeDescription);
                 const char *selectorName = sel_getName(selector);
                 char newSelectorName[strlen(selectorName) + 10];
-                strcpy(newSelectorName, "ORIG");
+                strcpy(newSelectorName, WAX_ORIGINAL_METHOD_PREFIX);
                 strcat(newSelectorName, selectorName);
                 SEL newSelector = sel_getUid(newSelectorName);
                 if(!class_respondsToSelector(metaclass, newSelector)) {
                     class_addMethod(metaclass, newSelector, prevImp, typeDescription);
                 }
                 success = YES;
-            } else {
+                if (returnType) free(returnType);
+            } else {//no method, then add it
+                
+                size_t typeDescriptionSize = 3 + argCount;
+                typeDescription = calloc(typeDescriptionSize + 1, sizeof(char));
+                memset(typeDescription, '@', typeDescriptionSize);//default id
+                typeDescription[2] = ':'; // Never forget _cmd!
+                
+                IMP imp = impForOverrideMethod(L, typeDescription, "@");
+                if(!imp){
+                    luaL_error(L, "Can't add method with typeDescription %s", typeDescription);
+                    [wax_globalLock() unlock];
+                    return NO;
+                }
+                
                 // add to both instance and class method
                 success = class_addMethod(klass, selector, imp, typeDescription) && class_addMethod(metaclass, selector, imp, typeDescription);
+                
+                free(typeDescription);
             }
-			
-			free(typeDescription);
 		}
     }
     
@@ -1076,7 +1074,7 @@ static void addMethodToReplacedDict(id klass, SEL selector){
 static SEL getORIGSelector(SEL selector){
     const char *selectorName = sel_getName(selector);
     char newSelectorName[strlen(selectorName) + 10];
-    strcpy(newSelectorName, "ORIG");
+    strcpy(newSelectorName, WAX_ORIGINAL_METHOD_PREFIX);
     strcat(newSelectorName, selectorName);
     SEL newSelector = sel_getUid(newSelectorName);
     return newSelector;
@@ -1095,7 +1093,7 @@ static void replaceMethodAndGenerateORIG(id klass, SEL selector, IMP newIMP){
     
     const char *selectorName = sel_getName(selector);
     char newSelectorName[strlen(selectorName) + 10];
-    strcpy(newSelectorName, "ORIG");
+    strcpy(newSelectorName, WAX_ORIGINAL_METHOD_PREFIX);
     strcat(newSelectorName, selectorName);
     SEL newSelector = sel_getUid(newSelectorName);
     if(!class_respondsToSelector(klass, newSelector)) {

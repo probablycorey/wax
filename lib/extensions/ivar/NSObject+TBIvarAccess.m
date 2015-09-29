@@ -18,12 +18,6 @@
 #endif
 
 
-//@interface TBIvarInfo(){
-//	NSString * name;
-//	NSString * typeEncoding;
-//}
-//@end
-
 @implementation TBIvarInfo
 @synthesize name,type;
 - (id)initWithName:(NSString *)aName type:(NSString *)aType{

@@ -12,6 +12,7 @@
 #import "wax_instance.h"
 #import "wax_helpers.h"
 #import "wax_block.h"
+#import "wax_define.h"
 
 id wax_block_call_objectFromLuaState(lua_State *L, int index){
     if(lua_isnil(L, index)){

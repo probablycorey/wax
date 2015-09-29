@@ -13,7 +13,7 @@
 #import "wax_struct.h"
 #import "wax_helpers.h"
 #import "wax_block.h"
-//#import "tolua++.h"
+#import "tolua++.h"
 
 id wax_objectFromLuaState(lua_State *L, int index){
     if(lua_isnil(L, index)){
@@ -27,15 +27,15 @@ id wax_objectFromLuaState(lua_State *L, int index){
 }
 
 void wax_openBindOCFunction(lua_State *L){
-//    TOLUA_API int  tolua_UIKitFunction_open (lua_State* tolua_S);
-//    tolua_UIKitFunction_open(L);
-//    
-//    TOLUA_API int  tolua_objc_runtime_open (lua_State* tolua_S);
-//    tolua_objc_runtime_open(L);
-//    
-//    TOLUA_API int  tolua_dispatch_open (lua_State* tolua_S);
-//    tolua_dispatch_open (L);
-//
-//    TOLUA_API int  tolua_pthread_open (lua_State* tolua_S);
-//    tolua_pthread_open(L);
+    TOLUA_API int  tolua_UIKitFunction_open (lua_State* tolua_S);
+    tolua_UIKitFunction_open(L);
+    
+    TOLUA_API int  tolua_objc_runtime_open (lua_State* tolua_S);
+    tolua_objc_runtime_open(L);
+    
+    TOLUA_API int  tolua_dispatch_open (lua_State* tolua_S);
+    tolua_dispatch_open (L);
+
+    TOLUA_API int  tolua_pthread_open (lua_State* tolua_S);
+    tolua_pthread_open(L);
 }

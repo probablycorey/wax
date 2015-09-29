@@ -2,7 +2,8 @@
 
 #import "wax_block_transfer_pool.h"
 
-id lua_LongLong_block_0(NSString *paramsTypeEncoding,id self){
+#if WAX_IS_ARM_64 == 1
+static id lua_LongLong_block_0(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self);
         LongLong res = 0;
@@ -12,7 +13,7 @@ id lua_LongLong_block_0(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_1q(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_1q(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0);
         LongLong res = 0;
@@ -22,7 +23,7 @@ id lua_LongLong_block_1q(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_1d(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_1d(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0);
         LongLong res = 0;
@@ -32,7 +33,7 @@ id lua_LongLong_block_1d(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_2qq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_2qq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1);
         LongLong res = 0;
@@ -42,7 +43,7 @@ id lua_LongLong_block_2qq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_2qd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_2qd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1);
         LongLong res = 0;
@@ -52,7 +53,7 @@ id lua_LongLong_block_2qd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_2dq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_2dq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1);
         LongLong res = 0;
@@ -62,7 +63,7 @@ id lua_LongLong_block_2dq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_2dd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_2dd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1);
         LongLong res = 0;
@@ -72,7 +73,7 @@ id lua_LongLong_block_2dd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_3qqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_3qqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2);
         LongLong res = 0;
@@ -82,7 +83,7 @@ id lua_LongLong_block_3qqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_3qqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_3qqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2);
         LongLong res = 0;
@@ -92,7 +93,7 @@ id lua_LongLong_block_3qqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_3qdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_3qdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2);
         LongLong res = 0;
@@ -102,7 +103,7 @@ id lua_LongLong_block_3qdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_3qdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_3qdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2);
         LongLong res = 0;
@@ -112,7 +113,7 @@ id lua_LongLong_block_3qdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_3dqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_3dqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2);
         LongLong res = 0;
@@ -122,7 +123,7 @@ id lua_LongLong_block_3dqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_3dqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_3dqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2);
         LongLong res = 0;
@@ -132,7 +133,7 @@ id lua_LongLong_block_3dqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_3ddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_3ddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2);
         LongLong res = 0;
@@ -142,7 +143,7 @@ id lua_LongLong_block_3ddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_3ddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_3ddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2);
         LongLong res = 0;
@@ -152,7 +153,7 @@ id lua_LongLong_block_3ddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_4qqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_4qqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,LongLong q3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3);
         LongLong res = 0;
@@ -162,7 +163,7 @@ id lua_LongLong_block_4qqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_4qqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_4qqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,double d3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3);
         LongLong res = 0;
@@ -172,7 +173,7 @@ id lua_LongLong_block_4qqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_4qqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_4qqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,LongLong q3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3);
         LongLong res = 0;
@@ -182,7 +183,7 @@ id lua_LongLong_block_4qqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_4qqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_4qqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,double d3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3);
         LongLong res = 0;
@@ -192,7 +193,7 @@ id lua_LongLong_block_4qqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_4qdqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_4qdqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,LongLong q3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3);
         LongLong res = 0;
@@ -202,7 +203,7 @@ id lua_LongLong_block_4qdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_4qdqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_4qdqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,double d3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3);
         LongLong res = 0;
@@ -212,7 +213,7 @@ id lua_LongLong_block_4qdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_4qddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_4qddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,LongLong q3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3);
         LongLong res = 0;
@@ -222,7 +223,7 @@ id lua_LongLong_block_4qddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_4qddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_4qddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,double d3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3);
         LongLong res = 0;
@@ -232,7 +233,7 @@ id lua_LongLong_block_4qddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_4dqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_4dqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,LongLong q3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3);
         LongLong res = 0;
@@ -242,7 +243,7 @@ id lua_LongLong_block_4dqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_4dqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_4dqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,double d3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3);
         LongLong res = 0;
@@ -252,7 +253,7 @@ id lua_LongLong_block_4dqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_4dqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_4dqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,LongLong q3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3);
         LongLong res = 0;
@@ -262,7 +263,7 @@ id lua_LongLong_block_4dqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_4dqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_4dqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,double d3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3);
         LongLong res = 0;
@@ -272,7 +273,7 @@ id lua_LongLong_block_4dqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_4ddqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_4ddqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,LongLong q3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3);
         LongLong res = 0;
@@ -282,7 +283,7 @@ id lua_LongLong_block_4ddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_4ddqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_4ddqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,double d3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3);
         LongLong res = 0;
@@ -292,7 +293,7 @@ id lua_LongLong_block_4ddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_4dddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_4dddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,LongLong q3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3);
         LongLong res = 0;
@@ -302,7 +303,7 @@ id lua_LongLong_block_4dddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_4dddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_4dddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,double d3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3);
         LongLong res = 0;
@@ -312,7 +313,7 @@ id lua_LongLong_block_4dddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5qqqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5qqqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,LongLong q3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3,&q4);
         LongLong res = 0;
@@ -322,7 +323,7 @@ id lua_LongLong_block_5qqqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5qqqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5qqqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,LongLong q3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3,&d4);
         LongLong res = 0;
@@ -332,7 +333,7 @@ id lua_LongLong_block_5qqqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5qqqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5qqqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,double d3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3,&q4);
         LongLong res = 0;
@@ -342,7 +343,7 @@ id lua_LongLong_block_5qqqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5qqqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5qqqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,double d3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3,&d4);
         LongLong res = 0;
@@ -352,7 +353,7 @@ id lua_LongLong_block_5qqqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5qqdqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5qqdqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,LongLong q3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3,&q4);
         LongLong res = 0;
@@ -362,7 +363,7 @@ id lua_LongLong_block_5qqdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5qqdqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5qqdqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,LongLong q3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3,&d4);
         LongLong res = 0;
@@ -372,7 +373,7 @@ id lua_LongLong_block_5qqdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5qqddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5qqddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,double d3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3,&q4);
         LongLong res = 0;
@@ -382,7 +383,7 @@ id lua_LongLong_block_5qqddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5qqddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5qqddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,double d3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3,&d4);
         LongLong res = 0;
@@ -392,7 +393,7 @@ id lua_LongLong_block_5qqddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5qdqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5qdqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,LongLong q3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3,&q4);
         LongLong res = 0;
@@ -402,7 +403,7 @@ id lua_LongLong_block_5qdqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5qdqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5qdqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,LongLong q3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3,&d4);
         LongLong res = 0;
@@ -412,7 +413,7 @@ id lua_LongLong_block_5qdqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5qdqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5qdqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,double d3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3,&q4);
         LongLong res = 0;
@@ -422,7 +423,7 @@ id lua_LongLong_block_5qdqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5qdqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5qdqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,double d3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3,&d4);
         LongLong res = 0;
@@ -432,7 +433,7 @@ id lua_LongLong_block_5qdqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5qddqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5qddqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,LongLong q3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3,&q4);
         LongLong res = 0;
@@ -442,7 +443,7 @@ id lua_LongLong_block_5qddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5qddqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5qddqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,LongLong q3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3,&d4);
         LongLong res = 0;
@@ -452,7 +453,7 @@ id lua_LongLong_block_5qddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5qdddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5qdddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,double d3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3,&q4);
         LongLong res = 0;
@@ -462,7 +463,7 @@ id lua_LongLong_block_5qdddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5qdddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5qdddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,double d3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3,&d4);
         LongLong res = 0;
@@ -472,7 +473,7 @@ id lua_LongLong_block_5qdddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5dqqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5dqqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,LongLong q3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3,&q4);
         LongLong res = 0;
@@ -482,7 +483,7 @@ id lua_LongLong_block_5dqqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5dqqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5dqqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,LongLong q3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3,&d4);
         LongLong res = 0;
@@ -492,7 +493,7 @@ id lua_LongLong_block_5dqqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5dqqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5dqqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,double d3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3,&q4);
         LongLong res = 0;
@@ -502,7 +503,7 @@ id lua_LongLong_block_5dqqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5dqqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5dqqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,double d3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3,&d4);
         LongLong res = 0;
@@ -512,7 +513,7 @@ id lua_LongLong_block_5dqqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5dqdqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5dqdqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,LongLong q3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3,&q4);
         LongLong res = 0;
@@ -522,7 +523,7 @@ id lua_LongLong_block_5dqdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5dqdqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5dqdqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,LongLong q3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3,&d4);
         LongLong res = 0;
@@ -532,7 +533,7 @@ id lua_LongLong_block_5dqdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5dqddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5dqddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,double d3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3,&q4);
         LongLong res = 0;
@@ -542,7 +543,7 @@ id lua_LongLong_block_5dqddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5dqddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5dqddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,double d3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3,&d4);
         LongLong res = 0;
@@ -552,7 +553,7 @@ id lua_LongLong_block_5dqddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5ddqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5ddqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,LongLong q3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3,&q4);
         LongLong res = 0;
@@ -562,7 +563,7 @@ id lua_LongLong_block_5ddqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5ddqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5ddqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,LongLong q3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3,&d4);
         LongLong res = 0;
@@ -572,7 +573,7 @@ id lua_LongLong_block_5ddqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5ddqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5ddqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,double d3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3,&q4);
         LongLong res = 0;
@@ -582,7 +583,7 @@ id lua_LongLong_block_5ddqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5ddqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5ddqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,double d3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3,&d4);
         LongLong res = 0;
@@ -592,7 +593,7 @@ id lua_LongLong_block_5ddqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5dddqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5dddqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,LongLong q3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3,&q4);
         LongLong res = 0;
@@ -602,7 +603,7 @@ id lua_LongLong_block_5dddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5dddqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5dddqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,LongLong q3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3,&d4);
         LongLong res = 0;
@@ -612,7 +613,7 @@ id lua_LongLong_block_5dddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5ddddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5ddddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,double d3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3,&q4);
         LongLong res = 0;
@@ -622,7 +623,7 @@ id lua_LongLong_block_5ddddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_5ddddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_5ddddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,double d3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3,&d4);
         LongLong res = 0;
@@ -632,7 +633,7 @@ id lua_LongLong_block_5ddddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qqqqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qqqqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,LongLong q3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3,&q4,&q5);
         LongLong res = 0;
@@ -642,7 +643,7 @@ id lua_LongLong_block_6qqqqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qqqqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qqqqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,LongLong q3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3,&q4,&d5);
         LongLong res = 0;
@@ -652,7 +653,7 @@ id lua_LongLong_block_6qqqqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qqqqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qqqqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,LongLong q3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3,&d4,&q5);
         LongLong res = 0;
@@ -662,7 +663,7 @@ id lua_LongLong_block_6qqqqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qqqqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qqqqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,LongLong q3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3,&d4,&d5);
         LongLong res = 0;
@@ -672,7 +673,7 @@ id lua_LongLong_block_6qqqqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qqqdqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qqqdqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,double d3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3,&q4,&q5);
         LongLong res = 0;
@@ -682,7 +683,7 @@ id lua_LongLong_block_6qqqdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qqqdqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qqqdqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,double d3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3,&q4,&d5);
         LongLong res = 0;
@@ -692,7 +693,7 @@ id lua_LongLong_block_6qqqdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qqqddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qqqddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,double d3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3,&d4,&q5);
         LongLong res = 0;
@@ -702,7 +703,7 @@ id lua_LongLong_block_6qqqddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qqqddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qqqddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,double d3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3,&d4,&d5);
         LongLong res = 0;
@@ -712,7 +713,7 @@ id lua_LongLong_block_6qqqddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qqdqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qqdqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,LongLong q3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3,&q4,&q5);
         LongLong res = 0;
@@ -722,7 +723,7 @@ id lua_LongLong_block_6qqdqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qqdqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qqdqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,LongLong q3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3,&q4,&d5);
         LongLong res = 0;
@@ -732,7 +733,7 @@ id lua_LongLong_block_6qqdqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qqdqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qqdqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,LongLong q3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3,&d4,&q5);
         LongLong res = 0;
@@ -742,7 +743,7 @@ id lua_LongLong_block_6qqdqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qqdqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qqdqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,LongLong q3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3,&d4,&d5);
         LongLong res = 0;
@@ -752,7 +753,7 @@ id lua_LongLong_block_6qqdqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qqddqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qqddqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,double d3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3,&q4,&q5);
         LongLong res = 0;
@@ -762,7 +763,7 @@ id lua_LongLong_block_6qqddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qqddqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qqddqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,double d3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3,&q4,&d5);
         LongLong res = 0;
@@ -772,7 +773,7 @@ id lua_LongLong_block_6qqddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qqdddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qqdddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,double d3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3,&d4,&q5);
         LongLong res = 0;
@@ -782,7 +783,7 @@ id lua_LongLong_block_6qqdddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qqdddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qqdddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,double d3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3,&d4,&d5);
         LongLong res = 0;
@@ -792,7 +793,7 @@ id lua_LongLong_block_6qqdddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qdqqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qdqqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,LongLong q3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3,&q4,&q5);
         LongLong res = 0;
@@ -802,7 +803,7 @@ id lua_LongLong_block_6qdqqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qdqqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qdqqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,LongLong q3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3,&q4,&d5);
         LongLong res = 0;
@@ -812,7 +813,7 @@ id lua_LongLong_block_6qdqqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qdqqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qdqqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,LongLong q3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3,&d4,&q5);
         LongLong res = 0;
@@ -822,7 +823,7 @@ id lua_LongLong_block_6qdqqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qdqqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qdqqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,LongLong q3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3,&d4,&d5);
         LongLong res = 0;
@@ -832,7 +833,7 @@ id lua_LongLong_block_6qdqqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qdqdqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qdqdqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,double d3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3,&q4,&q5);
         LongLong res = 0;
@@ -842,7 +843,7 @@ id lua_LongLong_block_6qdqdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qdqdqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qdqdqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,double d3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3,&q4,&d5);
         LongLong res = 0;
@@ -852,7 +853,7 @@ id lua_LongLong_block_6qdqdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qdqddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qdqddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,double d3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3,&d4,&q5);
         LongLong res = 0;
@@ -862,7 +863,7 @@ id lua_LongLong_block_6qdqddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qdqddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qdqddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,double d3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3,&d4,&d5);
         LongLong res = 0;
@@ -872,7 +873,7 @@ id lua_LongLong_block_6qdqddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qddqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qddqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,LongLong q3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3,&q4,&q5);
         LongLong res = 0;
@@ -882,7 +883,7 @@ id lua_LongLong_block_6qddqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qddqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qddqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,LongLong q3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3,&q4,&d5);
         LongLong res = 0;
@@ -892,7 +893,7 @@ id lua_LongLong_block_6qddqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qddqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qddqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,LongLong q3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3,&d4,&q5);
         LongLong res = 0;
@@ -902,7 +903,7 @@ id lua_LongLong_block_6qddqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qddqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qddqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,LongLong q3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3,&d4,&d5);
         LongLong res = 0;
@@ -912,7 +913,7 @@ id lua_LongLong_block_6qddqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qdddqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qdddqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,double d3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3,&q4,&q5);
         LongLong res = 0;
@@ -922,7 +923,7 @@ id lua_LongLong_block_6qdddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qdddqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qdddqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,double d3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3,&q4,&d5);
         LongLong res = 0;
@@ -932,7 +933,7 @@ id lua_LongLong_block_6qdddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qddddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qddddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,double d3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3,&d4,&q5);
         LongLong res = 0;
@@ -942,7 +943,7 @@ id lua_LongLong_block_6qddddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6qddddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6qddddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,double d3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3,&d4,&d5);
         LongLong res = 0;
@@ -952,7 +953,7 @@ id lua_LongLong_block_6qddddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6dqqqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6dqqqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,LongLong q3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3,&q4,&q5);
         LongLong res = 0;
@@ -962,7 +963,7 @@ id lua_LongLong_block_6dqqqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6dqqqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6dqqqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,LongLong q3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3,&q4,&d5);
         LongLong res = 0;
@@ -972,7 +973,7 @@ id lua_LongLong_block_6dqqqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6dqqqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6dqqqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,LongLong q3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3,&d4,&q5);
         LongLong res = 0;
@@ -982,7 +983,7 @@ id lua_LongLong_block_6dqqqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6dqqqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6dqqqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,LongLong q3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3,&d4,&d5);
         LongLong res = 0;
@@ -992,7 +993,7 @@ id lua_LongLong_block_6dqqqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6dqqdqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6dqqdqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,double d3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3,&q4,&q5);
         LongLong res = 0;
@@ -1002,7 +1003,7 @@ id lua_LongLong_block_6dqqdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6dqqdqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6dqqdqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,double d3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3,&q4,&d5);
         LongLong res = 0;
@@ -1012,7 +1013,7 @@ id lua_LongLong_block_6dqqdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6dqqddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6dqqddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,double d3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3,&d4,&q5);
         LongLong res = 0;
@@ -1022,7 +1023,7 @@ id lua_LongLong_block_6dqqddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6dqqddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6dqqddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,double d3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3,&d4,&d5);
         LongLong res = 0;
@@ -1032,7 +1033,7 @@ id lua_LongLong_block_6dqqddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6dqdqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6dqdqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,LongLong q3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3,&q4,&q5);
         LongLong res = 0;
@@ -1042,7 +1043,7 @@ id lua_LongLong_block_6dqdqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6dqdqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6dqdqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,LongLong q3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3,&q4,&d5);
         LongLong res = 0;
@@ -1052,7 +1053,7 @@ id lua_LongLong_block_6dqdqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6dqdqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6dqdqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,LongLong q3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3,&d4,&q5);
         LongLong res = 0;
@@ -1062,7 +1063,7 @@ id lua_LongLong_block_6dqdqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6dqdqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6dqdqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,LongLong q3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3,&d4,&d5);
         LongLong res = 0;
@@ -1072,7 +1073,7 @@ id lua_LongLong_block_6dqdqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6dqddqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6dqddqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,double d3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3,&q4,&q5);
         LongLong res = 0;
@@ -1082,7 +1083,7 @@ id lua_LongLong_block_6dqddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6dqddqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6dqddqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,double d3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3,&q4,&d5);
         LongLong res = 0;
@@ -1092,7 +1093,7 @@ id lua_LongLong_block_6dqddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6dqdddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6dqdddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,double d3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3,&d4,&q5);
         LongLong res = 0;
@@ -1102,7 +1103,7 @@ id lua_LongLong_block_6dqdddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6dqdddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6dqdddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,double d3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3,&d4,&d5);
         LongLong res = 0;
@@ -1112,7 +1113,7 @@ id lua_LongLong_block_6dqdddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6ddqqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6ddqqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,LongLong q3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3,&q4,&q5);
         LongLong res = 0;
@@ -1122,7 +1123,7 @@ id lua_LongLong_block_6ddqqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6ddqqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6ddqqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,LongLong q3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3,&q4,&d5);
         LongLong res = 0;
@@ -1132,7 +1133,7 @@ id lua_LongLong_block_6ddqqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6ddqqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6ddqqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,LongLong q3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3,&d4,&q5);
         LongLong res = 0;
@@ -1142,7 +1143,7 @@ id lua_LongLong_block_6ddqqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6ddqqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6ddqqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,LongLong q3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3,&d4,&d5);
         LongLong res = 0;
@@ -1152,7 +1153,7 @@ id lua_LongLong_block_6ddqqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6ddqdqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6ddqdqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,double d3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3,&q4,&q5);
         LongLong res = 0;
@@ -1162,7 +1163,7 @@ id lua_LongLong_block_6ddqdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6ddqdqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6ddqdqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,double d3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3,&q4,&d5);
         LongLong res = 0;
@@ -1172,7 +1173,7 @@ id lua_LongLong_block_6ddqdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6ddqddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6ddqddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,double d3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3,&d4,&q5);
         LongLong res = 0;
@@ -1182,7 +1183,7 @@ id lua_LongLong_block_6ddqddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6ddqddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6ddqddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,double d3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3,&d4,&d5);
         LongLong res = 0;
@@ -1192,7 +1193,7 @@ id lua_LongLong_block_6ddqddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6dddqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6dddqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,LongLong q3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3,&q4,&q5);
         LongLong res = 0;
@@ -1202,7 +1203,7 @@ id lua_LongLong_block_6dddqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6dddqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6dddqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,LongLong q3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3,&q4,&d5);
         LongLong res = 0;
@@ -1212,7 +1213,7 @@ id lua_LongLong_block_6dddqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6dddqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6dddqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,LongLong q3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3,&d4,&q5);
         LongLong res = 0;
@@ -1222,7 +1223,7 @@ id lua_LongLong_block_6dddqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6dddqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6dddqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,LongLong q3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3,&d4,&d5);
         LongLong res = 0;
@@ -1232,7 +1233,7 @@ id lua_LongLong_block_6dddqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6ddddqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6ddddqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,double d3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3,&q4,&q5);
         LongLong res = 0;
@@ -1242,7 +1243,7 @@ id lua_LongLong_block_6ddddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6ddddqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6ddddqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,double d3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3,&q4,&d5);
         LongLong res = 0;
@@ -1252,7 +1253,7 @@ id lua_LongLong_block_6ddddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6dddddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6dddddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,double d3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3,&d4,&q5);
         LongLong res = 0;
@@ -1262,7 +1263,7 @@ id lua_LongLong_block_6dddddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_6dddddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_6dddddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,double d3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3,&d4,&d5);
         LongLong res = 0;
@@ -1272,7 +1273,7 @@ id lua_LongLong_block_6dddddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqqqqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqqqqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,LongLong q3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3,&q4,&q5,&q6);
         LongLong res = 0;
@@ -1282,7 +1283,7 @@ id lua_LongLong_block_7qqqqqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqqqqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqqqqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,LongLong q3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3,&q4,&q5,&d6);
         LongLong res = 0;
@@ -1292,7 +1293,7 @@ id lua_LongLong_block_7qqqqqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqqqqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqqqqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,LongLong q3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3,&q4,&d5,&q6);
         LongLong res = 0;
@@ -1302,7 +1303,7 @@ id lua_LongLong_block_7qqqqqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqqqqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqqqqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,LongLong q3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3,&q4,&d5,&d6);
         LongLong res = 0;
@@ -1312,7 +1313,7 @@ id lua_LongLong_block_7qqqqqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqqqdqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqqqdqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,LongLong q3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3,&d4,&q5,&q6);
         LongLong res = 0;
@@ -1322,7 +1323,7 @@ id lua_LongLong_block_7qqqqdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqqqdqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqqqdqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,LongLong q3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3,&d4,&q5,&d6);
         LongLong res = 0;
@@ -1332,7 +1333,7 @@ id lua_LongLong_block_7qqqqdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqqqddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqqqddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,LongLong q3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3,&d4,&d5,&q6);
         LongLong res = 0;
@@ -1342,7 +1343,7 @@ id lua_LongLong_block_7qqqqddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqqqddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqqqddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,LongLong q3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3,&d4,&d5,&d6);
         LongLong res = 0;
@@ -1352,7 +1353,7 @@ id lua_LongLong_block_7qqqqddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqqdqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqqdqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,double d3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3,&q4,&q5,&q6);
         LongLong res = 0;
@@ -1362,7 +1363,7 @@ id lua_LongLong_block_7qqqdqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqqdqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqqdqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,double d3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3,&q4,&q5,&d6);
         LongLong res = 0;
@@ -1372,7 +1373,7 @@ id lua_LongLong_block_7qqqdqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqqdqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqqdqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,double d3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3,&q4,&d5,&q6);
         LongLong res = 0;
@@ -1382,7 +1383,7 @@ id lua_LongLong_block_7qqqdqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqqdqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqqdqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,double d3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3,&q4,&d5,&d6);
         LongLong res = 0;
@@ -1392,7 +1393,7 @@ id lua_LongLong_block_7qqqdqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqqddqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqqddqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,double d3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3,&d4,&q5,&q6);
         LongLong res = 0;
@@ -1402,7 +1403,7 @@ id lua_LongLong_block_7qqqddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqqddqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqqddqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,double d3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3,&d4,&q5,&d6);
         LongLong res = 0;
@@ -1412,7 +1413,7 @@ id lua_LongLong_block_7qqqddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqqdddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqqdddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,double d3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3,&d4,&d5,&q6);
         LongLong res = 0;
@@ -1422,7 +1423,7 @@ id lua_LongLong_block_7qqqdddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqqdddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqqdddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,LongLong q2,double d3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3,&d4,&d5,&d6);
         LongLong res = 0;
@@ -1432,7 +1433,7 @@ id lua_LongLong_block_7qqqdddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqdqqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqdqqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,LongLong q3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3,&q4,&q5,&q6);
         LongLong res = 0;
@@ -1442,7 +1443,7 @@ id lua_LongLong_block_7qqdqqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqdqqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqdqqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,LongLong q3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3,&q4,&q5,&d6);
         LongLong res = 0;
@@ -1452,7 +1453,7 @@ id lua_LongLong_block_7qqdqqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqdqqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqdqqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,LongLong q3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3,&q4,&d5,&q6);
         LongLong res = 0;
@@ -1462,7 +1463,7 @@ id lua_LongLong_block_7qqdqqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqdqqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqdqqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,LongLong q3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3,&q4,&d5,&d6);
         LongLong res = 0;
@@ -1472,7 +1473,7 @@ id lua_LongLong_block_7qqdqqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqdqdqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqdqdqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,LongLong q3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3,&d4,&q5,&q6);
         LongLong res = 0;
@@ -1482,7 +1483,7 @@ id lua_LongLong_block_7qqdqdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqdqdqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqdqdqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,LongLong q3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3,&d4,&q5,&d6);
         LongLong res = 0;
@@ -1492,7 +1493,7 @@ id lua_LongLong_block_7qqdqdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqdqddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqdqddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,LongLong q3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3,&d4,&d5,&q6);
         LongLong res = 0;
@@ -1502,7 +1503,7 @@ id lua_LongLong_block_7qqdqddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqdqddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqdqddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,LongLong q3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3,&d4,&d5,&d6);
         LongLong res = 0;
@@ -1512,7 +1513,7 @@ id lua_LongLong_block_7qqdqddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqddqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqddqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,double d3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3,&q4,&q5,&q6);
         LongLong res = 0;
@@ -1522,7 +1523,7 @@ id lua_LongLong_block_7qqddqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqddqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqddqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,double d3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3,&q4,&q5,&d6);
         LongLong res = 0;
@@ -1532,7 +1533,7 @@ id lua_LongLong_block_7qqddqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqddqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqddqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,double d3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3,&q4,&d5,&q6);
         LongLong res = 0;
@@ -1542,7 +1543,7 @@ id lua_LongLong_block_7qqddqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqddqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqddqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,double d3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3,&q4,&d5,&d6);
         LongLong res = 0;
@@ -1552,7 +1553,7 @@ id lua_LongLong_block_7qqddqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqdddqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqdddqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,double d3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3,&d4,&q5,&q6);
         LongLong res = 0;
@@ -1562,7 +1563,7 @@ id lua_LongLong_block_7qqdddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqdddqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqdddqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,double d3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3,&d4,&q5,&d6);
         LongLong res = 0;
@@ -1572,7 +1573,7 @@ id lua_LongLong_block_7qqdddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqddddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqddddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,double d3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3,&d4,&d5,&q6);
         LongLong res = 0;
@@ -1582,7 +1583,7 @@ id lua_LongLong_block_7qqddddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qqddddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qqddddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,LongLong q1,double d2,double d3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3,&d4,&d5,&d6);
         LongLong res = 0;
@@ -1592,7 +1593,7 @@ id lua_LongLong_block_7qqddddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qdqqqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qdqqqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,LongLong q3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3,&q4,&q5,&q6);
         LongLong res = 0;
@@ -1602,7 +1603,7 @@ id lua_LongLong_block_7qdqqqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qdqqqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qdqqqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,LongLong q3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3,&q4,&q5,&d6);
         LongLong res = 0;
@@ -1612,7 +1613,7 @@ id lua_LongLong_block_7qdqqqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qdqqqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qdqqqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,LongLong q3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3,&q4,&d5,&q6);
         LongLong res = 0;
@@ -1622,7 +1623,7 @@ id lua_LongLong_block_7qdqqqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qdqqqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qdqqqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,LongLong q3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3,&q4,&d5,&d6);
         LongLong res = 0;
@@ -1632,7 +1633,7 @@ id lua_LongLong_block_7qdqqqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qdqqdqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qdqqdqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,LongLong q3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3,&d4,&q5,&q6);
         LongLong res = 0;
@@ -1642,7 +1643,7 @@ id lua_LongLong_block_7qdqqdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qdqqdqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qdqqdqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,LongLong q3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3,&d4,&q5,&d6);
         LongLong res = 0;
@@ -1652,7 +1653,7 @@ id lua_LongLong_block_7qdqqdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qdqqddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qdqqddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,LongLong q3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3,&d4,&d5,&q6);
         LongLong res = 0;
@@ -1662,7 +1663,7 @@ id lua_LongLong_block_7qdqqddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qdqqddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qdqqddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,LongLong q3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3,&d4,&d5,&d6);
         LongLong res = 0;
@@ -1672,7 +1673,7 @@ id lua_LongLong_block_7qdqqddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qdqdqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qdqdqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,double d3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3,&q4,&q5,&q6);
         LongLong res = 0;
@@ -1682,7 +1683,7 @@ id lua_LongLong_block_7qdqdqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qdqdqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qdqdqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,double d3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3,&q4,&q5,&d6);
         LongLong res = 0;
@@ -1692,7 +1693,7 @@ id lua_LongLong_block_7qdqdqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qdqdqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qdqdqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,double d3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3,&q4,&d5,&q6);
         LongLong res = 0;
@@ -1702,7 +1703,7 @@ id lua_LongLong_block_7qdqdqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qdqdqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qdqdqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,double d3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3,&q4,&d5,&d6);
         LongLong res = 0;
@@ -1712,7 +1713,7 @@ id lua_LongLong_block_7qdqdqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qdqddqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qdqddqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,double d3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3,&d4,&q5,&q6);
         LongLong res = 0;
@@ -1722,7 +1723,7 @@ id lua_LongLong_block_7qdqddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qdqddqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qdqddqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,double d3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3,&d4,&q5,&d6);
         LongLong res = 0;
@@ -1732,7 +1733,7 @@ id lua_LongLong_block_7qdqddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qdqdddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qdqdddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,double d3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3,&d4,&d5,&q6);
         LongLong res = 0;
@@ -1742,7 +1743,7 @@ id lua_LongLong_block_7qdqdddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qdqdddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qdqdddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,LongLong q2,double d3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3,&d4,&d5,&d6);
         LongLong res = 0;
@@ -1752,7 +1753,7 @@ id lua_LongLong_block_7qdqdddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qddqqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qddqqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,LongLong q3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3,&q4,&q5,&q6);
         LongLong res = 0;
@@ -1762,7 +1763,7 @@ id lua_LongLong_block_7qddqqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qddqqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qddqqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,LongLong q3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3,&q4,&q5,&d6);
         LongLong res = 0;
@@ -1772,7 +1773,7 @@ id lua_LongLong_block_7qddqqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qddqqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qddqqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,LongLong q3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3,&q4,&d5,&q6);
         LongLong res = 0;
@@ -1782,7 +1783,7 @@ id lua_LongLong_block_7qddqqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qddqqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qddqqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,LongLong q3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3,&q4,&d5,&d6);
         LongLong res = 0;
@@ -1792,7 +1793,7 @@ id lua_LongLong_block_7qddqqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qddqdqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qddqdqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,LongLong q3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3,&d4,&q5,&q6);
         LongLong res = 0;
@@ -1802,7 +1803,7 @@ id lua_LongLong_block_7qddqdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qddqdqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qddqdqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,LongLong q3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3,&d4,&q5,&d6);
         LongLong res = 0;
@@ -1812,7 +1813,7 @@ id lua_LongLong_block_7qddqdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qddqddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qddqddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,LongLong q3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3,&d4,&d5,&q6);
         LongLong res = 0;
@@ -1822,7 +1823,7 @@ id lua_LongLong_block_7qddqddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qddqddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qddqddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,LongLong q3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3,&d4,&d5,&d6);
         LongLong res = 0;
@@ -1832,7 +1833,7 @@ id lua_LongLong_block_7qddqddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qdddqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qdddqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,double d3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3,&q4,&q5,&q6);
         LongLong res = 0;
@@ -1842,7 +1843,7 @@ id lua_LongLong_block_7qdddqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qdddqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qdddqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,double d3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3,&q4,&q5,&d6);
         LongLong res = 0;
@@ -1852,7 +1853,7 @@ id lua_LongLong_block_7qdddqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qdddqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qdddqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,double d3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3,&q4,&d5,&q6);
         LongLong res = 0;
@@ -1862,7 +1863,7 @@ id lua_LongLong_block_7qdddqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qdddqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qdddqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,double d3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3,&q4,&d5,&d6);
         LongLong res = 0;
@@ -1872,7 +1873,7 @@ id lua_LongLong_block_7qdddqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qddddqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qddddqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,double d3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3,&d4,&q5,&q6);
         LongLong res = 0;
@@ -1882,7 +1883,7 @@ id lua_LongLong_block_7qddddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qddddqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qddddqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,double d3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3,&d4,&q5,&d6);
         LongLong res = 0;
@@ -1892,7 +1893,7 @@ id lua_LongLong_block_7qddddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qdddddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qdddddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,double d3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3,&d4,&d5,&q6);
         LongLong res = 0;
@@ -1902,7 +1903,7 @@ id lua_LongLong_block_7qdddddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7qdddddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7qdddddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(LongLong q0,double d1,double d2,double d3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3,&d4,&d5,&d6);
         LongLong res = 0;
@@ -1912,7 +1913,7 @@ id lua_LongLong_block_7qdddddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqqqqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqqqqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,LongLong q3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3,&q4,&q5,&q6);
         LongLong res = 0;
@@ -1922,7 +1923,7 @@ id lua_LongLong_block_7dqqqqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqqqqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqqqqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,LongLong q3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3,&q4,&q5,&d6);
         LongLong res = 0;
@@ -1932,7 +1933,7 @@ id lua_LongLong_block_7dqqqqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqqqqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqqqqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,LongLong q3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3,&q4,&d5,&q6);
         LongLong res = 0;
@@ -1942,7 +1943,7 @@ id lua_LongLong_block_7dqqqqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqqqqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqqqqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,LongLong q3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3,&q4,&d5,&d6);
         LongLong res = 0;
@@ -1952,7 +1953,7 @@ id lua_LongLong_block_7dqqqqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqqqdqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqqqdqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,LongLong q3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3,&d4,&q5,&q6);
         LongLong res = 0;
@@ -1962,7 +1963,7 @@ id lua_LongLong_block_7dqqqdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqqqdqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqqqdqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,LongLong q3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3,&d4,&q5,&d6);
         LongLong res = 0;
@@ -1972,7 +1973,7 @@ id lua_LongLong_block_7dqqqdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqqqddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqqqddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,LongLong q3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3,&d4,&d5,&q6);
         LongLong res = 0;
@@ -1982,7 +1983,7 @@ id lua_LongLong_block_7dqqqddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqqqddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqqqddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,LongLong q3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3,&d4,&d5,&d6);
         LongLong res = 0;
@@ -1992,7 +1993,7 @@ id lua_LongLong_block_7dqqqddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqqdqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqqdqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,double d3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3,&q4,&q5,&q6);
         LongLong res = 0;
@@ -2002,7 +2003,7 @@ id lua_LongLong_block_7dqqdqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqqdqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqqdqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,double d3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3,&q4,&q5,&d6);
         LongLong res = 0;
@@ -2012,7 +2013,7 @@ id lua_LongLong_block_7dqqdqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqqdqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqqdqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,double d3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3,&q4,&d5,&q6);
         LongLong res = 0;
@@ -2022,7 +2023,7 @@ id lua_LongLong_block_7dqqdqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqqdqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqqdqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,double d3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3,&q4,&d5,&d6);
         LongLong res = 0;
@@ -2032,7 +2033,7 @@ id lua_LongLong_block_7dqqdqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqqddqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqqddqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,double d3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3,&d4,&q5,&q6);
         LongLong res = 0;
@@ -2042,7 +2043,7 @@ id lua_LongLong_block_7dqqddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqqddqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqqddqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,double d3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3,&d4,&q5,&d6);
         LongLong res = 0;
@@ -2052,7 +2053,7 @@ id lua_LongLong_block_7dqqddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqqdddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqqdddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,double d3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3,&d4,&d5,&q6);
         LongLong res = 0;
@@ -2062,7 +2063,7 @@ id lua_LongLong_block_7dqqdddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqqdddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqqdddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,LongLong q2,double d3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3,&d4,&d5,&d6);
         LongLong res = 0;
@@ -2072,7 +2073,7 @@ id lua_LongLong_block_7dqqdddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqdqqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqdqqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,LongLong q3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3,&q4,&q5,&q6);
         LongLong res = 0;
@@ -2082,7 +2083,7 @@ id lua_LongLong_block_7dqdqqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqdqqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqdqqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,LongLong q3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3,&q4,&q5,&d6);
         LongLong res = 0;
@@ -2092,7 +2093,7 @@ id lua_LongLong_block_7dqdqqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqdqqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqdqqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,LongLong q3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3,&q4,&d5,&q6);
         LongLong res = 0;
@@ -2102,7 +2103,7 @@ id lua_LongLong_block_7dqdqqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqdqqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqdqqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,LongLong q3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3,&q4,&d5,&d6);
         LongLong res = 0;
@@ -2112,7 +2113,7 @@ id lua_LongLong_block_7dqdqqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqdqdqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqdqdqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,LongLong q3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3,&d4,&q5,&q6);
         LongLong res = 0;
@@ -2122,7 +2123,7 @@ id lua_LongLong_block_7dqdqdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqdqdqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqdqdqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,LongLong q3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3,&d4,&q5,&d6);
         LongLong res = 0;
@@ -2132,7 +2133,7 @@ id lua_LongLong_block_7dqdqdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqdqddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqdqddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,LongLong q3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3,&d4,&d5,&q6);
         LongLong res = 0;
@@ -2142,7 +2143,7 @@ id lua_LongLong_block_7dqdqddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqdqddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqdqddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,LongLong q3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3,&d4,&d5,&d6);
         LongLong res = 0;
@@ -2152,7 +2153,7 @@ id lua_LongLong_block_7dqdqddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqddqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqddqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,double d3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3,&q4,&q5,&q6);
         LongLong res = 0;
@@ -2162,7 +2163,7 @@ id lua_LongLong_block_7dqddqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqddqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqddqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,double d3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3,&q4,&q5,&d6);
         LongLong res = 0;
@@ -2172,7 +2173,7 @@ id lua_LongLong_block_7dqddqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqddqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqddqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,double d3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3,&q4,&d5,&q6);
         LongLong res = 0;
@@ -2182,7 +2183,7 @@ id lua_LongLong_block_7dqddqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqddqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqddqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,double d3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3,&q4,&d5,&d6);
         LongLong res = 0;
@@ -2192,7 +2193,7 @@ id lua_LongLong_block_7dqddqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqdddqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqdddqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,double d3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3,&d4,&q5,&q6);
         LongLong res = 0;
@@ -2202,7 +2203,7 @@ id lua_LongLong_block_7dqdddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqdddqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqdddqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,double d3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3,&d4,&q5,&d6);
         LongLong res = 0;
@@ -2212,7 +2213,7 @@ id lua_LongLong_block_7dqdddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqddddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqddddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,double d3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3,&d4,&d5,&q6);
         LongLong res = 0;
@@ -2222,7 +2223,7 @@ id lua_LongLong_block_7dqddddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dqddddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dqddddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,LongLong q1,double d2,double d3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3,&d4,&d5,&d6);
         LongLong res = 0;
@@ -2232,7 +2233,7 @@ id lua_LongLong_block_7dqddddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7ddqqqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7ddqqqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,LongLong q3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3,&q4,&q5,&q6);
         LongLong res = 0;
@@ -2242,7 +2243,7 @@ id lua_LongLong_block_7ddqqqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7ddqqqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7ddqqqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,LongLong q3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3,&q4,&q5,&d6);
         LongLong res = 0;
@@ -2252,7 +2253,7 @@ id lua_LongLong_block_7ddqqqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7ddqqqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7ddqqqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,LongLong q3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3,&q4,&d5,&q6);
         LongLong res = 0;
@@ -2262,7 +2263,7 @@ id lua_LongLong_block_7ddqqqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7ddqqqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7ddqqqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,LongLong q3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3,&q4,&d5,&d6);
         LongLong res = 0;
@@ -2272,7 +2273,7 @@ id lua_LongLong_block_7ddqqqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7ddqqdqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7ddqqdqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,LongLong q3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3,&d4,&q5,&q6);
         LongLong res = 0;
@@ -2282,7 +2283,7 @@ id lua_LongLong_block_7ddqqdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7ddqqdqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7ddqqdqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,LongLong q3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3,&d4,&q5,&d6);
         LongLong res = 0;
@@ -2292,7 +2293,7 @@ id lua_LongLong_block_7ddqqdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7ddqqddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7ddqqddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,LongLong q3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3,&d4,&d5,&q6);
         LongLong res = 0;
@@ -2302,7 +2303,7 @@ id lua_LongLong_block_7ddqqddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7ddqqddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7ddqqddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,LongLong q3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3,&d4,&d5,&d6);
         LongLong res = 0;
@@ -2312,7 +2313,7 @@ id lua_LongLong_block_7ddqqddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7ddqdqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7ddqdqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,double d3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3,&q4,&q5,&q6);
         LongLong res = 0;
@@ -2322,7 +2323,7 @@ id lua_LongLong_block_7ddqdqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7ddqdqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7ddqdqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,double d3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3,&q4,&q5,&d6);
         LongLong res = 0;
@@ -2332,7 +2333,7 @@ id lua_LongLong_block_7ddqdqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7ddqdqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7ddqdqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,double d3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3,&q4,&d5,&q6);
         LongLong res = 0;
@@ -2342,7 +2343,7 @@ id lua_LongLong_block_7ddqdqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7ddqdqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7ddqdqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,double d3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3,&q4,&d5,&d6);
         LongLong res = 0;
@@ -2352,7 +2353,7 @@ id lua_LongLong_block_7ddqdqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7ddqddqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7ddqddqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,double d3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3,&d4,&q5,&q6);
         LongLong res = 0;
@@ -2362,7 +2363,7 @@ id lua_LongLong_block_7ddqddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7ddqddqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7ddqddqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,double d3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3,&d4,&q5,&d6);
         LongLong res = 0;
@@ -2372,7 +2373,7 @@ id lua_LongLong_block_7ddqddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7ddqdddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7ddqdddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,double d3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3,&d4,&d5,&q6);
         LongLong res = 0;
@@ -2382,7 +2383,7 @@ id lua_LongLong_block_7ddqdddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7ddqdddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7ddqdddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,LongLong q2,double d3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3,&d4,&d5,&d6);
         LongLong res = 0;
@@ -2392,7 +2393,7 @@ id lua_LongLong_block_7ddqdddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dddqqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dddqqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,LongLong q3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3,&q4,&q5,&q6);
         LongLong res = 0;
@@ -2402,7 +2403,7 @@ id lua_LongLong_block_7dddqqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dddqqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dddqqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,LongLong q3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3,&q4,&q5,&d6);
         LongLong res = 0;
@@ -2412,7 +2413,7 @@ id lua_LongLong_block_7dddqqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dddqqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dddqqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,LongLong q3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3,&q4,&d5,&q6);
         LongLong res = 0;
@@ -2422,7 +2423,7 @@ id lua_LongLong_block_7dddqqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dddqqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dddqqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,LongLong q3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3,&q4,&d5,&d6);
         LongLong res = 0;
@@ -2432,7 +2433,7 @@ id lua_LongLong_block_7dddqqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dddqdqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dddqdqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,LongLong q3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3,&d4,&q5,&q6);
         LongLong res = 0;
@@ -2442,7 +2443,7 @@ id lua_LongLong_block_7dddqdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dddqdqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dddqdqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,LongLong q3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3,&d4,&q5,&d6);
         LongLong res = 0;
@@ -2452,7 +2453,7 @@ id lua_LongLong_block_7dddqdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dddqddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dddqddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,LongLong q3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3,&d4,&d5,&q6);
         LongLong res = 0;
@@ -2462,7 +2463,7 @@ id lua_LongLong_block_7dddqddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dddqddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dddqddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,LongLong q3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3,&d4,&d5,&d6);
         LongLong res = 0;
@@ -2472,7 +2473,7 @@ id lua_LongLong_block_7dddqddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7ddddqqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7ddddqqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,double d3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3,&q4,&q5,&q6);
         LongLong res = 0;
@@ -2482,7 +2483,7 @@ id lua_LongLong_block_7ddddqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7ddddqqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7ddddqqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,double d3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3,&q4,&q5,&d6);
         LongLong res = 0;
@@ -2492,7 +2493,7 @@ id lua_LongLong_block_7ddddqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7ddddqdq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7ddddqdq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,double d3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3,&q4,&d5,&q6);
         LongLong res = 0;
@@ -2502,7 +2503,7 @@ id lua_LongLong_block_7ddddqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7ddddqdd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7ddddqdd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,double d3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3,&q4,&d5,&d6);
         LongLong res = 0;
@@ -2512,7 +2513,7 @@ id lua_LongLong_block_7ddddqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dddddqq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dddddqq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,double d3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3,&d4,&q5,&q6);
         LongLong res = 0;
@@ -2522,7 +2523,7 @@ id lua_LongLong_block_7dddddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7dddddqd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7dddddqd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,double d3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3,&d4,&q5,&d6);
         LongLong res = 0;
@@ -2532,7 +2533,7 @@ id lua_LongLong_block_7dddddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7ddddddq(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7ddddddq(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,double d3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3,&d4,&d5,&q6);
         LongLong res = 0;
@@ -2542,7 +2543,7 @@ id lua_LongLong_block_7ddddddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_LongLong_block_7ddddddd(NSString *paramsTypeEncoding,id self){
+static id lua_LongLong_block_7ddddddd(NSString *paramsTypeEncoding,id self){
     return [[^LongLong(double d0,double d1,double d2,double d3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3,&d4,&d5,&d6);
         LongLong res = 0;
@@ -2552,7 +2553,7 @@ id lua_LongLong_block_7ddddddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_0(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_0(NSString *paramsTypeEncoding,id self){
     return [[^double(){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self);
         double res = 0;
@@ -2562,7 +2563,7 @@ id lua_double_block_0(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_1q(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_1q(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0);
         double res = 0;
@@ -2572,7 +2573,7 @@ id lua_double_block_1q(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_1d(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_1d(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0);
         double res = 0;
@@ -2582,7 +2583,7 @@ id lua_double_block_1d(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_2qq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_2qq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1);
         double res = 0;
@@ -2592,7 +2593,7 @@ id lua_double_block_2qq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_2qd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_2qd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1);
         double res = 0;
@@ -2602,7 +2603,7 @@ id lua_double_block_2qd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_2dq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_2dq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1);
         double res = 0;
@@ -2612,7 +2613,7 @@ id lua_double_block_2dq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_2dd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_2dd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1);
         double res = 0;
@@ -2622,7 +2623,7 @@ id lua_double_block_2dd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_3qqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_3qqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2);
         double res = 0;
@@ -2632,7 +2633,7 @@ id lua_double_block_3qqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_3qqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_3qqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2);
         double res = 0;
@@ -2642,7 +2643,7 @@ id lua_double_block_3qqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_3qdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_3qdq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2);
         double res = 0;
@@ -2652,7 +2653,7 @@ id lua_double_block_3qdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_3qdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_3qdd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2);
         double res = 0;
@@ -2662,7 +2663,7 @@ id lua_double_block_3qdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_3dqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_3dqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2);
         double res = 0;
@@ -2672,7 +2673,7 @@ id lua_double_block_3dqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_3dqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_3dqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2);
         double res = 0;
@@ -2682,7 +2683,7 @@ id lua_double_block_3dqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_3ddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_3ddq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2);
         double res = 0;
@@ -2692,7 +2693,7 @@ id lua_double_block_3ddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_3ddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_3ddd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2);
         double res = 0;
@@ -2702,7 +2703,7 @@ id lua_double_block_3ddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_4qqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_4qqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,LongLong q3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3);
         double res = 0;
@@ -2712,7 +2713,7 @@ id lua_double_block_4qqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_4qqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_4qqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,double d3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3);
         double res = 0;
@@ -2722,7 +2723,7 @@ id lua_double_block_4qqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_4qqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_4qqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,LongLong q3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3);
         double res = 0;
@@ -2732,7 +2733,7 @@ id lua_double_block_4qqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_4qqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_4qqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,double d3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3);
         double res = 0;
@@ -2742,7 +2743,7 @@ id lua_double_block_4qqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_4qdqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_4qdqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,LongLong q3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3);
         double res = 0;
@@ -2752,7 +2753,7 @@ id lua_double_block_4qdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_4qdqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_4qdqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,double d3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3);
         double res = 0;
@@ -2762,7 +2763,7 @@ id lua_double_block_4qdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_4qddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_4qddq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,LongLong q3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3);
         double res = 0;
@@ -2772,7 +2773,7 @@ id lua_double_block_4qddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_4qddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_4qddd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,double d3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3);
         double res = 0;
@@ -2782,7 +2783,7 @@ id lua_double_block_4qddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_4dqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_4dqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,LongLong q3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3);
         double res = 0;
@@ -2792,7 +2793,7 @@ id lua_double_block_4dqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_4dqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_4dqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,double d3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3);
         double res = 0;
@@ -2802,7 +2803,7 @@ id lua_double_block_4dqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_4dqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_4dqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,LongLong q3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3);
         double res = 0;
@@ -2812,7 +2813,7 @@ id lua_double_block_4dqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_4dqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_4dqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,double d3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3);
         double res = 0;
@@ -2822,7 +2823,7 @@ id lua_double_block_4dqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_4ddqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_4ddqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,LongLong q3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3);
         double res = 0;
@@ -2832,7 +2833,7 @@ id lua_double_block_4ddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_4ddqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_4ddqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,double d3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3);
         double res = 0;
@@ -2842,7 +2843,7 @@ id lua_double_block_4ddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_4dddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_4dddq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,LongLong q3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3);
         double res = 0;
@@ -2852,7 +2853,7 @@ id lua_double_block_4dddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_4dddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_4dddd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,double d3){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3);
         double res = 0;
@@ -2862,7 +2863,7 @@ id lua_double_block_4dddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5qqqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5qqqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,LongLong q3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3,&q4);
         double res = 0;
@@ -2872,7 +2873,7 @@ id lua_double_block_5qqqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5qqqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5qqqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,LongLong q3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3,&d4);
         double res = 0;
@@ -2882,7 +2883,7 @@ id lua_double_block_5qqqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5qqqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5qqqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,double d3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3,&q4);
         double res = 0;
@@ -2892,7 +2893,7 @@ id lua_double_block_5qqqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5qqqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5qqqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,double d3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3,&d4);
         double res = 0;
@@ -2902,7 +2903,7 @@ id lua_double_block_5qqqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5qqdqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5qqdqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,LongLong q3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3,&q4);
         double res = 0;
@@ -2912,7 +2913,7 @@ id lua_double_block_5qqdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5qqdqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5qqdqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,LongLong q3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3,&d4);
         double res = 0;
@@ -2922,7 +2923,7 @@ id lua_double_block_5qqdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5qqddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5qqddq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,double d3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3,&q4);
         double res = 0;
@@ -2932,7 +2933,7 @@ id lua_double_block_5qqddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5qqddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5qqddd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,double d3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3,&d4);
         double res = 0;
@@ -2942,7 +2943,7 @@ id lua_double_block_5qqddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5qdqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5qdqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,LongLong q3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3,&q4);
         double res = 0;
@@ -2952,7 +2953,7 @@ id lua_double_block_5qdqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5qdqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5qdqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,LongLong q3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3,&d4);
         double res = 0;
@@ -2962,7 +2963,7 @@ id lua_double_block_5qdqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5qdqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5qdqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,double d3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3,&q4);
         double res = 0;
@@ -2972,7 +2973,7 @@ id lua_double_block_5qdqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5qdqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5qdqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,double d3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3,&d4);
         double res = 0;
@@ -2982,7 +2983,7 @@ id lua_double_block_5qdqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5qddqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5qddqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,LongLong q3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3,&q4);
         double res = 0;
@@ -2992,7 +2993,7 @@ id lua_double_block_5qddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5qddqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5qddqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,LongLong q3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3,&d4);
         double res = 0;
@@ -3002,7 +3003,7 @@ id lua_double_block_5qddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5qdddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5qdddq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,double d3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3,&q4);
         double res = 0;
@@ -3012,7 +3013,7 @@ id lua_double_block_5qdddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5qdddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5qdddd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,double d3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3,&d4);
         double res = 0;
@@ -3022,7 +3023,7 @@ id lua_double_block_5qdddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5dqqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5dqqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,LongLong q3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3,&q4);
         double res = 0;
@@ -3032,7 +3033,7 @@ id lua_double_block_5dqqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5dqqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5dqqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,LongLong q3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3,&d4);
         double res = 0;
@@ -3042,7 +3043,7 @@ id lua_double_block_5dqqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5dqqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5dqqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,double d3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3,&q4);
         double res = 0;
@@ -3052,7 +3053,7 @@ id lua_double_block_5dqqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5dqqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5dqqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,double d3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3,&d4);
         double res = 0;
@@ -3062,7 +3063,7 @@ id lua_double_block_5dqqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5dqdqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5dqdqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,LongLong q3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3,&q4);
         double res = 0;
@@ -3072,7 +3073,7 @@ id lua_double_block_5dqdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5dqdqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5dqdqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,LongLong q3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3,&d4);
         double res = 0;
@@ -3082,7 +3083,7 @@ id lua_double_block_5dqdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5dqddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5dqddq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,double d3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3,&q4);
         double res = 0;
@@ -3092,7 +3093,7 @@ id lua_double_block_5dqddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5dqddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5dqddd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,double d3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3,&d4);
         double res = 0;
@@ -3102,7 +3103,7 @@ id lua_double_block_5dqddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5ddqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5ddqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,LongLong q3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3,&q4);
         double res = 0;
@@ -3112,7 +3113,7 @@ id lua_double_block_5ddqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5ddqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5ddqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,LongLong q3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3,&d4);
         double res = 0;
@@ -3122,7 +3123,7 @@ id lua_double_block_5ddqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5ddqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5ddqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,double d3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3,&q4);
         double res = 0;
@@ -3132,7 +3133,7 @@ id lua_double_block_5ddqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5ddqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5ddqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,double d3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3,&d4);
         double res = 0;
@@ -3142,7 +3143,7 @@ id lua_double_block_5ddqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5dddqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5dddqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,LongLong q3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3,&q4);
         double res = 0;
@@ -3152,7 +3153,7 @@ id lua_double_block_5dddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5dddqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5dddqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,LongLong q3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3,&d4);
         double res = 0;
@@ -3162,7 +3163,7 @@ id lua_double_block_5dddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5ddddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5ddddq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,double d3,LongLong q4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3,&q4);
         double res = 0;
@@ -3172,7 +3173,7 @@ id lua_double_block_5ddddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_5ddddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_5ddddd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,double d3,double d4){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3,&d4);
         double res = 0;
@@ -3182,7 +3183,7 @@ id lua_double_block_5ddddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qqqqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qqqqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,LongLong q3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3,&q4,&q5);
         double res = 0;
@@ -3192,7 +3193,7 @@ id lua_double_block_6qqqqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qqqqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qqqqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,LongLong q3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3,&q4,&d5);
         double res = 0;
@@ -3202,7 +3203,7 @@ id lua_double_block_6qqqqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qqqqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qqqqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,LongLong q3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3,&d4,&q5);
         double res = 0;
@@ -3212,7 +3213,7 @@ id lua_double_block_6qqqqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qqqqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qqqqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,LongLong q3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3,&d4,&d5);
         double res = 0;
@@ -3222,7 +3223,7 @@ id lua_double_block_6qqqqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qqqdqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qqqdqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,double d3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3,&q4,&q5);
         double res = 0;
@@ -3232,7 +3233,7 @@ id lua_double_block_6qqqdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qqqdqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qqqdqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,double d3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3,&q4,&d5);
         double res = 0;
@@ -3242,7 +3243,7 @@ id lua_double_block_6qqqdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qqqddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qqqddq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,double d3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3,&d4,&q5);
         double res = 0;
@@ -3252,7 +3253,7 @@ id lua_double_block_6qqqddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qqqddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qqqddd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,double d3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3,&d4,&d5);
         double res = 0;
@@ -3262,7 +3263,7 @@ id lua_double_block_6qqqddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qqdqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qqdqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,LongLong q3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3,&q4,&q5);
         double res = 0;
@@ -3272,7 +3273,7 @@ id lua_double_block_6qqdqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qqdqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qqdqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,LongLong q3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3,&q4,&d5);
         double res = 0;
@@ -3282,7 +3283,7 @@ id lua_double_block_6qqdqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qqdqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qqdqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,LongLong q3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3,&d4,&q5);
         double res = 0;
@@ -3292,7 +3293,7 @@ id lua_double_block_6qqdqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qqdqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qqdqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,LongLong q3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3,&d4,&d5);
         double res = 0;
@@ -3302,7 +3303,7 @@ id lua_double_block_6qqdqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qqddqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qqddqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,double d3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3,&q4,&q5);
         double res = 0;
@@ -3312,7 +3313,7 @@ id lua_double_block_6qqddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qqddqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qqddqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,double d3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3,&q4,&d5);
         double res = 0;
@@ -3322,7 +3323,7 @@ id lua_double_block_6qqddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qqdddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qqdddq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,double d3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3,&d4,&q5);
         double res = 0;
@@ -3332,7 +3333,7 @@ id lua_double_block_6qqdddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qqdddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qqdddd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,double d3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3,&d4,&d5);
         double res = 0;
@@ -3342,7 +3343,7 @@ id lua_double_block_6qqdddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qdqqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qdqqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,LongLong q3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3,&q4,&q5);
         double res = 0;
@@ -3352,7 +3353,7 @@ id lua_double_block_6qdqqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qdqqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qdqqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,LongLong q3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3,&q4,&d5);
         double res = 0;
@@ -3362,7 +3363,7 @@ id lua_double_block_6qdqqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qdqqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qdqqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,LongLong q3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3,&d4,&q5);
         double res = 0;
@@ -3372,7 +3373,7 @@ id lua_double_block_6qdqqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qdqqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qdqqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,LongLong q3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3,&d4,&d5);
         double res = 0;
@@ -3382,7 +3383,7 @@ id lua_double_block_6qdqqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qdqdqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qdqdqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,double d3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3,&q4,&q5);
         double res = 0;
@@ -3392,7 +3393,7 @@ id lua_double_block_6qdqdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qdqdqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qdqdqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,double d3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3,&q4,&d5);
         double res = 0;
@@ -3402,7 +3403,7 @@ id lua_double_block_6qdqdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qdqddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qdqddq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,double d3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3,&d4,&q5);
         double res = 0;
@@ -3412,7 +3413,7 @@ id lua_double_block_6qdqddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qdqddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qdqddd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,double d3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3,&d4,&d5);
         double res = 0;
@@ -3422,7 +3423,7 @@ id lua_double_block_6qdqddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qddqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qddqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,LongLong q3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3,&q4,&q5);
         double res = 0;
@@ -3432,7 +3433,7 @@ id lua_double_block_6qddqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qddqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qddqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,LongLong q3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3,&q4,&d5);
         double res = 0;
@@ -3442,7 +3443,7 @@ id lua_double_block_6qddqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qddqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qddqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,LongLong q3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3,&d4,&q5);
         double res = 0;
@@ -3452,7 +3453,7 @@ id lua_double_block_6qddqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qddqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qddqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,LongLong q3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3,&d4,&d5);
         double res = 0;
@@ -3462,7 +3463,7 @@ id lua_double_block_6qddqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qdddqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qdddqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,double d3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3,&q4,&q5);
         double res = 0;
@@ -3472,7 +3473,7 @@ id lua_double_block_6qdddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qdddqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qdddqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,double d3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3,&q4,&d5);
         double res = 0;
@@ -3482,7 +3483,7 @@ id lua_double_block_6qdddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qddddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qddddq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,double d3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3,&d4,&q5);
         double res = 0;
@@ -3492,7 +3493,7 @@ id lua_double_block_6qddddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6qddddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6qddddd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,double d3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3,&d4,&d5);
         double res = 0;
@@ -3502,7 +3503,7 @@ id lua_double_block_6qddddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6dqqqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6dqqqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,LongLong q3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3,&q4,&q5);
         double res = 0;
@@ -3512,7 +3513,7 @@ id lua_double_block_6dqqqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6dqqqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6dqqqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,LongLong q3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3,&q4,&d5);
         double res = 0;
@@ -3522,7 +3523,7 @@ id lua_double_block_6dqqqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6dqqqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6dqqqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,LongLong q3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3,&d4,&q5);
         double res = 0;
@@ -3532,7 +3533,7 @@ id lua_double_block_6dqqqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6dqqqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6dqqqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,LongLong q3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3,&d4,&d5);
         double res = 0;
@@ -3542,7 +3543,7 @@ id lua_double_block_6dqqqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6dqqdqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6dqqdqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,double d3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3,&q4,&q5);
         double res = 0;
@@ -3552,7 +3553,7 @@ id lua_double_block_6dqqdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6dqqdqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6dqqdqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,double d3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3,&q4,&d5);
         double res = 0;
@@ -3562,7 +3563,7 @@ id lua_double_block_6dqqdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6dqqddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6dqqddq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,double d3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3,&d4,&q5);
         double res = 0;
@@ -3572,7 +3573,7 @@ id lua_double_block_6dqqddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6dqqddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6dqqddd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,double d3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3,&d4,&d5);
         double res = 0;
@@ -3582,7 +3583,7 @@ id lua_double_block_6dqqddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6dqdqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6dqdqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,LongLong q3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3,&q4,&q5);
         double res = 0;
@@ -3592,7 +3593,7 @@ id lua_double_block_6dqdqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6dqdqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6dqdqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,LongLong q3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3,&q4,&d5);
         double res = 0;
@@ -3602,7 +3603,7 @@ id lua_double_block_6dqdqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6dqdqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6dqdqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,LongLong q3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3,&d4,&q5);
         double res = 0;
@@ -3612,7 +3613,7 @@ id lua_double_block_6dqdqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6dqdqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6dqdqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,LongLong q3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3,&d4,&d5);
         double res = 0;
@@ -3622,7 +3623,7 @@ id lua_double_block_6dqdqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6dqddqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6dqddqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,double d3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3,&q4,&q5);
         double res = 0;
@@ -3632,7 +3633,7 @@ id lua_double_block_6dqddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6dqddqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6dqddqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,double d3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3,&q4,&d5);
         double res = 0;
@@ -3642,7 +3643,7 @@ id lua_double_block_6dqddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6dqdddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6dqdddq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,double d3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3,&d4,&q5);
         double res = 0;
@@ -3652,7 +3653,7 @@ id lua_double_block_6dqdddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6dqdddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6dqdddd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,double d3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3,&d4,&d5);
         double res = 0;
@@ -3662,7 +3663,7 @@ id lua_double_block_6dqdddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6ddqqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6ddqqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,LongLong q3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3,&q4,&q5);
         double res = 0;
@@ -3672,7 +3673,7 @@ id lua_double_block_6ddqqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6ddqqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6ddqqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,LongLong q3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3,&q4,&d5);
         double res = 0;
@@ -3682,7 +3683,7 @@ id lua_double_block_6ddqqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6ddqqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6ddqqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,LongLong q3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3,&d4,&q5);
         double res = 0;
@@ -3692,7 +3693,7 @@ id lua_double_block_6ddqqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6ddqqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6ddqqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,LongLong q3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3,&d4,&d5);
         double res = 0;
@@ -3702,7 +3703,7 @@ id lua_double_block_6ddqqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6ddqdqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6ddqdqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,double d3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3,&q4,&q5);
         double res = 0;
@@ -3712,7 +3713,7 @@ id lua_double_block_6ddqdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6ddqdqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6ddqdqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,double d3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3,&q4,&d5);
         double res = 0;
@@ -3722,7 +3723,7 @@ id lua_double_block_6ddqdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6ddqddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6ddqddq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,double d3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3,&d4,&q5);
         double res = 0;
@@ -3732,7 +3733,7 @@ id lua_double_block_6ddqddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6ddqddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6ddqddd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,double d3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3,&d4,&d5);
         double res = 0;
@@ -3742,7 +3743,7 @@ id lua_double_block_6ddqddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6dddqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6dddqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,LongLong q3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3,&q4,&q5);
         double res = 0;
@@ -3752,7 +3753,7 @@ id lua_double_block_6dddqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6dddqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6dddqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,LongLong q3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3,&q4,&d5);
         double res = 0;
@@ -3762,7 +3763,7 @@ id lua_double_block_6dddqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6dddqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6dddqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,LongLong q3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3,&d4,&q5);
         double res = 0;
@@ -3772,7 +3773,7 @@ id lua_double_block_6dddqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6dddqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6dddqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,LongLong q3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3,&d4,&d5);
         double res = 0;
@@ -3782,7 +3783,7 @@ id lua_double_block_6dddqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6ddddqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6ddddqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,double d3,LongLong q4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3,&q4,&q5);
         double res = 0;
@@ -3792,7 +3793,7 @@ id lua_double_block_6ddddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6ddddqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6ddddqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,double d3,LongLong q4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3,&q4,&d5);
         double res = 0;
@@ -3802,7 +3803,7 @@ id lua_double_block_6ddddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6dddddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6dddddq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,double d3,double d4,LongLong q5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3,&d4,&q5);
         double res = 0;
@@ -3812,7 +3813,7 @@ id lua_double_block_6dddddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_6dddddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_6dddddd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,double d3,double d4,double d5){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3,&d4,&d5);
         double res = 0;
@@ -3822,7 +3823,7 @@ id lua_double_block_6dddddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqqqqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqqqqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,LongLong q3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3,&q4,&q5,&q6);
         double res = 0;
@@ -3832,7 +3833,7 @@ id lua_double_block_7qqqqqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqqqqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqqqqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,LongLong q3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3,&q4,&q5,&d6);
         double res = 0;
@@ -3842,7 +3843,7 @@ id lua_double_block_7qqqqqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqqqqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqqqqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,LongLong q3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3,&q4,&d5,&q6);
         double res = 0;
@@ -3852,7 +3853,7 @@ id lua_double_block_7qqqqqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqqqqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqqqqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,LongLong q3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3,&q4,&d5,&d6);
         double res = 0;
@@ -3862,7 +3863,7 @@ id lua_double_block_7qqqqqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqqqdqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqqqdqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,LongLong q3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3,&d4,&q5,&q6);
         double res = 0;
@@ -3872,7 +3873,7 @@ id lua_double_block_7qqqqdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqqqdqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqqqdqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,LongLong q3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3,&d4,&q5,&d6);
         double res = 0;
@@ -3882,7 +3883,7 @@ id lua_double_block_7qqqqdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqqqddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqqqddq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,LongLong q3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3,&d4,&d5,&q6);
         double res = 0;
@@ -3892,7 +3893,7 @@ id lua_double_block_7qqqqddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqqqddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqqqddd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,LongLong q3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&q3,&d4,&d5,&d6);
         double res = 0;
@@ -3902,7 +3903,7 @@ id lua_double_block_7qqqqddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqqdqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqqdqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,double d3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3,&q4,&q5,&q6);
         double res = 0;
@@ -3912,7 +3913,7 @@ id lua_double_block_7qqqdqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqqdqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqqdqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,double d3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3,&q4,&q5,&d6);
         double res = 0;
@@ -3922,7 +3923,7 @@ id lua_double_block_7qqqdqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqqdqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqqdqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,double d3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3,&q4,&d5,&q6);
         double res = 0;
@@ -3932,7 +3933,7 @@ id lua_double_block_7qqqdqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqqdqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqqdqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,double d3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3,&q4,&d5,&d6);
         double res = 0;
@@ -3942,7 +3943,7 @@ id lua_double_block_7qqqdqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqqddqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqqddqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,double d3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3,&d4,&q5,&q6);
         double res = 0;
@@ -3952,7 +3953,7 @@ id lua_double_block_7qqqddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqqddqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqqddqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,double d3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3,&d4,&q5,&d6);
         double res = 0;
@@ -3962,7 +3963,7 @@ id lua_double_block_7qqqddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqqdddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqqdddq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,double d3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3,&d4,&d5,&q6);
         double res = 0;
@@ -3972,7 +3973,7 @@ id lua_double_block_7qqqdddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqqdddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqqdddd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,LongLong q2,double d3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&q2,&d3,&d4,&d5,&d6);
         double res = 0;
@@ -3982,7 +3983,7 @@ id lua_double_block_7qqqdddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqdqqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqdqqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,LongLong q3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3,&q4,&q5,&q6);
         double res = 0;
@@ -3992,7 +3993,7 @@ id lua_double_block_7qqdqqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqdqqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqdqqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,LongLong q3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3,&q4,&q5,&d6);
         double res = 0;
@@ -4002,7 +4003,7 @@ id lua_double_block_7qqdqqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqdqqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqdqqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,LongLong q3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3,&q4,&d5,&q6);
         double res = 0;
@@ -4012,7 +4013,7 @@ id lua_double_block_7qqdqqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqdqqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqdqqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,LongLong q3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3,&q4,&d5,&d6);
         double res = 0;
@@ -4022,7 +4023,7 @@ id lua_double_block_7qqdqqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqdqdqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqdqdqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,LongLong q3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3,&d4,&q5,&q6);
         double res = 0;
@@ -4032,7 +4033,7 @@ id lua_double_block_7qqdqdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqdqdqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqdqdqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,LongLong q3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3,&d4,&q5,&d6);
         double res = 0;
@@ -4042,7 +4043,7 @@ id lua_double_block_7qqdqdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqdqddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqdqddq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,LongLong q3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3,&d4,&d5,&q6);
         double res = 0;
@@ -4052,7 +4053,7 @@ id lua_double_block_7qqdqddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqdqddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqdqddd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,LongLong q3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&q3,&d4,&d5,&d6);
         double res = 0;
@@ -4062,7 +4063,7 @@ id lua_double_block_7qqdqddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqddqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqddqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,double d3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3,&q4,&q5,&q6);
         double res = 0;
@@ -4072,7 +4073,7 @@ id lua_double_block_7qqddqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqddqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqddqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,double d3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3,&q4,&q5,&d6);
         double res = 0;
@@ -4082,7 +4083,7 @@ id lua_double_block_7qqddqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqddqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqddqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,double d3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3,&q4,&d5,&q6);
         double res = 0;
@@ -4092,7 +4093,7 @@ id lua_double_block_7qqddqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqddqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqddqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,double d3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3,&q4,&d5,&d6);
         double res = 0;
@@ -4102,7 +4103,7 @@ id lua_double_block_7qqddqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqdddqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqdddqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,double d3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3,&d4,&q5,&q6);
         double res = 0;
@@ -4112,7 +4113,7 @@ id lua_double_block_7qqdddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqdddqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqdddqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,double d3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3,&d4,&q5,&d6);
         double res = 0;
@@ -4122,7 +4123,7 @@ id lua_double_block_7qqdddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqddddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqddddq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,double d3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3,&d4,&d5,&q6);
         double res = 0;
@@ -4132,7 +4133,7 @@ id lua_double_block_7qqddddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qqddddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qqddddd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,LongLong q1,double d2,double d3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&q1,&d2,&d3,&d4,&d5,&d6);
         double res = 0;
@@ -4142,7 +4143,7 @@ id lua_double_block_7qqddddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qdqqqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qdqqqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,LongLong q3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3,&q4,&q5,&q6);
         double res = 0;
@@ -4152,7 +4153,7 @@ id lua_double_block_7qdqqqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qdqqqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qdqqqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,LongLong q3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3,&q4,&q5,&d6);
         double res = 0;
@@ -4162,7 +4163,7 @@ id lua_double_block_7qdqqqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qdqqqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qdqqqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,LongLong q3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3,&q4,&d5,&q6);
         double res = 0;
@@ -4172,7 +4173,7 @@ id lua_double_block_7qdqqqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qdqqqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qdqqqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,LongLong q3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3,&q4,&d5,&d6);
         double res = 0;
@@ -4182,7 +4183,7 @@ id lua_double_block_7qdqqqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qdqqdqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qdqqdqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,LongLong q3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3,&d4,&q5,&q6);
         double res = 0;
@@ -4192,7 +4193,7 @@ id lua_double_block_7qdqqdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qdqqdqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qdqqdqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,LongLong q3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3,&d4,&q5,&d6);
         double res = 0;
@@ -4202,7 +4203,7 @@ id lua_double_block_7qdqqdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qdqqddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qdqqddq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,LongLong q3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3,&d4,&d5,&q6);
         double res = 0;
@@ -4212,7 +4213,7 @@ id lua_double_block_7qdqqddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qdqqddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qdqqddd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,LongLong q3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&q3,&d4,&d5,&d6);
         double res = 0;
@@ -4222,7 +4223,7 @@ id lua_double_block_7qdqqddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qdqdqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qdqdqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,double d3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3,&q4,&q5,&q6);
         double res = 0;
@@ -4232,7 +4233,7 @@ id lua_double_block_7qdqdqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qdqdqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qdqdqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,double d3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3,&q4,&q5,&d6);
         double res = 0;
@@ -4242,7 +4243,7 @@ id lua_double_block_7qdqdqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qdqdqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qdqdqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,double d3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3,&q4,&d5,&q6);
         double res = 0;
@@ -4252,7 +4253,7 @@ id lua_double_block_7qdqdqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qdqdqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qdqdqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,double d3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3,&q4,&d5,&d6);
         double res = 0;
@@ -4262,7 +4263,7 @@ id lua_double_block_7qdqdqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qdqddqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qdqddqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,double d3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3,&d4,&q5,&q6);
         double res = 0;
@@ -4272,7 +4273,7 @@ id lua_double_block_7qdqddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qdqddqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qdqddqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,double d3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3,&d4,&q5,&d6);
         double res = 0;
@@ -4282,7 +4283,7 @@ id lua_double_block_7qdqddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qdqdddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qdqdddq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,double d3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3,&d4,&d5,&q6);
         double res = 0;
@@ -4292,7 +4293,7 @@ id lua_double_block_7qdqdddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qdqdddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qdqdddd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,LongLong q2,double d3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&q2,&d3,&d4,&d5,&d6);
         double res = 0;
@@ -4302,7 +4303,7 @@ id lua_double_block_7qdqdddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qddqqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qddqqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,LongLong q3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3,&q4,&q5,&q6);
         double res = 0;
@@ -4312,7 +4313,7 @@ id lua_double_block_7qddqqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qddqqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qddqqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,LongLong q3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3,&q4,&q5,&d6);
         double res = 0;
@@ -4322,7 +4323,7 @@ id lua_double_block_7qddqqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qddqqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qddqqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,LongLong q3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3,&q4,&d5,&q6);
         double res = 0;
@@ -4332,7 +4333,7 @@ id lua_double_block_7qddqqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qddqqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qddqqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,LongLong q3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3,&q4,&d5,&d6);
         double res = 0;
@@ -4342,7 +4343,7 @@ id lua_double_block_7qddqqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qddqdqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qddqdqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,LongLong q3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3,&d4,&q5,&q6);
         double res = 0;
@@ -4352,7 +4353,7 @@ id lua_double_block_7qddqdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qddqdqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qddqdqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,LongLong q3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3,&d4,&q5,&d6);
         double res = 0;
@@ -4362,7 +4363,7 @@ id lua_double_block_7qddqdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qddqddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qddqddq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,LongLong q3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3,&d4,&d5,&q6);
         double res = 0;
@@ -4372,7 +4373,7 @@ id lua_double_block_7qddqddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qddqddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qddqddd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,LongLong q3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&q3,&d4,&d5,&d6);
         double res = 0;
@@ -4382,7 +4383,7 @@ id lua_double_block_7qddqddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qdddqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qdddqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,double d3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3,&q4,&q5,&q6);
         double res = 0;
@@ -4392,7 +4393,7 @@ id lua_double_block_7qdddqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qdddqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qdddqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,double d3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3,&q4,&q5,&d6);
         double res = 0;
@@ -4402,7 +4403,7 @@ id lua_double_block_7qdddqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qdddqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qdddqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,double d3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3,&q4,&d5,&q6);
         double res = 0;
@@ -4412,7 +4413,7 @@ id lua_double_block_7qdddqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qdddqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qdddqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,double d3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3,&q4,&d5,&d6);
         double res = 0;
@@ -4422,7 +4423,7 @@ id lua_double_block_7qdddqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qddddqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qddddqq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,double d3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3,&d4,&q5,&q6);
         double res = 0;
@@ -4432,7 +4433,7 @@ id lua_double_block_7qddddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qddddqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qddddqd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,double d3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3,&d4,&q5,&d6);
         double res = 0;
@@ -4442,7 +4443,7 @@ id lua_double_block_7qddddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qdddddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qdddddq(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,double d3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3,&d4,&d5,&q6);
         double res = 0;
@@ -4452,7 +4453,7 @@ id lua_double_block_7qdddddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7qdddddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7qdddddd(NSString *paramsTypeEncoding,id self){
     return [[^double(LongLong q0,double d1,double d2,double d3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&q0,&d1,&d2,&d3,&d4,&d5,&d6);
         double res = 0;
@@ -4462,7 +4463,7 @@ id lua_double_block_7qdddddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqqqqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqqqqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,LongLong q3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3,&q4,&q5,&q6);
         double res = 0;
@@ -4472,7 +4473,7 @@ id lua_double_block_7dqqqqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqqqqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqqqqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,LongLong q3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3,&q4,&q5,&d6);
         double res = 0;
@@ -4482,7 +4483,7 @@ id lua_double_block_7dqqqqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqqqqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqqqqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,LongLong q3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3,&q4,&d5,&q6);
         double res = 0;
@@ -4492,7 +4493,7 @@ id lua_double_block_7dqqqqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqqqqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqqqqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,LongLong q3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3,&q4,&d5,&d6);
         double res = 0;
@@ -4502,7 +4503,7 @@ id lua_double_block_7dqqqqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqqqdqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqqqdqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,LongLong q3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3,&d4,&q5,&q6);
         double res = 0;
@@ -4512,7 +4513,7 @@ id lua_double_block_7dqqqdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqqqdqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqqqdqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,LongLong q3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3,&d4,&q5,&d6);
         double res = 0;
@@ -4522,7 +4523,7 @@ id lua_double_block_7dqqqdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqqqddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqqqddq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,LongLong q3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3,&d4,&d5,&q6);
         double res = 0;
@@ -4532,7 +4533,7 @@ id lua_double_block_7dqqqddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqqqddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqqqddd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,LongLong q3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&q3,&d4,&d5,&d6);
         double res = 0;
@@ -4542,7 +4543,7 @@ id lua_double_block_7dqqqddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqqdqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqqdqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,double d3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3,&q4,&q5,&q6);
         double res = 0;
@@ -4552,7 +4553,7 @@ id lua_double_block_7dqqdqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqqdqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqqdqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,double d3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3,&q4,&q5,&d6);
         double res = 0;
@@ -4562,7 +4563,7 @@ id lua_double_block_7dqqdqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqqdqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqqdqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,double d3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3,&q4,&d5,&q6);
         double res = 0;
@@ -4572,7 +4573,7 @@ id lua_double_block_7dqqdqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqqdqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqqdqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,double d3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3,&q4,&d5,&d6);
         double res = 0;
@@ -4582,7 +4583,7 @@ id lua_double_block_7dqqdqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqqddqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqqddqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,double d3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3,&d4,&q5,&q6);
         double res = 0;
@@ -4592,7 +4593,7 @@ id lua_double_block_7dqqddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqqddqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqqddqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,double d3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3,&d4,&q5,&d6);
         double res = 0;
@@ -4602,7 +4603,7 @@ id lua_double_block_7dqqddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqqdddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqqdddq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,double d3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3,&d4,&d5,&q6);
         double res = 0;
@@ -4612,7 +4613,7 @@ id lua_double_block_7dqqdddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqqdddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqqdddd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,LongLong q2,double d3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&q2,&d3,&d4,&d5,&d6);
         double res = 0;
@@ -4622,7 +4623,7 @@ id lua_double_block_7dqqdddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqdqqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqdqqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,LongLong q3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3,&q4,&q5,&q6);
         double res = 0;
@@ -4632,7 +4633,7 @@ id lua_double_block_7dqdqqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqdqqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqdqqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,LongLong q3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3,&q4,&q5,&d6);
         double res = 0;
@@ -4642,7 +4643,7 @@ id lua_double_block_7dqdqqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqdqqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqdqqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,LongLong q3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3,&q4,&d5,&q6);
         double res = 0;
@@ -4652,7 +4653,7 @@ id lua_double_block_7dqdqqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqdqqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqdqqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,LongLong q3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3,&q4,&d5,&d6);
         double res = 0;
@@ -4662,7 +4663,7 @@ id lua_double_block_7dqdqqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqdqdqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqdqdqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,LongLong q3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3,&d4,&q5,&q6);
         double res = 0;
@@ -4672,7 +4673,7 @@ id lua_double_block_7dqdqdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqdqdqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqdqdqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,LongLong q3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3,&d4,&q5,&d6);
         double res = 0;
@@ -4682,7 +4683,7 @@ id lua_double_block_7dqdqdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqdqddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqdqddq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,LongLong q3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3,&d4,&d5,&q6);
         double res = 0;
@@ -4692,7 +4693,7 @@ id lua_double_block_7dqdqddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqdqddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqdqddd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,LongLong q3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&q3,&d4,&d5,&d6);
         double res = 0;
@@ -4702,7 +4703,7 @@ id lua_double_block_7dqdqddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqddqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqddqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,double d3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3,&q4,&q5,&q6);
         double res = 0;
@@ -4712,7 +4713,7 @@ id lua_double_block_7dqddqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqddqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqddqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,double d3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3,&q4,&q5,&d6);
         double res = 0;
@@ -4722,7 +4723,7 @@ id lua_double_block_7dqddqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqddqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqddqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,double d3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3,&q4,&d5,&q6);
         double res = 0;
@@ -4732,7 +4733,7 @@ id lua_double_block_7dqddqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqddqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqddqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,double d3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3,&q4,&d5,&d6);
         double res = 0;
@@ -4742,7 +4743,7 @@ id lua_double_block_7dqddqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqdddqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqdddqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,double d3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3,&d4,&q5,&q6);
         double res = 0;
@@ -4752,7 +4753,7 @@ id lua_double_block_7dqdddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqdddqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqdddqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,double d3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3,&d4,&q5,&d6);
         double res = 0;
@@ -4762,7 +4763,7 @@ id lua_double_block_7dqdddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqddddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqddddq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,double d3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3,&d4,&d5,&q6);
         double res = 0;
@@ -4772,7 +4773,7 @@ id lua_double_block_7dqddddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dqddddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dqddddd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,LongLong q1,double d2,double d3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&q1,&d2,&d3,&d4,&d5,&d6);
         double res = 0;
@@ -4782,7 +4783,7 @@ id lua_double_block_7dqddddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7ddqqqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7ddqqqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,LongLong q3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3,&q4,&q5,&q6);
         double res = 0;
@@ -4792,7 +4793,7 @@ id lua_double_block_7ddqqqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7ddqqqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7ddqqqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,LongLong q3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3,&q4,&q5,&d6);
         double res = 0;
@@ -4802,7 +4803,7 @@ id lua_double_block_7ddqqqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7ddqqqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7ddqqqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,LongLong q3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3,&q4,&d5,&q6);
         double res = 0;
@@ -4812,7 +4813,7 @@ id lua_double_block_7ddqqqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7ddqqqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7ddqqqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,LongLong q3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3,&q4,&d5,&d6);
         double res = 0;
@@ -4822,7 +4823,7 @@ id lua_double_block_7ddqqqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7ddqqdqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7ddqqdqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,LongLong q3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3,&d4,&q5,&q6);
         double res = 0;
@@ -4832,7 +4833,7 @@ id lua_double_block_7ddqqdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7ddqqdqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7ddqqdqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,LongLong q3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3,&d4,&q5,&d6);
         double res = 0;
@@ -4842,7 +4843,7 @@ id lua_double_block_7ddqqdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7ddqqddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7ddqqddq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,LongLong q3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3,&d4,&d5,&q6);
         double res = 0;
@@ -4852,7 +4853,7 @@ id lua_double_block_7ddqqddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7ddqqddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7ddqqddd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,LongLong q3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&q3,&d4,&d5,&d6);
         double res = 0;
@@ -4862,7 +4863,7 @@ id lua_double_block_7ddqqddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7ddqdqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7ddqdqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,double d3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3,&q4,&q5,&q6);
         double res = 0;
@@ -4872,7 +4873,7 @@ id lua_double_block_7ddqdqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7ddqdqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7ddqdqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,double d3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3,&q4,&q5,&d6);
         double res = 0;
@@ -4882,7 +4883,7 @@ id lua_double_block_7ddqdqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7ddqdqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7ddqdqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,double d3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3,&q4,&d5,&q6);
         double res = 0;
@@ -4892,7 +4893,7 @@ id lua_double_block_7ddqdqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7ddqdqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7ddqdqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,double d3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3,&q4,&d5,&d6);
         double res = 0;
@@ -4902,7 +4903,7 @@ id lua_double_block_7ddqdqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7ddqddqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7ddqddqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,double d3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3,&d4,&q5,&q6);
         double res = 0;
@@ -4912,7 +4913,7 @@ id lua_double_block_7ddqddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7ddqddqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7ddqddqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,double d3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3,&d4,&q5,&d6);
         double res = 0;
@@ -4922,7 +4923,7 @@ id lua_double_block_7ddqddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7ddqdddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7ddqdddq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,double d3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3,&d4,&d5,&q6);
         double res = 0;
@@ -4932,7 +4933,7 @@ id lua_double_block_7ddqdddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7ddqdddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7ddqdddd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,LongLong q2,double d3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&q2,&d3,&d4,&d5,&d6);
         double res = 0;
@@ -4942,7 +4943,7 @@ id lua_double_block_7ddqdddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dddqqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dddqqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,LongLong q3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3,&q4,&q5,&q6);
         double res = 0;
@@ -4952,7 +4953,7 @@ id lua_double_block_7dddqqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dddqqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dddqqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,LongLong q3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3,&q4,&q5,&d6);
         double res = 0;
@@ -4962,7 +4963,7 @@ id lua_double_block_7dddqqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dddqqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dddqqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,LongLong q3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3,&q4,&d5,&q6);
         double res = 0;
@@ -4972,7 +4973,7 @@ id lua_double_block_7dddqqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dddqqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dddqqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,LongLong q3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3,&q4,&d5,&d6);
         double res = 0;
@@ -4982,7 +4983,7 @@ id lua_double_block_7dddqqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dddqdqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dddqdqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,LongLong q3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3,&d4,&q5,&q6);
         double res = 0;
@@ -4992,7 +4993,7 @@ id lua_double_block_7dddqdqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dddqdqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dddqdqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,LongLong q3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3,&d4,&q5,&d6);
         double res = 0;
@@ -5002,7 +5003,7 @@ id lua_double_block_7dddqdqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dddqddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dddqddq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,LongLong q3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3,&d4,&d5,&q6);
         double res = 0;
@@ -5012,7 +5013,7 @@ id lua_double_block_7dddqddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dddqddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dddqddd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,LongLong q3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&q3,&d4,&d5,&d6);
         double res = 0;
@@ -5022,7 +5023,7 @@ id lua_double_block_7dddqddd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7ddddqqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7ddddqqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,double d3,LongLong q4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3,&q4,&q5,&q6);
         double res = 0;
@@ -5032,7 +5033,7 @@ id lua_double_block_7ddddqqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7ddddqqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7ddddqqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,double d3,LongLong q4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3,&q4,&q5,&d6);
         double res = 0;
@@ -5042,7 +5043,7 @@ id lua_double_block_7ddddqqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7ddddqdq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7ddddqdq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,double d3,LongLong q4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3,&q4,&d5,&q6);
         double res = 0;
@@ -5052,7 +5053,7 @@ id lua_double_block_7ddddqdq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7ddddqdd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7ddddqdd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,double d3,LongLong q4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3,&q4,&d5,&d6);
         double res = 0;
@@ -5062,7 +5063,7 @@ id lua_double_block_7ddddqdd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dddddqq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dddddqq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,double d3,double d4,LongLong q5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3,&d4,&q5,&q6);
         double res = 0;
@@ -5072,7 +5073,7 @@ id lua_double_block_7dddddqq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7dddddqd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7dddddqd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,double d3,double d4,LongLong q5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3,&d4,&q5,&d6);
         double res = 0;
@@ -5082,7 +5083,7 @@ id lua_double_block_7dddddqd(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7ddddddq(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7ddddddq(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,double d3,double d4,double d5,LongLong q6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3,&d4,&d5,&q6);
         double res = 0;
@@ -5092,7 +5093,7 @@ id lua_double_block_7ddddddq(NSString *paramsTypeEncoding,id self){
         return res;
     }copy] autorelease];
 }
-id lua_double_block_7ddddddd(NSString *paramsTypeEncoding,id self){
+static id lua_double_block_7ddddddd(NSString *paramsTypeEncoding,id self){
     return [[^double(double d0,double d1,double d2,double d3,double d4,double d5,double d6){
         void *returnBuffer = luaBlockARM64ReturnBufferWithParamsTypeEncoding(paramsTypeEncoding,self,&d0,&d1,&d2,&d3,&d4,&d5,&d6);
         double res = 0;
@@ -5367,3 +5368,5 @@ NSDictionary *wax_block_transfer_pool(){
     }
     return dict;
 }
+
+#endif

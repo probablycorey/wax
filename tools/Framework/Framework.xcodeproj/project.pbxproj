@@ -9,8 +9,6 @@
 /* Begin PBXBuildFile section */
 		008AB8AA1B04382600E5DF56 /* NSObject+TBIvarAccess.h in Headers */ = {isa = PBXBuildFile; fileRef = 008AB8871B04382600E5DF56 /* NSObject+TBIvarAccess.h */; };
 		008AB8AB1B04382600E5DF56 /* NSObject+TBIvarAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 008AB8881B04382600E5DF56 /* NSObject+TBIvarAccess.m */; };
-		008AB8AC1B04382600E5DF56 /* TBStubObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 008AB8891B04382600E5DF56 /* TBStubObject.h */; };
-		008AB8AD1B04382600E5DF56 /* TBStubObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 008AB88A1B04382600E5DF56 /* TBStubObject.m */; };
 		008AB8AE1B04382600E5DF56 /* wax_block.h in Headers */ = {isa = PBXBuildFile; fileRef = 008AB88C1B04382600E5DF56 /* wax_block.h */; };
 		008AB8AF1B04382600E5DF56 /* wax_block.m in Sources */ = {isa = PBXBuildFile; fileRef = 008AB88D1B04382600E5DF56 /* wax_block.m */; };
 		008AB8B01B04382600E5DF56 /* wax_block_call.h in Headers */ = {isa = PBXBuildFile; fileRef = 008AB88E1B04382600E5DF56 /* wax_block_call.h */; };
@@ -95,8 +93,6 @@
 /* Begin PBXFileReference section */
 		008AB8871B04382600E5DF56 /* NSObject+TBIvarAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+TBIvarAccess.h"; sourceTree = "<group>"; };
 		008AB8881B04382600E5DF56 /* NSObject+TBIvarAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+TBIvarAccess.m"; sourceTree = "<group>"; };
-		008AB8891B04382600E5DF56 /* TBStubObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBStubObject.h; sourceTree = "<group>"; };
-		008AB88A1B04382600E5DF56 /* TBStubObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBStubObject.m; sourceTree = "<group>"; };
 		008AB88C1B04382600E5DF56 /* wax_block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_block.h; sourceTree = "<group>"; };
 		008AB88D1B04382600E5DF56 /* wax_block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_block.m; sourceTree = "<group>"; };
 		008AB88E1B04382600E5DF56 /* wax_block_call.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_block_call.h; sourceTree = "<group>"; };
@@ -261,8 +257,6 @@
 			children = (
 				008AB8871B04382600E5DF56 /* NSObject+TBIvarAccess.h */,
 				008AB8881B04382600E5DF56 /* NSObject+TBIvarAccess.m */,
-				008AB8891B04382600E5DF56 /* TBStubObject.h */,
-				008AB88A1B04382600E5DF56 /* TBStubObject.m */,
 			);
 			name = ivar;
 			path = ../../../../../lib/extensions/ivar;
@@ -623,7 +617,6 @@
 				008AB8BE1B04382600E5DF56 /* tolua_event.h in Headers */,
 				00E9B16F1AEFB272004EDF30 /* wax_define.h in Headers */,
 				008AB8BC1B04382600E5DF56 /* tolua++.h in Headers */,
-				008AB8AC1B04382600E5DF56 /* TBStubObject.h in Headers */,
 				008AB8B41B04382600E5DF56 /* wax_block_transfer.h in Headers */,
 				008AB8AA1B04382600E5DF56 /* NSObject+TBIvarAccess.h in Headers */,
 				008AB8B01B04382600E5DF56 /* wax_block_call.h in Headers */,
@@ -754,7 +747,6 @@
 				008AB8B71B04382600E5DF56 /* wax_block_transfer_pool.m in Sources */,
 				043D10C812C92D6700775F70 /* ltable.c in Sources */,
 				008AB8B81B04382600E5DF56 /* dispatch_lua.m in Sources */,
-				008AB8AD1B04382600E5DF56 /* TBStubObject.m in Sources */,
 				043D10CA12C92D6700775F70 /* ltablib.c in Sources */,
 				043D10CB12C92D6700775F70 /* ltm.c in Sources */,
 				043D10D012C92D6700775F70 /* lundump.c in Sources */,

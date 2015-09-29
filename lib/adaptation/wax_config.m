@@ -19,9 +19,9 @@ int luaSetWaxConfig(lua_State *L){
         id instance = *(id *)instancePointer;
         
         if([instance isKindOfClass:[NSDictionary class]]){
-            if([instance objectForKey:@"wax_gc_timeout"]){//gc time
-                [wax_gc setWaxGCTimeout:[[instance objectForKey:@"wax_gc_timeout"] integerValue]];
-            }else if([instance objectForKey:@"wax_openBindOCFunction"]){
+            if([instance objectForKey:@"gc_timeout"]){//gc time
+                [wax_gc setWaxGCTimeout:[[instance objectForKey:@"gc_timeout"] integerValue]];
+            }else if([instance objectForKey:@"openBindOCFunction"]){
                 wax_openBindOCFunction(L);
             }
         }

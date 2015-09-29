@@ -171,7 +171,7 @@ static int tolua_pthread_pthread_mutex_unlock00(lua_State* tolua_S)
 /* Open function */
 TOLUA_API int tolua_pthread_open (lua_State* tolua_S)
 {
-    [wax_global_lock() lock];
+    [wax_globalLock() lock];
  tolua_open(tolua_S);
  tolua_reg_types(tolua_S);
  tolua_module(tolua_S,NULL,0);
@@ -182,7 +182,7 @@ TOLUA_API int tolua_pthread_open (lua_State* tolua_S)
   tolua_function(tolua_S,"pthread_mutex_trylock",tolua_pthread_pthread_mutex_trylock00);
   tolua_function(tolua_S,"pthread_mutex_unlock",tolua_pthread_pthread_mutex_unlock00);
  tolua_endmodule(tolua_S);
-    [wax_global_lock() unlock];
+    [wax_globalLock() unlock];
  return 1;
 }
 

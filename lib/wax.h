@@ -24,6 +24,8 @@ int wax_runLuaString(const char *script);
 //run lua byte code
 int wax_runLuaByteCode(NSData *data, NSString *name);
 
+//run lua file
+int wax_runLuaFile(const char *script);
 
 typedef  void (*WaxLuaRuntimeErrorHandler)(NSString *reason, BOOL willExit);
 

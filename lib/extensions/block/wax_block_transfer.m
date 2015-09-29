@@ -14,6 +14,7 @@
 #import "wax_lock.h"
 #import "wax_block.h"
 #import "wax_block_transfer_pool.h"
+#import "wax_define.h"
 extern lua_State *wax_currentLuaState();
 
 #define LUA_BLOCK_CALL_ARM32_RETURN_BUFFER(paramsTypeEncoding, type, q) \
@@ -40,11 +41,11 @@ return res;\
 //all void
 -(void (^)())luaVoidBlock {//blockzh
     return [[^() {
-        [wax_global_lock() lock];
+        [wax_globalLock() lock];
         lua_State *L = wax_currentLuaState();
         wax_fromInstance(L, self);
         lua_call(L, 0, 0);
-        [wax_global_lock() unlock];
+        [wax_globalLock() unlock];
     } copy] autorelease];
 }
 
@@ -52,7 +53,7 @@ return res;\
 #pragma mark return any & param void
 -(LongLong (^)())luaBlockReturnLongLongWithVoidParam:(NSString *)paramsTypeEncoding {
     return [[^() {
-        [wax_global_lock() lock];
+        [wax_globalLock() lock];
         lua_State *L = wax_currentLuaState();
         wax_fromInstance(L, self);
         
@@ -91,14 +92,14 @@ return res;\
             }
 
         }
-        [wax_global_lock() unlock];
+        [wax_globalLock() unlock];
         return retValue;
     } copy] autorelease];
 }
 
 -(float (^)())luaBlockReturnFloatWithVoidParam:(NSString *)paramsTypeEncoding {
     return [[^() {
-        [wax_global_lock() lock];
+        [wax_globalLock() lock];
         lua_State *L = wax_currentLuaState();
         wax_fromInstance(L, self);
         
@@ -116,14 +117,14 @@ return res;\
                 NSLog(@"Unable to convert Obj-C type with type description '%s'", cParamsTypeEncoding);
                 break;
         }
-        [wax_global_lock() unlock];
+        [wax_globalLock() unlock];
         return retValue;
     } copy] autorelease];
 }
 
 -(double (^)())luaBlockReturnDoubleWithVoidParam:(NSString *)paramsTypeEncoding {
     return [[^() {
-        [wax_global_lock() lock];
+        [wax_globalLock() lock];
         lua_State *L = wax_currentLuaState();
         wax_fromInstance(L, self);
         
@@ -141,7 +142,7 @@ return res;\
                 NSLog(@"Unable to convert Obj-C type with type description '%s'", cParamsTypeEncoding);
                 break;
         }
-        [wax_global_lock() unlock];
+        [wax_globalLock() unlock];
         return retValue;
     } copy] autorelease];
 }
@@ -149,7 +150,7 @@ return res;\
 #pragma mark all 32 bit block
 
 void* luaBlockARM32ReturnBufferWithParamsTypeEncoding(NSString *paramsTypeEncoding, id self, void* firstParam, va_list args){
-    [wax_global_lock() lock];
+    [wax_globalLock() lock];
     
     
     void *returnBuffer = nil;
@@ -304,7 +305,7 @@ void* luaBlockARM32ReturnBufferWithParamsTypeEncoding(NSString *paramsTypeEncodi
         char tempTypeEncoding[3] = {returnType,0};
         returnBuffer = wax_copyToObjc(L, tempTypeEncoding, -1, nil);
     }
-    [wax_global_lock() unlock];
+    [wax_globalLock() unlock];
     return returnBuffer;
     
 }
@@ -502,7 +503,7 @@ void* luaBlockARM32ReturnBufferWithParamsTypeEncoding(NSString *paramsTypeEncodi
 #pragma mark c api
 
 void* luaBlockARM64ReturnBufferWithParamsTypeEncoding(NSString *paramsTypeEncoding, id self, ...){
-    [wax_global_lock() lock];
+    [wax_globalLock() lock];
     
     void *returnBuffer = nil;
     
@@ -530,10 +531,11 @@ void* luaBlockARM64ReturnBufferWithParamsTypeEncoding(NSString *paramsTypeEncodi
         char tempTypeEncoding[3] = {returnType,0};
         returnBuffer = wax_copyToObjc(L, tempTypeEncoding, -1, nil);
     }
-    [wax_global_lock() unlock];
+    [wax_globalLock() unlock];
     return returnBuffer;
 }
 
+#if WAX_IS_ARM_64 == 1
 id luaBlockARM64WithParamsTypeEncoding(NSString *typeEncoding, id self){
     
     NSArray *doubleArray = @[@"f", @"d"];
@@ -557,3 +559,4 @@ id luaBlockARM64WithParamsTypeEncoding(NSString *typeEncoding, id self){
     id luaBlockARM64 = luaBlockARM64Imp(typeEncoding, self);//call orginal typeEncoding
     return luaBlockARM64;
 }
+#endif

@@ -58,11 +58,11 @@
 #define WAX_PROTOCOL_TYPE_BYREF 'R'
 #define WAX_PROTOCOL_TYPE_ONEWAY 'V'
 
-#define BEGIN_STACK_MODIFY(L)      [wax_global_lock() lock];\
+#define BEGIN_STACK_MODIFY(L)      [wax_globalLock() lock];\
 int __startStackIndex = lua_gettop((L));\
 
 #define END_STACK_MODIFY(L, i) while(lua_gettop((L)) > (__startStackIndex + (i))) lua_remove((L), __startStackIndex + 1);\
-[wax_global_lock() unlock];\
+[wax_globalLock() unlock];\
 
 #ifndef LOG_FLAGS
     #define LOG_FLAGS (LOG_FATAL | LOG_ERROR | LOG_DEBUG)

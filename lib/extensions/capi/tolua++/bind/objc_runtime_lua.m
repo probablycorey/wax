@@ -357,7 +357,7 @@ static int tolua_objc_runtime_property_getName00(lua_State* tolua_S)
 /* Open function */
 TOLUA_API int tolua_objc_runtime_open (lua_State* tolua_S)
 {
-    [wax_global_lock() lock];
+    [wax_globalLock() lock];
  tolua_open(tolua_S);
  tolua_reg_types(tolua_S);
  tolua_module(tolua_S,NULL,0);
@@ -380,7 +380,7 @@ TOLUA_API int tolua_objc_runtime_open (lua_State* tolua_S)
   tolua_function(tolua_S,"property_getName",tolua_objc_runtime_property_getName00);
  tolua_endmodule(tolua_S);
     
-    [wax_global_lock() unlock];
+    [wax_globalLock() unlock];
  return 1;
 }
 
