@@ -37,6 +37,8 @@ int luaCallBlockReturnObjectWithObjectParam(lua_State *L);
 int luaCallBlockWithParamsTypeArray(lua_State *L);
 
 
+int luaCallBlock(lua_State *L);
+
 
 #pragma mark call from c
 

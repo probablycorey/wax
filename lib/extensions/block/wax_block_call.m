@@ -13,7 +13,7 @@
 #import "wax_helpers.h"
 #import "wax_block.h"
 #import "wax_define.h"
-
+#import "WaxBlockDescription.h"
 id wax_block_call_objectFromLuaState(lua_State *L, int index){
     if(lua_isnil(L, index)){
         return nil;
@@ -182,4 +182,34 @@ int luaCallBlockWithParamsTypeArray(lua_State *L){
     tempTypeEncoding[0] = newTypeEncoding[0];
     wax_fromObjc(L, tempTypeEncoding, returnBuffer);
     return 1;
+}
+
+int luaCallBlock(lua_State *L){
+    int n = lua_gettop(L);
+    wax_instance_userdata *blockUserData = lua_touserdata(L, 1);
+    id block = blockUserData->instance;
+    int paramNum = n-1;
+    
+    WaxBlockDescription *blockDesc = [[WaxBlockDescription alloc] initWithBlock:block];
+    NSMethodSignature *blockSignature = blockDesc.blockSignature;
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:blockSignature];
+    [invocation setTarget:block];
+    NSCAssert(blockSignature.numberOfArguments == paramNum+1, @"blockSignature.numberOfArguments != paramNum");
+    for(int i = 1; i <= paramNum; ++i){//0 is block:@?, param start from 1
+        const char *type = [blockSignature getArgumentTypeAtIndex:i];
+        void *buffer = wax_copyToObjc(L, type, 1+i, nil);
+        [invocation setArgument:buffer atIndex:i];
+    }
+    
+    [invocation invoke];
+    
+    if(blockSignature.methodReturnLength > 0){
+        void *buffer = malloc(blockSignature.methodReturnLength);
+        [invocation getReturnValue:buffer];
+        wax_fromObjc(L, blockSignature.methodReturnType, buffer);
+        free(buffer);
+    }
+    
+    [blockDesc release];
+    return blockSignature.methodReturnLength > 0;
 }

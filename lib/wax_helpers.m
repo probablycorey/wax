@@ -817,7 +817,8 @@ int wax_sizeOfTypeDescription(const char *full_type_description) {
             case WAX_PROTOCOL_TYPE_OUT:
             case WAX_PROTOCOL_TYPE_BYCOPY:
             case WAX_PROTOCOL_TYPE_BYREF:
-            case WAX_PROTOCOL_TYPE_ONEWAY:                    
+            case WAX_PROTOCOL_TYPE_ONEWAY:
+                
                 // Weeeee! Just ignore this stuff I guess?
                 break;
             default:
@@ -833,7 +834,11 @@ int wax_sizeOfTypeDescription(const char *full_type_description) {
 int wax_simplifyTypeDescription(const char *in, char *out) {
     int out_index = 0;
     int in_index = 0;
-    
+    if(strlen(in) >= 2 && in[0] == WAX_TYPE_ID && in[1] == '\"'){//sig in block. eg: @\"NSString\"
+        out[0] = WAX_TYPE_ID;
+        out[1] = 0;
+        return 2;
+    }
     while(in[in_index]) {
         switch (in[in_index]) {
             case WAX_TYPE_STRUCT:

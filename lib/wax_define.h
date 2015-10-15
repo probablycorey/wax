@@ -24,6 +24,6 @@ typedef long long LongLong;
     #warning @"64 bit arm"
     #define WAX_IS_ARM_64 1
 #else
-    #define WAX_IS_ARM_64 0
+
     #warning @"32 bit arm"
 #endif

@@ -33,6 +33,7 @@ extern int luaCallBlockReturnObjectWithObjectParam(lua_State *L);
 extern int luaCallBlockReturnVoidWithObjectParam(lua_State *L);
 extern int luaCallBlockWithParamsTypeArray(lua_State *L);
 extern int luaCallBlockWithParamsTypeEncoding(lua_State *L);
+extern int luaCallBlock(lua_State *L);
 
 extern int luaSetWaxConfig(lua_State *L);
 
@@ -234,6 +235,11 @@ static void addGlobals(lua_State *L) {
     
     lua_pushcfunction(L, luaCallBlockWithParamsTypeArray);
     lua_setglobal(L, "luaCallBlockWithParamsTypeArray");
+
+    lua_pushcfunction(L, luaCallBlock);
+    lua_setglobal(L, "luaCallBlock");
+
+    
     
     lua_pushcfunction(L, luaSetWaxConfig);
     lua_setglobal(L, "luaSetWaxConfig");
