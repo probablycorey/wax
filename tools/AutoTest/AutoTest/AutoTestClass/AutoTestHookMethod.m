@@ -1,6 +1,6 @@
 //
 //  AutoTest64MethodHookVC.m
-//  TBHotpatchSDKTest
+//  
 //
 //  Created by junzhan on 15-1-4.
 //  Copyright (c) 2015年 junzhan. All rights reserved.

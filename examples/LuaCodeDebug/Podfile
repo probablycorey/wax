@@ -1,0 +1,8 @@
+platform :ios
+
+
+target 'LuaCodeDebug' do
+	platform:ios, '6.0'
+	pod 'wax', :path=>'../../'
+	pod 'mobdebug', :path=>'../../tools/mobdebug'
+end
