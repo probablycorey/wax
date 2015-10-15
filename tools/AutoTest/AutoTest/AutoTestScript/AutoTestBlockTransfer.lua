@@ -11,25 +11,25 @@ waxClass{"AutoTestBlockTransfer"}
 
 function autoTestStart( self )
 	self:testReturnVoidWithVoidBlock(
-	toobjc(
+	toblock(
 		function()
 			print("LUA TEST SUCCESS: testReturnVoidWithVoidBlock")
 		end
-		):luaBlockWithParamsTypeArray({"void"})
+		, {"void"})
 	)
 
 	self:testReturnVoidWithFirstIntBlock(
-	toobjc(
+	toblock(
 		function(aFirstInt, aBOOL, aInt, aInteger, aFloat, aCGFloat, aId)
 			print("aFirstInt=" .. tostring(aFirstInt))
 			assert(aFirstInt == TEST_VALUE_INT, "aFirstInt不等")
 			assertResult(self, aBOOL, aInt, aInteger, aFloat, aCGFloat, aId)
 			print("LUA TEST SUCCESS: testReturnVoidWithFirstIntBlock")
 		end
-		):luaBlockWithParamsTypeArray({"void","int", "BOOL", "int", "NSInteger", "float", "CGFloat", "id"})
+		, {"void","int", "BOOL", "int", "NSInteger", "float", "CGFloat", "id"})
 	)
 	self:testReturnBOOLWithFirstBOOLBlock(
-	toobjc(
+	toblock(
 		function(aFirstBOOL, aBOOL, aInt, aInteger, aFloat, aCGFloat, aId)
 			print("aFirstBOOL=" .. tostring(aFirstBOOL))
 			assert(aFirstBOOL == TEST_VALUE_BOOL)
@@ -37,10 +37,10 @@ function autoTestStart( self )
 			print("LUA TEST SUCCESS: testReturnBOOLWithFirstBOOLBlock")
 			return aFirstBOOL
 		end
-		):luaBlockWithParamsTypeArray({"BOOL","BOOL", "BOOL", "int", "NSInteger", "float", "CGFloat", "id"})
+		, {"BOOL","BOOL", "BOOL", "int", "NSInteger", "float", "CGFloat", "id"})
 	)
 	self:testReturnIntWithFirstIntBlock(
-	toobjc(
+	toblock(
 		function(aFirstInt, aBOOL, aInt, aInteger, aFloat, aCGFloat, aId)
 			print("aFirstInt=" .. tostring(aFirstInt))
 			assert(aFirstInt == TEST_VALUE_INT, "aFirstInt不等")
@@ -48,11 +48,11 @@ function autoTestStart( self )
 			print("LUA TEST SUCCESS: testReturnIntWithFirstIntBlock")
 			return aFirstInt
 		end
-		):luaBlockWithParamsTypeArray({"int","int", "BOOL", "int", "NSInteger", "float", "CGFloat", "id"})
+		, {"int","int", "BOOL", "int", "NSInteger", "float", "CGFloat", "id"})
 	)
 
 	self:testReturnIntegerWithFirstIntegerBlock(
-	toobjc(
+	toblock(
 		function(aFirstInteger, aBOOL, aInt, aInteger, aFloat, aCGFloat, aId)
 			print("aFirstInteger=" .. tostring(aFirstInteger))
 			assert(aFirstInteger == TEST_VALUE_INTEGER)
@@ -60,22 +60,22 @@ function autoTestStart( self )
 			print("LUA TEST SUCCESS: testReturnIntegerWithFirstIntegerBlock")
 			return aFirstInteger
 		end
-		):luaBlockWithParamsTypeArray({"NSInteger","NSInteger", "BOOL", "int", "NSInteger", "float", "CGFloat", "id"})
+		, {"NSInteger","NSInteger", "BOOL", "int", "NSInteger", "float", "CGFloat", "id"})
 	)
 
 	self:testReturnCharPointerWithFirstCharPointerBlock(
-	toobjc(
+	toblock(
 		function(aFirstCharPointer, aBOOL, aInt, aInteger, aFloat, aCGFloat, aId)
 			print("aFirstCharPointer=" .. tostring(aFirstPointer))
 			assertResult(self, aBOOL, aInt, aInteger, aFloat, aCGFloat, aId)
 			print("LUA TEST SUCCESS: testReturnCharPointerWithFirstCharPointerBlock")
 			return aFirstCharPointer
 		end
-		):luaBlockWithParamsTypeArray({"char *","char*", "BOOL", "int", "NSInteger", "float", "CGFloat", "id"})
+		, {"char *","char*", "BOOL", "int", "NSInteger", "float", "CGFloat", "id"})
 	)
 
 	self:testReturnVoidPointerWithFirstVoidPointerBlock(
-	toobjc(
+	toblock(
 		function(aFirstVoidPointer, aBOOL, aInt, aInteger, aFloat, aCGFloat, aId)
 			print("aFirstVoidPointer=" .. tostring(aFirstVoidPointer))
 			-- assert(aFirstVoidPointer == TEST_VALUE_INT, "aFirstInt不等")
@@ -83,11 +83,11 @@ function autoTestStart( self )
 			print("LUA TEST SUCCESS: testReturnVoidPointerWithFirstVoidPointerBlock")
 			return aFirstVoidPointer
 		end
-		):luaBlockWithParamsTypeArray({"void *","void*", "BOOL", "int", "NSInteger", "float", "CGFloat", "id"})
+		, {"void *","void*", "BOOL", "int", "NSInteger", "float", "CGFloat", "id"})
 	)
 
 	self:testReturnIdWithFirstIdBlock(
-	toobjc(
+	toblock(
 		function(aFirstId, aBOOL, aInt, aInteger, aFloat, aCGFloat, aId)
 			print("aFirstId=" .. tostring(aFirstId))
 			-- assert(aFirstId == self, "aFirstInt不等")
@@ -95,7 +95,7 @@ function autoTestStart( self )
 			print("LUA TEST SUCCESS: testReturnIdWithFirstIdBlock")
 			return aFirstId
 		end
-		):luaBlockWithParamsTypeArray({"id","id", "BOOL", "int", "NSInteger", "float", "CGFloat", "id"})
+		, {"id","id", "BOOL", "int", "NSInteger", "float", "CGFloat", "id"})
 	)
 
 
