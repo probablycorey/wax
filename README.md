@@ -1,8 +1,8 @@
-Wax is being maintained by alibaba
+Wax is being maintained by Alibaba
 ----------
 
-Thank @probablycorey for creating such a greate project.
-Wax is the best bridge between Lua and Objective-C, which should not be declining, so we will maintaine it. We have fixed a lot of problem such as 64 bit support, muti-thread safe. We have also add many features such as  convert Lua function to OC block , call OC block in Lua, get/set private ivar, inbuilt commonly used C function, and even Lua code debug.
+Thanks to @probablycorey for creating such a greate project.
+Wax is the best bridge between Lua and Objective-C, we will be maintaining it here. We have fixed a lot of issues such as 64-bit support and thread-safety. We have also added many features such as converting Lua functions to OC blocks, calling OC blocks in Lua, getting/setting private ivars, built-in commonly used C functions, and even Lua code debugging.
 
 Wax
 ---
@@ -101,7 +101,7 @@ Since Wax converts NSString, NSArray, NSDictionary and NSNumber to native Lua va
     local size = toobjc(testString):sizeWithFont(bigFont)
     puts(size)
     
-How do I convert Lua function to Objective-C block? 
+How do I convert Lua functions to Objective-C blocks? 
 
 ```
 UIView:animateWithDuration_animations_completion(1, 
@@ -130,7 +130,7 @@ toblock(
 	, {"id","id", "BOOL", "int", "NSInteger", "float", "CGFloat", "id"})
 )
 ```
-What about call the Objective-C block?
+What about calling Objective-C blocks?
 
 ```
 --OC block type is id (^)(NSInteger, id, BOOL, CGFloat)
@@ -140,7 +140,7 @@ local res = luaCallBlock(block, 123456, aObject, true, 123.456,);
 local res = luaCallBlockWithParamsTypeArray(block, {"id","NSInteger", "id", "BOOL", "CGFloat"},  123456, aObject, true, 123.456);
 ```
 
-If my instance variable is private implementated?
+What if my instance variables are privately implemented?
 
 ```
 print(self:view():getIvarInt("_countOfMotionEffectsInSubtree"))
@@ -151,7 +151,7 @@ print(self:getIvarObject("_title"))
 self:setIvar_withObject("_infoDict", {k11="v11", k22="v22"})
 print(toobjc(self:getIvarObject("_infoDict")))
 ```
-You want to call some C function?
+You want to call some C functions?
 
 ```
 luaSetWaxConfig({wax_openBindOCFunction=true})--bind built-in C function
@@ -212,7 +212,7 @@ More
 ----
 * [Feature Requests? Bugs?](http://github.com/probablycorey/wax/issues) - Issue tracking and release planning.
 * [Mailing List](http://groups.google.com/group/iphonewax)
-* Quick question or problem? Send email to [@Zhengwei Yin (Junzhan)](mailto:junzhan.yzw@taobao.com)
+* Quick questions or issues? Send an email to [@Zhengwei Yin (Junzhan)](mailto:junzhan.yzw@taobao.com)
 
 Contribute
 ----------
