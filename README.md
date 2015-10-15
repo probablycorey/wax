@@ -39,100 +39,113 @@ For some simple Wax apps, check out the [examples folder](https://github.com/ali
 
 How would I create a UIView and color it red?
 
-    -- forget about using alloc! Memory is automatically managed by Wax
-    view = UIView:initWithFrame(CGRect(0, 0, 320, 100))
+``` lua
+-- forget about using alloc! Memory is automatically managed by Wax
+view = UIView:initWithFrame(CGRect(0, 0, 320, 100))
 
-    -- use a colon when sending a message to an Objective-C Object
-    -- all methods available to a UIView object can be accessed this way
-    view:setBackgroundColor(UIColor:redColor())
+-- use a colon when sending a message to an Objective-C Object
+-- all methods available to a UIView object can be accessed this way
+view:setBackgroundColor(UIColor:redColor())
+```
 
 What about methods with multiple arguments?
 
-    -- Just add underscores to the method name, then write the arguments like
-    -- you would in a regular C function
-    UIApplication:sharedApplication():setStatusBarHidden_animated(true, false)
+``` lua
+-- Just add underscores to the method name, then write the arguments like
+-- you would in a regular C function
+UIApplication:sharedApplication():setStatusBarHidden_animated(true, false)
+```
 
 How do I send an array/string/dictionary
 
-    -- Wax automatically converts array/string/dictionary objects to NSArray,
-    -- NSString and NSDictionary objects (and vice-versa)
-    images = {"myFace.png", "yourFace.png", "theirFace.png"}
-    imageView = UIImageView:initWithFrame(CGRect(0, 0, 320, 460))
-    imageView:setAnimationImages(images)
+``` lua
+-- Wax automatically converts array/string/dictionary objects to NSArray,
+-- NSString and NSDictionary objects (and vice-versa)
+images = {"myFace.png", "yourFace.png", "theirFace.png"}
+imageView = UIImageView:initWithFrame(CGRect(0, 0, 320, 460))
+imageView:setAnimationImages(images)
+```
 
 What if I want to create a custom UIViewController?
 
-    -- Created in "MyController.lua"
-    --
-    -- Creates an Objective-C class called MyController with UIViewController
-    -- as the parent. This is a real Objective-C object, you could even
-    -- reference it from Objective-C code if you wanted to.
-    waxClass{"MyController", UIViewController}
+``` lua
+-- Created in "MyController.lua"
+--
+-- Creates an Objective-C class called MyController with UIViewController
+-- as the parent. This is a real Objective-C object, you could even
+-- reference it from Objective-C code if you wanted to.
+waxClass{"MyController", UIViewController}
 
-    function init()
-      -- to call a method on super, simply use self.super
-      self.super:initWithNibName_bundle("MyControllerView.xib", nil)
-      return self
-    end
+function init()
+  -- to call a method on super, simply use self.super
+  self.super:initWithNibName_bundle("MyControllerView.xib", nil)
+  return self
+end
 
-    function viewDidLoad()
-      -- Do all your other stuff here
-    end
+function viewDidLoad()
+  -- Do all your other stuff here
+end
+```
 
 You said HTTP calls were easy, I don't believe you...
 
-    url = "http://search.twitter.com/trends/current.json"
+``` lua
+url = "http://search.twitter.com/trends/current.json"
 
-    -- Makes an asyncronous call, the callback function is called when a
-    -- response is received
-    wax.http.request{url, callback = function(body, response)
-      -- request is just a NSHTTPURLResponse
-      puts(response:statusCode())
+-- Makes an asyncronous call, the callback function is called when a
+-- response is received
+wax.http.request{url, callback = function(body, response)
+  -- request is just a NSHTTPURLResponse
+  puts(response:statusCode())
 
-      -- Since the content-type is json, Wax automatically parses it and places
-      -- it into a Lua table
-      puts(body)
-    end}
+  -- Since the content-type is json, Wax automatically parses it and places
+  -- it into a Lua table
+  puts(body)
+end}
+```
 
 Since Wax converts NSString, NSArray, NSDictionary and NSNumber to native Lua values, you have to force objects back to Objective-C sometimes. Here is an example.
 
-    local testString = "Hello lua!"
-    local bigFont = UIFont:boldSystemFontOfSize(30)
-    local size = toobjc(testString):sizeWithFont(bigFont)
-    puts(size)
+``` lua
+local testString = "Hello lua!"
+local bigFont = UIFont:boldSystemFontOfSize(30)
+local size = toobjc(testString):sizeWithFont(bigFont)
+puts(size)
+```
     
 How do I convert Lua functions to Objective-C blocks? 
 
-```
+``` lua
 UIView:animateWithDuration_animations_completion(1, 
-	toblock(
-		function()
-			label:setCenter(CGPoint(300, 300))
-		end
-	),
-	toblock(
-		 	function(finished)
-				print('lua animations completion ' .. tostring(finished))
-			end
-	,{"void", "BOOL"})
+    toblock(
+        function()
+            label:setCenter(CGPoint(300, 300))
+        end
+    ),
+    toblock(
+             function(finished)
+                print('lua animations completion ' .. tostring(finished))
+            end
+    ,{"void", "BOOL"})
 )
 
 ---OC method is -(void)testReturnIdWithFirstIdBlock:(id(^)(id aFirstId, BOOL aBOOL, int aInt, NSInteger aInteger, float aFloat, CGFloat aCGFloat, id aId))block
 self:testReturnIdWithFirstIdBlock(
 toblock(
-	function(aFirstId, aBOOL, aInt, aInteger, aFloat, aCGFloat, aId)
-		print("aFirstId=" .. tostring(aFirstId))
-		-- assert(aFirstId == self, "aFirstInt不等")
-		assertResult(self, aBOOL, aInt, aInteger, aFloat, aCGFloat, aId)
-		print("LUA TEST SUCCESS: testReturnIdWithFirstIdBlock")
-		return aFirstId
-	end
-	, {"id","id", "BOOL", "int", "NSInteger", "float", "CGFloat", "id"})
+    function(aFirstId, aBOOL, aInt, aInteger, aFloat, aCGFloat, aId)
+        print("aFirstId=" .. tostring(aFirstId))
+        -- assert(aFirstId == self, "aFirstInt不等")
+        assertResult(self, aBOOL, aInt, aInteger, aFloat, aCGFloat, aId)
+        print("LUA TEST SUCCESS: testReturnIdWithFirstIdBlock")
+        return aFirstId
+    end
+    , {"id","id", "BOOL", "int", "NSInteger", "float", "CGFloat", "id"})
 )
 ```
+
 What about calling Objective-C blocks?
 
-```
+``` lua
 --OC block type is id (^)(NSInteger, id, BOOL, CGFloat)
 local res = luaCallBlock(block, 123456, aObject, true, 123.456,);
 
@@ -142,7 +155,7 @@ local res = luaCallBlockWithParamsTypeArray(block, {"id","NSInteger", "id", "BOO
 
 What if my instance variables are privately implemented?
 
-```
+``` lua
 print(self:view():getIvarInt("_countOfMotionEffectsInSubtree"))
 
 self:setIvar_withObject("_title", "abcdefg")
@@ -151,9 +164,10 @@ print(self:getIvarObject("_title"))
 self:setIvar_withObject("_infoDict", {k11="v11", k22="v22"})
 print(toobjc(self:getIvarObject("_infoDict")))
 ```
+
 You want to call some C functions?
 
-```
+``` lua
 luaSetWaxConfig({wax_openBindOCFunction=true})--bind built-in C function
 
 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), 
@@ -173,8 +187,8 @@ print("imageData.length=", imageData.length);
 local image = aImage;
 local data = UIImageJPEGRepresentation(image, 0.8);
 print("data.length=", data:length());
-
 ```
+
 Any way to debug my Lua code?   
 Ofcourse, you can use the powerfull ZeroBraneStudio to debug. [see more detail](https://github.com/alibaba/wax/tree/master/examples/LuaCodeDebug).
 
@@ -184,12 +198,11 @@ see examples/TestWaxPod demo.
 * add `pod 'wax', :git=>'git@github.com:alibaba/wax.git', :tag=>'1.0.0'` to your podfile. (tag in your needs)  
 * then you can run lua code.
 
-```
+``` lua
 wax_start(nil, nil);
 wax_runLuaString("print('hello wax')");
 ```
-	
-
+    
 Setup & Tutorials
 -----------------
 
