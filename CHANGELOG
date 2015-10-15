@@ -29,3 +29,4 @@
 
 * Cross compilation of Lua bytecode files, and the ability to smush all of the
   files together. (thanks to Matt Campbell and Jeremy Collins for their help)
+* test
