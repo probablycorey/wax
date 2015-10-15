@@ -175,6 +175,8 @@ local data = UIImageJPEGRepresentation(image, 0.8);
 print("data.length=", data:length());
 
 ```
+Any way to debug my Lua code?   
+Ofcourse, you can use the powerfull ZeroBraneStudio to debug. [see more detail](https://github.com/alibaba/wax/tree/master/examples/LuaCodeDebug).
 
 Use with cocoapods
 ----------
