@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 olettere. All rights reserved.
 //
 
-#import "WaxBlockDescription.h"
+#import "wax_block_description.h"
 
 @implementation WaxBlockDescription
 

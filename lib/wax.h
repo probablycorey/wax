@@ -18,18 +18,22 @@ void luaopen_wax(lua_State *L);
 #pragma mark add by junzhan
 
 
-// run lua string
+//you should call wax_start before these function.
+// run lua string.
 int wax_runLuaString(const char *script);
 
 //run lua byte code
 int wax_runLuaByteCode(NSData *data, NSString *name);
 
 //run lua file
-int wax_runLuaFile(const char *script);
+int wax_runLuaFile(const char *filePath);
 
-typedef  void (*WaxLuaRuntimeErrorHandler)(NSString *reason, BOOL willExit);
+
+
 
 //lua runtime error callback
+typedef  void (*WaxLuaRuntimeErrorHandler)(NSString *reason, BOOL willExit);
+
 void wax_setLuaRuntimeErrorHandler(WaxLuaRuntimeErrorHandler handler);
 
 WaxLuaRuntimeErrorHandler wax_getLuaRuntimeErrorHandler();

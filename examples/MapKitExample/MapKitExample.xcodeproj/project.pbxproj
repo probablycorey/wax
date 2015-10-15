@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		006181861BCF562600B9F155 /* wax_block_description.m in Sources */ = {isa = PBXBuildFile; fileRef = 006181841BCF562600B9F155 /* wax_block_description.m */; settings = {ASSET_TAGS = (); }; };
 		00DAC0D31AF0AE1200206217 /* wax_config.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DAC0CD1AF0AE1200206217 /* wax_config.m */; };
 		00DAC0D41AF0AE1200206217 /* wax_imp_call_pool.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DAC0CF1AF0AE1200206217 /* wax_imp_call_pool.m */; };
 		00DAC0D51AF0AE1200206217 /* wax_lock.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DAC0D11AF0AE1200206217 /* wax_lock.m */; };
@@ -86,6 +87,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		006181841BCF562600B9F155 /* wax_block_description.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_block_description.m; sourceTree = "<group>"; };
+		006181851BCF562600B9F155 /* wax_block_description.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_block_description.h; sourceTree = "<group>"; };
 		00DAC0CC1AF0AE1200206217 /* wax_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_config.h; sourceTree = "<group>"; };
 		00DAC0CD1AF0AE1200206217 /* wax_config.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_config.m; sourceTree = "<group>"; };
 		00DAC0CE1AF0AE1200206217 /* wax_imp_call_pool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_imp_call_pool.h; sourceTree = "<group>"; };
@@ -285,6 +288,8 @@
 		00DAC0D61AF0AE1C00206217 /* block */ = {
 			isa = PBXGroup;
 			children = (
+				006181841BCF562600B9F155 /* wax_block_description.m */,
+				006181851BCF562600B9F155 /* wax_block_description.h */,
 				00DAC0D71AF0AE1C00206217 /* wax_block.h */,
 				00DAC0D81AF0AE1C00206217 /* wax_block.m */,
 				00DAC0D91AF0AE1C00206217 /* wax_block_call.h */,
@@ -740,6 +745,7 @@
 				04A6187C12CA7AB6004ADB76 /* lauxlib.c in Sources */,
 				00DAC0E41AF0AE1C00206217 /* wax_block.m in Sources */,
 				04A6187D12CA7AB6004ADB76 /* lbaselib.c in Sources */,
+				006181861BCF562600B9F155 /* wax_block_description.m in Sources */,
 				04A6187E12CA7AB6004ADB76 /* lcode.c in Sources */,
 				04A6187F12CA7AB6004ADB76 /* ldblib.c in Sources */,
 				04A6188012CA7AB6004ADB76 /* ldebug.c in Sources */,

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		006181891BCF56BA00B9F155 /* wax_block_description.m in Sources */ = {isa = PBXBuildFile; fileRef = 006181871BCF56BA00B9F155 /* wax_block_description.m */; settings = {ASSET_TAGS = (); }; };
 		00E9B1471AEFB0B7004EDF30 /* wax_config.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9B1411AEFB0B7004EDF30 /* wax_config.m */; };
 		00E9B1481AEFB0B7004EDF30 /* wax_imp_call_pool.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9B1441AEFB0B7004EDF30 /* wax_imp_call_pool.m */; };
 		00E9B1491AEFB0B7004EDF30 /* wax_lock.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9B1461AEFB0B7004EDF30 /* wax_lock.m */; };
@@ -84,6 +85,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		006181871BCF56BA00B9F155 /* wax_block_description.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_block_description.m; sourceTree = "<group>"; };
+		006181881BCF56BA00B9F155 /* wax_block_description.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_block_description.h; sourceTree = "<group>"; };
 		00E9B1401AEFB0B7004EDF30 /* wax_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_config.h; sourceTree = "<group>"; };
 		00E9B1411AEFB0B7004EDF30 /* wax_config.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_config.m; sourceTree = "<group>"; };
 		00E9B1431AEFB0B7004EDF30 /* wax_imp_call_pool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_imp_call_pool.h; sourceTree = "<group>"; };
@@ -293,6 +296,8 @@
 				00E9B1521AEFB0C3004EDF30 /* wax_block_transfer.m */,
 				00E9B1531AEFB0C3004EDF30 /* wax_block_transfer_pool.h */,
 				00E9B1541AEFB0C3004EDF30 /* wax_block_transfer_pool.m */,
+				006181871BCF56BA00B9F155 /* wax_block_description.m */,
+				006181881BCF56BA00B9F155 /* wax_block_description.h */,
 			);
 			name = block;
 			path = ../../../../lib/extensions/block;
@@ -739,6 +744,7 @@
 				04A6187C12CA7AB6004ADB76 /* lauxlib.c in Sources */,
 				00E9B1581AEFB0C3004EDF30 /* wax_block.m in Sources */,
 				04A6187D12CA7AB6004ADB76 /* lbaselib.c in Sources */,
+				006181891BCF56BA00B9F155 /* wax_block_description.m in Sources */,
 				04A6187E12CA7AB6004ADB76 /* lcode.c in Sources */,
 				04A6187F12CA7AB6004ADB76 /* ldblib.c in Sources */,
 				04A6188012CA7AB6004ADB76 /* ldebug.c in Sources */,

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		006181821BCF546D00B9F155 /* wax_block_description.h in Headers */ = {isa = PBXBuildFile; fileRef = 006181801BCF546D00B9F155 /* wax_block_description.h */; settings = {ASSET_TAGS = (); }; };
+		006181831BCF546D00B9F155 /* wax_block_description.m in Sources */ = {isa = PBXBuildFile; fileRef = 006181811BCF546D00B9F155 /* wax_block_description.m */; settings = {ASSET_TAGS = (); }; };
 		008AB8AA1B04382600E5DF56 /* NSObject+TBIvarAccess.h in Headers */ = {isa = PBXBuildFile; fileRef = 008AB8871B04382600E5DF56 /* NSObject+TBIvarAccess.h */; };
 		008AB8AB1B04382600E5DF56 /* NSObject+TBIvarAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 008AB8881B04382600E5DF56 /* NSObject+TBIvarAccess.m */; };
 		008AB8AE1B04382600E5DF56 /* wax_block.h in Headers */ = {isa = PBXBuildFile; fileRef = 008AB88C1B04382600E5DF56 /* wax_block.h */; };
@@ -91,6 +93,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		006181801BCF546D00B9F155 /* wax_block_description.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_block_description.h; sourceTree = "<group>"; };
+		006181811BCF546D00B9F155 /* wax_block_description.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_block_description.m; sourceTree = "<group>"; };
 		008AB8871B04382600E5DF56 /* NSObject+TBIvarAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+TBIvarAccess.h"; sourceTree = "<group>"; };
 		008AB8881B04382600E5DF56 /* NSObject+TBIvarAccess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+TBIvarAccess.m"; sourceTree = "<group>"; };
 		008AB88C1B04382600E5DF56 /* wax_block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_block.h; sourceTree = "<group>"; };
@@ -265,6 +269,8 @@
 		008AB88B1B04382600E5DF56 /* block */ = {
 			isa = PBXGroup;
 			children = (
+				006181801BCF546D00B9F155 /* wax_block_description.h */,
+				006181811BCF546D00B9F155 /* wax_block_description.m */,
 				008AB88C1B04382600E5DF56 /* wax_block.h */,
 				008AB88D1B04382600E5DF56 /* wax_block.m */,
 				008AB88E1B04382600E5DF56 /* wax_block_call.h */,
@@ -621,6 +627,7 @@
 				008AB8AA1B04382600E5DF56 /* NSObject+TBIvarAccess.h in Headers */,
 				008AB8B01B04382600E5DF56 /* wax_block_call.h in Headers */,
 				008AB8C31B04382600E5DF56 /* wax_capi.h in Headers */,
+				006181821BCF546D00B9F155 /* wax_block_description.h in Headers */,
 				00E9B16D1AEFB272004EDF30 /* wax_lock.h in Headers */,
 				008AB8B21B04382600E5DF56 /* wax_block_call_pool.h in Headers */,
 				00E9B16B1AEFB272004EDF30 /* wax_imp_call_pool.h in Headers */,
@@ -739,6 +746,7 @@
 				008AB8BF1B04382600E5DF56 /* tolua_is.c in Sources */,
 				043D10BC12C92D6700775F70 /* lobject.c in Sources */,
 				043D10BE12C92D6700775F70 /* lopcodes.c in Sources */,
+				006181831BCF546D00B9F155 /* wax_block_description.m in Sources */,
 				043D10C012C92D6700775F70 /* loslib.c in Sources */,
 				043D10C112C92D6700775F70 /* lparser.c in Sources */,
 				043D10C312C92D6700775F70 /* lstate.c in Sources */,

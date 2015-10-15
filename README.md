@@ -35,7 +35,7 @@ are some reasons why many people prefer Lua + Wax over Objective-C...
 Examples
 --------
 
-For some simple Wax apps, check out the [examples folder](http://github.com/probablycorey/wax/tree/master/examples/).
+For some simple Wax apps, check out the [examples folder](https://github.com/alibaba/wax/tree/master/examples).
 
 How would I create a UIView and color it red?
 
@@ -174,6 +174,17 @@ local image = aImage;
 local data = UIImageJPEGRepresentation(image, 0.8);
 print("data.length=", data:length());
 
+```
+
+Use with cocoapods
+----------
+see examples/TestWaxPod demo.  
+* add `pod 'wax', :git=>'git@github.com:alibaba/wax.git', :tag=>'1.0.0'` to your podfile. (tag in your needs)  
+* then you can run lua code.
+
+```
+wax_start(nil, nil);
+wax_runLuaString("print('hello wax')");
 ```
 	
 
