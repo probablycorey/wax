@@ -1,8 +1,8 @@
-###Wax is no longer being maintained by @probablycorey
+Wax is being maintained by alibaba
+----------
 
-I am no longer developing iOS applications and don't have time to work on Wax.
-If you would like to take over as the maintainer, [fork](https://github.com/probablycorey/wax/fork) 
-Wax and maintain it there. If your fork becomes popular I will add a link to it to this Readme.
+Thank @probablycorey for creating such a greate project.
+Wax is the best bridge between Lua and Objective-C, which should not be declining, so we will maintaine it. We have fixed a lot of problem such as 64 bit support, muti-thread safe. We have also add many features such as  convert Lua function to OC block , call OC block in Lua, get/set private ivar, inbuilt commonly used C function, and even Lua code debug.
 
 Wax
 ---
@@ -100,6 +100,82 @@ Since Wax converts NSString, NSArray, NSDictionary and NSNumber to native Lua va
     local bigFont = UIFont:boldSystemFontOfSize(30)
     local size = toobjc(testString):sizeWithFont(bigFont)
     puts(size)
+    
+How do I convert Lua function to Objective-C block? 
+
+```
+UIView:animateWithDuration_animations_completion(1, 
+	toblock(
+		function()
+			label:setCenter(CGPoint(300, 300))
+		end
+	),
+	toblock(
+		 	function(finished)
+				print('lua animations completion ' .. tostring(finished))
+			end
+	,{"void", "BOOL"})
+)
+
+---OC method is -(void)testReturnIdWithFirstIdBlock:(id(^)(id aFirstId, BOOL aBOOL, int aInt, NSInteger aInteger, float aFloat, CGFloat aCGFloat, id aId))block
+self:testReturnIdWithFirstIdBlock(
+toblock(
+	function(aFirstId, aBOOL, aInt, aInteger, aFloat, aCGFloat, aId)
+		print("aFirstId=" .. tostring(aFirstId))
+		-- assert(aFirstId == self, "aFirstInt不等")
+		assertResult(self, aBOOL, aInt, aInteger, aFloat, aCGFloat, aId)
+		print("LUA TEST SUCCESS: testReturnIdWithFirstIdBlock")
+		return aFirstId
+	end
+	, {"id","id", "BOOL", "int", "NSInteger", "float", "CGFloat", "id"})
+)
+```
+What about call the Objective-C block?
+
+```
+--OC block type is id (^)(NSInteger, id, BOOL, CGFloat)
+local res = luaCallBlock(block, 123456, aObject, true, 123.456,);
+
+--or you can call like this:
+local res = luaCallBlockWithParamsTypeArray(block, {"id","NSInteger", "id", "BOOL", "CGFloat"},  123456, aObject, true, 123.456);
+```
+
+If my instance variable is private implementated?
+
+```
+print(self:view():getIvarInt("_countOfMotionEffectsInSubtree"))
+
+self:setIvar_withObject("_title", "abcdefg")
+print(self:getIvarObject("_title"))
+
+self:setIvar_withObject("_infoDict", {k11="v11", k22="v22"})
+print(toobjc(self:getIvarObject("_infoDict")))
+```
+You want to call some C function?
+
+```
+luaSetWaxConfig({wax_openBindOCFunction=true})--bind built-in C function
+
+dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), 
+        toblock(
+            function( )
+                print(string.format("dispatch_async"));
+            end)
+    );
+
+UIGraphicsBeginImageContext(CGSize(200,400));
+UIApplication:sharedApplication():keyWindow():layer():renderInContext(UIGraphicsGetCurrentContext());
+local aImage =UIGraphicsGetImageFromCurrentImageContext();
+UIGraphicsEndImageContext();
+
+local imageData =UIImagePNGRepresentation(aImage);
+print("imageData.length=", imageData.length);
+local image = aImage;
+local data = UIImageJPEGRepresentation(image, 0.8);
+print("data.length=", data:length());
+
+```
+	
 
 Setup & Tutorials
 -----------------
@@ -123,8 +199,7 @@ More
 ----
 * [Feature Requests? Bugs?](http://github.com/probablycorey/wax/issues) - Issue tracking and release planning.
 * [Mailing List](http://groups.google.com/group/iphonewax)
-* [IRC: #wax](irc://chat.freenode.net/#wax) on http://freenode.net
-* Quick question or problem? IM **probablyCorey** on AIM
+* Quick question or problem? Send email to [@Zhengwei Yin (Junzhan)](mailto:junzhan.yzw@taobao.com)
 
 Contribute
 ----------
