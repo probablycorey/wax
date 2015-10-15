@@ -12,7 +12,7 @@ Use steps
 ```
 * download [ZeroBraneStudio](https://github.com/pkulchenko/ZeroBraneStudio)
 * run ZeroBraneStudio: double click `zbstudio/ZeroBraneStudio` or `sh zbstudio.sh`
-* import lua code: click the 6th button[Smaller icon](https://github.com/pkulchenko/ZeroBraneStudio/blob/master/zbstudio/res/24/DIR-SETUP.png?raw=true), choose your lua code directory
+* import lua code: click the 6th button![Smaller icon](https://github.com/pkulchenko/ZeroBraneStudio/blob/master/zbstudio/res/24/DIR-SETUP.png?raw=true), choose your lua code directory
 * start debug server: click Project->Start Debugger Server.
 * run this code before you enter debug
 
@@ -23,3 +23,14 @@ Use steps
 ```
 * add```require('mobdebug').start('YOUR_MAC_IP_ADDRESS')```to your lua code. if you use simulator `'YOUR_MAC_IP_ADDRESS'` can be empty
 
+##debug functions
+step into:![Smaller icon](https://github.com/pkulchenko/ZeroBraneStudio/blob/master/zbstudio/res/24/DEBUG-STEP-INTO.png?raw=true)  
+step over:![Smaller icon](https://github.com/pkulchenko/ZeroBraneStudio/blob/master/zbstudio/res/24/DEBUG-STEP-OVER.png?raw=true)  
+step out:![Smaller icon](https://github.com/pkulchenko/ZeroBraneStudio/blob/master/zbstudio/res/24/DEBUG-STEP-OUT.png?raw=true)  
+run to cursor:![Smaller icon](https://github.com/pkulchenko/ZeroBraneStudio/blob/master/zbstudio/res/24/DEBUG-RUN-TO.png?raw=true)   
+continue:![Smaller icon](https://github.com/pkulchenko/ZeroBraneStudio/blob/master/zbstudio/res/24/DEBUG-START.png?raw=true)
+kill app:![Smaller icon](https://github.com/pkulchenko/ZeroBraneStudio/blob/master/zbstudio/res/24/DEBUG-STOP.png?raw=true)  
+
+remote console:print variable, or call function  
+watch：watch some variable   
+stack：show the lua stack  
