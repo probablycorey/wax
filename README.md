@@ -195,7 +195,7 @@ Ofcourse, you can use the powerfull ZeroBraneStudio to debug. [see more detail](
 Use with cocoapods
 ----------
 see examples/TestWaxPod demo.  
-* add `pod 'wax', :git=>'git@github.com:alibaba/wax.git', :tag=>'1.0.0'` to your podfile. (tag in your needs)  
+* add `pod 'wax', :git=>'git@github.com:alibaba/wax.git', :tag=>'1.1.0'` to your podfile. (tag in your needs)  
 * then you can run lua code.
 
 ``` lua
