@@ -15,7 +15,7 @@
 #import "wax_instance.h"
 #import "wax_helpers.h"
 
-static NSInteger WAX_GC_TIMEOUT = 1;//default 5 seconds
+static NSInteger WAX_GC_TIMEOUT = 1;//default 1 seconds
 
 @implementation wax_gc
 

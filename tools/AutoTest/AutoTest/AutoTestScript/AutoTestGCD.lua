@@ -85,7 +85,9 @@ print("vb=", vb)
 					toblock(
 						function( )
 							print("dispatch_async back to main");
-							print(string.format("data.length=%d", data:length()));
+							if data ~= nil then
+								print(string.format("data.length=%d", data:length()));
+							end
 						end)
 		        )
 			end)

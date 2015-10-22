@@ -4,7 +4,8 @@ if wax.isArm64 == true then
 	wax.struct.create("UIEdgeInsets", "dddd", "top", "left", "bottom", "right")
 	wax.struct.create("CGRect", "dddd", "x", "y", "width", "height")
 
-	wax.struct.create("NSRange", "LL", "location", "length")
+	wax.struct.create("NSRange", "QQ", "location", "length")
+	wax.struct.create("_NSRange", "QQ", "location", "length")--typedef _NSRange to NSRange
 
 	wax.struct.create("CLLocationCoordinate2D", "dd", "latitude", "longitude")
 	wax.struct.create("MKCoordinateSpan", "dd", "latitudeDelta", "longitudeDelta")
@@ -18,6 +19,7 @@ else
 	wax.struct.create("CGRect", "ffff", "x", "y", "width", "height")
 
 	wax.struct.create("NSRange", "II", "location", "length")
+	wax.struct.create("_NSRange", "II", "location", "length")--typedef _NSRange to NSRange
 
 	wax.struct.create("CLLocationCoordinate2D", "dd", "latitude", "longitude")
 	wax.struct.create("MKCoordinateSpan", "dd", "latitudeDelta", "longitudeDelta")

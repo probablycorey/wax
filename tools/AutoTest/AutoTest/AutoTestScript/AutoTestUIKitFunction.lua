@@ -7,14 +7,10 @@ function autoTestStart(self)
 
 
     UIGraphicsBeginImageContext(CGSize(200,400));
-	--renderInContext呈现接受者及其子范围到指定的上下文
     UIApplication:sharedApplication():keyWindow():layer():renderInContext(UIGraphicsGetCurrentContext());
-    --返回一个基于当前图形上下文的图片
-	local aImage =UIGraphicsGetImageFromCurrentImageContext();
-    --移除栈顶的基于当前位图的图形上下文
+    local aImage =UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
-    --以png格式返回指定图片的数据
-	local imageData =UIImagePNGRepresentation(aImage);
+    local imageData =UIImagePNGRepresentation(aImage);
     print("imageData.length=", imageData.length);
     
     local image = aImage;
@@ -28,7 +24,7 @@ function autoTestStart(self)
     print("data.length=", data:length());
     
     local info = toobjc({key="value"});
-    UIImageWriteToSavedPhotosAlbum(image, self, "UIImageWriteToSavedPhotosAlbum:didFinishSavingWithError:contextInfo:", info);
+    -- UIImageWriteToSavedPhotosAlbum(image, self, "UIImageWriteToSavedPhotosAlbum:didFinishSavingWithError:contextInfo:", info);
     
     local point = CGPoint(10, 10);
     print("point=", point)
@@ -44,8 +40,8 @@ function autoTestStart(self)
     print("rect=", rect)
 end
 
-function UIImageWriteToSavedPhotosAlbum_didFinishSavingWithError_contextInfo(self, image, error, contextInfo)
+-- function UIImageWriteToSavedPhotosAlbum_didFinishSavingWithError_contextInfo(self, image, error, contextInfo)
 
-    print("error=", error, "contextInfo=", contextInfo);
+--     print("error=", error, "contextInfo=", contextInfo);
     
-end
+-- end

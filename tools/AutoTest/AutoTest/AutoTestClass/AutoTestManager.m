@@ -13,8 +13,7 @@
 + (void)autoTestStart{
     [AutoTestUtil runLuaFileInBundle:@"AutoTestConfig"];
     
-    NSArray *autoTestClassArray = @[@"AutoTestHookMethod", @"AutoTestBlockTransfer", @"AutoTestBlockCall"];
-//    NSArray *autoTestClassArray = @[@"AutoTestRuntime", @"AutoTestGCD", @"AutoTestUIKitFunction"];
+    NSArray *autoTestClassArray = @[@"AutoTestHookMethod", @"AutoTestBlockTransfer", @"AutoTestBlockCall", @"AutoTestRuntime", @"AutoTestGCD", @"AutoTestUIKitFunction"];
     for (NSString *className in autoTestClassArray){
         [AutoTestUtil runLuaFileInBundle:className];
         

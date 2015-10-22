@@ -1,6 +1,6 @@
 //
 //  AutoTest64MethodHookVC.m
-//  
+//  TBHotpatchSDKTest
 //
 //  Created by junzhan on 15-1-4.
 //  Copyright (c) 2015年 junzhan. All rights reserved.
@@ -18,9 +18,30 @@
     [self testHookMethod];
     [self testAddMethod];
     [self testMutiThreadSafe];
+    //
+    [[self class] testHookClassMethod];
+    [self testUnderlinePrefixMethod];
+    [self testStructMethod];
+    //    [self testTimeConsuming];
 }
 
 #pragma mark hook
+
+- (void)testTimeConsuming{
+    int n = 1000;
+    NSTimeInterval start = CFAbsoluteTimeGetCurrent();
+    
+    NSLog(@"F:%s L:%d", __PRETTY_FUNCTION__, __LINE__);
+    
+    for(int i = 0; i < n; ++i){
+        [self testHookMethod];
+    }
+    NSTimeInterval end = CFAbsoluteTimeGetCurrent();
+    NSLog(@"F:%s L:%d", __PRETTY_FUNCTION__, __LINE__);
+    NSLog(@"start=%f, end=%f", start, end);
+    NSLog(@"total cost=%.0f\n\n", (end-start)*1000.0);
+}
+
 - (void)testHookMethod{
     [self testHookReturnVoid];
     NSAssert([self testHookReturnId] == self, @"FUN:%s LINE:%d", __PRETTY_FUNCTION__, __LINE__);
@@ -121,7 +142,7 @@
 }
 
 //- (void)testAddMethodWithVoid{
-//    
+//
 //}
 //
 //- (id)testAddMethodWithaId:(NSString *)aId{
@@ -140,7 +161,7 @@
             NSString *name = [NSString stringWithFormat:@"oc.queue.%d", i%10];
             dispatch_queue_t queue = dispatch_queue_create([name UTF8String], DISPATCH_QUEUE_CONCURRENT);
             dispatch_async(queue, ^{
-                [NSThread sleepForTimeInterval:rand()%10/1000.0];
+                [NSThread sleepForTimeInterval:rand()%100/1000.0];
                 if(i&1){
                     [self testHookMethod];
                 }else{
@@ -150,5 +171,133 @@
             });
         }
     });
+}
+
+#pragma mark test hook Class method
+
++ (void)testHookClassMethod{
+    [self testHookClassaId:self];
+    NSAssert([self testHookClassReturnIdWithaId:self] == self, @"FUN:%s LINE:%d", __PRETTY_FUNCTION__, __LINE__);
+}
+
++ (void)testHookClassaId:(id)aId{
+    NSLog(@"OC TEST SUCCESS: %s", __PRETTY_FUNCTION__);
+    NSLog(@"aId=%@", aId);
+}
+
++ (id)testHookClassReturnIdWithaId:(id)aId{
+    NSLog(@"OC TEST SUCCESS: %s", __PRETTY_FUNCTION__);
+    NSLog(@"aId=%@", aId);
+    return aId;
+}
+
+#pragma mark test underline prefix method
+
+- (void)testUnderlinePrefixMethod{
+    [self _prefixMethod:@"abc"];
+    [self _prefixMethodA:@"abc" B:@"efg"];
+    [self _];
+    [self _prefixA:@"abc" _b:@"efg"];
+    [self __aa_bb_:@"abc" _cc__dd_:@"efg" ___ee___f___:@"hij"];
+    [[self class] ___aa_bb_:@"abc" _cc__dd_:@"efg" ___ee___f___:@"hij"];
+}
+
+- (id)_{
+    NSLog(@"F:%s L:%d", __PRETTY_FUNCTION__, __LINE__);
+    return self;
+}
+
+- (void)_prefixMethod:(NSString *)str{
+    NSAssert([str isEqualToString:TEST_VALUE_STRING], @"FUN:%s LINE:%d", __PRETTY_FUNCTION__, __LINE__);
+    NSLog(@"F:%s L:%d", __PRETTY_FUNCTION__, __LINE__);
+}
+
+- (id)_prefixMethodA:(NSString *)str B:(NSString *)b{
+    NSAssert([str isEqualToString:TEST_VALUE_STRING], @"FUN:%s LINE:%d", __PRETTY_FUNCTION__, __LINE__);
+    NSAssert([b isEqualToString:TEST_VALUE_STRING], @"FUN:%s LINE:%d", __PRETTY_FUNCTION__, __LINE__);
+    NSLog(@"F:%s L:%d", __PRETTY_FUNCTION__, __LINE__);
+    return str;
+}
+
+- (void)_prefixA:(NSString *)a _b:(NSString *)b{
+    NSAssert([a isEqualToString:TEST_VALUE_STRING], @"FUN:%s LINE:%d", __PRETTY_FUNCTION__, __LINE__);
+    NSAssert([b isEqualToString:TEST_VALUE_STRING], @"FUN:%s LINE:%d", __PRETTY_FUNCTION__, __LINE__);
+    NSLog(@"F:%s L:%d", __PRETTY_FUNCTION__, __LINE__);
+}
+
+- (id)__aa_bb_:(NSString *)v1 _cc__dd_ :(NSString *)v2 ___ee___f___:(NSString *)v3{
+    NSAssert([v1 isEqualToString:TEST_VALUE_STRING], @"FUN:%s LINE:%d", __PRETTY_FUNCTION__, __LINE__);
+    NSAssert([v2 isEqualToString:TEST_VALUE_STRING], @"FUN:%s LINE:%d", __PRETTY_FUNCTION__, __LINE__);
+    NSAssert([v3 isEqualToString:TEST_VALUE_STRING], @"FUN:%s LINE:%d", __PRETTY_FUNCTION__, __LINE__);
+    NSLog(@"F:%s L:%d", __PRETTY_FUNCTION__, __LINE__);
+    return v1;
+}
+
++ (id)___aa_bb_:(NSString *)v1 _cc__dd_:(NSString *)v2 ___ee___f___:(NSString *)v3{
+    NSAssert([v1 isEqualToString:TEST_VALUE_STRING], @"FUN:%s LINE:%d", __PRETTY_FUNCTION__, __LINE__);
+    NSAssert([v2 isEqualToString:TEST_VALUE_STRING], @"FUN:%s LINE:%d", __PRETTY_FUNCTION__, __LINE__);
+    NSAssert([v3 isEqualToString:TEST_VALUE_STRING], @"FUN:%s LINE:%d", __PRETTY_FUNCTION__, __LINE__);
+    NSLog(@"F:%s L:%d", __PRETTY_FUNCTION__, __LINE__);
+    return v1;
+}
+
+#pragma mark test hook struct method
+
+- (void)testStructMethod{
+    id x = [self initWithFrame:TEST_VALUE_CGRECT];
+    CGRect rect = [self testReturnCGRectWithCGRect:TEST_VALUE_CGRECT];
+    
+    NSAssert(CGRectEqualToRect(rect, CGRectMake(TEST_VALUE_CGRECT.origin.x+10*2, TEST_VALUE_CGRECT.origin.y+20*2, TEST_VALUE_CGRECT.size.width+30*2, TEST_VALUE_CGRECT.size.height+40*2)), @"testReturnCGRectWithCGRect fail");
+    
+    CGRect rect2 =  [self testReturnCGRectWithaId:self aCGRect:TEST_VALUE_CGRECT];
+    NSAssert(CGRectEqualToRect(rect2, CGRectMake(TEST_VALUE_CGRECT.origin.x+10*2, TEST_VALUE_CGRECT.origin.y+20*2, TEST_VALUE_CGRECT.size.width+30*2, TEST_VALUE_CGRECT.size.height+40*2))             , @"testReturnCGRectWithaId fail");
+    
+    CGPoint point = [self testReturnCGPointWithCGPoint:TEST_VALUE_CGPOINT];
+    NSAssert(CGPointEqualToPoint(point, CGPointMake(TEST_VALUE_CGPOINT.x+10*2, TEST_VALUE_CGPOINT.y+20*2)), @"testReturnCGPointWithCGPoint fail");
+    CGFloat aCGFloat = [[self class] testReturnCGFloatWithaPoint:TEST_VALUE_CGPOINT bPoint:TEST_VALUE_CGPOINT];
+    NSAssert([AutoTestUtil isDoubleEqual:aCGFloat aDouble:(TEST_VALUE_CGPOINT.x+10+TEST_VALUE_CGPOINT.y+20)*2], @"testReturnCGFloatWithaPoint fail");
+    
+    //    CGSize size = [self testReturnCGSizeWithCGSize:TEST_VALUE_CGSize];
+    //    NSAssert(CGSizeEqualToSize(size, CGSizeMake(TEST_VALUE_CGSize.width+10*2, TEST_VALUE_CGSize.height+20*2)), @"testReturnCGSizeWithCGSize fail");
+    
+    NSRange range = [self testReturnNSRangeWithNSRange:TEST_VALUE_NSRANGE];
+    NSAssert(range.location == TEST_VALUE_NSRANGE.location+10*2 && range.length == TEST_VALUE_NSRANGE.length+20*2, @"testReturnNSRangeWithNSRange fail");
+    range = [self testReturnNSRangeWithaId:self aNSRange:TEST_VALUE_NSRANGE];
+    NSAssert(range.location == TEST_VALUE_NSRANGE.location+10*2 && range.length == TEST_VALUE_NSRANGE.length+20*2, @"testReturnNSRangeWithaId fail");
+}
+
+
+- (id)initWithFrame:(CGRect)aCGRect{
+    NSLog(@"aCGRect=%@", NSStringFromCGRect(aCGRect));
+    self = [super init];
+    return  self;
+}
+
+- (CGRect)testReturnCGRectWithCGRect:(CGRect)aCGRect{
+    return CGRectMake(aCGRect.origin.x+10, aCGRect.origin.y+20, aCGRect.size.width+30, aCGRect.size.height+40);
+}
+
+- (CGRect)testReturnCGRectWithaId:(id)aId aCGRect:(CGRect)aCGRect{
+    return CGRectMake(aCGRect.origin.x+10, aCGRect.origin.y+20, aCGRect.size.width+30, aCGRect.size.height+40);
+}
+
+- (CGSize)testReturnCGSizeWithCGSize:(CGSize)aCGSize{
+    return CGSizeMake(aCGSize.width+10, aCGSize.height+20);
+}
+
+- (CGPoint)testReturnCGPointWithCGPoint:(CGPoint)aCGPoint{
+    return CGPointMake(aCGPoint.x+10, aCGPoint.y+20);
+}
+//a distance case
++ (CGFloat)testReturnCGFloatWithaPoint:(CGPoint)aPoint bPoint:(CGPoint)bPoint{
+    return aPoint.x+aPoint.y+bPoint.x+bPoint.y;
+}
+
+- (NSRange)testReturnNSRangeWithNSRange:(NSRange)aNSRange{
+    return NSMakeRange(aNSRange.location+10, aNSRange.length+20);
+}
+
+- (NSRange)testReturnNSRangeWithaId:(id)aId aNSRange:(NSRange)aNSRange{
+    return NSMakeRange(aNSRange.location+10, aNSRange.length+20);
 }
 @end
