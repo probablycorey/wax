@@ -815,7 +815,7 @@ static SEL getORIGSelector(SEL selector){
 static BOOL isMethodReplacedByInvocation(id klass, SEL selector){
     Method selectorMethod = class_getInstanceMethod(klass, selector);
     IMP imp = method_getImplementation(selectorMethod);
-#if WAX_IS_ARM_64 == 1
+#if defined(__arm64__)
     return imp == _objc_msgForward;
 #else
     return imp == _objc_msgForward || imp == (IMP)_objc_msgForward_stret;
@@ -866,7 +866,7 @@ static void hookForwardInvocation(id self, SEL sel, NSInvocation *anInvocation){
         }
         END_STACK_MODIFY(L, 0);
     }else{//cal original forwardInvocation method
-        ((void(*)(id, SEL, id))objc_msgSend)(self, getORIGSelector(sel), anInvocation);
+        ((void(*)(id, SEL, id))objc_msgSend)(self, @selector(ORIGforwardInvocation:), anInvocation);
     };
 }
 
