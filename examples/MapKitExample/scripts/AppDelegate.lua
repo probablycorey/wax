@@ -8,7 +8,7 @@ function applicationDidFinishLaunching(self, application)
   self.window:setBackgroundColor(UIColor:whiteColor())
   
   self.controller = SimpleMapController:init()
-  self.window:addSubview(self.controller:view())
+  self.window:setRootViewController(self.controller)
   
   self.window:makeKeyAndVisible()
 end

@@ -1,0 +1,13 @@
+//
+//  WaxWatchFramework_Prefix.pch
+//  WaxWatchFramework
+//
+//  Created by junzhan on 15/10/28.
+//  Copyright © 2015年 test.jz.com. All rights reserved.
+//
+
+
+#ifdef __OBJC__
+#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
+#endif

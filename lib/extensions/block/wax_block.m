@@ -6,7 +6,7 @@
 //  Copyright (c) 2014年 junzhan. All rights reserved.
 //
 #import "wax_helpers.h"
-
+#import <CoreGraphics/CGBase.h>
 
 NSString *wax_block_paramsTypeEncodingWithTypeArray(NSArray *paramsTypeArray){
     static NSDictionary *dict = nil;

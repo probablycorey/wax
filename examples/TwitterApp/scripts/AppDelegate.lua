@@ -8,7 +8,7 @@ function applicationDidFinishLaunching(self, application)
   self.window:setBackgroundColor(UIColor:orangeColor())
 
   self.viewController = TwitterTableViewController:init()
-  self.window:addSubview(self.viewController:view())
+  self.window:setRootViewController(self.viewController)
 
   self.window:makeKeyAndVisible()
 end

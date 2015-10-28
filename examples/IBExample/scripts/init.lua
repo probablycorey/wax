@@ -26,4 +26,4 @@ blueController = BlueController:init()
 orangeController = OrangeController:init()
 
 local window = UIApplication:sharedApplication():keyWindow()
-window:addSubview(blueController:view())
+window:setRootViewController(blueController)

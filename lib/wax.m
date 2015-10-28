@@ -6,8 +6,11 @@
 //  Copyright 2009 Probably Interactive. All rights reserved.
 //
 
-#import "ProtocolLoader.h"
+#ifndef WAX_TARGET_OS_WATCH
+#warning "compile not for TARGET_OS_WATCH"
 
+#import "ProtocolLoader.h"
+#endif
 #import "wax.h"
 #import "wax_class.h"
 #import "wax_instance.h"
@@ -166,7 +169,11 @@ void wax_start(char* initScript, lua_CFunction extensionFunction, ...) {
 
 void wax_startWithServer() {		
 	wax_setup();
+    
+#ifndef WAX_TARGET_OS_WATCH
+#warning "compile not for TARGET_OS_WATCH"
 	[wax_server class]; // You need to load the class somehow via the wax.framework
+#endif
 	lua_State *L = wax_currentLuaState();
 	
 	// Load all the wax lua scripts

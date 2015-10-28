@@ -12,6 +12,6 @@ function applicationDidFinishLaunching(self, application)
   local statesTable = StatesTable:init()
   self.navigationController = UINavigationController:initWithRootViewController(statesTable)
 
-  self.window:addSubview(self.navigationController:view())
+self.window:setRootViewController(self.navigationController)
 end
 

@@ -6,6 +6,8 @@
 //  Copyright (c) 2012 olettere. All rights reserved.
 // code from https://github.com/ebf/CTObjectiveCRuntimeAdditions
 
+#import <Foundation/Foundation.h>
+
 struct CTBlockLiteral {
     void *isa; // initialized to &_NSConcreteStackBlock or &_NSConcreteGlobalBlock
     int flags;

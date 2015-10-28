@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		006181891BCF56BA00B9F155 /* wax_block_description.m in Sources */ = {isa = PBXBuildFile; fileRef = 006181871BCF56BA00B9F155 /* wax_block_description.m */; settings = {ASSET_TAGS = (); }; };
 		00E9B1471AEFB0B7004EDF30 /* wax_config.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9B1411AEFB0B7004EDF30 /* wax_config.m */; };
-		00E9B1481AEFB0B7004EDF30 /* wax_imp_call_pool.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9B1441AEFB0B7004EDF30 /* wax_imp_call_pool.m */; };
 		00E9B1491AEFB0B7004EDF30 /* wax_lock.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9B1461AEFB0B7004EDF30 /* wax_lock.m */; };
 		00E9B1581AEFB0C3004EDF30 /* wax_block.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9B14C1AEFB0C3004EDF30 /* wax_block.m */; };
 		00E9B1591AEFB0C3004EDF30 /* wax_block_call.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9B14E1AEFB0C3004EDF30 /* wax_block_call.m */; };
@@ -89,8 +88,6 @@
 		006181881BCF56BA00B9F155 /* wax_block_description.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_block_description.h; sourceTree = "<group>"; };
 		00E9B1401AEFB0B7004EDF30 /* wax_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_config.h; sourceTree = "<group>"; };
 		00E9B1411AEFB0B7004EDF30 /* wax_config.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_config.m; sourceTree = "<group>"; };
-		00E9B1431AEFB0B7004EDF30 /* wax_imp_call_pool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_imp_call_pool.h; sourceTree = "<group>"; };
-		00E9B1441AEFB0B7004EDF30 /* wax_imp_call_pool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_imp_call_pool.m; sourceTree = "<group>"; };
 		00E9B1451AEFB0B7004EDF30 /* wax_lock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_lock.h; sourceTree = "<group>"; };
 		00E9B1461AEFB0B7004EDF30 /* wax_lock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_lock.m; sourceTree = "<group>"; };
 		00E9B14B1AEFB0C3004EDF30 /* wax_block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_block.h; sourceTree = "<group>"; };
@@ -274,8 +271,6 @@
 			children = (
 				00E9B1401AEFB0B7004EDF30 /* wax_config.h */,
 				00E9B1411AEFB0B7004EDF30 /* wax_config.m */,
-				00E9B1431AEFB0B7004EDF30 /* wax_imp_call_pool.h */,
-				00E9B1441AEFB0B7004EDF30 /* wax_imp_call_pool.m */,
 				00E9B1451AEFB0B7004EDF30 /* wax_lock.h */,
 				00E9B1461AEFB0B7004EDF30 /* wax_lock.m */,
 			);
@@ -737,7 +732,6 @@
 				04A6187312CA7AB6004ADB76 /* yajl_encode.c in Sources */,
 				04A6187412CA7AB6004ADB76 /* yajl_gen.c in Sources */,
 				04A6187512CA7AB6004ADB76 /* yajl_lex.c in Sources */,
-				00E9B1481AEFB0B7004EDF30 /* wax_imp_call_pool.m in Sources */,
 				04A6187612CA7AB6004ADB76 /* yajl_parser.c in Sources */,
 				04A6187A12CA7AB6004ADB76 /* wax_xml.m in Sources */,
 				04A6187B12CA7AB6004ADB76 /* lapi.c in Sources */,

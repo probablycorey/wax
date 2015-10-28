@@ -828,7 +828,7 @@ static void replaceMethodAndGenerateORIG(id klass, SEL selector, IMP newIMP){
     
     IMP prevImp = class_replaceMethod(klass, selector, newIMP, typeDescription);
     if(prevImp == newIMP){
-        NSLog(@"Repetition replace but, never mind");
+//        NSLog(@"Repetition replace but, never mind");
         return ;
     }
     
@@ -839,15 +839,15 @@ static void replaceMethodAndGenerateORIG(id klass, SEL selector, IMP newIMP){
     SEL newSelector = sel_getUid(newSelectorName);
     if(!class_respondsToSelector(klass, newSelector)) {
         BOOL res = class_addMethod(klass, newSelector, prevImp, typeDescription);
-        NSLog(@"res=%d", res);
+//        NSLog(@"res=%d", res);
     }
 }
 
 static void hookForwardInvocation(id self, SEL sel, NSInvocation *anInvocation){
-    NSLog(@"self=%@ sel=%s", self, anInvocation.selector);
-    NSLog(@"Fun:%s Line:%d", __PRETTY_FUNCTION__, __LINE__);
+//    NSLog(@"self=%@ sel=%s", self, anInvocation.selector);
+//    NSLog(@"Fun:%s Line:%d", __PRETTY_FUNCTION__, __LINE__);
     if(isMethodReplacedByInvocation(object_getClass(self), anInvocation.selector)){//instance->class, class->metaClass
-        NSLog(@"Fun:%s Line:%d", __PRETTY_FUNCTION__, __LINE__);
+//        NSLog(@"Fun:%s Line:%d", __PRETTY_FUNCTION__, __LINE__);
         lua_State *L = wax_currentLuaState();
         BEGIN_STACK_MODIFY(L);
         int result = pcallUserdataARM64Invocation(L, self, anInvocation.selector, anInvocation);

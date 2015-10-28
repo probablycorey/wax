@@ -1,3 +1,6 @@
+#ifndef WAX_TARGET_OS_WATCH
+#warning "compile not for TARGET_OS_WATCH"
+
 #import <Foundation/Foundation.h>
 
 @class wax_server;
@@ -45,3 +48,4 @@ typedef enum {
 // This is needed because the runtime doesn't automatically load protocols
 @interface HACK_WAX_DELEGATE_IMPLEMENTOR : NSObject  <WaxServerDelegate> {}
 @end
+#endif

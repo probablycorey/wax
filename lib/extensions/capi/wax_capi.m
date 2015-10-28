@@ -27,15 +27,20 @@ id wax_objectFromLuaState(lua_State *L, int index){
 }
 
 void wax_openBindOCFunction(lua_State *L){
+    
+#ifndef WAX_TARGET_OS_WATCH
+#warning "compile not for TARGET_OS_WATCH"
     TOLUA_API int  tolua_UIKitFunction_open (lua_State* tolua_S);
     tolua_UIKitFunction_open(L);
+    
+#endif
     
     TOLUA_API int  tolua_objc_runtime_open (lua_State* tolua_S);
     tolua_objc_runtime_open(L);
     
     TOLUA_API int  tolua_dispatch_open (lua_State* tolua_S);
     tolua_dispatch_open (L);
-
+    
     TOLUA_API int  tolua_pthread_open (lua_State* tolua_S);
     tolua_pthread_open(L);
 }

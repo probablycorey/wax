@@ -1,3 +1,6 @@
+#ifndef WAX_TARGET_OS_WATCH
+#warning "compile not for TARGET_OS_WATCH"
+
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <unistd.h>
@@ -250,3 +253,4 @@ static void TCPServerAcceptCallBack(CFSocketRef socket, CFSocketCallBackType typ
 
 @implementation HACK_WAX_DELEGATE_IMPLEMENTOR
 @end
+#endif
