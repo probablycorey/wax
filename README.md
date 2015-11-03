@@ -1,3 +1,3 @@
-Wax is now being maintained by Alibaba
+# Wax is now being maintained by `Alibaba`
 
-https://github.com/alibaba/wax
+# https://github.com/alibaba/wax
