@@ -1,6 +1,8 @@
 Wax is being maintained by Alibaba
 ----------
 
+[![Join the chat at https://gitter.im/alibaba/wax](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/alibaba/wax?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Thanks to @probablycorey for creating such a greate project.
 Wax is the best bridge between Lua and Objective-C, we will be maintaining it here. We have fixed a lot of issues such as 64-bit support and thread-safety. We have also added many features such as converting Lua functions to OC blocks, calling OC blocks in Lua, getting/setting private ivars, built-in commonly used C functions, and even Lua code debugging.
 
