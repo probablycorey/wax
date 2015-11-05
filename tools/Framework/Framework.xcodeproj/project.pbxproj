@@ -39,6 +39,14 @@
 		00E9B16D1AEFB272004EDF30 /* wax_lock.h in Headers */ = {isa = PBXBuildFile; fileRef = 00E9B1661AEFB272004EDF30 /* wax_lock.h */; };
 		00E9B16E1AEFB272004EDF30 /* wax_lock.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9B1671AEFB272004EDF30 /* wax_lock.m */; };
 		00E9B16F1AEFB272004EDF30 /* wax_define.h in Headers */ = {isa = PBXBuildFile; fileRef = 00E9B1681AEFB272004EDF30 /* wax_define.h */; };
+		00F09AAA1BEB3374006DCE1C /* wax_CGTransform.h in Headers */ = {isa = PBXBuildFile; fileRef = 00F09AA51BEB3374006DCE1C /* wax_CGTransform.h */; settings = {ASSET_TAGS = (); }; };
+		00F09AAB1BEB3374006DCE1C /* wax_CGTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F09AA61BEB3374006DCE1C /* wax_CGTransform.m */; settings = {ASSET_TAGS = (); }; };
+		00F09AAC1BEB3374006DCE1C /* wax_CGContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 00F09AA81BEB3374006DCE1C /* wax_CGContext.h */; settings = {ASSET_TAGS = (); }; };
+		00F09AAD1BEB3374006DCE1C /* wax_CGContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F09AA91BEB3374006DCE1C /* wax_CGContext.m */; settings = {ASSET_TAGS = (); }; };
+		00F09AB31BEB338D006DCE1C /* wax_sqlite.h in Headers */ = {isa = PBXBuildFile; fileRef = 00F09AAF1BEB338D006DCE1C /* wax_sqlite.h */; settings = {ASSET_TAGS = (); }; };
+		00F09AB41BEB338E006DCE1C /* wax_sqlite.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F09AB01BEB338D006DCE1C /* wax_sqlite.m */; settings = {ASSET_TAGS = (); }; };
+		00F09AB51BEB338E006DCE1C /* wax_sqlite_operation.h in Headers */ = {isa = PBXBuildFile; fileRef = 00F09AB11BEB338D006DCE1C /* wax_sqlite_operation.h */; settings = {ASSET_TAGS = (); }; };
+		00F09AB61BEB338E006DCE1C /* wax_sqlite_operation.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F09AB21BEB338D006DCE1C /* wax_sqlite_operation.m */; settings = {ASSET_TAGS = (); }; };
 		043D108212C92D6700775F70 /* wax_filesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 043D0FF512C92D6600775F70 /* wax_filesystem.m */; };
 		043D108412C92D6700775F70 /* wax_http.m in Sources */ = {isa = PBXBuildFile; fileRef = 043D0FF812C92D6600775F70 /* wax_http.m */; };
 		043D108612C92D6700775F70 /* wax_http_connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 043D0FFA12C92D6600775F70 /* wax_http_connection.m */; };
@@ -123,6 +131,14 @@
 		00E9B1661AEFB272004EDF30 /* wax_lock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_lock.h; sourceTree = "<group>"; };
 		00E9B1671AEFB272004EDF30 /* wax_lock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_lock.m; sourceTree = "<group>"; };
 		00E9B1681AEFB272004EDF30 /* wax_define.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = wax_define.h; path = ../../../../lib/wax_define.h; sourceTree = "<group>"; };
+		00F09AA51BEB3374006DCE1C /* wax_CGTransform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_CGTransform.h; sourceTree = "<group>"; };
+		00F09AA61BEB3374006DCE1C /* wax_CGTransform.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_CGTransform.m; sourceTree = "<group>"; };
+		00F09AA81BEB3374006DCE1C /* wax_CGContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_CGContext.h; sourceTree = "<group>"; };
+		00F09AA91BEB3374006DCE1C /* wax_CGContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_CGContext.m; sourceTree = "<group>"; };
+		00F09AAF1BEB338D006DCE1C /* wax_sqlite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_sqlite.h; sourceTree = "<group>"; };
+		00F09AB01BEB338D006DCE1C /* wax_sqlite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_sqlite.m; sourceTree = "<group>"; };
+		00F09AB11BEB338D006DCE1C /* wax_sqlite_operation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_sqlite_operation.h; sourceTree = "<group>"; };
+		00F09AB21BEB338D006DCE1C /* wax_sqlite_operation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_sqlite_operation.m; sourceTree = "<group>"; };
 		043D0EB512C92CF600775F70 /* Framework.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Framework.plist; sourceTree = "<group>"; };
 		043D0EB612C92D1200775F70 /* ProtocolLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProtocolLoader.h; sourceTree = "<group>"; };
 		043D0FF412C92D6600775F70 /* wax_filesystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_filesystem.h; sourceTree = "<group>"; };
@@ -330,6 +346,38 @@
 			path = ../../../../lib/adaptation;
 			sourceTree = "<group>";
 		};
+		00F09AA41BEB3374006DCE1C /* CGAffine */ = {
+			isa = PBXGroup;
+			children = (
+				00F09AA51BEB3374006DCE1C /* wax_CGTransform.h */,
+				00F09AA61BEB3374006DCE1C /* wax_CGTransform.m */,
+			);
+			name = CGAffine;
+			path = ../../../../../lib/extensions/CGAffine;
+			sourceTree = "<group>";
+		};
+		00F09AA71BEB3374006DCE1C /* CGContext */ = {
+			isa = PBXGroup;
+			children = (
+				00F09AA81BEB3374006DCE1C /* wax_CGContext.h */,
+				00F09AA91BEB3374006DCE1C /* wax_CGContext.m */,
+			);
+			name = CGContext;
+			path = ../../../../../lib/extensions/CGContext;
+			sourceTree = "<group>";
+		};
+		00F09AAE1BEB338D006DCE1C /* SQLite */ = {
+			isa = PBXGroup;
+			children = (
+				00F09AAF1BEB338D006DCE1C /* wax_sqlite.h */,
+				00F09AB01BEB338D006DCE1C /* wax_sqlite.m */,
+				00F09AB11BEB338D006DCE1C /* wax_sqlite_operation.h */,
+				00F09AB21BEB338D006DCE1C /* wax_sqlite_operation.m */,
+			);
+			name = SQLite;
+			path = ../../../../../lib/extensions/SQLite;
+			sourceTree = "<group>";
+		};
 		034768DFFF38A50411DB9C8B /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -369,6 +417,9 @@
 		043D0FEC12C92D6600775F70 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				00F09AAE1BEB338D006DCE1C /* SQLite */,
+				00F09AA41BEB3374006DCE1C /* CGAffine */,
+				00F09AA71BEB3374006DCE1C /* CGContext */,
 				008AB8861B04382600E5DF56 /* ivar */,
 				008AB88B1B04382600E5DF56 /* block */,
 				008AB8961B04382600E5DF56 /* capi */,
@@ -606,12 +657,16 @@
 				008AB8B61B04382600E5DF56 /* wax_block_transfer_pool.h in Headers */,
 				008AB8BE1B04382600E5DF56 /* tolua_event.h in Headers */,
 				00E9B16F1AEFB272004EDF30 /* wax_define.h in Headers */,
+				00F09AB31BEB338D006DCE1C /* wax_sqlite.h in Headers */,
 				008AB8BC1B04382600E5DF56 /* tolua++.h in Headers */,
 				008AB8B41B04382600E5DF56 /* wax_block_transfer.h in Headers */,
+				00F09AAC1BEB3374006DCE1C /* wax_CGContext.h in Headers */,
 				008AB8AA1B04382600E5DF56 /* NSObject+TBIvarAccess.h in Headers */,
+				00F09AAA1BEB3374006DCE1C /* wax_CGTransform.h in Headers */,
 				008AB8B01B04382600E5DF56 /* wax_block_call.h in Headers */,
 				008AB8C31B04382600E5DF56 /* wax_capi.h in Headers */,
 				006181821BCF546D00B9F155 /* wax_block_description.h in Headers */,
+				00F09AB51BEB338E006DCE1C /* wax_sqlite_operation.h in Headers */,
 				00E9B16D1AEFB272004EDF30 /* wax_lock.h in Headers */,
 				008AB8B21B04382600E5DF56 /* wax_block_call_pool.h in Headers */,
 				00E9B1691AEFB272004EDF30 /* wax_config.h in Headers */,
@@ -726,8 +781,10 @@
 				008AB8B91B04382600E5DF56 /* objc_runtime_lua.m in Sources */,
 				043D10B912C92D6700775F70 /* lmem.c in Sources */,
 				043D10BB12C92D6700775F70 /* loadlib.c in Sources */,
+				00F09AB41BEB338E006DCE1C /* wax_sqlite.m in Sources */,
 				008AB8BF1B04382600E5DF56 /* tolua_is.c in Sources */,
 				043D10BC12C92D6700775F70 /* lobject.c in Sources */,
+				00F09AAB1BEB3374006DCE1C /* wax_CGTransform.m in Sources */,
 				043D10BE12C92D6700775F70 /* lopcodes.c in Sources */,
 				006181831BCF546D00B9F155 /* wax_block_description.m in Sources */,
 				043D10C012C92D6700775F70 /* loslib.c in Sources */,
@@ -737,6 +794,7 @@
 				043D10C712C92D6700775F70 /* lstrlib.c in Sources */,
 				008AB8B71B04382600E5DF56 /* wax_block_transfer_pool.m in Sources */,
 				043D10C812C92D6700775F70 /* ltable.c in Sources */,
+				00F09AB61BEB338E006DCE1C /* wax_sqlite_operation.m in Sources */,
 				008AB8B81B04382600E5DF56 /* dispatch_lua.m in Sources */,
 				043D10CA12C92D6700775F70 /* ltablib.c in Sources */,
 				043D10CB12C92D6700775F70 /* ltm.c in Sources */,
@@ -748,6 +806,7 @@
 				008AB8BB1B04382600E5DF56 /* UIKitFunction_lua.m in Sources */,
 				043D10D812C92D6700775F70 /* wax.m in Sources */,
 				043D10DA12C92D6700775F70 /* wax_class.m in Sources */,
+				00F09AAD1BEB3374006DCE1C /* wax_CGContext.m in Sources */,
 				043D10DC12C92D6700775F70 /* wax_gc.m in Sources */,
 				043D10DE12C92D6700775F70 /* wax_helpers.m in Sources */,
 				008AB8BA1B04382600E5DF56 /* pthread_lua.m in Sources */,
