@@ -202,7 +202,7 @@ Thanks to the cross platform characteristics of Lua, Wax can run on watch OS cer
 
 Use with cocoapods
 ----------
-see examples/TestWaxPod demo.  
+see demo in `examples/InstallationExample/InstallWithCocoaPods` .  
 * add `pod 'wax', :git=>'git@github.com:alibaba/wax.git', :tag=>'1.1.0'` to your podfile. (tag in your needs)  
 * then you can run lua code.
 

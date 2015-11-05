@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-
+#import <wax/wax.h> //if this line compiles error, make sure you have build the framework.(use `cd WAX_ROOT/tools/Framework` and `rake package`)
 @interface AppDelegate ()
 
 @end
@@ -17,6 +17,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    wax_start(nil, nil);
+    wax_runLuaString("print('hello wax')");
     return YES;
 }
 

@@ -13,6 +13,7 @@
 		00F09ACE1BEB348B006DCE1C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00F09ACC1BEB348B006DCE1C /* Main.storyboard */; };
 		00F09AD01BEB348B006DCE1C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00F09ACF1BEB348B006DCE1C /* Assets.xcassets */; };
 		00F09AD31BEB348B006DCE1C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00F09AD11BEB348B006DCE1C /* LaunchScreen.storyboard */; };
+		00F09ADB1BEB349D006DCE1C /* wax.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 00F09ADA1BEB349D006DCE1C /* wax.framework */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		00F09ACF1BEB348B006DCE1C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		00F09AD21BEB348B006DCE1C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		00F09AD41BEB348B006DCE1C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		00F09ADA1BEB349D006DCE1C /* wax.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = wax.framework; path = ../../../../framework/wax.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00F09ADB1BEB349D006DCE1C /* wax.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,6 +61,7 @@
 		00F09AC21BEB348B006DCE1C /* InstallWithStaticFramework */ = {
 			isa = PBXGroup;
 			children = (
+				00F09ADA1BEB349D006DCE1C /* wax.framework */,
 				00F09AC61BEB348B006DCE1C /* AppDelegate.h */,
 				00F09AC71BEB348B006DCE1C /* AppDelegate.m */,
 				00F09AC91BEB348B006DCE1C /* ViewController.h */,
@@ -261,6 +265,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = "${SRCROOT}/../../../framework";
 				INFOPLIST_FILE = InstallWithStaticFramework/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jz.test.InstallWithStaticFramework;
@@ -272,6 +277,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = "${SRCROOT}/../../../framework";
 				INFOPLIST_FILE = InstallWithStaticFramework/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.jz.test.InstallWithStaticFramework;
