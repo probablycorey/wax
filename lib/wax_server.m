@@ -11,6 +11,7 @@
 #import "lauxlib.h"
 
 static id gInstance;
+NSString * const TCPServerErrorDomain;
 
 static void TCPServerAcceptCallBack(CFSocketRef socket, CFSocketCallBackType type, CFDataRef address, const void *data, void *info);
 

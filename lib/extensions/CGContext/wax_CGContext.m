@@ -10,7 +10,8 @@
 
 #import "wax_instance.h"
 #import "wax_helpers.h"
-
+#import <CoreGraphics/CoreGraphics.h>
+#import <UIKit/UIKit.h>
 #import "lua.h"
 #import "lauxlib.h"
 

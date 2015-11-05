@@ -13,6 +13,7 @@
 
 #import "lua.h"
 #import "lauxlib.h"
+#import <CoreGraphics/CoreGraphics.h>
 
 #define METATABLE_NAME "wax.CGTransform"
 

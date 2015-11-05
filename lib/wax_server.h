@@ -5,7 +5,7 @@
 
 @class wax_server;
 
-NSString * const TCPServerErrorDomain;
+
 
 typedef enum {
     kTCPServerCouldNotBindToIPv4Address = 1,

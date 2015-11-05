@@ -6,6 +6,7 @@
 #import "lauxlib.h"
 
 #import <stdio.h>
+//if you want to use xml and this line compiled error, link binary with libxml2 and add head file search path with '${SDK_DIR}/usr/include/libxml2'
 #import <libxml/parser.h>
 #import <libxml/tree.h>
 

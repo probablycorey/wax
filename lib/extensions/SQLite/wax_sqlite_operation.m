@@ -151,7 +151,7 @@ static void sqlite_push_column_value(sqlite3_stmt *statement, int columnIndex);
         
     bool hasCallback = !lua_isnil(L, -1);
 
-    wax_copyObject(operationLuaState, L, 1);
+//    wax_copyObject(operationLuaState, L, 1);//what's wax_copyObject?
     lua_settop(operationLuaState, 0);
     
     if (![self isCancelled] && hasCallback && wax_pcall(L, 1, 0)) {

@@ -17,6 +17,7 @@ TOLUA_API int  tolua_UIKitFunction_open (lua_State* tolua_S);
 #import "wax_instance.h"
 #import "wax_helpers.h"
 #import "wax_capi.h"
+#import <UIKit/UIKit.h>
 /* function to register type */
 static void tolua_reg_types (lua_State* tolua_S)
 {
