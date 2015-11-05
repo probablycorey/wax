@@ -234,6 +234,8 @@ More
 * [Feature Requests? Bugs?](https://github.com/alibaba/wax/issues) - Issue tracking and release planning.
 * [Mailing List](http://groups.google.com/group/iphonewax)
 * Quick questions or issues? Send an email to [@Zhengwei Yin (Junzhan)](mailto:junzhan.yzw@taobao.com)
+* Communicate in gitter: [https://gitter.im/alibaba/wax](https://gitter.im/alibaba/wax)
+* Communicate in QQ group: 196306834
 
 Contribute
 ----------
