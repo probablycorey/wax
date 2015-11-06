@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "00A41A591BE073BD00D47270"
-               BuildableName = "wax.framework"
-               BlueprintName = "WaxWatchFramework"
-               ReferencedContainer = "container:WaxWatchFramework.xcodeproj">
+               BlueprintIdentifier = "00F09ABF1BEB348B006DCE1C"
+               BuildableName = "InstallWithStaticFramework.app"
+               BlueprintName = "InstallWithStaticFramework"
+               ReferencedContainer = "container:InstallWithStaticFramework.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -29,6 +29,15 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "00F09ABF1BEB348B006DCE1C"
+            BuildableName = "InstallWithStaticFramework.app"
+            BlueprintName = "InstallWithStaticFramework"
+            ReferencedContainer = "container:InstallWithStaticFramework.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -42,15 +51,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "00A41A591BE073BD00D47270"
-            BuildableName = "wax.framework"
-            BlueprintName = "WaxWatchFramework"
-            ReferencedContainer = "container:WaxWatchFramework.xcodeproj">
+            BlueprintIdentifier = "00F09ABF1BEB348B006DCE1C"
+            BuildableName = "InstallWithStaticFramework.app"
+            BlueprintName = "InstallWithStaticFramework"
+            ReferencedContainer = "container:InstallWithStaticFramework.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -60,15 +70,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "00A41A591BE073BD00D47270"
-            BuildableName = "wax.framework"
-            BlueprintName = "WaxWatchFramework"
-            ReferencedContainer = "container:WaxWatchFramework.xcodeproj">
+            BlueprintIdentifier = "00F09ABF1BEB348B006DCE1C"
+            BuildableName = "InstallWithStaticFramework.app"
+            BlueprintName = "InstallWithStaticFramework"
+            ReferencedContainer = "container:InstallWithStaticFramework.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

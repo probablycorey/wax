@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "00A41A591BE073BD00D47270"
-               BuildableName = "wax.framework"
-               BlueprintName = "WaxWatchFramework"
+               BlueprintIdentifier = "00A41C761BE0A2C300D47270"
+               BuildableName = "libwax.a"
+               BlueprintName = "WaxWatchLib"
                ReferencedContainer = "container:WaxWatchFramework.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -45,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "00A41A591BE073BD00D47270"
-            BuildableName = "wax.framework"
-            BlueprintName = "WaxWatchFramework"
+            BlueprintIdentifier = "00A41C761BE0A2C300D47270"
+            BuildableName = "libwax.a"
+            BlueprintName = "WaxWatchLib"
             ReferencedContainer = "container:WaxWatchFramework.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -63,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "00A41A591BE073BD00D47270"
-            BuildableName = "wax.framework"
-            BlueprintName = "WaxWatchFramework"
+            BlueprintIdentifier = "00A41C761BE0A2C300D47270"
+            BuildableName = "libwax.a"
+            BlueprintName = "WaxWatchLib"
             ReferencedContainer = "container:WaxWatchFramework.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

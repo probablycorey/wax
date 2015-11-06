@@ -1,4 +1,5 @@
 {
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "A3C9D68EA174E141FF32E3F6D2F72517D8FFE964",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
@@ -8,12 +9,12 @@
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "5DD10E60-BAA7-4192-A10E-413F2EEF60C3",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "A3C9D68EA174E141FF32E3F6D2F72517D8FFE964" : "..",
-    "FF6D496E0E0182BAC0008A6D065A4BD41D571332" : "..\/tools\/mobdebug"
+    "A3C9D68EA174E141FF32E3F6D2F72517D8FFE964" : "wax\/",
+    "FF6D496E0E0182BAC0008A6D065A4BD41D571332" : "wax\/tools\/mobdebug\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "LuaCodeDebug",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
-  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "LuaCodeDebug.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "examples\/LuaCodeDebug\/LuaCodeDebug.xcworkspace",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:alibaba\/wax.git",

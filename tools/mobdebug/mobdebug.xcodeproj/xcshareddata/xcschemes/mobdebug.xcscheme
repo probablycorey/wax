@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0610"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "00A41A591BE073BD00D47270"
-               BuildableName = "wax.framework"
-               BlueprintName = "WaxWatchFramework"
-               ReferencedContainer = "container:WaxWatchFramework.xcodeproj">
+               BlueprintIdentifier = "0010CE1A1B69BD8D0032F514"
+               BuildableName = "mobdebug.framework"
+               BlueprintName = "mobdebug"
+               ReferencedContainer = "container:mobdebug.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,10 +45,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "00A41A591BE073BD00D47270"
-            BuildableName = "wax.framework"
-            BlueprintName = "WaxWatchFramework"
-            ReferencedContainer = "container:WaxWatchFramework.xcodeproj">
+            BlueprintIdentifier = "0010CE1A1B69BD8D0032F514"
+            BuildableName = "mobdebug.framework"
+            BlueprintName = "mobdebug"
+            ReferencedContainer = "container:mobdebug.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -63,10 +63,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "00A41A591BE073BD00D47270"
-            BuildableName = "wax.framework"
-            BlueprintName = "WaxWatchFramework"
-            ReferencedContainer = "container:WaxWatchFramework.xcodeproj">
+            BlueprintIdentifier = "0010CE1A1B69BD8D0032F514"
+            BuildableName = "mobdebug.framework"
+            BlueprintName = "mobdebug"
+            ReferencedContainer = "container:mobdebug.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>
