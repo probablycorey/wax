@@ -131,6 +131,12 @@ static void createTable(lua_State *L, xmlNode *node, char *textLabel, char *attr
                 break;
             case XML_COMMENT_NODE: // do nothing if it's a comment
                 break;
+            case XML_CDATA_SECTION_NODE:
+                if (xmlIsBlankNode(node)) continue;
+                lua_pushstring(L, textLabel);
+                lua_pushstring(L, (const char *)node->content);
+                lua_rawset(L, -3);
+		break;
             default:
                 // I have no idea what these things are... XML is for weirdos
                 luaL_error(L, "UNKNOWN NODE TYPE %d", node->type);
@@ -138,6 +144,9 @@ static void createTable(lua_State *L, xmlNode *node, char *textLabel, char *attr
         }
     }
 }
+
+
+static void errorHandler(void * userData, xmlErrorPtr error);
 
 static int parse(lua_State *L) {
     BEGIN_STACK_MODIFY(L);
@@ -172,8 +181,9 @@ static int parse(lua_State *L) {
         lua_pop(L, 1); // pop the custom label table off the stack (just making room!)
     }
 
-    lua_pop(L, 1); // pop the xml off the stack (just making room!)
-
+    lua_remove(L, 1); // remove the xml string from the stack (we've copied it above)
+    xmlSetStructuredErrorFunc(L, errorHandler);
+    
     doc = xmlReadMemory(xml, xmlLength, "noname.xml", NULL, 0);
     if (doc != NULL) {
         xmlNode *root_element = xmlDocGetRootElement(doc);
@@ -182,15 +192,92 @@ static int parse(lua_State *L) {
         createTable(L, root_element, textLabel, attrsLabel);
     }
     else {
-        luaL_error(L, "Unable open for parsing xml");
+        lua_pushnil(L);
     }
-
+	
     xmlFreeDoc(doc);
-
+    if (lua_isfunction(L, 1)) { // if we were given an error callback, now it's 
+                                // the time to remove it
+        lua_remove(L, 1);
+    }
     END_STACK_MODIFY(L, 1);
-
+    
     return 1;
 }
+
+
+// Makes a dictionary (table) with the data of the XML error object passed,
+// and pushes that dictionary onto the Lua stack.
+// For details about the meaning of the fields of the result dictionary see
+// http://xmlsoft.org/html/libxml-xmlerror.html#xmlParserError.
+static void pushParseErrorDictionary(lua_State *L, xmlErrorPtr e)
+{
+    lua_newtable(L);  // push a new empty table object on the stack
+    // that will hold a single error's data
+    
+    
+    lua_pushinteger(L, e->domain); // push given integer onto stack
+    lua_setfield(L, -2, "domain"); // set field `domain' of table at stack in
+    // -2; after setting is done, pop the stack's top
+    // element
+    
+    lua_pushinteger(L, e->code);
+    lua_setfield(L, -2, "code");
+    
+    lua_pushstring(L, e->message);
+    lua_setfield(L, -2, "message");
+    
+    lua_pushinteger(L, e->level);
+    lua_setfield(L, -2, "level");
+    
+    lua_pushstring(L, e->file);
+    lua_setfield(L, -2, "file");
+    
+    lua_pushinteger(L, e->line);
+    lua_setfield(L, -2, "line");
+    
+    lua_pushstring(L, e->str1);
+    lua_setfield(L, -2, "str1");
+    
+    lua_pushstring(L, e->str2);
+    lua_setfield(L, -2, "str2");
+    
+    lua_pushstring(L, e->str3);
+    lua_setfield(L, -2, "str3");
+    
+    
+    lua_pushinteger(L, e->int1);
+    lua_setfield(L, -2, "int1");
+    
+    lua_pushinteger(L, e->int2);
+    lua_setfield(L, -2, "int2");
+    
+    lua_pushlightuserdata(L, e->ctxt);
+    lua_setfield(L, -2, "ctxt");
+    
+    
+    lua_pushlightuserdata(L, e->node);
+    lua_setfield(L, -2, "node");
+    
+    // upon returning this function leaves a table object on the stack's top      
+    
+}
+
+
+// `L' is expected to be a lua_State stack.
+static void errorHandler(void * L, xmlErrorPtr error)
+{
+    if (lua_isfunction(L, -1)) {  // if the top element in the Lua stack is a function,
+                                  // it will be the error callback passed to parse() as its 
+                                  // last argument, so there is a callback to call.
+
+        lua_pushvalue(L, -1); // duplicate the error callback, because lua_call
+                              // removes the function it calls
+        pushParseErrorDictionary(L, error);
+        lua_call(L, 1, 0);
+    }
+}
+
 
 static void createAttributes(lua_State *L, xmlNodePtr node) {
     lua_pushnil(L);
