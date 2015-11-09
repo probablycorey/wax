@@ -2,13 +2,16 @@ waxClass{"SimpleAnnotation", NSObject, protocols={"MKAnnotation"}}
 
 function initWithLatLong(self, lat, long)
   self.super:init()
-  self.lat = lat
-  self.long = long
+  if self then
+    self.lat = lat
+    self.long = long
   
-  -- These variables have underscores because they would have conflicted with 
-  -- method names required by the MKAnnotation protocol.
-  self._title = 'Untitled'
-  self._subtitle = ''
+    -- These variables have underscores because they would have conflicted with
+    -- method names required by the MKAnnotation protocol.
+    self._title = 'Untitled'
+    self._subtitle = ''
+  end
+  return self
 end
 
 function coordinate(self)

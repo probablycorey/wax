@@ -4,11 +4,14 @@ waxClass{"SimpleMapController", UIViewController, protocols={"MKMapViewDelegate"
 
 function init(self)
   self.super:init()
-  -- San Francisco, CA
-  self.location = {
-    lat=37.7749295,
-    long=-122.4194155,
-  }
+  if self then
+    -- San Francisco, CA
+    self.location = {
+      lat=37.7749295,
+      long=-122.4194155,
+    }
+  end
+  return self
 end
 
 function viewDidLoad(self)
