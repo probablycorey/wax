@@ -12,7 +12,7 @@ Use steps
 ```
 * download [ZeroBraneStudio](https://github.com/pkulchenko/ZeroBraneStudio)
 * run ZeroBraneStudio: double click `zbstudio/ZeroBraneStudio` or `sh zbstudio.sh`
-* import lua code: click the 6th button![Smaller icon](https://github.com/pkulchenko/ZeroBraneStudio/blob/master/zbstudio/res/24/DIR-SETUP.png?raw=true), choose your lua code directory
+* import lua code: click the 6th button![Smaller icon](https://github.com/pkulchenko/ZeroBraneStudio/blob/master/zbstudio/res/24/DIR-SETUP.png?raw=true), choose your lua code's root directory
 * start debug server: click Project->Start Debugger Server.
 * run this code before you enter debug
 
@@ -22,6 +22,7 @@ Use steps
     luaopen_mobdebug_scripts(wax_currentLuaState());
 ```
 * add```require('mobdebug').start('YOUR_MAC_IP_ADDRESS')```to your lua code. if you use simulator `'YOUR_MAC_IP_ADDRESS'` can be empty
+* launch your app，when `require('mobdebug').start()` is invoked, ZeroBraneStudio's dock will become active, then you should add breakpoint.
 
 debug functions
 --------
