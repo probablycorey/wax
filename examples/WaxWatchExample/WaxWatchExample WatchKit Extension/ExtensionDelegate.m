@@ -14,6 +14,8 @@
     // Perform any final initialization of your application.
     wax_start(nil, nil);
     wax_runLuaString("print('hello wax')");
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"watch" ofType:@"lua"];
+    wax_runLuaFile(path.UTF8String);
 }
 
 - (void)applicationDidBecomeActive {

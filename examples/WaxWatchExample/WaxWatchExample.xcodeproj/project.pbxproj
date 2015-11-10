@@ -86,6 +86,7 @@
 		00A41E651BE0A60F00D47270 /* wax_instance.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A41D7E1BE0A60E00D47270 /* wax_instance.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		00A41E671BE0A60F00D47270 /* wax_server.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A41D801BE0A60E00D47270 /* wax_server.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		00A41E691BE0A60F00D47270 /* wax_struct.m in Sources */ = {isa = PBXBuildFile; fileRef = 00A41D831BE0A60E00D47270 /* wax_struct.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		00C2C0091BF19A2900C592CB /* watch.lua in Resources */ = {isa = PBXBuildFile; fileRef = 00C2C0081BF19A2900C592CB /* watch.lua */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -285,6 +286,7 @@
 		00A41D811BE0A60E00D47270 /* wax_stdlib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_stdlib.h; sourceTree = "<group>"; };
 		00A41D821BE0A60E00D47270 /* wax_struct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_struct.h; sourceTree = "<group>"; };
 		00A41D831BE0A60E00D47270 /* wax_struct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_struct.m; sourceTree = "<group>"; };
+		00C2C0081BF19A2900C592CB /* watch.lua */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = watch.lua; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -363,6 +365,7 @@
 		00A41C511BE0A1A000D47270 /* WaxWatchExample WatchKit Extension */ = {
 			isa = PBXGroup;
 			children = (
+				00C2C0071BF19A2900C592CB /* Script */,
 				00A41C541BE0A1A000D47270 /* InterfaceController.h */,
 				00A41C551BE0A1A000D47270 /* InterfaceController.m */,
 				00A41C571BE0A1A000D47270 /* ExtensionDelegate.h */,
@@ -618,6 +621,14 @@
 			path = lua;
 			sourceTree = "<group>";
 		};
+		00C2C0071BF19A2900C592CB /* Script */ = {
+			isa = PBXGroup;
+			children = (
+				00C2C0081BF19A2900C592CB /* watch.lua */,
+			);
+			path = Script;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -738,6 +749,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				00C2C0091BF19A2900C592CB /* watch.lua in Resources */,
 				00A41C641BE0A1A000D47270 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1060,6 +1072,7 @@
 				00A41C6A1BE0A1A000D47270 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		00A41C6C1BE0A1A000D47270 /* Build configuration list for PBXNativeTarget "WaxWatchExample WatchKit App" */ = {
 			isa = XCConfigurationList;
@@ -1068,6 +1081,7 @@
 				00A41C6E1BE0A1A000D47270 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		00A41C701BE0A1A000D47270 /* Build configuration list for PBXNativeTarget "WaxWatchExample" */ = {
 			isa = XCConfigurationList;
@@ -1076,6 +1090,7 @@
 				00A41C721BE0A1A000D47270 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
