@@ -130,6 +130,7 @@ void *lua_call_bb(lua_State *L, int index, char typeEncoding){
 
 int luaCallBlockWithParamsTypeArray(lua_State *L){
     int n = lua_gettop(L);
+    int st = 2;//1:block, 2:typeArray
     wax_instance_userdata *blockUserData = lua_touserdata(L, 1);
     
     id *instancePointer = wax_copyToObjc(L, "@", 2, nil);
@@ -139,12 +140,12 @@ int luaCallBlockWithParamsTypeArray(lua_State *L){
     NSString *paramsTypeEncoding = wax_block_paramsTypeEncodingWithTypeArray(paramsTypeArray);
     
     const char *origTypeEncoding = [paramsTypeEncoding UTF8String];
-    char *newTypeEncoding = alloca(sizeof(char)*strlen(origTypeEncoding));
-    strcpy(newTypeEncoding, origTypeEncoding);
-    int st = 2;//1:block,2:return value
-    int paramNum = n - 2;
+    unsigned long length = strlen(origTypeEncoding);
     
-    for(NSUInteger i = 0; i < paramNum; ++i){
+    char *newTypeEncoding = alloca(sizeof(char)*length);
+    strcpy(newTypeEncoding, origTypeEncoding);
+    
+    for(NSUInteger i = 0; i < length; ++i){
         char tempChar = newTypeEncoding[i];
         if(tempChar == WAX_TYPE_FLOAT || tempChar == WAX_TYPE_DOUBLE){//float,double
             continue ;
@@ -154,22 +155,23 @@ int luaCallBlockWithParamsTypeArray(lua_State *L){
             newTypeEncoding[i] = WAX_TYPE_LONG_LONG;//WAX_TYPE_UNSIGNED_LONG_LONG as longlong
         }else if(tempChar == WAX_TYPE_POINTER || tempChar == WAX_TYPE_STRING || tempChar == WAX_TYPE_ID){//pointer
 #if WAX_IS_ARM_64 == 1
-            newTypeEncoding[i] = WAX_TYPE_INT;
-#else
             newTypeEncoding[i] = WAX_TYPE_LONG_LONG;
+#else
+            newTypeEncoding[i] = WAX_TYPE_INT;
 #endif
         }else{//other all 32 bit as int, 64 bit as longlong
 #if WAX_IS_ARM_64 == 1
-            newTypeEncoding[i] = WAX_TYPE_INT;
-#else
             newTypeEncoding[i] = WAX_TYPE_LONG_LONG;
+#else
+            newTypeEncoding[i] = WAX_TYPE_INT;
 #endif
         }
     }
     
     NSValue *value = [wax_block_call_pool() objectForKey:[NSString stringWithUTF8String:newTypeEncoding]];
+    NSCAssert(value, @"can't match block luaCallBlockWithParamsTypeEncoding");
     if(!value){
-        NSLog(@"can't match block luaCallBlockWithParamsTypeEncoding");
+//        NSLog(@"can't match block luaCallBlockWithParamsTypeEncoding");
         return 0;
     }
     
@@ -179,7 +181,7 @@ int luaCallBlockWithParamsTypeArray(lua_State *L){
     
     //original type
     char tempTypeEncoding[3] = {0};//at least 3 byte, or wax_simplifyTypeDescription maybe out of bounds
-    tempTypeEncoding[0] = newTypeEncoding[0];
+    tempTypeEncoding[0] = origTypeEncoding[0];
     wax_fromObjc(L, tempTypeEncoding, returnBuffer);
     return 1;
 }

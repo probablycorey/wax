@@ -7,9 +7,9 @@
 //
 
 #import "AutoTestBlockCall.h"
-
+#import "AutoTestUtil.h"
 @interface AutoTestBlockCall ()
-
+@property (strong, nonatomic) NSString *(^privateBlock)(NSString *str);
 @end
 typedef void (^YYZJSBResponse)(NSString * code, NSDictionary * responseData);
 // 定义服务处理器类型(入参, 回写数据)
@@ -26,7 +26,11 @@ typedef void (^WVJSBDeallocHandler)(UIViewController * sourceViewController, UIW
 
 - (void)autoTestStart
 {
-
+    self.privateBlock =  ^NSString*(NSString *str){
+        return [str stringByAppendingString:TEST_VALUE_STRING];
+    };
+    
+    [self testCallBlockInLua];
     
     [self testStrBlock:^(NSString *code, NSString *responseData) {
         NSLog(@"code=%@ responseData=%@", code, responseData);
@@ -60,7 +64,7 @@ typedef void (^WVJSBDeallocHandler)(UIViewController * sourceViewController, UIW
     
     [self testReturnObjectBlock:^NSString *(NSString *code, NSDictionary *responseData) {
         NSLog(@"%s line=%d code=%@ responseData=%@", __PRETTY_FUNCTION__, __LINE__, code, responseData);
-        return @"abcdefg";
+        return [code stringByAppendingString:TEST_VALUE_STRING];
     }];
     //    return ;
     [self testReturnDictObjectBlock:^NSDictionary *(NSString *code, NSDictionary *responseData) {
@@ -70,6 +74,7 @@ typedef void (^WVJSBDeallocHandler)(UIViewController * sourceViewController, UIW
     
     [self testReturnViewControllerObjectBlock:^UIViewController *(NSString *code, NSDictionary *responseData) {
         NSLog(@"%s line=%d code=%@ responseData=%@", __PRETTY_FUNCTION__, __LINE__, code, responseData);
+        
         return [UIViewController new];
     } ];
     
@@ -78,6 +83,20 @@ typedef void (^WVJSBDeallocHandler)(UIViewController * sourceViewController, UIW
         NSLog(@"OC TEST SUCCESS: %s", "testLuaCallBlockReturnIntWith5ciqfd");
         return TEST_VALUE_INT;
     }];
+    
+    [self testReturnCGFloatWithFirstCGFloatBlock:^CGFloat(CGFloat aFirstCGFloat, BOOL aBOOL, NSInteger aInteger, CGFloat aCGFloat) {
+        
+        return TEST_VALUE_CGFLOAT;
+    }];
+    
+    [self testReturnIntegerWithFirstIntegerBlock:^NSInteger(NSInteger aFirstInteger, BOOL aBOOL, CGFloat aCGFloat, id aId) {
+        return TEST_VALUE_INTEGER;
+    }];
+}
+
+//empty , code in lua
+- (void)testCallBlockInLua{
+    
 }
 
 - (void)testBlock:(void (^)(NSString * code, NSDictionary * responseData))response str:(NSString *)str{
@@ -130,6 +149,24 @@ typedef void (^WVJSBDeallocHandler)(UIViewController * sourceViewController, UIW
         UIViewController *res = response(@"123", @{@"k1": @"v1", @"k2":@"v2"});
         NSLog(@"res=%@", res);
     });
+}
+
+#pragma mark float
+
+- (void)testReturnCGFloatWithFirstCGFloatBlock:(CGFloat(^)(CGFloat aFirstCGFloat, BOOL aBOOL, NSInteger aInteger, CGFloat aCGFloat))block{
+    CGFloat res = block(TEST_VALUE_CGFLOAT, TEST_VALUE_BOOL, TEST_VALUE_INTEGER,TEST_VALUE_CGFLOAT);
+    NSLog(@"res=%f F=%s LINE=%d", res, __PRETTY_FUNCTION__, __LINE__);
+    NSAssert([AutoTestUtil isDoubleEqual:res aDouble:TEST_VALUE_CGFLOAT], @"%s返回值错误", __PRETTY_FUNCTION__);
+    NSLog(@"OC TEST SUCCESS: %s", __PRETTY_FUNCTION__);
+}
+
+#pragma mark int
+
+- (void)testReturnIntegerWithFirstIntegerBlock:(NSInteger(^)(NSInteger aFirstInteger, BOOL aBOOL, CGFloat aCGFloat, id aId))block{
+    NSInteger res = block(TEST_VALUE_INTEGER, TEST_VALUE_BOOL,TEST_VALUE_CGFLOAT, self);
+    NSLog(@"res=%ld F=%s LINE=%d", res, __PRETTY_FUNCTION__, __LINE__);
+    NSAssert(res == TEST_VALUE_INTEGER, @"返回值错误");
+    NSLog(@"OC TEST SUCCESS: %s", __PRETTY_FUNCTION__);
 }
 
 @end

@@ -149,7 +149,7 @@ What about calling Objective-C blocks?
 
 ``` lua
 --OC block type is id (^)(NSInteger, id, BOOL, CGFloat)
-local res = luaCallBlock(block, 123456, aObject, true, 123.456,);
+local res = luaCallBlock(block, 123456, aObject, true, 123.456);
 
 --or you can call like this:
 local res = luaCallBlockWithParamsTypeArray(block, {"id","NSInteger", "id", "BOOL", "CGFloat"},  123456, aObject, true, 123.456);
@@ -170,7 +170,7 @@ print(toobjc(self:getIvarObject("_infoDict")))
 You want to call some C functions?
 
 ``` lua
-luaSetWaxConfig({wax_openBindOCFunction=true})--bind built-in C function
+luaSetWaxConfig({openBindOCFunction=true})--bind built-in C function
 
 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), 
         toblock(
@@ -205,7 +205,7 @@ Thanks to the cross platform characteristics of Lua, Wax can run on watch OS cer
 Use with cocoapods
 ----------
 see demo in `examples/InstallationExample/InstallWithCocoaPods` .  
-* add `pod 'wax', :git=>'git@github.com:alibaba/wax.git', :tag=>'1.1.0'` to your podfile. (tag in your needs)  
+* add `pod 'wax', :git=>'https://github.com/alibaba/wax.git', :tag=>'1.1.0'` to your podfile. (tag in your needs)  
 * then you can run lua code.
 
 ``` lua
