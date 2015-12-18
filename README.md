@@ -201,6 +201,23 @@ Watch OS
 Can Wax run on watch OS?
 Thanks to the cross platform characteristics of Lua, Wax can run on watch OS certainly. see tools/WaxWatchFramework and examples/WaxWatchExample
 
+Swift
+------
+Can Wax work in Swift?
+Swift has no runtime feature, but it's compatible with Objective-c, so runtime method invoking and swizzing can be used in some conditions. [see more detail](https://github.com/alibaba/wax/wiki/UseInSwift).
+
+```
+waxClass{"SwiftExample.TestSwiftVC"}
+function viewDidLoad(self)
+	self:ORIGviewDidLoad();
+	--call class method
+	objc_getClass("SwiftExample.TestSwiftVC"):testClassReturnVoidWithaId(self:view())
+end
+function tableView_didSelectRowAtIndexPath(self, tableView, indexPath)
+	local vc = objc_getClass("SwiftExample.TestBSwiftVC"):initWithNibName_bundle("TestBSwiftVC", nil);
+    self:navigationController():pushViewController_animated(vc, true);
+end
+```
 
 Use with cocoapods
 ----------
