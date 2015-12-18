@@ -1,0 +1,11 @@
+source "git@gitlab.alibaba-inc.com:alipods/specs.git"
+source "git@gitlab.alibaba-inc.com:alipods/specs-mirror.git"
+platform :ios
+
+
+target 'SwiftExample' do
+	platform:ios, '7.0'
+	#pod 'wax', :git=>'https://github.com/alibaba/wax.git', :tag=>'1.1.0'
+    #pod 'wax', :git=>'git@github.com:alibaba/wax.git', :commit=>'5c762ad'
+    pod 'wax', :path=>'../../'
+end
