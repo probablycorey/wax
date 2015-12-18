@@ -15,6 +15,11 @@ typedef long long LongLong;
 #define WAX_ORIGINAL_METHOD_PREFIX "ORIG"
 
 /**
+ *  super method prefix
+ */
+#define WAX_SUPER_METHOD_PREFIX "SUPER"
+
+/**
  *  support method with '_'. [self _aaa_bbb:v1 __cc_:v2] -> self:UNDERxLINEaaaUNDERxLINEbbb_UNDERxLINEUNDERxLINEccUNDERxLINE(v1, v2)
  */
 #define WAX_METHOD_UNDER_LINE_MARK "UNDERxLINE"
@@ -24,7 +29,6 @@ typedef long long LongLong;
     #warning @"64 bit arm"
     #define WAX_IS_ARM_64 1
 #else
-
+    #define WAX_IS_ARM_64 0
     #warning @"32 bit arm"
 #endif
-

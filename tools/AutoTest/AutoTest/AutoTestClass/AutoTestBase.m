@@ -34,5 +34,8 @@
 }
 
 
+- (id)testSuperMethodReturnId{
+    return TEST_VALUE_STRING;
+}
 
 @end

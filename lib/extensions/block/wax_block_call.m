@@ -197,13 +197,22 @@ int luaCallBlock(lua_State *L){
     NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:blockSignature];
     [invocation setTarget:block];
     NSCAssert(blockSignature.numberOfArguments == paramNum+1, @"blockSignature.numberOfArguments != paramNum");
+    
+    void **arguements = calloc(sizeof(void*), paramNum);
+    
     for(int i = 1; i <= paramNum; ++i){//0 is block:@?, param start from 1
         const char *type = [blockSignature getArgumentTypeAtIndex:i];
         void *buffer = wax_copyToObjc(L, type, 1+i, nil);
+        arguements[i-1] = buffer;
         [invocation setArgument:buffer atIndex:i];
     }
     
     [invocation invoke];
+    
+    for (int i = 0; i < paramNum; i++) {//free arguments memory
+        free(arguements[i]);
+    }
+    free(arguements);
     
     if(blockSignature.methodReturnLength > 0){
         void *buffer = malloc(blockSignature.methodReturnLength);

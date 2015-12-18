@@ -155,7 +155,7 @@ end
 
 function initWithFrame(self, aCGRect)
     print("aCGRect=" .. tostring(aCGRect));
-    -- self = self.super:init();
+    self = self.super:init();
     return self
 end
 
@@ -197,4 +197,12 @@ end
 function testReturnNSRangeWithaId_aNSRange(self, aId, aNSRange)
 	local range = NSRange(aNSRange.location+10, aNSRange.length+20);
 	return self:ORIGtestReturnNSRangeWithaId_aNSRange(aId, range);
+end
+---super method
+
+function testSuperMethodReturnId(self)
+	local aId = self.super:testSuperMethodReturnId()
+	assert(aId == TEST_VALUE_STRING);
+	print("LUA TEST SUCCESS: testSuperMethodReturnId")
+	return self
 end

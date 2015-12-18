@@ -58,6 +58,8 @@
     NSAssert([self testHookaInteger:TEST_VALUE_INTEGER bId:[UIViewController new] cId:[UIView new] dId:[UILabel new]] == TEST_VALUE_INTEGER, @"FUN:%s LINE:%d", __PRETTY_FUNCTION__, __LINE__);
     
     NSAssert([self testHookaChar:TEST_VALUE_CHAR aInteger:TEST_VALUE_INTEGER aBOOL:YES aDouble:TEST_VALUE_DOUBLE aString:@"hij" aId:self] == TEST_VALUE_CHAR, @"FUN:%s LINE:%d", __PRETTY_FUNCTION__, __LINE__);
+    
+    NSAssert([self testSuperMethodReturnId] == self, @"FUN:%s LINE:%d", __PRETTY_FUNCTION__, __LINE__);
 }
 
 //char aChar, int aInt, NSInteger aInteger, BOOL aBOOL, bool aBool, char *aCharPointer, short aShort,  NSUInteger aUInteger, long long aLongLong, unsigned long long aULongLong, float aFloat, CGFloat aCGFloat, double aDouble, void *aVoidPointer, NSString *aString, id aId)

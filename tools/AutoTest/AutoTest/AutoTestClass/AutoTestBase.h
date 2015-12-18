@@ -22,4 +22,7 @@
 - (void)autoTestStart;
 
 - (void)afterAutoTestStart;
+
+
+- (id)testSuperMethodReturnId;
 @end

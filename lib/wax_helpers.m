@@ -103,6 +103,8 @@ int wax_getStackTrace(lua_State *L) {
     return 1;
 }
 
+
+//change buffer to lua object and push stack, if it's OC object, then retain it.
 int wax_fromObjc(lua_State *L, const char *typeDescription, void *buffer) {
     BEGIN_STACK_MODIFY(L)
     
@@ -263,7 +265,7 @@ void wax_fromInstance(lua_State *L, id instance) {
             wax_instance_create(L, [[instance copy] autorelease], NO);
 		}
         else {
-            wax_instance_create(L, instance, NO);
+            wax_instance_create(L, instance, ([instance class] == instance));//it maybe a class, eg:objc_getClass("Test.Swift"):init()
         }
     }
     else {
@@ -641,10 +643,12 @@ BOOL wax_selectorForInstance(wax_instance_userdata *instanceUserdata, SEL* found
         
         BOOL addSelector = NO;
         if (instanceUserdata->isClass && (forceInstanceCheck || wax_isInitMethod(methodName))) {
-            if ([instanceUserdata->instance instanceMethodSignatureForSelector:selector]) addSelector = YES;
+            //instanceMethodSignatureForSelector is inefficiency, try to use instancesRespondToSelector (but dynamic resolve will become YES)
+            if ([instanceUserdata->instance instancesRespondToSelector:selector]) addSelector = YES;
         }
         else {
-            if ([instanceUserdata->instance methodSignatureForSelector:selector]) addSelector = YES;
+            //methodSignatureForSelector is inefficiency, try to use respondsToSelector (but dynamic resolve will become YES)
+            if ([instanceUserdata->instance respondsToSelector:selector]) addSelector = YES;
         }    
         
         if (addSelector) {
@@ -927,4 +931,13 @@ int wax_pcall(lua_State *L, int argumentCount, int returnCount) {
     lua_insert(L, errorFuncStackIndex);//插到userdata前面
     
     return lua_pcall(L, argumentCount, returnCount, errorFuncStackIndex);
+}
+
+SEL wax_selectorWithPrefix(SEL selector, const char *prefix){
+    const char *selectorName = sel_getName(selector);
+    char newSelectorName[strlen(selectorName) + strlen(prefix)+1];
+    strcpy(newSelectorName, prefix);
+    strcat(newSelectorName, selectorName);
+    SEL newSelector = sel_getUid(newSelectorName);
+    return newSelector;
 }

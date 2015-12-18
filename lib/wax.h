@@ -6,9 +6,20 @@
 
 #define WAX_VERSION 0.93
 
-void wax_setup();
+
+//just start wax with no script, and no extension. (can be used in swift)
+void wax_startWithNil();
+
+//setup lua, and load wax stdlib
 void wax_start(char *initScript, lua_CFunction extensionFunctions, ...);
+
+//start with wax server
 void wax_startWithServer();
+
+//setup lua
+void wax_setup();
+
+
 void wax_end();
 
 lua_State *wax_currentLuaState();

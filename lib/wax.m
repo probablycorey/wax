@@ -97,6 +97,10 @@ void wax_setup() {
 	[wax_gc start];
 }
 
+void wax_startWithNil(){
+    wax_start(nil, nil);
+}
+
 void wax_start(char* initScript, lua_CFunction extensionFunction, ...) {
     
 	wax_setup();

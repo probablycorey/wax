@@ -11,6 +11,8 @@
 #import "wax_gc.h"
 #import "wax_capi.h"
 
+static NSDictionary *configDict;
+
 int luaSetWaxConfig(lua_State *L){
     if(lua_isnil(L, -1)){
         return 0;
@@ -19,6 +21,9 @@ int luaSetWaxConfig(lua_State *L){
         id instance = *(id *)instancePointer;
         
         if([instance isKindOfClass:[NSDictionary class]]){
+            [configDict release];
+            configDict = [instance copy];//save
+            
             if([instance objectForKey:@"gc_timeout"]){//gc time
                 [wax_gc setWaxGCTimeout:[[instance objectForKey:@"gc_timeout"] integerValue]];
             }else if([instance objectForKey:@"openBindOCFunction"]){
@@ -28,4 +33,8 @@ int luaSetWaxConfig(lua_State *L){
         free(instancePointer);
     }
     return 0;
+}
+
+NSDictionary *luaGetWaxConfig(){
+    return configDict;
 }

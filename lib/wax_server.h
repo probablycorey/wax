@@ -6,7 +6,6 @@
 @class wax_server;
 
 
-
 typedef enum {
     kTCPServerCouldNotBindToIPv4Address = 1,
     kTCPServerCouldNotBindToIPv6Address = 2,

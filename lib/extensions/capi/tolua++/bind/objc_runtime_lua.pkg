@@ -16,13 +16,20 @@ const char * class_getName ( void* cls );
 void* class_getSuperclass ( void* cls );
 void* class_setSuperclass ( void* cls, void* newSuper );
 bool class_isMetaClass ( void* cls );
-long long class_getInstanceSize ( void* cls );
+long class_getInstanceSize ( void* cls );
 void* class_getInstanceVariable ( void* cls, const char *name );
 void* class_getClassVariable ( void* cls, const char *name );
 
+//Class object_getClass ( id obj );
+void* object_getClass ( void *obj );
+
+//Class objc_getClass ( const char *name );
+void* objc_getClass ( const char *name );
 
 void objc_setAssociatedObject ( void* object, void *key, void* value, long long policy );
 void* objc_getAssociatedObject ( void* object, const void *key );
 void objc_removeAssociatedObjects ( void* object );
 
+
 const char * property_getName ( void* property );
+

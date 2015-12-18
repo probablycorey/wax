@@ -17,3 +17,6 @@
  *  wax config. like luaSetWaxConfig({gc_timeout="1", openBindOCFunction="true", mobdebug="true"})
  */
 int luaSetWaxConfig(lua_State *L);
+
+
+NSDictionary *luaGetWaxConfig();

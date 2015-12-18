@@ -323,9 +323,35 @@ static int __index(lua_State *L) {
         BOOL foundSelector = wax_selectorForInstance(instanceUserdata, foundSelectors, lua_tostring(L, 2), NO);
 
         if (foundSelector) { // If the class has a method with this name, push as a closure
-            lua_pushstring(L, sel_getName(foundSelectors[0]));
-            foundSelectors[1] ? lua_pushstring(L, sel_getName(foundSelectors[1])) : lua_pushnil(L);
-            lua_pushcclosure(L, instanceUserdata->actAsSuper ? superMethodClosure : methodClosure, 2);
+            
+            if(instanceUserdata->actAsSuper){//super method, method_setImplementation is inefficient so add a super method for subclass
+                for(int i = 0; i < 2; ++i){
+                    SEL selector = foundSelectors[i];
+                    SEL selfSuperSelector = wax_selectorWithPrefix(selector, WAX_SUPER_METHOD_PREFIX);
+                    
+                    Method selfSuperMethod = class_getInstanceMethod([instanceUserdata->instance class], selfSuperSelector);
+                    Method superMethod = class_getInstanceMethod(instanceUserdata->isSuper, selector);
+                    
+                    if(!superMethod){
+                        continue ;
+                    }
+                    
+                    IMP superMethodImp = method_getImplementation(superMethod);
+                    char *typeDescription = (char *)method_getTypeEncoding(superMethod);
+                    id klass = [instanceUserdata->instance class];
+                    //add SUPERselector for subclass
+                    if (!selfSuperMethod){
+                        class_addMethod(klass, selfSuperSelector, superMethodImp, typeDescription);
+                    }
+                }
+                lua_pushstring(L, sel_getName(wax_selectorWithPrefix(foundSelectors[0], WAX_SUPER_METHOD_PREFIX)));
+                foundSelectors[1] ? lua_pushstring(L, sel_getName(wax_selectorWithPrefix(foundSelectors[1], WAX_SUPER_METHOD_PREFIX))) : lua_pushnil(L);//
+                lua_pushcclosure(L, methodClosure, 2);
+            }else{
+                lua_pushstring(L, sel_getName(foundSelectors[0]));
+                foundSelectors[1] ? lua_pushstring(L, sel_getName(foundSelectors[1])) : lua_pushnil(L);//
+                lua_pushcclosure(L, methodClosure, 2);
+            }
         }
     }
     else if (!instanceUserdata->isSuper && instanceUserdata->isClass && wax_isInitMethod(lua_tostring(L, 2))) { // Is this an init method create in lua?
@@ -617,10 +643,10 @@ static int pcallUserdataARM64Invocation(lua_State *L, id self, SEL selector, NSI
     for (NSUInteger i = 2; i < [signature numberOfArguments]; i++) { // start at 2 because to skip the automatic self and _cmd arugments
         const char *type = [signature getArgumentTypeAtIndex:i];
         const char *typeDescription = wax_removeProtocolEncodings(type);
-//        int size = wax_sizeOfTypeDescription(typeDescription);//should use NSGetSizeAndAlignment ?
+        
         NSUInteger size = 0;
         NSGetSizeAndAlignment(type, &size, NULL);
-    
+        
         void *buffer = malloc(size);
         [anInvocation getArgument:buffer atIndex:i];
         
@@ -756,33 +782,38 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
         }
         
         success = overrideMethodByInvocation(klass, selector, typeDescription,returnType);
+        free(returnType);
+        returnType = nil;
     }
     else {
-		SEL possibleSelectors[2];
+        SEL possibleSelectors[2];
         wax_selectorsForName(methodName, possibleSelectors);
-		
-		success = YES;
-		for (int i = 0; i < 2; i++) {
-			selector = possibleSelectors[i];
+        
+        success = YES;
+        for (int i = 0; i < 2; i++) {
+            selector = possibleSelectors[i];
             if (!selector) continue; // There may be only one acceptable selector sent back
             
-			int argCount = 0;
-			char *match = (char *)sel_getName(selector);
-			while ((match = strchr(match, ':'))) {
-				match += 1; // Skip past the matched char
-				argCount++;
-			}
+            int argCount = 0;
+            char *match = (char *)sel_getName(selector);
+            while ((match = strchr(match, ':'))) {
+                match += 1; // Skip past the matched char
+                argCount++;
+            }
             
-			id metaclass = objc_getMetaClass(object_getClassName(klass));
-
+            id metaclass = objc_getMetaClass(object_getClassName(klass));
+            
             IMP metaImp = class_respondsToSelector(metaclass, selector) ? class_getMethodImplementation(metaclass, selector) : NULL;
             if(metaImp) {//has class method
                 Method method = class_getClassMethod(klass, selector);
                 typeDescription = (char *)method_getTypeEncoding(method);
-                returnType = method_copyReturnType(method);
+                char *tempReturnType = method_copyReturnType(method);
                 
-                success = overrideMethodByInvocation(metaclass, selector, typeDescription, returnType);
-                if(returnType) free(returnType);
+                success = overrideMethodByInvocation(metaclass, selector, typeDescription, tempReturnType);
+                if(tempReturnType){
+                    free(tempReturnType);
+                    tempReturnType = nil;
+                }
             } else {//no method, then add it both
                 
                 size_t typeDescriptionSize = 3 + argCount;
@@ -795,7 +826,7 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
                 
                 free(typeDescription);
             }
-		}
+        }
     }
     
     END_STACK_MODIFY(L, 1)
@@ -803,11 +834,7 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
 }
 
 static SEL getORIGSelector(SEL selector){
-    const char *selectorName = sel_getName(selector);
-    char newSelectorName[strlen(selectorName) + 10];
-    strcpy(newSelectorName, WAX_ORIGINAL_METHOD_PREFIX);
-    strcat(newSelectorName, selectorName);
-    SEL newSelector = sel_getUid(newSelectorName);
+    SEL newSelector = wax_selectorWithPrefix(selector, WAX_ORIGINAL_METHOD_PREFIX);
     return newSelector;
 }
 
@@ -815,6 +842,7 @@ static SEL getORIGSelector(SEL selector){
 static BOOL isMethodReplacedByInvocation(id klass, SEL selector){
     Method selectorMethod = class_getInstanceMethod(klass, selector);
     IMP imp = method_getImplementation(selectorMethod);
+    
 #if defined(__arm64__)
     return imp == _objc_msgForward;
 #else

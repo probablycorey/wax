@@ -1,6 +1,6 @@
 /*
 ** Lua binding: objc_runtime
-** Generated automatically by tolua++-1.0.92 on Fri Apr  3 17:11:20 2015.
+** Generated automatically by tolua++-1.0.92 on Wed Sep  9 14:38:16 2015.
 */
 
 #ifndef __cplusplus
@@ -231,6 +231,66 @@ static int tolua_objc_runtime_class_getClassVariable00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
+/* function: object_getClass */
+#ifndef TOLUA_DISABLE_tolua_objc_runtime_object_getClass00
+static int tolua_objc_runtime_object_getClass00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isuserdata(tolua_S,1,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  void* obj = ((void*)  tolua_touserdata(tolua_S,1,0));
+  {
+   void* tolua_ret = (void*)  object_getClass(obj);
+//   tolua_pushuserdata(tolua_S,(void*)tolua_ret);
+      wax_fromInstance(tolua_S, tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'object_getClass'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
+/* function: objc_getClass */
+#ifndef TOLUA_DISABLE_tolua_objc_runtime_objc_getClass00
+static int tolua_objc_runtime_objc_getClass00(lua_State* tolua_S)
+{
+#ifndef TOLUA_RELEASE
+ tolua_Error tolua_err;
+ if (
+     !tolua_isstring(tolua_S,1,0,&tolua_err) ||
+     !tolua_isnoobj(tolua_S,2,&tolua_err)
+ )
+  goto tolua_lerror;
+ else
+#endif
+ {
+  const char* name = ((const char*)  tolua_tostring(tolua_S,1,0));
+  {
+   void* tolua_ret = (void*)  objc_getClass(name);
+//   tolua_pushuserdata(tolua_S,(void*)tolua_ret);
+      wax_fromInstance(tolua_S, tolua_ret);
+  }
+ }
+ return 1;
+#ifndef TOLUA_RELEASE
+ tolua_lerror:
+ tolua_error(tolua_S,"#ferror in function 'objc_getClass'.",&tolua_err);
+ return 0;
+#endif
+}
+#endif //#ifndef TOLUA_DISABLE
+
 /* function: objc_setAssociatedObject */
 #ifndef TOLUA_DISABLE_tolua_objc_runtime_objc_setAssociatedObject00
 static int tolua_objc_runtime_objc_setAssociatedObject00(lua_State* tolua_S)
@@ -374,6 +434,8 @@ TOLUA_API int tolua_objc_runtime_open (lua_State* tolua_S)
   tolua_function(tolua_S,"class_getInstanceSize",tolua_objc_runtime_class_getInstanceSize00);
   tolua_function(tolua_S,"class_getInstanceVariable",tolua_objc_runtime_class_getInstanceVariable00);
   tolua_function(tolua_S,"class_getClassVariable",tolua_objc_runtime_class_getClassVariable00);
+  tolua_function(tolua_S,"object_getClass",tolua_objc_runtime_object_getClass00);
+  tolua_function(tolua_S,"objc_getClass",tolua_objc_runtime_objc_getClass00);
   tolua_function(tolua_S,"objc_setAssociatedObject",tolua_objc_runtime_objc_setAssociatedObject00);
   tolua_function(tolua_S,"objc_getAssociatedObject",tolua_objc_runtime_objc_getAssociatedObject00);
   tolua_function(tolua_S,"objc_removeAssociatedObjects",tolua_objc_runtime_objc_removeAssociatedObjects00);

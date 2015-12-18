@@ -103,6 +103,8 @@ int wax_simplifyTypeDescription(const char *in, char *out);
 int wax_errorFunction(lua_State *L);
 int wax_pcall(lua_State *L, int argumentCount, int returnCount);
 
+//selector -> prefixselector
+SEL wax_selectorWithPrefix(SEL selector, const char *prefix);
 
 #define WAX_GET_ARG_BUFFER_WITH_TYPE(buffer, typeDescription, args)\
 switch (typeDescription[0]) {\
