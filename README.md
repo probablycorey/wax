@@ -145,7 +145,7 @@ toblock(
 )
 ```
 
-What about calling Objective-C blocks?
+What about calling Objective-C blocks?[see more detail](https://github.com/alibaba/wax/wiki/Block).
 
 ``` lua
 --OC block type is id (^)(NSInteger, id, BOOL, CGFloat)
