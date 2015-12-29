@@ -149,7 +149,8 @@ What about calling Objective-C blocks?
 
 ``` lua
 --OC block type is id (^)(NSInteger, id, BOOL, CGFloat)
-local res = luaCallBlock(block, 123456, aObject, true, 123.456);
+--just like lua function
+local res = block(123456, aObject, true, 123.456);
 
 --or you can call like this:
 local res = luaCallBlockWithParamsTypeArray(block, {"id","NSInteger", "id", "BOOL", "CGFloat"},  123456, aObject, true, 123.456);

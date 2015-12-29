@@ -20,6 +20,7 @@ static int __newindex(lua_State *L);
 static int __gc(lua_State *L);
 static int __tostring(lua_State *L);
 static int __eq(lua_State *L);
+static int __call(lua_State *L) ;
 
 static int methods(lua_State *L);
 
@@ -31,6 +32,9 @@ static BOOL overrideMethod(lua_State *L, wax_instance_userdata *instanceUserdata
 static int pcallUserdata(lua_State *L, id self, SEL selector, va_list args);
 static BOOL overrideMethodByInvocation(id klass, SEL selector, char *typeDescription, char *returnType);
 static BOOL addMethodByInvocation(id klass, SEL selector, char * typeDescription) ;
+
+//block call
+extern int luaCallBlock(lua_State *L);
 
 
 extern void wax_printStack(lua_State *L);
@@ -45,6 +49,7 @@ static const struct luaL_Reg metaFunctions[] = {
     {"__gc", __gc},
     {"__tostring", __tostring},
     {"__eq", __eq},
+    {"__call", __call},
     {NULL, NULL}
 };
 
@@ -280,6 +285,17 @@ BOOL wax_instance_isWaxClass(id instance) {
 
 #pragma mark Override Metatable Functions
 #pragma mark ---------------------------------
+
+static int __call(lua_State *L) {
+    wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);
+    NSString *des = NSStringFromClass([instanceUserdata->instance class]);
+    if([des rangeOfString:@"Block__"].length > 0){//block called. blk(x, y, z)
+        return luaCallBlock(L);
+    }else{
+        luaL_error(L, "'%s' is not block, so it can't be called", [instanceUserdata->instance description].UTF8String);
+    }
+    return 0;
+}
 
 static int __index(lua_State *L) {
     wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);    
