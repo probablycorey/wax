@@ -197,6 +197,10 @@ Lua code debug
 Any way to debug my Lua code?   
 Ofcourse, you can use the powerfull ZeroBraneStudio to debug. [see more detail](https://github.com/alibaba/wax/tree/master/examples/LuaCodeDebug).
 
+Lua code in Xcode
+------
+[Wax-In-Xcode](https://github.com/intheway/Wax-In-Xcode) plugin can help you for Lua code format, syntax highlighting and code completion.   
+
 Watch OS 
 ------
 Can Wax run on watch OS?
