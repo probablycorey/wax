@@ -18,7 +18,10 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     wax_start(nil, nil);
-    wax_runLuaString("print('hello wax')");
+    int i = wax_runLuaString("print('hello wax')");
+    if(i){
+        NSLog(@"error=%s", lua_tostring(wax_currentLuaState(), -1));
+    }
     return YES;
 }
 
