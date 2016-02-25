@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <objc/runtime.h>
 #import <UIKit/UIKit.h>
+
 @interface TBIvarInfo : NSObject
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSString * type;
@@ -29,6 +30,7 @@
 - (short)getIvarShort:(NSString *)ivarName;
 - (int)getIvarInt:(NSString *)ivarName;
 - (long)getIvarLong:(NSString *)ivarName;
+- (NSInteger)getIvarInteger:(NSString *)ivarName;
 - (long long)getIvarLongLong:(NSString *)ivarName;
 
 - (unsigned char)getIvarUnsignedChar:(NSString *)ivarName;
@@ -39,6 +41,7 @@
 
 - (float)getIvarFloat:(NSString *)ivarName;
 - (double)getIvarDouble:(NSString *)ivarName;
+- (CGFloat)getIvarCGFloat:(NSString *)ivarName;
 
 - (BOOL)getIvarBool:(NSString *)ivarName;
 - (void *)getIvarPointer:(NSString *)ivarName;
@@ -54,6 +57,7 @@
 - (void)setIvar:(NSString *)ivarName withShort:(short)aScalar;
 - (void)setIvar:(NSString *)ivarName withInt:(int)aScalar;
 - (void)setIvar:(NSString *)ivarName withLong:(long)aScalar;
+- (void)setIvar:(NSString *)ivarName withInteger:(NSInteger)aScalar;
 - (void)setIvar:(NSString *)ivarName withLongLong:(long long)aScalar;
 
 - (void)setIvar:(NSString *)ivarName withUnsignedChar:(unsigned char)aScalar;
@@ -64,6 +68,7 @@
 
 - (void)setIvar:(NSString *)ivarName withFloat:(float)aScalar;
 - (void)setIvar:(NSString *)ivarName withDouble:(double)aScalar;
+- (void)setIvar:(NSString *)ivarName withCGFloat:(CGFloat)aScalar;
 - (void)setIvar:(NSString *)ivarName withBool:(_Bool)aScalar;
 - (void)setIvar:(NSString *)ivarName withPointer:(void *)aScalar;
 

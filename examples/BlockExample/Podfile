@@ -1,0 +1,10 @@
+platform :ios
+
+
+target 'BlockExample' do
+	platform:ios, '6.0'
+	#pod 'wax', :git=>'git@github.com:alibaba/wax.git', :tag=>'1.1.0'
+    #pod 'wax', :git=>'git@github.com:alibaba/wax.git', :commit=>'5c762ad'
+    pod 'wax', :path=>'../../'
+    pod 'Masonry', '~> 0.6.4'
+end

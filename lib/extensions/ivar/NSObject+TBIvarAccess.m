@@ -122,6 +122,11 @@
 	return *(long *)(GETADDRESS(self) + ivar_getOffset(ivar));
 }
 
+- (NSInteger)getIvarInteger:(NSString *)ivarName {
+    Ivar ivar = [self getIvar:ivarName];
+    return *(NSInteger *)(GETADDRESS(self) + ivar_getOffset(ivar));
+}
+
 - (long long)getIvarLongLong:(NSString *)ivarName {
 	Ivar ivar = [self getIvar:ivarName];
 	return *(long long *)(GETADDRESS(self) + ivar_getOffset(ivar));
@@ -162,6 +167,11 @@
 - (double)getIvarDouble:(NSString *)ivarName {
 	Ivar ivar = [self getIvar:ivarName];
 	return *(double *)(GETADDRESS(self) + ivar_getOffset(ivar));
+}
+
+- (CGFloat)getIvarCGFloat:(NSString *)ivarName {
+    Ivar ivar = [self getIvar:ivarName];
+    return *(CGFloat *)(GETADDRESS(self) + ivar_getOffset(ivar));
 }
 
 - (BOOL)getIvarBool:(NSString *)ivarName {
@@ -219,6 +229,11 @@
 	*(long *)(GETADDRESS(self) + ivar_getOffset(ivar)) = aScalar;
 }
 
+- (void)setIvar:(NSString *)ivarName withInteger:(NSInteger)aScalar {
+    Ivar ivar = [self getIvar:ivarName];
+    *(NSInteger *)(GETADDRESS(self) + ivar_getOffset(ivar)) = aScalar;
+}
+
 - (void)setIvar:(NSString *)ivarName withLongLong:(long long)aScalar {
 	Ivar ivar = [self getIvar:ivarName];
 	*(long long *)(GETADDRESS(self) + ivar_getOffset(ivar)) = aScalar;
@@ -258,6 +273,11 @@
 - (void)setIvar:(NSString *)ivarName withDouble:(double)aScalar {
 	Ivar ivar = [self getIvar:ivarName];
 	*(double *)(GETADDRESS(self) + ivar_getOffset(ivar)) = aScalar;
+}
+
+- (void)setIvar:(NSString *)ivarName withCGFloat:(CGFloat)aScalar {
+    Ivar ivar = [self getIvar:ivarName];
+    *(CGFloat *)(GETADDRESS(self) + ivar_getOffset(ivar)) = aScalar;
 }
 
 - (void)setIvar:(NSString *)ivarName withBool:(_Bool)aScalar {
