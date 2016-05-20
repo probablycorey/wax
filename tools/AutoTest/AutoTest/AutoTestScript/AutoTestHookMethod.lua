@@ -206,3 +206,25 @@ function testSuperMethodReturnId(self)
 	print("LUA TEST SUCCESS: testSuperMethodReturnId")
 	return self
 end
+
+-- test dollar method 
+
+function DOLLARxMARKtestDolorMethod( self )
+	print("lua $testDolorMethod")
+	self:ORIGDOLLARxMARKtestDolorMethod()
+	return TEST_VALUE_STRING
+end
+
+function DOLLARxMARKtestDolorClassMethod( self )
+	print("lua $testDolorClassMethod")
+	self:ORIGDOLLARxMARKtestDolorClassMethod()
+	return TEST_VALUE_STRING
+end
+
+function UNDERxLINEDOLLARxMARKtestDOLLARxMARKDolorUNDERxLINEMethod_UNDERxLINEbDOLLARxMARK(self, v1, v2)
+	print("lua _$test$Dolor_Method:_b$:")
+	local res = self:ORIGUNDERxLINEDOLLARxMARKtestDOLLARxMARKDolorUNDERxLINEMethod_UNDERxLINEbDOLLARxMARK(v1, v2)
+	res = res .. TEST_VALUE_STRING
+	return res
+end
+
