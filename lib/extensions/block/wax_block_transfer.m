@@ -290,7 +290,6 @@ void* luaBlockARM32ReturnBufferWithParamsTypeEncoding(NSString *paramsTypeEncodi
                 luaL_error(L, "Unable to convert Obj-C type with type description '%s'", tempTypeEncoding);
                 break;
         }
-        NSLog(@"args=%p", args);
         paramBuffer = buffer;
         wax_fromObjc(L, tempTypeEncoding, paramBuffer);
     }
@@ -394,13 +393,14 @@ void* luaBlockARM32ReturnBufferWithParamsTypeEncoding(NSString *paramsTypeEncodi
 
 //block all call this method
 - (id)luaBlockWithParamsTypeEncoding:(NSString *)paramsTypeEncoding{
-    const char *tempStr = [paramsTypeEncoding cStringUsingEncoding:NSUTF8StringEncoding];
-    NSInteger paramLen = paramsTypeEncoding.length;
+
     
 #if WAX_IS_ARM_64 == 1
     return luaBlockARM64WithParamsTypeEncoding(paramsTypeEncoding, self);
 
 #else
+    const char *tempStr = [paramsTypeEncoding cStringUsingEncoding:NSUTF8StringEncoding];
+    NSInteger paramLen = paramsTypeEncoding.length;
     if(paramLen == 0){
         return [self luaVoidBlock];
     }
@@ -550,7 +550,7 @@ id luaBlockARM64WithParamsTypeEncoding(NSString *typeEncoding, id self){
     }
     NSValue *value = [wax_block_transfer_pool() objectForKey:newTypeEncoding];
     if(!value){
-        NSLog(@"luaBlockARM64WithParamsTypeEncoding failed");
+        NSLog(@"can't find block imp with typeEncoding %@", typeEncoding);
         return nil;
     }
     

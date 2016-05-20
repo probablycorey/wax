@@ -76,7 +76,7 @@
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     if (response != _response) [_response release];
-    _response = [response retain];
+    _response = (NSHTTPURLResponse *)[response retain];
 }
 
 - (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse {
