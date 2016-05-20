@@ -24,11 +24,15 @@ typedef long long LongLong;
  */
 #define WAX_METHOD_UNDER_LINE_MARK "UNDERxLINE"
 
+/**
+ *  support method with '$'. [self $aaa$bbb:v1 $$cc$:v2] -> self:DOLLARxMARKaaaDOLLARxMARKbbb_DOLLARxMARKDOLLARxMARKccDOLLARxMARK(v1, v2)
+ */
+#define WAX_METHOD_DOLLAR_MARK "DOLLARxMARK"
 
 #if __LP64__ || (TARGET_OS_EMBEDDED && !TARGET_OS_IPHONE) || TARGET_OS_WIN32 || NS_BUILD_32_LIKE_64
-    #warning @"64 bit arm"
+//    #warning @"64 bit arm"
     #define WAX_IS_ARM_64 1
 #else
     #define WAX_IS_ARM_64 0
-    #warning @"32 bit arm"
+//    #warning @"32 bit arm"
 #endif

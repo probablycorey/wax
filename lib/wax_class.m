@@ -112,7 +112,7 @@ static int __call(lua_State *L) {
         // If we the method has already been swizzled (by the class's super, then
         // just leave it up to the super!
         if (method_getImplementation(m) != (IMP)allocWithZone) {
-            class_addMethod(metaclass, @selector(wax_originalAllocWithZone:), method_getImplementation(m), method_getTypeEncoding(m));
+            class_addMethod(metaclass, NSSelectorFromString(@"wax_originalAllocWithZone:"), method_getImplementation(m), method_getTypeEncoding(m));//allocWithZone
             class_addMethod(metaclass, @selector(allocWithZone:), (IMP)allocWithZone, "@@:^{_NSZone=}");
         }
     }
@@ -120,6 +120,18 @@ static int __call(lua_State *L) {
     wax_instance_create(L, klass, YES);
     
     return 1;
+}
+
+static id allocWithZone(id self, SEL _cmd, NSZone *zone) {
+    lua_State *L = wax_currentLuaState();
+    BEGIN_STACK_MODIFY(L);
+    
+    id instance = ((id(*)(id, SEL, NSZone *))objc_msgSend)(self, NSSelectorFromString(@"wax_originalAllocWithZone:"), zone);
+    object_setInstanceVariable(instance, WAX_CLASS_INSTANCE_USERDATA_IVAR_NAME, @"YEAP");
+    
+    END_STACK_MODIFY(L, 0);
+    
+    return instance;
 }
 
 static int addProtocols(lua_State *L) {
@@ -145,19 +157,6 @@ static int name(lua_State *L) {
     lua_pushstring(L, [NSStringFromClass([instanceUserdata->instance class]) UTF8String]);
     return 1;
 }
-
-static id allocWithZone(id self, SEL _cmd, NSZone *zone) {
-    lua_State *L = wax_currentLuaState(); 
-    BEGIN_STACK_MODIFY(L);
-
-    id instance = [self wax_originalAllocWithZone:zone];
-    object_setInstanceVariable(instance, WAX_CLASS_INSTANCE_USERDATA_IVAR_NAME, @"YEAP");
-    
-    END_STACK_MODIFY(L, 0);
-    
-    return instance;
-}
-
 
 static void setValueForUndefinedKey(id self, SEL cmd, id value, NSString *key) {
     lua_State *L = wax_currentLuaState();

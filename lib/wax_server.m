@@ -1,6 +1,4 @@
 #ifndef WAX_TARGET_OS_WATCH
-#warning "compile not for TARGET_OS_WATCH"
-
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <unistd.h>
@@ -11,7 +9,6 @@
 #import "lauxlib.h"
 
 static id gInstance;
-NSString * const TCPServerErrorDomain;
 
 static void TCPServerAcceptCallBack(CFSocketRef socket, CFSocketCallBackType type, CFDataRef address, const void *data, void *info);
 
@@ -47,7 +44,7 @@ static void TCPServerAcceptCallBack(CFSocketRef socket, CFSocketCallBackType typ
     if (_ipv4socket == NULL) {
         error = [[NSError alloc] initWithDomain:@"Wax Error" code:kTCPServerNoSocketsAvailable userInfo:nil];
         _ipv4socket = NULL;
-        return NO;
+        return error;
     }	
 	
     int yes = 1;
@@ -67,7 +64,7 @@ static void TCPServerAcceptCallBack(CFSocketRef socket, CFSocketCallBackType typ
         error = [[NSError alloc] initWithDomain:@"Wax Error" code:kTCPServerCouldNotBindToIPv4Address userInfo:nil];
         if (_ipv4socket) CFRelease(_ipv4socket);
         _ipv4socket = NULL;
-        return NO;
+        return error;
     }
     
 	// now that the binding was successful, we get the port number 
@@ -140,7 +137,7 @@ static void TCPServerAcceptCallBack(CFSocketRef socket, CFSocketCallBackType typ
 	// First stop existing services
 	[self disableBonjour];
 	
-	_netService = [[NSNetService alloc] initWithDomain:domain type:protocol name:name port:port];
+	_netService = [[NSNetService alloc] initWithDomain:domain type:protocol name:name port:(int)port];
 	if (_netService == nil) return NO;
 	
 	[_netService scheduleInRunLoop:[NSRunLoop currentRunLoop] forMode:NSRunLoopCommonModes];
@@ -179,7 +176,7 @@ static void TCPServerAcceptCallBack(CFSocketRef socket, CFSocketCallBackType typ
 }
 
 - (void)netServiceDidPublish:(NSNetService *)sender {
-	NSLog(@"Server started on host: %@.local port: %d", [sender name], [sender port]);
+	NSLog(@"Server started on host: %@.local port: %ld", [sender name], (long)[sender port]);
 }
 
 - (void)netService:(NSNetService *)sender didNotPublish:(NSDictionary *)errorDict {	
@@ -192,7 +189,7 @@ static void TCPServerAcceptCallBack(CFSocketRef socket, CFSocketCallBackType typ
 }
 
 - (NSString*)description {
-	return [NSString stringWithFormat:@"<%@ = 0x%08X | port %d | netService = %@>", [self class], (long)self, [_netService port] , _netService];
+	return [NSString stringWithFormat:@"<%@ = 0x%08lX | port %ld | netService = %@>", [self class], (long)self, (long)[_netService port] , _netService];
 }
 
 // Stream Delegate
@@ -203,7 +200,7 @@ static void TCPServerAcceptCallBack(CFSocketRef socket, CFSocketCallBackType typ
 	switch (streamEvent) {
 		case NSStreamEventHasBytesAvailable: {
 			uint8_t bytes[1024];
-			int length = 0;
+			NSInteger length = 0;
 			NSMutableData *data = [NSMutableData data];
 			while ([_inStream hasBytesAvailable]) {
 				length = [_inStream read:bytes maxLength:sizeof(bytes)];
@@ -218,6 +215,8 @@ static void TCPServerAcceptCallBack(CFSocketRef socket, CFSocketCallBackType typ
 		case NSStreamEventErrorOccurred:
 			NSLog(@"Error: Stream error encountered!");
 			break;
+        default:
+            break;
 	}	
 }
 
@@ -254,4 +253,5 @@ static void TCPServerAcceptCallBack(CFSocketRef socket, CFSocketCallBackType typ
 
 @implementation HACK_WAX_DELEGATE_IMPLEMENTOR
 @end
+
 #endif

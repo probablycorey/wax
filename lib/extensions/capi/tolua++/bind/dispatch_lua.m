@@ -110,32 +110,32 @@ static int tolua_dispatch_dispatch_queue_create00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* function: dispatch_get_current_queue */
-#ifndef TOLUA_DISABLE_tolua_dispatch_dispatch_get_current_queue00
-static int tolua_dispatch_dispatch_get_current_queue00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isnoobj(tolua_S,1,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  {
-   void* tolua_ret = (void*)  dispatch_get_current_queue();
-   tolua_pushuserdata(tolua_S,(void*)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'dispatch_get_current_queue'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
+///* function: dispatch_get_current_queue */
+//#ifndef TOLUA_DISABLE_tolua_dispatch_dispatch_get_current_queue00
+//static int tolua_dispatch_dispatch_get_current_queue00(lua_State* tolua_S)
+//{
+//#ifndef TOLUA_RELEASE
+// tolua_Error tolua_err;
+// if (
+//     !tolua_isnoobj(tolua_S,1,&tolua_err)
+// )
+//  goto tolua_lerror;
+// else
+//#endif
+// {
+//  {
+//   void* tolua_ret = (void*)  dispatch_get_current_queue();
+//   tolua_pushuserdata(tolua_S,(void*)tolua_ret);
+//  }
+// }
+// return 1;
+//#ifndef TOLUA_RELEASE
+// tolua_lerror:
+// tolua_error(tolua_S,"#ferror in function 'dispatch_get_current_queue'.",&tolua_err);
+// return 0;
+//#endif
+//}
+//#endif //#ifndef TOLUA_DISABLE
 
 /* function: dispatch_queue_get_label */
 #ifndef TOLUA_DISABLE_tolua_dispatch_dispatch_queue_get_label00
@@ -300,7 +300,7 @@ static int tolua_dispatch_dispatch_apply00(lua_State* tolua_S)
  else
 #endif
  {
-  unsigned long long iterations = ((unsigned long long)  tolua_tonumber(tolua_S,1,0));
+  size_t iterations = ((size_t)  tolua_tonumber(tolua_S,1,0));
   void* queue = ((void*)  tolua_touserdata(tolua_S,2,0));
   void* tolua_var_1 = ((void*)  tolua_touserdata(tolua_S,3,0));
   {
@@ -485,7 +485,7 @@ TOLUA_API int tolua_dispatch_open (lua_State* tolua_S)
   tolua_function(tolua_S,"dispatch_get_main_queue",tolua_dispatch_dispatch_get_main_queue00);
   tolua_function(tolua_S,"dispatch_get_global_queue",tolua_dispatch_dispatch_get_global_queue00);
   tolua_function(tolua_S,"dispatch_queue_create",tolua_dispatch_dispatch_queue_create00);
-  tolua_function(tolua_S,"dispatch_get_current_queue",tolua_dispatch_dispatch_get_current_queue00);
+//  tolua_function(tolua_S,"dispatch_get_current_queue",tolua_dispatch_dispatch_get_current_queue00);
   tolua_function(tolua_S,"dispatch_queue_get_label",tolua_dispatch_dispatch_queue_get_label00);
   tolua_function(tolua_S,"dispatch_main",tolua_dispatch_dispatch_main00);
   tolua_function(tolua_S,"dispatch_async",tolua_dispatch_dispatch_async00);

@@ -12,8 +12,8 @@ function autoTestStart( self )
     local  create_queue = dispatch_queue_create("com.taobao.test", DISPATCH_QUEUE_SERIAL);
     print(string.format("create_queue=%s", dispatch_queue_get_label(create_queue)));
     
-    local  current_queue = dispatch_get_current_queue();
-    print(string.format("current_queue=%s", dispatch_queue_get_label(current_queue)));
+--    local  current_queue = dispatch_get_current_queue();
+--    print(string.format("current_queue=%s", dispatch_queue_get_label(current_queue)));
 
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), 

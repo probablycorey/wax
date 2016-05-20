@@ -236,7 +236,7 @@ void wax_fromInstance(lua_State *L, id instance) {
         else if ([instance isKindOfClass:[NSArray class]]) {
             lua_newtable(L);
             for (id obj in instance) {
-                int i = lua_objlen(L, -1);
+                int i = (int)lua_objlen(L, -1);
                 wax_fromInstance(L, obj);
                 lua_rawseti(L, -2, i + 1);
             }
@@ -569,7 +569,7 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
             else {
                 void *data = (void *)lua_tostring(L, stackIndex);            
                 size_t length = lua_objlen(L, stackIndex);
-                *outsize = length;
+                *outsize = (int)length;
             
                 value = malloc(length);
                 memcpy(value, data, length);
@@ -585,52 +585,55 @@ void *wax_copyToObjc(lua_State *L, const char *typeDescription, int stackIndex, 
     return value;
 }
 
+static BOOL isStrcmpEqual(const char *a, const char *b, int len){
+    for(int i = 0; i < len; ++i){
+        if(a[i] != b[i])
+            return NO;
+    }
+    return YES;
+}
+
 // You can't tell if there are 0 or 1 arguments based on selector alone, so pass in an SEL[2] for possibleSelectors
+//restore special symbol '_' '$'
 void wax_selectorsForName(const char *methodName, SEL possibleSelectors[2]) {
-    size_t methodLength = strlen(methodName);
-    size_t strlength = methodLength + 2; // Add 2. One for trailing : and one for \0
+    size_t luaMethodLength = strlen(methodName);
+    size_t strlength = luaMethodLength + 2; // Add 2. One for trailing : and one for \0
     char *objcMethodName = calloc(strlength, 1);
     
-    int argCount = 0;
-    strcpy(objcMethodName, methodName);
-    
-    //case for underline prefix method. eg: void _mymethod(id);
-    for(int i = 0; objcMethodName[i]; i++) {
-        if (objcMethodName[i] == '_') {
+    int argCount = 0, ocMethodLength = 0;
+    int underLength = strlen(WAX_METHOD_UNDER_LINE_MARK);
+    int dollarLength = strlen(WAX_METHOD_DOLLAR_MARK);
+    int i = 0;
+    while(i < luaMethodLength){
+        if(methodName[i] == '_'){//'_' => ':'
             argCount++;
-            objcMethodName[i] = ':';
+            objcMethodName[ocMethodLength++] = ':';
+            i++;
+        }else if (i+underLength <= luaMethodLength && isStrcmpEqual(methodName+i, WAX_METHOD_UNDER_LINE_MARK, underLength)){// WAX_METHOD_UNDER_LINE_MARK => '_'
+            objcMethodName[ocMethodLength++] = '_';
+            i += underLength;
+        }else if (i+dollarLength <= luaMethodLength && isStrcmpEqual(methodName+i, WAX_METHOD_DOLLAR_MARK, dollarLength)){// WAX_METHOD_DOLLAR_MARK => '$'
+            objcMethodName[ocMethodLength++] = '$';
+            i += dollarLength;
+        }else{
+            objcMethodName[ocMethodLength++] = methodName[i];
+            i++;
         }
     }
+    objcMethodName[ocMethodLength++] = ':';//suppose it has param
+    objcMethodName[ocMethodLength++] = '\0';
+
+
+    possibleSelectors[0] = sel_getUid(objcMethodName);
     
-    objcMethodName[strlength - 2] = ':'; // Add final arg portion
-    
-    if(strstr(objcMethodName, WAX_METHOD_UNDER_LINE_MARK)){//method contain '_'
-        NSString *strObjcMethodName = [NSString stringWithUTF8String:objcMethodName];
-        strObjcMethodName = [strObjcMethodName stringByReplacingOccurrencesOfString:[NSString stringWithUTF8String:WAX_METHOD_UNDER_LINE_MARK] withString:@"_"];//restore to '_'
-        NSLog(@"[strObjcMethodName UTF8String]=%s", [strObjcMethodName UTF8String]);
-        possibleSelectors[0] = sel_getUid([strObjcMethodName UTF8String]);
-        
-        if (argCount == 0) {
-            NSString *noArgMethodName = [strObjcMethodName substringToIndex:strObjcMethodName.length-1];//strip ':'
-            NSLog(@"[noArgMethodName UTF8String]=%s", [noArgMethodName UTF8String]);
-            possibleSelectors[1] = sel_getUid([noArgMethodName UTF8String]);
-        }
-        else {
-            possibleSelectors[1] = nil;
-        }
-        free(objcMethodName);
-    }else{
-        possibleSelectors[0] = sel_getUid(objcMethodName);
-        
-        if (argCount == 0) {
-            objcMethodName[strlength - 2] = '\0';
-            possibleSelectors[1] = sel_getUid(objcMethodName);
-        }
-        else {
-            possibleSelectors[1] = nil;
-        }
-        free(objcMethodName);
+    if (argCount == 0) {
+        objcMethodName[ocMethodLength - 2] = '\0';
+        possibleSelectors[1] = sel_getUid(objcMethodName);
     }
+    else {
+        possibleSelectors[1] = nil;
+    }
+    free(objcMethodName);
 }
 
 BOOL wax_selectorForInstance(wax_instance_userdata *instanceUserdata, SEL* foundSelectors, const char *methodName, BOOL forceInstanceCheck) {    
@@ -675,6 +678,8 @@ void wax_pushMethodNameFromSelector(lua_State *L, SEL selector) {
             if (i < length - 1) luaL_addchar(&b, '_');
         }else if(methodName[i] == '_'){//method contain '_'
             luaL_addstring(&b, WAX_METHOD_UNDER_LINE_MARK);
+        }else if(methodName[i] == '$'){//method contain '$'
+            luaL_addstring(&b, WAX_METHOD_DOLLAR_MARK);
         }
         else {
             luaL_addchar(&b, methodName[i]);

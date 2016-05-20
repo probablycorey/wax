@@ -464,7 +464,7 @@ static int tolua_UIKitFunction_UIRectFillUsingBlendMode00(lua_State* tolua_S)
  {
 //  void* rect = ((void*)  tolua_touserdata(tolua_S,1,0));
      CGRect rect = *((CGRect*)tolua_touserdata(tolua_S, 1, 0));
-  long blendMode = ((long)  tolua_tonumber(tolua_S,2,0));
+  CGBlendMode blendMode = ((CGBlendMode)  tolua_tonumber(tolua_S,2,0));
   {
    UIRectFillUsingBlendMode(rect,blendMode);
   }
@@ -524,7 +524,7 @@ static int tolua_UIKitFunction_UIRectFrameUsingBlendMode00(lua_State* tolua_S)
  {
 //  void* rect = ((void*)  tolua_touserdata(tolua_S,1,0));
      CGRect rect = *((CGRect*)tolua_touserdata(tolua_S, 1, 0));
-  long blendMode = ((long)  tolua_tonumber(tolua_S,2,0));
+  CGBlendMode blendMode = ((CGBlendMode)  tolua_tonumber(tolua_S,2,0));
   {
    UIRectFrameUsingBlendMode(rect,blendMode);
   }
@@ -1316,7 +1316,7 @@ static int tolua_UIKitFunction_UIAccessibilityPostNotification00(lua_State* tolu
  else
 #endif
  {
-  long notification = ((long)  tolua_tonumber(tolua_S,1,0));
+  UIAccessibilityNotifications notification = ((UIAccessibilityNotifications)  tolua_tonumber(tolua_S,1,0));
   void* argument = ((void*)  tolua_touserdata(tolua_S,2,0));
   {
    UIAccessibilityPostNotification(notification,argument);

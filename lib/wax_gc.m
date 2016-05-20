@@ -67,7 +67,7 @@ static NSTimer* timer = nil;
         
         [wax_globalLock() unlock];//remember unlock
     }else{
-        NSLog(@"tryLock failed");
+//        NSLog(@"tryLock failed");
     }
 }
 
@@ -79,6 +79,37 @@ static NSTimer* timer = nil;
         [self stop];
         [self start];
     }
+}
+
+
+//in dealloc method, manual GC wax instance.
+int waxGCInstance(lua_State *L){
+    BEGIN_STACK_MODIFY(L)
+    
+    wax_instance_userdata *instanceUserdata = (wax_instance_userdata *)luaL_checkudata(L, 1, WAX_INSTANCE_METATABLE_NAME);
+    
+    //remove from strongUserTable
+    wax_instance_pushStrongUserdataTable(L);
+    wax_printTable(L, -1);
+    lua_pushlightuserdata(L, instanceUserdata->instance);
+    lua_pushnil(L);
+    lua_rawset(L, -3);
+    lua_pop(L, 1);
+    
+    //remove from weakUserdataTable
+    wax_instance_pushUserdataTable(L);
+    wax_printTable(L, -1);
+    lua_pushlightuserdata(L, instanceUserdata->instance);
+    lua_pushnil(L);
+    lua_rawset(L, -3);
+    lua_pop(L, 1);
+    
+    //remove it's metatable, or it will call __gc and release crash.
+    lua_pushnil(L);
+    lua_setmetatable(L, -2);
+    
+    END_STACK_MODIFY(L, 0);
+    return  0;
 }
 
 @end

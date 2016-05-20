@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "lua.h"
 
 @interface wax_gc : NSObject {
 
@@ -20,3 +20,5 @@
 //set gc time interval
 + (void)setWaxGCTimeout:(NSInteger)time;
 @end
+
+int waxGCInstance(lua_State *L);

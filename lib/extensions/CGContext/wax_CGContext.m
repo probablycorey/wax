@@ -164,7 +164,7 @@ static int fillPath(lua_State *L) {
     CGContextRef c = (CGContextRef)lua_topointer(L, 1);
     CGContextBeginPath(c);
     
-    int indexCount = lua_objlen(L, 2);
+    int indexCount = (int)lua_objlen(L, 2);
     if (indexCount % 2 != 0) luaL_error(L, "Requires an even number of indexes for points.");
 
     int pointCount = indexCount / 2;

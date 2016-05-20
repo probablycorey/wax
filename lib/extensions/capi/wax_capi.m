@@ -29,7 +29,6 @@ id wax_objectFromLuaState(lua_State *L, int index){
 void wax_openBindOCFunction(lua_State *L){
     
 #ifndef WAX_TARGET_OS_WATCH
-#warning "compile not for TARGET_OS_WATCH"
     TOLUA_API int  tolua_UIKitFunction_open (lua_State* tolua_S);
     tolua_UIKitFunction_open(L);
 

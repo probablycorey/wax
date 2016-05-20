@@ -14,6 +14,7 @@
 #import "wax_block.h"
 #import "wax_define.h"
 #import "wax_block_description.h"
+#import "lauxlib.h"
 id wax_block_call_objectFromLuaState(lua_State *L, int index){
     if(lua_isnil(L, index)){
         return nil;
@@ -137,6 +138,14 @@ int luaCallBlockWithParamsTypeArray(lua_State *L){
     NSArray *paramsTypeArray = *(id *)instancePointer;
     free(instancePointer);
     
+    if(paramsTypeArray.count-1 != n-2){
+        NSString *msg = [NSString stringWithFormat:@"paramsTypeArray.count-1=%ld dont't match param.count=%d, do you forget the return value's type?", (long)paramsTypeArray.count-1, n-2];
+        if(wax_getLuaRuntimeErrorHandler()){
+            wax_getLuaRuntimeErrorHandler()(msg, NO);
+        }else{
+            luaL_error(L, msg.UTF8String);
+        }
+    }
     NSString *paramsTypeEncoding = wax_block_paramsTypeEncodingWithTypeArray(paramsTypeArray);
     
     const char *origTypeEncoding = [paramsTypeEncoding UTF8String];
@@ -169,9 +178,15 @@ int luaCallBlockWithParamsTypeArray(lua_State *L){
     }
     
     NSValue *value = [wax_block_call_pool() objectForKey:[NSString stringWithUTF8String:newTypeEncoding]];
-    NSCAssert(value, @"can't match block luaCallBlockWithParamsTypeEncoding");
+
     if(!value){
-//        NSLog(@"can't match block luaCallBlockWithParamsTypeEncoding");
+        NSString *msg = [NSString stringWithFormat:@"%@ param type can't match block pool, please just call like function blk(x,y,z)", paramsTypeEncoding];
+        
+        if(wax_getLuaRuntimeErrorHandler()){
+            wax_getLuaRuntimeErrorHandler()(msg, NO);
+        }else{
+            luaL_error(L, msg.UTF8String);
+        }
         return 0;
     }
     

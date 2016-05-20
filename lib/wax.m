@@ -7,10 +7,9 @@
 //
 
 #ifndef WAX_TARGET_OS_WATCH
-#warning "compile not for TARGET_OS_WATCH"
-
 #import "ProtocolLoader.h"
 #endif
+
 #import "wax.h"
 #import "wax_class.h"
 #import "wax_instance.h"
@@ -30,7 +29,6 @@ static int waxPrint(lua_State *L);
 static int tolua(lua_State *L);
 static int toobjc(lua_State *L);
 static int exitApp(lua_State *L);
-static int objcDebug(lua_State *L);
 
 extern int luaCallBlockReturnObjectWithObjectParam(lua_State *L);
 extern int luaCallBlockReturnVoidWithObjectParam(lua_State *L);
@@ -175,7 +173,6 @@ void wax_startWithServer() {
 	wax_setup();
     
 #ifndef WAX_TARGET_OS_WATCH
-#warning "compile not for TARGET_OS_WATCH"
 	[wax_server class]; // You need to load the class somehow via the wax.framework
 #endif
 	lua_State *L = wax_currentLuaState();
@@ -247,6 +244,9 @@ static void addGlobals(lua_State *L) {
     
     lua_pushcfunction(L, luaSetWaxConfig);
     lua_setglobal(L, "luaSetWaxConfig");
+
+    lua_pushcfunction(L, waxGCInstance);
+    lua_setglobal(L, "waxGCInstance");
     
 #pragma mark other
     
@@ -274,7 +274,7 @@ static void addGlobals(lua_State *L) {
 }
 
 static int waxPrint(lua_State *L) {
-    fprintf(stderr, "%s\n", luaL_checkstring(L, 1));//use fprintf , avoid empty by macro
+    NSLog(@"%s", luaL_checkstring(L, 1));//only NSLog can show log in console when not debug
     return 0;
 }
 
@@ -340,10 +340,10 @@ int wax_runLuaByteCode(NSData *data, NSString *name){
     
     lua_State *L = wax_currentLuaState();
     int i = (luaL_loadbuffer(L, [data bytes], data.length, [name cStringUsingEncoding:NSUTF8StringEncoding]) || lua_pcall(L, 0, LUA_MULTRET, 0));
-    if(i){
-        NSString *error = [NSString stringWithFormat:@"run patch failed: %s", lua_tostring(wax_currentLuaState(), -1)];
-        NSLog(@"error = %@", error);
-    }
+//    if(i){
+//        NSString *error = [NSString stringWithFormat:@"runLuaByteCode failed: %s", lua_tostring(wax_currentLuaState(), -1)];
+//        NSLog(@"error = %@", error);
+//    }
     
     [wax_globalLock() unlock];
     return i;

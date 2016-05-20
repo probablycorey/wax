@@ -80,36 +80,36 @@ static int tolua_objc_runtime_class_getSuperclass00(lua_State* tolua_S)
 }
 #endif //#ifndef TOLUA_DISABLE
 
-/* function: class_setSuperclass */
-#ifndef TOLUA_DISABLE_tolua_objc_runtime_class_setSuperclass00
-static int tolua_objc_runtime_class_setSuperclass00(lua_State* tolua_S)
-{
-#ifndef TOLUA_RELEASE
- tolua_Error tolua_err;
- if (
-     !tolua_isuserdata(tolua_S,1,0,&tolua_err) ||
-     !tolua_isuserdata(tolua_S,2,0,&tolua_err) ||
-     !tolua_isnoobj(tolua_S,3,&tolua_err)
- )
-  goto tolua_lerror;
- else
-#endif
- {
-  void* cls = ((void*)  tolua_touserdata(tolua_S,1,0));
-  void* newSuper = ((void*)  tolua_touserdata(tolua_S,2,0));
-  {
-   void* tolua_ret = (void*)  class_setSuperclass(cls,newSuper);
-   tolua_pushuserdata(tolua_S,(void*)tolua_ret);
-  }
- }
- return 1;
-#ifndef TOLUA_RELEASE
- tolua_lerror:
- tolua_error(tolua_S,"#ferror in function 'class_setSuperclass'.",&tolua_err);
- return 0;
-#endif
-}
-#endif //#ifndef TOLUA_DISABLE
+///* function: class_setSuperclass */
+//#ifndef TOLUA_DISABLE_tolua_objc_runtime_class_setSuperclass00
+//static int tolua_objc_runtime_class_setSuperclass00(lua_State* tolua_S)
+//{
+//#ifndef TOLUA_RELEASE
+// tolua_Error tolua_err;
+// if (
+//     !tolua_isuserdata(tolua_S,1,0,&tolua_err) ||
+//     !tolua_isuserdata(tolua_S,2,0,&tolua_err) ||
+//     !tolua_isnoobj(tolua_S,3,&tolua_err)
+// )
+//  goto tolua_lerror;
+// else
+//#endif
+// {
+//  void* cls = ((void*)  tolua_touserdata(tolua_S,1,0));
+//  void* newSuper = ((void*)  tolua_touserdata(tolua_S,2,0));
+//  {
+//   void* tolua_ret = (void*)  class_setSuperclass(cls,newSuper);
+//   tolua_pushuserdata(tolua_S,(void*)tolua_ret);
+//  }
+// }
+// return 1;
+//#ifndef TOLUA_RELEASE
+// tolua_lerror:
+// tolua_error(tolua_S,"#ferror in function 'class_setSuperclass'.",&tolua_err);
+// return 0;
+//#endif
+//}
+//#endif //#ifndef TOLUA_DISABLE
 
 /* function: class_isMetaClass */
 #ifndef TOLUA_DISABLE_tolua_objc_runtime_class_isMetaClass00
@@ -429,7 +429,7 @@ TOLUA_API int tolua_objc_runtime_open (lua_State* tolua_S)
   tolua_constant(tolua_S,"OBJC_ASSOCIATION_COPY",OBJC_ASSOCIATION_COPY);
   tolua_function(tolua_S,"class_getName",tolua_objc_runtime_class_getName00);
   tolua_function(tolua_S,"class_getSuperclass",tolua_objc_runtime_class_getSuperclass00);
-  tolua_function(tolua_S,"class_setSuperclass",tolua_objc_runtime_class_setSuperclass00);
+//  tolua_function(tolua_S,"class_setSuperclass",tolua_objc_runtime_class_setSuperclass00);
   tolua_function(tolua_S,"class_isMetaClass",tolua_objc_runtime_class_isMetaClass00);
   tolua_function(tolua_S,"class_getInstanceSize",tolua_objc_runtime_class_getInstanceSize00);
   tolua_function(tolua_S,"class_getInstanceVariable",tolua_objc_runtime_class_getInstanceVariable00);
