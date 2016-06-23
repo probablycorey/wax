@@ -18,13 +18,16 @@ Pod::Spec.new do |s|
   }
 
   s.author             = { "probablycorey" => "probablycorey@gmail.com" }
+  s.source   = { :git => 'https://github.com/alibaba/wax.git', :tag => s.version.to_s}
 
   s.platform     = :ios
 
   #  When using multiple platforms
   s.ios.deployment_target = '4.3'
 
-  s.source_files  = 'lib/*.{h,m}', 'lib/adaptation/*.{h,m}','lib/lua/*.{h,m,c}', 'lib/extensions/block/*.{h,m}', 'lib/extensions/capi/**/*.{h,m,c}', 'lib/extensions/CGAffine/*.{h,m}','lib/extensions/CGContext/*.{h,m}','lib/extensions/filesystem/*.{h,m}' ,'lib/extensions/HTTP/*.{h,m}','lib/extensions/ivar/*.{h,m}','lib/extensions/json/**/*.{h,m,c}'
+  s.source_files  = 'lib/*.{h,m}', 'lib/adaptation/*.{h,m}','lib/lua/*.{h,m,c}', 'lib/extensions/block/*.{h,m}', 'lib/extensions/capi/**/*.{h,m,c}', 'lib/extensions/CGAffine/*.{h,m}','lib/extensions/CGContext/*.{h,m}','lib/extensions/filesystem/*.{h,m}' ,'lib/extensions/HTTP/*.{h,m}','lib/extensions/ivar/*.{h,m}','lib/extensions/json/**/*.{h,m,c}','lib/extensions/SQLite/**/*.{h,m}','lib/extensions/xml/**/*.{h,m}'
+  s.library = "xml2","sqlite3"
+  s.xcconfig = { 'HEADER_SEARCH_PATHS' => '${SDK_DIR}/usr/include/libxml2' }
 
   s.requires_arc = false
 
