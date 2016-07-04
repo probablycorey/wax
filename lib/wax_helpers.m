@@ -666,7 +666,7 @@ BOOL wax_selectorForInstance(wax_instance_userdata *instanceUserdata, SEL* found
 
 void wax_pushMethodNameFromSelector(lua_State *L, SEL selector) {
     BEGIN_STACK_MODIFY(L)
-    const char *methodName = [NSStringFromSelector(selector) UTF8String];
+    const char *methodName = sel_getName(selector);
     size_t length = strlen(methodName);
     
     luaL_Buffer b;
@@ -933,7 +933,7 @@ int wax_errorFunction(lua_State *L) {
 int wax_pcall(lua_State *L, int argumentCount, int returnCount) {
     lua_pushcclosure(L, wax_errorFunction, 0);
     int errorFuncStackIndex = lua_gettop(L) - (argumentCount + 1); // Insert error function before arguments
-    lua_insert(L, errorFuncStackIndex);//插到userdata前面
+    lua_insert(L, errorFuncStackIndex);
     
     return lua_pcall(L, argumentCount, returnCount, errorFuncStackIndex);
 }
@@ -945,4 +945,9 @@ SEL wax_selectorWithPrefix(SEL selector, const char *prefix){
     strcat(newSelectorName, selectorName);
     SEL newSelector = sel_getUid(newSelectorName);
     return newSelector;
+}
+
+BOOL wax_stringHasPrefix(const char *text, const char *prefix){
+    char *str = strstr(text, prefix);
+    return str == text;
 }

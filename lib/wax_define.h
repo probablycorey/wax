@@ -10,9 +10,15 @@
 typedef long long LongLong;
 
 /**
- *  original method prefix
+ *  original method prefix in lua call
  */
 #define WAX_ORIGINAL_METHOD_PREFIX "ORIG"
+
+/**
+ *  wax replace method prefix
+ *
+ */
+#define WAX_REPLACE_METHOD_PREFIX "WAXORIG"
 
 /**
  *  super method prefix
