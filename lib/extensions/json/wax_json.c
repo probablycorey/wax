@@ -31,11 +31,11 @@ int luaopen_wax_json(lua_State *L) {
     return 0;
 }
 
-#include "yajl/yajl_parse.h"
+#include "yajl/api/yajl_parse.h"
 #include "yajl/yajl_lex.h"
 #include "yajl/yajl_parser.h"
 #include "yajl/yajl_bytestack.h"
-#include "yajl/yajl_gen.h"
+#include "yajl/api/yajl_gen.h"
 #include <string.h>
 
 static yajl_gen gen;
