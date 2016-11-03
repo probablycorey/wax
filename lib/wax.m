@@ -23,6 +23,7 @@
 #import "lobject.h"
 #import "lualib.h"
 #import "wax_define.h"
+#import "wax_memory.h"
 static void addGlobals(lua_State *L);
 static int waxRoot(lua_State *L);
 static int waxPrint(lua_State *L);
@@ -30,13 +31,14 @@ static int tolua(lua_State *L);
 static int toobjc(lua_State *L);
 static int exitApp(lua_State *L);
 
-extern int luaCallBlockReturnObjectWithObjectParam(lua_State *L);
-extern int luaCallBlockReturnVoidWithObjectParam(lua_State *L);
 extern int luaCallBlockWithParamsTypeArray(lua_State *L);
 extern int luaCallBlockWithParamsTypeEncoding(lua_State *L);
 extern int luaCallBlock(lua_State *L);
 
 extern int luaSetWaxConfig(lua_State *L);
+static int waxGetAddress(lua_State *L);
+static int waxDereference(lua_State *L);
+static int waxGetInstancePointer(lua_State *L);
 
 //runtime error
 static void (*wax_luaRuntimeErrorHandler)(NSString *reason, BOOL willExit);
@@ -248,11 +250,16 @@ static void addGlobals(lua_State *L) {
     lua_pushcfunction(L, waxGCInstance);
     lua_setglobal(L, "waxGCInstance");
     
+    
+#pragma mark memory
+    luaopen_wax_memory(L);
+    
+    
 #pragma mark other
     
     lua_pushcfunction(L, toobjc);
     lua_setglobal(L, "toobjc");
-    
+
     lua_pushcfunction(L, exitApp);
     lua_setglobal(L, "exitApp");
     
@@ -312,6 +319,8 @@ static int toobjc(lua_State *L) {
     
     return 1;
 }
+
+
 
 static int exitApp(lua_State *L) {
     exit(0);

@@ -11,21 +11,6 @@
 
 #pragma mark call from lua
 
-/**
- *  lua code call OC block（0~4 OC object param，return void） 
- *  OC code: block(123, @[@"abc", @"efg"])
-    lua code: luaCallBlockReturnVoidWithObjectParam(block, 123, {"abc", "efg"})
- *
- */
-int luaCallBlockReturnVoidWithObjectParam(lua_State *L);
-
-/**
- *  lua code call OC block（0~4 OC object param，return one object). 
- *  OC code: id res = block(123, @[@"abc", @"efg"])
-    lua code: local res = luaCallBlockReturnObjectWithObjectParam(block, 123, {"abc", "efg"})
- *
- */
-int luaCallBlockReturnObjectWithObjectParam(lua_State *L);
 
 
 /**
