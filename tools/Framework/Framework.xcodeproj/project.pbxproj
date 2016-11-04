@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		006181821BCF546D00B9F155 /* wax_block_description.h in Headers */ = {isa = PBXBuildFile; fileRef = 006181801BCF546D00B9F155 /* wax_block_description.h */; settings = {ASSET_TAGS = (); }; };
-		006181831BCF546D00B9F155 /* wax_block_description.m in Sources */ = {isa = PBXBuildFile; fileRef = 006181811BCF546D00B9F155 /* wax_block_description.m */; settings = {ASSET_TAGS = (); }; };
+		000DD9D51DCC739D00E2C840 /* wax_memory.h in Headers */ = {isa = PBXBuildFile; fileRef = 000DD9D31DCC739D00E2C840 /* wax_memory.h */; };
+		000DD9D61DCC739D00E2C840 /* wax_memory.m in Sources */ = {isa = PBXBuildFile; fileRef = 000DD9D41DCC739D00E2C840 /* wax_memory.m */; };
+		006181821BCF546D00B9F155 /* wax_block_description.h in Headers */ = {isa = PBXBuildFile; fileRef = 006181801BCF546D00B9F155 /* wax_block_description.h */; };
+		006181831BCF546D00B9F155 /* wax_block_description.m in Sources */ = {isa = PBXBuildFile; fileRef = 006181811BCF546D00B9F155 /* wax_block_description.m */; };
 		008AB8AA1B04382600E5DF56 /* NSObject+TBIvarAccess.h in Headers */ = {isa = PBXBuildFile; fileRef = 008AB8871B04382600E5DF56 /* NSObject+TBIvarAccess.h */; };
 		008AB8AB1B04382600E5DF56 /* NSObject+TBIvarAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = 008AB8881B04382600E5DF56 /* NSObject+TBIvarAccess.m */; };
 		008AB8AE1B04382600E5DF56 /* wax_block.h in Headers */ = {isa = PBXBuildFile; fileRef = 008AB88C1B04382600E5DF56 /* wax_block.h */; };
@@ -39,14 +41,14 @@
 		00E9B16D1AEFB272004EDF30 /* wax_lock.h in Headers */ = {isa = PBXBuildFile; fileRef = 00E9B1661AEFB272004EDF30 /* wax_lock.h */; };
 		00E9B16E1AEFB272004EDF30 /* wax_lock.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E9B1671AEFB272004EDF30 /* wax_lock.m */; };
 		00E9B16F1AEFB272004EDF30 /* wax_define.h in Headers */ = {isa = PBXBuildFile; fileRef = 00E9B1681AEFB272004EDF30 /* wax_define.h */; };
-		00F09AAA1BEB3374006DCE1C /* wax_CGTransform.h in Headers */ = {isa = PBXBuildFile; fileRef = 00F09AA51BEB3374006DCE1C /* wax_CGTransform.h */; settings = {ASSET_TAGS = (); }; };
-		00F09AAB1BEB3374006DCE1C /* wax_CGTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F09AA61BEB3374006DCE1C /* wax_CGTransform.m */; settings = {ASSET_TAGS = (); }; };
-		00F09AAC1BEB3374006DCE1C /* wax_CGContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 00F09AA81BEB3374006DCE1C /* wax_CGContext.h */; settings = {ASSET_TAGS = (); }; };
-		00F09AAD1BEB3374006DCE1C /* wax_CGContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F09AA91BEB3374006DCE1C /* wax_CGContext.m */; settings = {ASSET_TAGS = (); }; };
-		00F09AB31BEB338D006DCE1C /* wax_sqlite.h in Headers */ = {isa = PBXBuildFile; fileRef = 00F09AAF1BEB338D006DCE1C /* wax_sqlite.h */; settings = {ASSET_TAGS = (); }; };
-		00F09AB41BEB338E006DCE1C /* wax_sqlite.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F09AB01BEB338D006DCE1C /* wax_sqlite.m */; settings = {ASSET_TAGS = (); }; };
-		00F09AB51BEB338E006DCE1C /* wax_sqlite_operation.h in Headers */ = {isa = PBXBuildFile; fileRef = 00F09AB11BEB338D006DCE1C /* wax_sqlite_operation.h */; settings = {ASSET_TAGS = (); }; };
-		00F09AB61BEB338E006DCE1C /* wax_sqlite_operation.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F09AB21BEB338D006DCE1C /* wax_sqlite_operation.m */; settings = {ASSET_TAGS = (); }; };
+		00F09AAA1BEB3374006DCE1C /* wax_CGTransform.h in Headers */ = {isa = PBXBuildFile; fileRef = 00F09AA51BEB3374006DCE1C /* wax_CGTransform.h */; };
+		00F09AAB1BEB3374006DCE1C /* wax_CGTransform.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F09AA61BEB3374006DCE1C /* wax_CGTransform.m */; };
+		00F09AAC1BEB3374006DCE1C /* wax_CGContext.h in Headers */ = {isa = PBXBuildFile; fileRef = 00F09AA81BEB3374006DCE1C /* wax_CGContext.h */; };
+		00F09AAD1BEB3374006DCE1C /* wax_CGContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F09AA91BEB3374006DCE1C /* wax_CGContext.m */; };
+		00F09AB31BEB338D006DCE1C /* wax_sqlite.h in Headers */ = {isa = PBXBuildFile; fileRef = 00F09AAF1BEB338D006DCE1C /* wax_sqlite.h */; };
+		00F09AB41BEB338E006DCE1C /* wax_sqlite.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F09AB01BEB338D006DCE1C /* wax_sqlite.m */; };
+		00F09AB51BEB338E006DCE1C /* wax_sqlite_operation.h in Headers */ = {isa = PBXBuildFile; fileRef = 00F09AB11BEB338D006DCE1C /* wax_sqlite_operation.h */; };
+		00F09AB61BEB338E006DCE1C /* wax_sqlite_operation.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F09AB21BEB338D006DCE1C /* wax_sqlite_operation.m */; };
 		043D108212C92D6700775F70 /* wax_filesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 043D0FF512C92D6600775F70 /* wax_filesystem.m */; };
 		043D108412C92D6700775F70 /* wax_http.m in Sources */ = {isa = PBXBuildFile; fileRef = 043D0FF812C92D6600775F70 /* wax_http.m */; };
 		043D108612C92D6700775F70 /* wax_http_connection.m in Sources */ = {isa = PBXBuildFile; fileRef = 043D0FFA12C92D6600775F70 /* wax_http_connection.m */; };
@@ -99,6 +101,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		000DD9D31DCC739D00E2C840 /* wax_memory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_memory.h; sourceTree = "<group>"; };
+		000DD9D41DCC739D00E2C840 /* wax_memory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_memory.m; sourceTree = "<group>"; };
 		006181801BCF546D00B9F155 /* wax_block_description.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_block_description.h; sourceTree = "<group>"; };
 		006181811BCF546D00B9F155 /* wax_block_description.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_block_description.m; sourceTree = "<group>"; };
 		008AB8871B04382600E5DF56 /* NSObject+TBIvarAccess.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+TBIvarAccess.h"; sourceTree = "<group>"; };
@@ -267,6 +271,16 @@
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
+		000DD9D21DCC739D00E2C840 /* memory */ = {
+			isa = PBXGroup;
+			children = (
+				000DD9D31DCC739D00E2C840 /* wax_memory.h */,
+				000DD9D41DCC739D00E2C840 /* wax_memory.m */,
+			);
+			name = memory;
+			path = ../../../../../lib/extensions/memory;
+			sourceTree = "<group>";
+		};
 		008AB8861B04382600E5DF56 /* ivar */ = {
 			isa = PBXGroup;
 			children = (
@@ -417,6 +431,7 @@
 		043D0FEC12C92D6600775F70 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				000DD9D21DCC739D00E2C840 /* memory */,
 				00F09AAE1BEB338D006DCE1C /* SQLite */,
 				00F09AA41BEB3374006DCE1C /* CGAffine */,
 				00F09AA71BEB3374006DCE1C /* CGContext */,
@@ -666,6 +681,7 @@
 				008AB8B01B04382600E5DF56 /* wax_block_call.h in Headers */,
 				008AB8C31B04382600E5DF56 /* wax_capi.h in Headers */,
 				006181821BCF546D00B9F155 /* wax_block_description.h in Headers */,
+				000DD9D51DCC739D00E2C840 /* wax_memory.h in Headers */,
 				00F09AB51BEB338E006DCE1C /* wax_sqlite_operation.h in Headers */,
 				00E9B16D1AEFB272004EDF30 /* wax_lock.h in Headers */,
 				008AB8B21B04382600E5DF56 /* wax_block_call_pool.h in Headers */,
@@ -774,6 +790,7 @@
 				043D10B312C92D6700775F70 /* linit.c in Sources */,
 				008AB8C11B04382600E5DF56 /* tolua_push.c in Sources */,
 				043D10B412C92D6700775F70 /* liolib.c in Sources */,
+				000DD9D61DCC739D00E2C840 /* wax_memory.m in Sources */,
 				008AB8B51B04382600E5DF56 /* wax_block_transfer.m in Sources */,
 				043D10B512C92D6700775F70 /* llex.c in Sources */,
 				043D10B812C92D6700775F70 /* lmathlib.c in Sources */,

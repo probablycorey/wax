@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		000DD9DA1DCC73C600E2C840 /* wax_memory.m in Sources */ = {isa = PBXBuildFile; fileRef = 000DD9D91DCC73C600E2C840 /* wax_memory.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		00F099411BEB242F006DCE1C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F099401BEB242F006DCE1C /* main.m */; };
 		00F099441BEB242F006DCE1C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F099431BEB242F006DCE1C /* AppDelegate.m */; };
 		00F099471BEB242F006DCE1C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 00F099461BEB242F006DCE1C /* ViewController.m */; };
@@ -90,6 +91,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		000DD9D81DCC73C600E2C840 /* wax_memory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_memory.h; sourceTree = "<group>"; };
+		000DD9D91DCC73C600E2C840 /* wax_memory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_memory.m; sourceTree = "<group>"; };
 		00F0993C1BEB242F006DCE1C /* InstallWithSource.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InstallWithSource.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00F099401BEB242F006DCE1C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		00F099421BEB242F006DCE1C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -255,6 +258,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		000DD9D71DCC73C600E2C840 /* memory */ = {
+			isa = PBXGroup;
+			children = (
+				000DD9D81DCC73C600E2C840 /* wax_memory.h */,
+				000DD9D91DCC73C600E2C840 /* wax_memory.m */,
+			);
+			path = memory;
+			sourceTree = "<group>";
+		};
 		00F099331BEB242F006DCE1C = {
 			isa = PBXGroup;
 			children = (
@@ -340,6 +352,7 @@
 		00F0996B1BEB248E006DCE1C /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				000DD9D71DCC73C600E2C840 /* memory */,
 				00F0996C1BEB248E006DCE1C /* block */,
 				00F099791BEB248E006DCE1C /* capi */,
 				00F0998D1BEB248E006DCE1C /* CGAffine */,
@@ -709,6 +722,7 @@
 				00F09A931BEB248E006DCE1C /* wax_class.m in Sources */,
 				00F09A6E1BEB248E006DCE1C /* lparser.c in Sources */,
 				00F09A721BEB248E006DCE1C /* ltable.c in Sources */,
+				000DD9DA1DCC73C600E2C840 /* wax_memory.m in Sources */,
 				00F09AA11BEB2917006DCE1C /* wax_sqlite_operation.m in Sources */,
 				00F09A4C1BEB248E006DCE1C /* wax_http_connection.m in Sources */,
 				00F09A531BEB248E006DCE1C /* yajl_encode.c in Sources */,
@@ -873,6 +887,7 @@
 				00F099551BEB242F006DCE1C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

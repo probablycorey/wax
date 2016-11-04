@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		006181861BCF562600B9F155 /* wax_block_description.m in Sources */ = {isa = PBXBuildFile; fileRef = 006181841BCF562600B9F155 /* wax_block_description.m */; settings = {ASSET_TAGS = (); }; };
+		000DD9DE1DCC740500E2C840 /* wax_memory.m in Sources */ = {isa = PBXBuildFile; fileRef = 000DD9DD1DCC740500E2C840 /* wax_memory.m */; };
+		006181861BCF562600B9F155 /* wax_block_description.m in Sources */ = {isa = PBXBuildFile; fileRef = 006181841BCF562600B9F155 /* wax_block_description.m */; };
 		00DAC0D31AF0AE1200206217 /* wax_config.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DAC0CD1AF0AE1200206217 /* wax_config.m */; };
 		00DAC0D51AF0AE1200206217 /* wax_lock.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DAC0D11AF0AE1200206217 /* wax_lock.m */; };
 		00DAC0E41AF0AE1C00206217 /* wax_block.m in Sources */ = {isa = PBXBuildFile; fileRef = 00DAC0D81AF0AE1C00206217 /* wax_block.m */; };
@@ -86,6 +87,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		000DD9DC1DCC740500E2C840 /* wax_memory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_memory.h; sourceTree = "<group>"; };
+		000DD9DD1DCC740500E2C840 /* wax_memory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_memory.m; sourceTree = "<group>"; };
 		006181841BCF562600B9F155 /* wax_block_description.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = wax_block_description.m; sourceTree = "<group>"; };
 		006181851BCF562600B9F155 /* wax_block_description.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_block_description.h; sourceTree = "<group>"; };
 		00DAC0CC1AF0AE1200206217 /* wax_config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = wax_config.h; sourceTree = "<group>"; };
@@ -268,6 +271,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		000DD9DB1DCC740500E2C840 /* memory */ = {
+			isa = PBXGroup;
+			children = (
+				000DD9DC1DCC740500E2C840 /* wax_memory.h */,
+				000DD9DD1DCC740500E2C840 /* wax_memory.m */,
+			);
+			name = memory;
+			path = ../../../../../lib/extensions/memory;
+			sourceTree = "<group>";
+		};
 		00DAC0CB1AF0AE1200206217 /* adaptation */ = {
 			isa = PBXGroup;
 			children = (
@@ -368,6 +381,7 @@
 		04A617D512CA7AB6004ADB76 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				000DD9DB1DCC740500E2C840 /* memory */,
 				00DAC0D61AF0AE1C00206217 /* block */,
 				00DAC0E11AF0AE1C00206217 /* capi */,
 				04A617DC12CA7AB6004ADB76 /* filesystem */,
@@ -765,6 +779,7 @@
 				00DAC0E81AF0AE1C00206217 /* wax_block_transfer_pool.m in Sources */,
 				04A6188F12CA7AB6004ADB76 /* lstate.c in Sources */,
 				04A6189012CA7AB6004ADB76 /* lstring.c in Sources */,
+				000DD9DE1DCC740500E2C840 /* wax_memory.m in Sources */,
 				04A6189112CA7AB6004ADB76 /* lstrlib.c in Sources */,
 				00F1A1361BBA9B2B0030C463 /* dispatch_lua.m in Sources */,
 				04A6189212CA7AB6004ADB76 /* ltable.c in Sources */,
