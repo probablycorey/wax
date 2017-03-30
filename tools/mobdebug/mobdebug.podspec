@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
   }
 
   s.author             = { "junzhan" => "junzhan.yzw@taobao.com" }
-
+  s.source   = { :git => 'https://github.com/alibaba/wax.git', :tag => s.version.to_s}
   s.platform     = :ios
 
   #  When using multiple platforms
