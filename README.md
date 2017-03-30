@@ -263,7 +263,7 @@ More
 
 Contribute
 ----------
-[@Zhengwei Yin (Junzhan)](mailto:junzhan.yzw@taobao.com)  
+[@Zhengwei Yin (Junzhan)](mailto:inthewayapple@163.com)  
 Fork it, change it, commit it, push it, send pull request; instant glory!
 
 
