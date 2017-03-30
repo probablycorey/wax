@@ -38,7 +38,7 @@
 #ifndef __YAJL_BYTESTACK_H__
 #define __YAJL_BYTESTACK_H__
 
-#include "api/yajl_common.h"
+#include "yajl_common.h"
 
 #define YAJL_BS_INC 128
 

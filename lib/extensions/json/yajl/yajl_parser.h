@@ -33,7 +33,7 @@
 #ifndef __YAJL_PARSER_H__
 #define __YAJL_PARSER_H__
 
-#include "api/yajl_parse.h"
+#include "yajl_parse.h"
 #include "yajl_bytestack.h"
 #include "yajl_buf.h"
 

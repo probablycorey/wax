@@ -30,7 +30,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */ 
 
-#include "api/yajl_parse.h"
+#include "yajl_parse.h"
 #include "yajl_lex.h"
 #include "yajl_parser.h"
 #include "yajl_alloc.h"

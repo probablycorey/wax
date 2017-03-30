@@ -30,7 +30,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */ 
 
-#include "api/yajl_gen.h"
+#include "yajl_gen.h"
 #include "yajl_buf.h"
 #include "yajl_encode.h"
 
